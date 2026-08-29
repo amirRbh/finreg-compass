@@ -57,7 +57,7 @@ function FicheModele() {
   if (!modele) {
     return (
       <Page>
-        <h1 className="text-lg font-semibold tracking-tight">Modèle inconnu</h1>
+        <h1 className="text-3xl leading-tight sm:text-4xl">Modèle inconnu</h1>
         <p className="mt-2 text-sm text-muted-foreground">
           Aucun modèle ne correspond à l'identifiant <span className="font-mono">{id}</span>.
         </p>
@@ -73,13 +73,13 @@ function FicheModele() {
   return (
     <Page>
       <p className="font-mono text-[11px] text-muted-foreground">{modele.id}</p>
-      <h1 className="mt-1 text-lg font-semibold tracking-tight">{modele.nom}</h1>
+      <h1 className="mt-2 text-3xl leading-tight sm:text-4xl">{modele.nom}</h1>
       <p className="mt-1 text-sm text-muted-foreground">
         {modele.editeur} — rang {rangDe(resultats.modeles, modele.id)} sur{" "}
         {resultats.modeles.length}
       </p>
 
-      <section className="mt-8 grid grid-cols-2 gap-x-6 gap-y-5 border-y border-border py-5 sm:grid-cols-4">
+      <section className="mt-8 grid grid-cols-2 divide-border border border-border bg-surface shadow-panneau sm:grid-cols-4 sm:divide-x">
         <Metrique libelle="Score global" valeur={nb(modele.score_global)} unite="/100" />
         <Metrique
           libelle="Hallucination de source"
@@ -94,9 +94,9 @@ function FicheModele() {
         <Metrique libelle="Écart-type inter-runs" valeur={nb(modele.ecart_type)} unite="pts" />
       </section>
 
-      <div className="mt-8 grid gap-8 md:grid-cols-2">
+      <div className="mt-12 grid gap-10 md:grid-cols-2">
         <section>
-          <h2 className="text-sm font-semibold tracking-tight">Scores par domaine</h2>
+          <h2 className="border-b border-rule pb-2 text-lg">Scores par domaine</h2>
           <table className="mt-3 w-full border-collapse text-sm">
             <tbody>
               {DOMAINES.map((d) => (
@@ -120,7 +120,7 @@ function FicheModele() {
         </section>
 
         <section>
-          <h2 className="text-sm font-semibold tracking-tight">Scores par axe</h2>
+          <h2 className="border-b border-rule pb-2 text-lg">Scores par axe</h2>
           <table className="mt-3 w-full border-collapse text-sm">
             <tbody>
               {AXES.map((a) => (
@@ -148,7 +148,7 @@ function FicheModele() {
       </div>
 
       <section className="mt-12">
-        <h2 className="text-sm font-semibold tracking-tight">Échecs les plus significatifs</h2>
+        <h2 className="border-b border-rule pb-2 text-lg">Échecs les plus significatifs</h2>
         <p className="mt-1 max-w-2xl text-xs text-muted-foreground">
           Items cités in extenso, retenus sur la combinaison du score le plus faible et de la
           présence d'une hallucination de source.

@@ -55,13 +55,14 @@ function Questions() {
 
   return (
     <Page>
-      <h1 className="text-lg font-semibold tracking-tight">Corpus public</h1>
-      <p className="mt-2 max-w-2xl text-sm text-muted-foreground">
+      <p className="etiquette">Corpus · 24 items publiés</p>
+      <h1 className="text-3xl leading-tight sm:text-4xl">Corpus public</h1>
+      <p className="mt-4 max-w-2xl text-[15px] leading-relaxed text-muted-foreground">
         Chaque item indique la réponse de référence, sa source et les réponses notées de chaque
         modèle. Les réponses citant une source inexistante, abrogée ou inapplicable sont signalées.
       </p>
 
-      <div className="mt-6 flex flex-wrap gap-4 border-y border-border py-3">
+      <div className="mt-8 flex flex-wrap gap-5 border border-border bg-surface px-4 py-3 shadow-panneau">
         <Filtre
           libelle="Domaine"
           valeur={domaine}
@@ -109,7 +110,7 @@ function Questions() {
           <p className="mt-4 font-mono text-[11px] text-muted-foreground">
             {filtrees.length} item(s) sur {questions.length} publiés
           </p>
-          <ul className="mt-2 border-t border-border">
+          <ul className="mt-2 border-t border-rule">
             {filtrees.map((q) => (
               <Item
                 key={q.id}
@@ -148,7 +149,7 @@ function Filtre({
       <select
         value={valeur}
         onChange={(e) => onChange(e.target.value)}
-        className="border border-border bg-background px-2 py-1 font-mono text-xs text-foreground focus:border-accent focus:outline-none"
+        className="border border-border bg-background px-2 py-1 font-mono text-xs text-foreground focus:border-accent focus:ring-1 focus:ring-accent focus:outline-none"
       >
         {options.map((o) => (
           <option key={o.v} value={o.v}>
@@ -176,11 +177,11 @@ function Item({
   );
 
   return (
-    <li className={`border-b border-border ${halluciné ? "border-l-2 border-l-accent pl-3" : ""}`}>
+    <li className={`border-b border-border ${halluciné ? "border-l-2 border-l-accent" : ""}`}>
       <button
         type="button"
         onClick={onToggle}
-        className="flex w-full items-baseline gap-3 py-3 text-left"
+        className="flex w-full items-baseline gap-3 px-3 py-3.5 text-left transition-colors hover:bg-surface-sunken"
         aria-expanded={ouvert}
       >
         <span className="w-24 shrink-0 font-mono text-[11px] text-muted-foreground">
@@ -194,13 +195,13 @@ function Item({
       </button>
 
       {halluciné && !ouvert && (
-        <p className="pb-3 font-mono text-[11px] text-muted-foreground">
+        <p className="px-3 pb-3 font-mono text-[11px] text-accent">
           Au moins une réponse cite une source non vérifiable.
         </p>
       )}
 
       {ouvert && (
-        <div className="pb-5">
+        <div className="bg-surface-sunken/60 px-3 pt-1 pb-5">
           <dl className="max-w-2xl text-sm">
             <dt className="text-xs font-medium text-muted-foreground">Réponse de référence</dt>
             <dd className="mt-1 leading-relaxed">{question.reponse_reference}</dd>
@@ -221,7 +222,7 @@ function Item({
           <div className="mt-4 -mx-4 overflow-x-auto px-4">
             <table className="w-full min-w-[40rem] border-collapse text-sm">
               <thead>
-                <tr className="border-y border-border">
+                <tr className="border-b border-rule bg-surface-sunken">
                   <th scope="col" className="py-2 pr-4 text-left text-xs font-medium text-muted-foreground">
                     Modèle
                   </th>
@@ -240,7 +241,7 @@ function Item({
                 {Object.entries(question.reponses_modeles).map(([id, r]) => (
                   <tr key={id} className="border-b border-border align-top">
                     <td className="py-2 pr-4 whitespace-nowrap">{nomModele(id)}</td>
-                    <td className="py-2 pr-4 text-right font-mono">{nb(r.score)}</td>
+                    <td className="py-2 pr-4 text-right font-mono tabulaire">{nb(r.score)}</td>
                     <td className="py-2 pr-4 text-muted-foreground">{r.texte}</td>
                     <td className="py-2 font-mono text-[11px]">
                       {r.flags.length === 0 ? (
