@@ -10,12 +10,19 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as CorpusPriveRouteImport } from './routes/corpus-prive'
 import { Route as MethodologieRouteImport } from './routes/methodologie'
 import { Route as QuestionsRouteImport } from './routes/questions'
+import { Route as ModeleIdRouteImport } from './routes/modele.$id'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const CorpusPriveRoute = CorpusPriveRouteImport.update({
+  id: '/corpus-prive',
+  path: '/corpus-prive',
   getParentRoute: () => rootRouteImport,
 } as any)
 const MethodologieRoute = MethodologieRouteImport.update({
@@ -28,35 +35,55 @@ const QuestionsRoute = QuestionsRouteImport.update({
   path: '/questions',
   getParentRoute: () => rootRouteImport,
 } as any)
+const ModeleIdRoute = ModeleIdRouteImport.update({
+  id: '/modele/$id',
+  path: '/modele/$id',
+  getParentRoute: () => rootRouteImport,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/corpus-prive': typeof CorpusPriveRoute
   '/methodologie': typeof MethodologieRoute
   '/questions': typeof QuestionsRoute
+  '/modele/$id': typeof ModeleIdRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/corpus-prive': typeof CorpusPriveRoute
   '/methodologie': typeof MethodologieRoute
   '/questions': typeof QuestionsRoute
+  '/modele/$id': typeof ModeleIdRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/corpus-prive': typeof CorpusPriveRoute
   '/methodologie': typeof MethodologieRoute
   '/questions': typeof QuestionsRoute
+  '/modele/$id': typeof ModeleIdRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/methodologie' | '/questions'
+  fullPaths:
+    '/' | '/corpus-prive' | '/methodologie' | '/questions' | '/modele/$id'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/methodologie' | '/questions'
-  id: '__root__' | '/' | '/methodologie' | '/questions'
+  to: '/' | '/corpus-prive' | '/methodologie' | '/questions' | '/modele/$id'
+  id:
+    | '__root__'
+    | '/'
+    | '/corpus-prive'
+    | '/methodologie'
+    | '/questions'
+    | '/modele/$id'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  CorpusPriveRoute: typeof CorpusPriveRoute
   MethodologieRoute: typeof MethodologieRoute
   QuestionsRoute: typeof QuestionsRoute
+  ModeleIdRoute: typeof ModeleIdRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -66,6 +93,13 @@ declare module '@tanstack/react-router' {
       path: '/'
       fullPath: '/'
       preLoaderRoute: typeof IndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/corpus-prive': {
+      id: '/corpus-prive'
+      path: '/corpus-prive'
+      fullPath: '/corpus-prive'
+      preLoaderRoute: typeof CorpusPriveRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/methodologie': {
@@ -82,13 +116,22 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof QuestionsRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/modele/$id': {
+      id: '/modele/$id'
+      path: '/modele/$id'
+      fullPath: '/modele/$id'
+      preLoaderRoute: typeof ModeleIdRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  CorpusPriveRoute: CorpusPriveRoute,
   MethodologieRoute: MethodologieRoute,
   QuestionsRoute: QuestionsRoute,
+  ModeleIdRoute: ModeleIdRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
