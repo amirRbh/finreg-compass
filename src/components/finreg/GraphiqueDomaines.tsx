@@ -11,11 +11,11 @@ export function GraphiqueDomaines({ modeles }: { modeles: Modele[] }) {
   const largeurBarre = (largeurGroupe * 0.78) / modeles.length;
 
   return (
-    <div className="mt-4">
+    <div className="mt-4 border border-border bg-surface p-4 shadow-panneau sm:p-6">
       <div className="-mx-4 overflow-x-auto px-4">
         <svg
           viewBox={`0 0 ${LARGEUR} ${HAUTEUR}`}
-          className="h-64 w-full min-w-[36rem]"
+          className="h-72 w-full min-w-[36rem]"
           role="img"
           aria-label="Scores par domaine réglementaire et par modèle"
         >
@@ -50,7 +50,7 @@ export function GraphiqueDomaines({ modeles }: { modeles: Modele[] }) {
                 {modeles.map((m, j) => {
                   const valeur = m.scores_domaines[domaine] ?? 0;
                   const h = (valeur / 100) * zoneH;
-                  const opacite = 1 - (j / Math.max(1, modeles.length)) * 0.72;
+                  const opacite = 1 - (j / Math.max(1, modeles.length)) * 0.66;
                   return (
                     <rect
                       key={m.id}
@@ -60,6 +60,7 @@ export function GraphiqueDomaines({ modeles }: { modeles: Modele[] }) {
                       height={h}
                       fill="var(--color-accent)"
                       opacity={opacite}
+                      rx={0.5}
                     >
                       <title>{`${m.nom} — ${domaine} : ${nb(valeur)}`}</title>
                     </rect>
@@ -85,7 +86,7 @@ export function GraphiqueDomaines({ modeles }: { modeles: Modele[] }) {
           <li key={m.id} className="flex items-center gap-2">
             <span
               className="inline-block h-2 w-4 bg-accent"
-              style={{ opacity: 1 - (j / Math.max(1, modeles.length)) * 0.72 }}
+              style={{ opacity: 1 - (j / Math.max(1, modeles.length)) * 0.66 }}
               aria-hidden="true"
             />
             {m.nom}
@@ -93,10 +94,10 @@ export function GraphiqueDomaines({ modeles }: { modeles: Modele[] }) {
         ))}
       </ul>
 
-      <div className="mt-6 -mx-4 overflow-x-auto px-4">
+      <div className="mt-8 -mx-4 overflow-x-auto px-4">
         <table className="w-full min-w-[36rem] border-collapse text-sm">
           <thead>
-            <tr className="border-y border-border">
+            <tr className="border-b border-rule bg-surface-sunken">
               <th scope="col" className="py-2 pr-4 text-left text-xs font-medium text-muted-foreground">
                 Modèle
               </th>
@@ -116,7 +117,7 @@ export function GraphiqueDomaines({ modeles }: { modeles: Modele[] }) {
               <tr key={m.id} className="border-b border-border">
                 <td className="py-2 pr-4">{m.nom}</td>
                 {DOMAINES.map((d) => (
-                  <td key={d} className="py-2 pr-4 text-right font-mono">
+                  <td key={d} className="py-2 pr-4 text-right font-mono tabulaire">
                     {nb(m.scores_domaines[d])}
                   </td>
                 ))}

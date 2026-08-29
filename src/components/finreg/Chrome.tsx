@@ -11,22 +11,31 @@ const LIENS = [
 
 export function Entete() {
   return (
-    <header className="border-b border-border">
-      <div className="mx-auto flex max-w-5xl flex-col gap-3 px-4 py-4 sm:flex-row sm:items-baseline sm:justify-between">
-        <Link to="/" className="font-mono text-sm font-semibold tracking-tight text-foreground">
-          FinReg
-          <span className="ml-2 font-sans text-xs font-normal text-muted-foreground">
-            benchmark de fiabilité réglementaire
+    <header className="sticky top-0 z-30 border-b border-border bg-background/85 backdrop-blur supports-[backdrop-filter]:bg-background/70">
+      <div className="mx-auto flex max-w-5xl flex-col gap-3 px-5 py-3 sm:flex-row sm:items-center sm:justify-between">
+        <Link to="/" className="flex items-center gap-2.5">
+          <span className="flex size-7 items-center justify-center bg-foreground font-mono text-[11px] font-medium text-background">
+            FR
+          </span>
+          <span className="leading-tight">
+            <span className="block text-sm font-semibold tracking-tight text-foreground">
+              FinReg
+            </span>
+            <span className="block text-[11px] text-muted-foreground">
+              benchmark de fiabilité réglementaire
+            </span>
           </span>
         </Link>
-        <nav className="flex flex-wrap gap-x-5 gap-y-1 text-xs">
+        <nav className="flex flex-wrap items-center gap-1 text-xs">
           {LIENS.map((lien) => (
             <Link
               key={lien.to}
               to={lien.to}
               activeOptions={{ exact: lien.to === "/" }}
-              className="text-muted-foreground underline-offset-4 hover:text-accent hover:underline"
-              activeProps={{ className: "text-accent underline" }}
+              className="px-2.5 py-1.5 text-muted-foreground transition-colors hover:bg-surface-sunken hover:text-foreground"
+              activeProps={{
+                className: "bg-foreground text-background hover:bg-foreground hover:text-background",
+              }}
             >
               {lien.libelle}
             </Link>
@@ -40,19 +49,22 @@ export function Entete() {
 export function PiedDePage() {
   const { data } = useResultats();
   return (
-    <footer className="mt-16 border-t border-border">
-      <div className="mx-auto max-w-5xl px-4 py-5 font-mono text-[11px] text-muted-foreground">
-        {data ? (
-          <p>
-            Dernière exécution : {dateFr(data.date_execution)} — {data.nb_questions} questions —{" "}
-            {data.nb_runs} runs par question
-          </p>
-        ) : (
-          <p>Chargement des métadonnées d'exécution…</p>
-        )}
-        <p className="mt-1">
+    <footer className="mt-20 border-t border-border bg-surface-sunken">
+      <div className="mx-auto flex max-w-5xl flex-col gap-3 px-5 py-6 text-[11px] text-muted-foreground sm:flex-row sm:items-end sm:justify-between">
+        <p className="max-w-md leading-relaxed">
           FinReg publie des mesures, pas des conseils. Les résultats ne constituent pas un avis
           juridique.
+        </p>
+        <p className="font-mono tabulaire sm:text-right">
+          {data ? (
+            <>
+              Dernière exécution&nbsp;: {dateFr(data.date_execution)}
+              <br />
+              {data.nb_questions} questions — {data.nb_runs} runs par question
+            </>
+          ) : (
+            "Chargement des métadonnées d'exécution…"
+          )}
         </p>
       </div>
     </footer>
@@ -61,11 +73,66 @@ export function PiedDePage() {
 
 export function Page({ children }: { children: ReactNode }) {
   return (
-    <div className="min-h-screen bg-background text-foreground">
+    <div className="flex min-h-dvh flex-col bg-background text-foreground">
       <Entete />
-      <main className="mx-auto max-w-5xl px-4 py-8">{children}</main>
+      <main className="mx-auto w-full max-w-5xl flex-1 px-5 py-10 sm:py-14">{children}</main>
       <PiedDePage />
     </div>
+  );
+}
+
+export function Titre({
+  etiquette,
+  titre,
+  chapeau,
+}: {
+  etiquette?: string;
+  titre: string;
+  chapeau?: ReactNode;
+}) {
+  return (
+    <div className="max-w-3xl">
+      {etiquette && <p className="etiquette">{etiquette}</p>}
+      <h1 className="mt-2 text-3xl leading-tight sm:text-4xl">{titre}</h1>
+      {chapeau && (
+        <p className="mt-4 max-w-2xl text-[15px] leading-relaxed text-muted-foreground">{chapeau}</p>
+      )}
+    </div>
+  );
+}
+
+export function Section({
+  numero,
+  titre,
+  chapeau,
+  children,
+}: {
+  numero?: string;
+  titre: string;
+  chapeau?: ReactNode;
+  children: ReactNode;
+}) {
+  return (
+    <section className="mt-14">
+      <div className="flex items-baseline gap-3 border-b border-rule pb-2">
+        {numero && <span className="font-mono text-[11px] text-muted-foreground">{numero}</span>}
+        <h2 className="text-lg">{titre}</h2>
+      </div>
+      {chapeau && <p className="mt-3 max-w-2xl text-sm text-muted-foreground">{chapeau}</p>}
+      {children}
+    </section>
+  );
+}
+
+export function Panneau({
+  children,
+  className = "",
+}: {
+  children: ReactNode;
+  className?: string;
+}) {
+  return (
+    <div className={`border border-border bg-surface shadow-panneau ${className}`}>{children}</div>
   );
 }
 
