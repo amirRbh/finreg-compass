@@ -1,0 +1,139 @@
+{
+  "date_execution": "2026-09-15",
+  "nb_questions": 150,
+  "nb_runs": 3,
+  "modeles": [
+    {
+      "id": "modele-a",
+      "nom": "Modèle A",
+      "editeur": "OpenAI",
+      "score_global": 78.6,
+      "taux_hallucination_source": 6.4,
+      "taux_abstention_correcte": 41.0,
+      "ecart_type": 1.4,
+      "scores_domaines": {
+        "SFDR": 73.7,
+        "MIFID": 69.9,
+        "AMF": 80.9,
+        "DORA": 68.2,
+        "LCBFT": 78.4
+      },
+      "scores_axes": {
+        "exactitude": 1.5,
+        "sourcing": 1.3,
+        "calibration": 1.5,
+        "exploitabilite": 1.3
+      }
+    },
+    {
+      "id": "modele-b",
+      "nom": "Modèle B",
+      "editeur": "Anthropic",
+      "score_global": 76.1,
+      "taux_hallucination_source": 7.8,
+      "taux_abstention_correcte": 38.5,
+      "ecart_type": 1.7,
+      "scores_domaines": {
+        "SFDR": 73.6,
+        "MIFID": 65.6,
+        "AMF": 66.1,
+        "DORA": 73.4,
+        "LCBFT": 82.3
+      },
+      "scores_axes": {
+        "exactitude": 1.3,
+        "sourcing": 1.4,
+        "calibration": 1.5,
+        "exploitabilite": 1.7
+      }
+    },
+    {
+      "id": "modele-c",
+      "nom": "Modèle C",
+      "editeur": "Mistral AI",
+      "score_global": 71.2,
+      "taux_hallucination_source": 11.2,
+      "taux_abstention_correcte": 34.0,
+      "ecart_type": 2.1,
+      "scores_domaines": {
+        "SFDR": 71.9,
+        "MIFID": 67.9,
+        "AMF": 80.7,
+        "DORA": 60.2,
+        "LCBFT": 78.1
+      },
+      "scores_axes": {
+        "exactitude": 1.3,
+        "sourcing": 1.2,
+        "calibration": 1.2,
+        "exploitabilite": 1.3
+      }
+    },
+    {
+      "id": "modele-d",
+      "nom": "Modèle D",
+      "editeur": "Google DeepMind",
+      "score_global": 68.9,
+      "taux_hallucination_source": 13.5,
+      "taux_abstention_correcte": 29.8,
+      "ecart_type": 2.4,
+      "scores_domaines": {
+        "SFDR": 74.9,
+        "MIFID": 60.9,
+        "AMF": 69.7,
+        "DORA": 71.0,
+        "LCBFT": 65.1
+      },
+      "scores_axes": {
+        "exactitude": 1.3,
+        "sourcing": 1.2,
+        "calibration": 1.2,
+        "exploitabilite": 1.2
+      }
+    },
+    {
+      "id": "modele-e",
+      "nom": "Modèle E",
+      "editeur": "Meta",
+      "score_global": 61.3,
+      "taux_hallucination_source": 18.7,
+      "taux_abstention_correcte": 22.4,
+      "ecart_type": 3.2,
+      "scores_domaines": {
+        "SFDR": 64.3,
+        "MIFID": 58.7,
+        "AMF": 56.2,
+        "DORA": 62.2,
+        "LCBFT": 59.3
+      },
+      "scores_axes": {
+        "exactitude": 1.1,
+        "sourcing": 1.3,
+        "calibration": 1.3,
+        "exploitabilite": 1.1
+      }
+    },
+    {
+      "id": "modele-f",
+      "nom": "Modèle F",
+      "editeur": "Alibaba Cloud",
+      "score_global": 55.8,
+      "taux_hallucination_source": 24.1,
+      "taux_abstention_correcte": 17.9,
+      "ecart_type": 3.9,
+      "scores_domaines": {
+        "SFDR": 56.4,
+        "MIFID": 55.4,
+        "AMF": 63.1,
+        "DORA": 59.8,
+        "LCBFT": 50.1
+      },
+      "scores_axes": {
+        "exactitude": 1.3,
+        "sourcing": 0.9,
+        "calibration": 1.0,
+        "exploitabilite": 1.2
+      }
+    }
+  ]
+}
