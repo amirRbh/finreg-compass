@@ -45,9 +45,10 @@ function CorpusPrive() {
 
   return (
     <Page>
-      <h1 className="text-lg font-semibold tracking-tight">Corpus privé</h1>
+      <p className="etiquette">Évaluation sur corpus non publié</p>
+      <h1 className="text-3xl leading-tight sm:text-4xl">Corpus privé</h1>
 
-      <section className="mt-4 max-w-2xl space-y-3 text-sm leading-relaxed">
+      <section className="mt-6 max-w-2xl space-y-4 text-[15px] leading-relaxed text-muted-foreground">
         <p>
           À côté du corpus public, FinReg maintient un jeu de questions non publié, de même
           construction et de même barème. Il n'est diffusé sous aucune forme, ce qui le préserve de
@@ -67,8 +68,8 @@ function CorpusPrive() {
         </p>
       </section>
 
-      <section className="mt-10 max-w-xl border-t border-border pt-6">
-        <h2 className="text-sm font-semibold tracking-tight">Prise de contact</h2>
+      <section className="mt-12 max-w-xl border border-border bg-surface p-6 shadow-panneau">
+        <h2 className="border-b border-rule pb-2 text-lg">Prise de contact</h2>
         {etat === "envoye" ? (
           <p className="mt-3 text-sm">
             Demande enregistrée. Une réponse est adressée à l'adresse indiquée sous cinq jours

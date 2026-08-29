@@ -82,10 +82,11 @@ function Methodologie() {
 
   return (
     <Page>
-      <h1 className="text-lg font-semibold tracking-tight">Méthodologie</h1>
+      <p className="etiquette">Protocole · version publique</p>
+      <h1 className="text-3xl leading-tight sm:text-4xl">Méthodologie</h1>
 
       <section className="mt-6 max-w-2xl space-y-3 text-sm leading-relaxed">
-        <h2 className="text-sm font-semibold tracking-tight">1. Objet de la mesure</h2>
+        <h2 className="border-b border-rule pb-2 text-lg">1. Objet de la mesure</h2>
         <p>
           FinReg mesure la fiabilité des modèles de langage lorsqu'ils sont interrogés sur la
           réglementation financière applicable en France et dans l'Union européenne. La mesure ne
@@ -100,7 +101,7 @@ function Methodologie() {
           inutilisable en conformité : elle ne peut être ni vérifiée, ni opposée, ni archivée.
         </p>
 
-        <h2 className="pt-4 text-sm font-semibold tracking-tight">2. Construction du corpus</h2>
+        <h2 className="mt-10 border-b border-rule pb-2 text-lg">2. Construction du corpus</h2>
         <p>
           Le corpus comporte 150 questions fermées réparties sur cinq domaines : SFDR, MIF 2,
           doctrine et réglementation AMF, DORA et LCB-FT. Chaque question est adossée à un texte de
@@ -115,13 +116,13 @@ function Methodologie() {
           le barème vérifiable ; le reste du corpus public est diffusé avec les résultats d'exécution.
         </p>
 
-        <h2 className="pt-4 text-sm font-semibold tracking-tight">3. Barème</h2>
+        <h2 className="mt-10 border-b border-rule pb-2 text-lg">3. Barème</h2>
       </section>
 
       <div className="mt-3 -mx-4 overflow-x-auto px-4">
         <table className="w-full min-w-[38rem] border-collapse text-sm">
           <thead>
-            <tr className="border-y border-border">
+            <tr className="border-b border-rule bg-surface-sunken">
               <th scope="col" className="py-2 pr-4 text-left text-xs font-medium text-muted-foreground">
                 Axe
               </th>
@@ -156,7 +157,7 @@ function Methodologie() {
           de référence exige un élément de fait absent de l'énoncé.
         </p>
 
-        <h2 className="pt-4 text-sm font-semibold tracking-tight">4. Protocole d'exécution</h2>
+        <h2 className="mt-10 border-b border-rule pb-2 text-lg">4. Protocole d'exécution</h2>
         <p>
           Chaque question est soumise trois fois à chaque modèle, dans des sessions indépendantes,
           sans historique, sans outil de recherche et sans accès documentaire. La température est
@@ -171,7 +172,7 @@ function Methodologie() {
           sa justesse.
         </p>
 
-        <h2 className="pt-4 text-sm font-semibold tracking-tight">5. Limites</h2>
+        <h2 className="mt-10 border-b border-rule pb-2 text-lg">5. Limites</h2>
         <p>
           Les résultats décrivent l'état des modèles à la date d'exécution indiquée en pied de page.
           Ils ne sont pas transposables à un système augmenté par recherche documentaire, où la
@@ -179,7 +180,7 @@ function Methodologie() {
           constituent pas une garantie de conformité et ne remplacent aucune validation juridique.
         </p>
 
-        <h2 className="pt-4 text-sm font-semibold tracking-tight">6. Prompt système publié</h2>
+        <h2 className="mt-10 border-b border-rule pb-2 text-lg">6. Prompt système publié</h2>
         <p>
           Le prompt est identique pour tous les modèles et pour tous les runs. Il est publié
           intégralement afin que l'exécution puisse être répliquée.
