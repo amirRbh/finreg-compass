@@ -10,20 +10,67 @@ export const LIBELLES_AXES: Record<string, string> = {
   exploitabilite: "Exploitabilité",
 };
 
+// Vocabulaire du harnais d'évaluation (dépôt amirRbh/FINREG, src/schema.py) : c'est
+// lui qui fait foi, le site doit savoir afficher ce qu'il publie. Les libellés des
+// anciennes valeurs sont conservés pour que les jeux de données antérieurs restent
+// lisibles.
 export const LIBELLES_TYPES: Record<string, string> = {
+  fait: "Fait",
   qualification: "Qualification",
+  calcul: "Calcul",
+  piege: "Piège",
+  abstention: "Abstention",
   procedure: "Procédure",
   perimetre: "Périmètre",
   datation: "Datation",
-  calcul: "Calcul",
 };
+
+// Ordre d'affichage des types dans les filtres. Un type absent d'ici est affiché
+// quand même, à la suite : mieux vaut une option en trop qu'un item introuvable.
+export const ORDRE_TYPES: string[] = [
+  "fait",
+  "qualification",
+  "calcul",
+  "piege",
+  "abstention",
+  "procedure",
+  "perimetre",
+  "datation",
+];
 
 export const LIBELLES_FLAGS: Record<string, string> = {
   hallucination_source: "Hallucination de source",
+  erreur_disqualifiante: "Erreur disqualifiante",
   sourcing_incomplet: "Sourcing incomplet",
   surconfiance: "Surconfiance",
   abstention: "Abstention",
 };
+
+// Drapeaux qui signalent un défaut grave : ils sont mis en évidence et comptent
+// comme échec significatif sur la fiche d'un modèle.
+export const FLAGS_GRAVES = ["hallucination_source", "erreur_disqualifiante"] as const;
+
+export function estGrave(flag: string): boolean {
+  return (FLAGS_GRAVES as readonly string[]).includes(flag);
+}
+
+/**
+ * Valeurs présentes dans les données, ordonnées selon `ordre` puis, pour celles
+ * qu'il ne connaît pas, par ordre alphabétique. Sert à construire les filtres
+ * depuis le corpus publié plutôt que depuis une liste figée dans le site : le
+ * vocabulaire du harnais peut évoluer sans rendre des items introuvables.
+ */
+export function valeursPresentes(valeurs: string[], ordre: string[]): string[] {
+  const uniques = [...new Set(valeurs)];
+  return uniques.sort((a, b) => {
+    const ia = ordre.indexOf(a);
+    const ib = ordre.indexOf(b);
+    if (ia !== -1 && ib !== -1) return ia - ib;
+    if (ia !== -1) return -1;
+    if (ib !== -1) return 1;
+    return a.localeCompare(b, "fr");
+  });
+}
 
 export type Modele = {
   id: string;
@@ -149,10 +196,10 @@ export function echecsSignificatifs(questions: Question[], idModele: string, n =
   return questions
     .map((question) => ({ question, reponse: question.reponses_modeles[idModele] }))
     .filter((e): e is Echec => Boolean(e.reponse))
-    .filter((e) => e.reponse.flags.includes("hallucination_source") || e.reponse.score <= 4)
+    .filter((e) => e.reponse.flags.some(estGrave) || e.reponse.score <= 4)
     .sort((a, b) => {
-      const pa = a.reponse.score - (a.reponse.flags.includes("hallucination_source") ? 3 : 0);
-      const pb = b.reponse.score - (b.reponse.flags.includes("hallucination_source") ? 3 : 0);
+      const pa = a.reponse.score - (a.reponse.flags.some(estGrave) ? 3 : 0);
+      const pb = b.reponse.score - (b.reponse.flags.some(estGrave) ? 3 : 0);
       if (pa !== pb) return pa - pb;
       return b.question.difficulte - a.question.difficulte;
     })

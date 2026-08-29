@@ -5,9 +5,12 @@ import {
   DOMAINES,
   LIBELLES_FLAGS,
   LIBELLES_TYPES,
+  ORDRE_TYPES,
+  estGrave,
   nb,
   useQuestions,
   useResultats,
+  valeursPresentes,
   type Question,
 } from "@/lib/finreg";
 
@@ -31,7 +34,11 @@ export const Route = createFileRoute("/questions")({
   component: Questions,
 });
 
-const TYPES = ["qualification", "procedure", "perimetre", "datation", "calcul"] as const;
+const LIBELLES_DIFFICULTE: Record<string, string> = {
+  "1": "1 — directe",
+  "2": "2 — combinée",
+  "3": "3 — périmètre",
+};
 
 function Questions() {
   const { data: questions, isPending, isError } = useQuestions();
@@ -40,6 +47,22 @@ function Questions() {
   const [type, setType] = useState("tous");
   const [difficulte, setDifficulte] = useState("toutes");
   const [ouvert, setOuvert] = useState<string | null>(null);
+
+  // Les options de filtre viennent du corpus publié, pas d'une liste figée ici :
+  // le vocabulaire du harnais fait foi, et aucun item ne doit rester introuvable.
+  const typesPresents = useMemo(
+    () =>
+      valeursPresentes(
+        (questions ?? []).map((q) => q.type),
+        ORDRE_TYPES,
+      ),
+    [questions],
+  );
+  const difficultesPresentes = useMemo(
+    () =>
+      [...new Set((questions ?? []).map((q) => q.difficulte))].sort((a, b) => a - b).map(String),
+    [questions],
+  );
 
   const filtrees = useMemo(() => {
     if (!questions) return [];
@@ -77,7 +100,7 @@ function Questions() {
           onChange={setType}
           options={[
             { v: "tous", l: "Tous" },
-            ...TYPES.map((t) => ({ v: t, l: LIBELLES_TYPES[t] ?? t })),
+            ...typesPresents.map((t) => ({ v: t, l: LIBELLES_TYPES[t] ?? t })),
           ]}
         />
         <Filtre
@@ -86,9 +109,7 @@ function Questions() {
           onChange={setDifficulte}
           options={[
             { v: "toutes", l: "Toutes" },
-            { v: "1", l: "1 — directe" },
-            { v: "2", l: "2 — combinée" },
-            { v: "3", l: "3 — périmètre" },
+            ...difficultesPresentes.map((d) => ({ v: d, l: LIBELLES_DIFFICULTE[d] ?? d })),
           ]}
         />
       </div>
@@ -250,7 +271,7 @@ function Item({
                           <span
                             key={f}
                             className={`block ${
-                              f === "hallucination_source" ? "text-accent" : "text-muted-foreground"
+                              estGrave(f) ? "text-accent" : "text-muted-foreground"
                             }`}
                           >
                             {LIBELLES_FLAGS[f] ?? f}
