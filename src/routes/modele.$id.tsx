@@ -225,9 +225,9 @@ function Metrique({
   unite: string;
 }) {
   return (
-    <div>
-      <p className="text-xs text-muted-foreground">{libelle}</p>
-      <p className="mt-1 font-mono text-2xl tracking-tight">
+    <div className="border-b border-border p-5 last:border-b-0 sm:border-b-0">
+      <p className="etiquette">{libelle}</p>
+      <p className="mt-3 font-mono text-2xl tracking-tight tabulaire">
         {valeur}
         <span className="ml-1 text-xs text-muted-foreground">{unite}</span>
       </p>
