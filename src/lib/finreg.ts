@@ -5,19 +5,36 @@ import { useQuery } from "@tanstack/react-query";
 export const ORDRE_DOMAINES: string[] = ["SFDR", "MIFID", "AMF", "DORA", "LCBFT"];
 
 export const LIBELLES_DOMAINES: Record<string, string> = {
-  SFDR: "SFDR — publication durabilité",
-  MIFID: "MIF 2 — services d'investissement",
-  AMF: "AMF — marchés et émetteurs",
-  DORA: "DORA — résilience opérationnelle",
-  LCBFT: "LCB-FT — blanchiment et financement du terrorisme",
+  SFDR: "SFDR — sustainability disclosure",
+  MIFID: "MiFID II — investment services",
+  AMF: "Market abuse & issuers",
+  DORA: "DORA — operational resilience",
+  LCBFT: "AML / CFT",
+};
+
+/** Nom court, pour les colonnes et les axes de graphique. */
+export const NOMS_COURTS_DOMAINES: Record<string, string> = {
+  SFDR: "SFDR",
+  MIFID: "MiFID II",
+  AMF: "Market abuse",
+  DORA: "DORA",
+  LCBFT: "AML/CFT",
 };
 export const AXES = ["exactitude", "sourcing", "calibration", "exploitabilite"] as const;
 
+/** Libellés du barème, en langage compréhensible sans lire la méthodologie. */
 export const LIBELLES_AXES: Record<string, string> = {
-  exactitude: "Exactitude",
-  sourcing: "Sourcing",
+  exactitude: "Legal accuracy",
+  sourcing: "Citation accuracy",
   calibration: "Calibration",
-  exploitabilite: "Exploitabilité",
+  exploitabilite: "Usability",
+};
+
+export const EXPLICATIONS_AXES: Record<string, string> = {
+  exactitude: "Is the rule stated the one the applicable text actually lays down?",
+  sourcing: "Does the cited article exist, and does it carry that rule?",
+  calibration: "Does the confidence shown match how reliable the answer really is?",
+  exploitabilite: "Can a compliance professional act on it as written?",
 };
 
 // Vocabulaire du harnais d'évaluation (dépôt amirRbh/FINREG, src/schema.py) : c'est
@@ -25,14 +42,14 @@ export const LIBELLES_AXES: Record<string, string> = {
 // anciennes valeurs sont conservés pour que les jeux de données antérieurs restent
 // lisibles.
 export const LIBELLES_TYPES: Record<string, string> = {
-  fait: "Fait",
+  fait: "Fact",
   qualification: "Qualification",
-  calcul: "Calcul",
-  piege: "Piège",
+  calcul: "Calculation",
+  piege: "Trap",
   abstention: "Abstention",
-  procedure: "Procédure",
-  perimetre: "Périmètre",
-  datation: "Datation",
+  procedure: "Procedure",
+  perimetre: "Scope",
+  datation: "Timing",
 };
 
 // Ordre d'affichage des types dans les filtres. Un type absent d'ici est affiché
@@ -55,23 +72,29 @@ export const ORDRE_TYPES: string[] = [
  * juridique, et un item non contrôlé n'est jamais présenté comme vérifié.
  */
 export const LIBELLES_VERIFICATION: Record<string, string> = {
-  source_verifiee: "Source vérifiée",
-  en_revue: "En cours de vérification",
+  source_verifiee: "Verified",
+  en_revue: "Under review",
 };
 
 export const EXPLICATIONS_VERIFICATION: Record<string, string> = {
   source_verifiee:
-    "Le texte et l'article cités ont été contrôlés : ils existent et portent la règle énoncée. Ce contrôle porte sur la citation, il ne vaut pas avis juridique.",
+    "The cited act and article were checked: they exist and carry the rule stated. This check covers the citation. It is not legal advice.",
   en_revue:
-    "La règle a été identifiée, mais le rattachement à un article précis n'est pas encore établi. L'item est publié tel quel plutôt que présenté comme vérifié.",
+    "The rule has been identified, but it is not yet tied to a specific article. The item is published as it stands rather than presented as verified.",
 };
 
 export const LIBELLES_FLAGS: Record<string, string> = {
-  hallucination_source: "Hallucination de source",
-  erreur_disqualifiante: "Erreur disqualifiante",
-  sourcing_incomplet: "Sourcing incomplet",
-  surconfiance: "Surconfiance",
-  abstention: "Abstention",
+  hallucination_source: "Invented source",
+  erreur_disqualifiante: "Disqualifying error",
+  sourcing_incomplet: "Incomplete citation",
+  surconfiance: "Overconfident",
+  abstention: "Declined to answer",
+};
+
+export const LIBELLES_DIFFICULTE: Record<number, string> = {
+  1: "Direct application",
+  2: "Two provisions combined",
+  3: "Scope or timing with an exception",
 };
 
 // Drapeaux qui signalent un défaut grave : ils sont mis en évidence et comptent
@@ -110,6 +133,8 @@ export type Modele = {
   taux_erreur_disqualifiante: number;
   taux_abstention: number;
   scores_domaines: Record<string, number>;
+  /** Score moyen par type de question : lecture « par capacité ». */
+  scores_types: Record<string, number>;
   scores_axes: Record<string, number>;
 };
 
@@ -123,6 +148,10 @@ export type StatutJeu = "echantillon_demonstration" | "execution_mesuree";
 /** Agrégats calculés sur l'ensemble des réponses évaluées, tous systèmes confondus. */
 export type Synthese = {
   nb_reponses: number;
+  /** Score moyen sur 100, toutes réponses confondues. Chiffre de tête du produit. */
+  exactitude_reglementaire: number;
+  /** Part des réponses portant au moins un défaut grave. */
+  taux_reponse_non_fiable: number;
   taux_hallucination_source: number;
   taux_erreur_disqualifiante: number;
   taux_abstention: number;
@@ -135,9 +164,13 @@ export type Resultats = {
   nb_questions: number;
   nb_runs: number;
   domaines: string[];
+  types: string[];
   synthese: Synthese;
   modeles: Modele[];
 };
+
+/** Ce que le système a vu juste, et où il a basculé. Renseignée sur les défauts graves. */
+export type Analyse = { correct: string; incorrect: string };
 
 export type ReponseModele = {
   texte: string;
@@ -146,6 +179,7 @@ export type ReponseModele = {
   /** Somme des axes ramenée sur 10. Recalculée à la construction, jamais saisie. */
   score: number;
   flags: string[];
+  analyse?: Analyse;
 };
 
 export type Verification = {
@@ -163,7 +197,12 @@ export type Question = {
   source: {
     texte: string;
     article: string;
+    /** Date d'adoption de l'acte, ou mention de version pour un code consolidé. */
+    adopte: string;
     url: string;
+    juridiction: "EU" | "FR";
+    /** Langue de la source officielle liée. Légifrance n'existe qu'en français. */
+    langue_source: "en" | "fr";
     /** `article` : le lien pointe vers l'article cité. `texte` : vers le texte entier. */
     precision: "article" | "texte";
   };
@@ -193,7 +232,7 @@ export function useQuestions() {
   });
 }
 
-const formatNombre = new Intl.NumberFormat("fr-FR", {
+const formatNombre = new Intl.NumberFormat("en-GB", {
   minimumFractionDigits: 1,
   maximumFractionDigits: 1,
 });
@@ -203,10 +242,27 @@ export function nb(valeur: number | null | undefined): string {
   return formatNombre.format(valeur);
 }
 
+const MOIS = [
+  "January",
+  "February",
+  "March",
+  "April",
+  "May",
+  "June",
+  "July",
+  "August",
+  "September",
+  "October",
+  "November",
+  "December",
+];
+
+/** Date ISO rendue en anglais : « 24 August 2026 ». */
 export function dateFr(iso: string): string {
   const [a, m, j] = iso.split("-");
-  if (!a || !m || !j) return iso;
-  return `${j}/${m}/${a}`;
+  const mois = MOIS[Number(m) - 1];
+  if (!a || !m || !j || !mois) return iso;
+  return `${Number(j)} ${mois} ${a}`;
 }
 
 export type CleTri =

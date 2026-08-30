@@ -3,8 +3,10 @@ import { useMemo, useState } from "react";
 import { Chargement, Erreur, Page } from "@/components/finreg/Chrome";
 import { PastilleVerification } from "@/components/finreg/Statuts";
 import {
+  LIBELLES_DIFFICULTE,
   LIBELLES_TYPES,
   LIBELLES_VERIFICATION,
+  NOMS_COURTS_DOMAINES,
   ORDRE_DOMAINES,
   ORDRE_TYPES,
   useQuestions,
@@ -15,28 +17,22 @@ import {
 export const Route = createFileRoute("/questions")({
   head: () => ({
     meta: [
-      { title: "Corpus public — FinReg" },
+      { title: "Questions — FinReg" },
       {
         name: "description",
         content:
-          "Le corpus public FinReg : chaque question réglementaire avec sa réponse de référence, l'article dont elle est tirée et le statut de vérification de cette citation.",
+          "Every question in the FinReg benchmark, with what the law says, the article it comes from, and the verification status of that citation.",
       },
-      { property: "og:title", content: "Corpus public — FinReg" },
+      { property: "og:title", content: "Questions — FinReg" },
       {
         property: "og:description",
         content:
-          "Filtrez par domaine, type, difficulté et statut de vérification, puis ouvrez un item pour suivre la chaîne complète.",
+          "Filter by regulation, question type, difficulty and verification status, then open an item to follow the whole chain.",
       },
     ],
   }),
   component: Questions,
 });
-
-const LIBELLES_DIFFICULTE: Record<string, string> = {
-  "1": "1 — application directe",
-  "2": "2 — combinaison",
-  "3": "3 — périmètre / datation",
-};
 
 function Questions() {
   const { data: questions, isPending, isError } = useQuestions();
@@ -85,52 +81,58 @@ function Questions() {
 
   return (
     <Page>
-      <p className="etiquette">Corpus public</p>
-      <h1 className="text-3xl leading-tight sm:text-4xl">Les questions, en clair</h1>
+      <p className="etiquette">Benchmark corpus</p>
+      <h1 className="text-3xl leading-tight sm:text-4xl">The questions, in full</h1>
       <p className="mt-4 max-w-2xl text-[15px] leading-relaxed text-muted-foreground">
-        Le corpus est publié intégralement : c'est ce qui rend le barème vérifiable. Chaque item
-        porte sa réponse de référence, l'article dont elle est tirée et le résultat du contrôle de
-        cette citation. Ouvrez un item pour voir ce que chaque système a répondu.
+        The whole corpus is public — that is what makes the rubric checkable. Each item carries what
+        the law says, the article it comes from, and the result of checking that citation. Open one
+        to see what every system answered.
       </p>
 
       {questions && (
         <p className="mt-4 font-mono text-[11px] text-muted-foreground">
-          {questions.length} items publiés — {verifiees} à source vérifiée,{" "}
-          {questions.length - verifiees} en cours de vérification.
+          {questions.length} benchmark items · {verifiees} verified · {questions.length - verifiees}{" "}
+          under review
         </p>
       )}
 
       <div className="mt-8 flex flex-wrap gap-5 border border-border bg-surface px-4 py-3 shadow-panneau">
         <Filtre
-          libelle="Domaine"
+          libelle="Regulation"
           valeur={domaine}
           onChange={setDomaine}
-          options={[{ v: "tous", l: "Tous" }, ...domainesPresents.map((d) => ({ v: d, l: d }))]}
+          options={[
+            { v: "tous", l: "All" },
+            ...domainesPresents.map((d) => ({ v: d, l: NOMS_COURTS_DOMAINES[d] ?? d })),
+          ]}
         />
         <Filtre
           libelle="Type"
           valeur={type}
           onChange={setType}
           options={[
-            { v: "tous", l: "Tous" },
+            { v: "tous", l: "All" },
             ...typesPresents.map((t) => ({ v: t, l: LIBELLES_TYPES[t] ?? t })),
           ]}
         />
         <Filtre
-          libelle="Difficulté"
+          libelle="Difficulty"
           valeur={difficulte}
           onChange={setDifficulte}
           options={[
-            { v: "toutes", l: "Toutes" },
-            ...difficultesPresentes.map((d) => ({ v: d, l: LIBELLES_DIFFICULTE[d] ?? d })),
+            { v: "toutes", l: "All" },
+            ...difficultesPresentes.map((d) => ({
+              v: d,
+              l: LIBELLES_DIFFICULTE[Number(d)] ?? d,
+            })),
           ]}
         />
         <Filtre
-          libelle="Vérification"
+          libelle="Status"
           valeur={verification}
           onChange={setVerification}
           options={[
-            { v: "toutes", l: "Toutes" },
+            { v: "toutes", l: "All" },
             ...Object.entries(LIBELLES_VERIFICATION).map(([v, l]) => ({ v, l })),
           ]}
         />
@@ -143,14 +145,14 @@ function Questions() {
       )}
       {isError && (
         <div className="mt-6">
-          <Erreur libelle="Corpus indisponible." />
+          <Erreur libelle="Corpus unavailable." />
         </div>
       )}
 
       {questions && (
         <>
           <p className="mt-6 font-mono text-[11px] text-muted-foreground">
-            {filtrees.length} item(s) affiché(s)
+            {filtrees.length} shown
           </p>
           <ul className="mt-2 border-t border-rule">
             {filtrees.map((q) => (
@@ -158,9 +160,7 @@ function Questions() {
             ))}
           </ul>
           {filtrees.length === 0 && (
-            <p className="mt-4 text-sm text-muted-foreground">
-              Aucun item ne correspond à ces filtres.
-            </p>
+            <p className="mt-4 text-sm text-muted-foreground">No item matches these filters.</p>
           )}
         </>
       )}
@@ -209,7 +209,7 @@ function Item({ question }: { question: Question }) {
           <span className="font-mono text-[11px] text-muted-foreground">{question.id}</span>
           <PastilleVerification statut={question.verification.statut} taille="petite" />
           <span className="font-mono text-[11px] text-muted-foreground">
-            {LIBELLES_TYPES[question.type] ?? question.type} · diff. {question.difficulte}
+            {LIBELLES_TYPES[question.type] ?? question.type} · level {question.difficulte}
           </span>
         </div>
         <p className="mt-2 max-w-3xl text-sm leading-relaxed">{question.question}</p>

@@ -22,6 +22,7 @@ const modele = (id: string, score: number, halluc: number): Modele => ({
   taux_erreur_disqualifiante: 0,
   taux_abstention: 0,
   scores_domaines: {},
+  scores_types: {},
   scores_axes: {},
 });
 
@@ -34,14 +35,18 @@ describe("mise en forme", () => {
     expect(nb(Number.NaN)).toBe("—");
   });
 
-  it("formate les nombres avec une décimale", () => {
-    expect(nb(72).replace(/[\u202f\u00a0]/g, " ")).toBe("72,0");
-    expect(nb(6.35).replace(/[\u202f\u00a0]/g, " ")).toBe("6,4");
+  it("formate les nombres en anglais, avec une décimale", () => {
+    // Le produit est en anglais : un « 18,3 » y serait lu comme un millier.
+    expect(nb(72)).toBe("72.0");
+    expect(nb(6.35)).toBe("6.4");
+    expect(nb(1234.5)).toBe("1,234.5");
   });
 
-  it("formate les dates ISO en jour/mois/année", () => {
-    expect(dateFr("2026-08-24")).toBe("24/08/2026");
+  it("rend les dates ISO en anglais", () => {
+    expect(dateFr("2026-08-24")).toBe("24 August 2026");
+    expect(dateFr("2026-01-03")).toBe("3 January 2026");
     expect(dateFr("date-invalide")).toBe("date-invalide");
+    expect(dateFr("2026-13-01")).toBe("2026-13-01");
   });
 });
 
@@ -94,20 +99,23 @@ describe("échecs significatifs", () => {
     domaine: "SFDR",
     type: "fait",
     difficulte: 2,
-    question: "Question de test",
-    reponse_reference: "Réponse de référence de test",
+    question: "Test question",
+    reponse_reference: "Test expected answer",
     source: {
-      texte: "Texte",
+      texte: "Act",
       article: "Article",
-      url: "https://exemple.test",
+      adopte: "1 January 2020",
+      url: "https://example.test",
+      juridiction: "EU",
+      langue_source: "en",
       precision: "article",
     },
     verification: {
       statut: "source_verifiee",
-      note: "Contrôle effectué pour les besoins du test.",
+      note: "Checked for the purposes of this test.",
     },
     reponses_modeles: {
-      a: { texte: "Réponse", axes: {}, score, flags },
+      a: { texte: "Answer", axes: {}, score, flags },
     },
   });
 

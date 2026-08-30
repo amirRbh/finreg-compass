@@ -13,6 +13,7 @@ import { describe, expect, it } from "vitest";
 
 import {
   AXES,
+  estGrave,
   LIBELLES_FLAGS,
   LIBELLES_TYPES,
   LIBELLES_VERIFICATION,
@@ -35,12 +36,27 @@ describe("corpus publié", () => {
     expect(new Set(questions.map((q) => q.id)).size).toBe(questions.length);
   });
 
-  it("adosse chaque question à une source citée et consultable", () => {
+  it("adosse chaque question à une source citée, datée et consultable", () => {
     for (const q of questions) {
       expect(q.source.texte, q.id).toBeTruthy();
       expect(q.source.article, q.id).toBeTruthy();
+      expect(q.source.adopte, q.id).toBeTruthy();
       expect(q.source.url, q.id).toMatch(/^https:\/\//);
       expect(["article", "texte"], q.id).toContain(q.source.precision);
+      expect(["EU", "FR"], q.id).toContain(q.source.juridiction);
+      expect(["en", "fr"], q.id).toContain(q.source.langue_source);
+    }
+  });
+
+  it("renvoie vers une source anglaise dès qu'il en existe une", () => {
+    // Le produit est en anglais : un lien EUR-Lex doit ouvrir la version
+    // anglaise. Légifrance n'existe qu'en français, et le signale.
+    for (const q of questions) {
+      if (q.source.url.includes("eur-lex")) {
+        expect(q.source.url, q.id).toContain("/EN/");
+        expect(q.source.langue_source, q.id).toBe("en");
+      }
+      if (q.source.url.includes("legifrance")) expect(q.source.langue_source, q.id).toBe("fr");
     }
   });
 
@@ -110,6 +126,20 @@ describe("notation", () => {
     for (const q of questions) {
       for (const [idModele, r] of Object.entries(q.reponses_modeles)) {
         expect(r.texte.length, `${q.id}/${idModele}`).toBeGreaterThan(20);
+      }
+    }
+  });
+
+  it("explique tout défaut grave, pour que « pourquoi » soit toujours lisible", () => {
+    // Un drapeau grave sans explication laisse le lecteur devant un verdict
+    // qu'il ne peut pas vérifier : c'est exactement ce que le produit reproche
+    // aux modèles évalués.
+    for (const q of questions) {
+      for (const [idModele, r] of Object.entries(q.reponses_modeles)) {
+        if (!r.flags.some(estGrave)) continue;
+        expect(r.analyse, `${q.id}/${idModele}`).toBeDefined();
+        expect(r.analyse!.correct.length, `${q.id}/${idModele}`).toBeGreaterThan(10);
+        expect(r.analyse!.incorrect.length, `${q.id}/${idModele}`).toBeGreaterThan(30);
       }
     }
   });
@@ -185,12 +215,29 @@ describe("classement", () => {
     const scores = resultats.modeles.map((m) => m.score_global);
 
     expect(resultats.synthese.nb_reponses).toBe(toutes.length);
+    expect(resultats.synthese.exactitude_reglementaire).toBe(
+      arrondi(moyenne(toutes.map((r) => r.score)) * 10),
+    );
+    expect(resultats.synthese.taux_reponse_non_fiable).toBe(
+      arrondi((flags.filter((fs) => fs.some((f) => estGrave(f))).length / flags.length) * 100),
+    );
     expect(resultats.synthese.taux_hallucination_source).toBe(partDe("hallucination_source"));
     expect(resultats.synthese.taux_erreur_disqualifiante).toBe(partDe("erreur_disqualifiante"));
     expect(resultats.synthese.taux_abstention).toBe(partDe("abstention"));
     expect(resultats.synthese.ecart_meilleur_moins_bon).toBe(
       arrondi(Math.max(...scores) - Math.min(...scores)),
     );
+  });
+
+  it("recalcule le score par capacité depuis les items de chaque type", () => {
+    for (const m of resultats.modeles) {
+      for (const t of resultats.types) {
+        const duType = questions
+          .filter((q) => q.type === t)
+          .map((q) => q.reponses_modeles[m.id]!.score);
+        expect(m.scores_types[t], `${m.id}/${t}`).toBe(arrondi(moyenne(duType) * 10));
+      }
+    }
   });
 
   it("couvre tous les domaines présents dans le corpus", () => {

@@ -10,18 +10,27 @@
     "DORA",
     "LCBFT"
   ],
+  "types": [
+    "qualification",
+    "procedure",
+    "perimetre",
+    "datation",
+    "calcul"
+  ],
   "synthese": {
     "nb_reponses": 120,
+    "exactitude_reglementaire": 51.7,
     "taux_hallucination_source": 10.8,
     "taux_erreur_disqualifiante": 7.5,
     "taux_abstention": 9.2,
-    "ecart_meilleur_moins_bon": 60.8
+    "ecart_meilleur_moins_bon": 61.3,
+    "taux_reponse_non_fiable": 18.3
   },
   "modeles": [
     {
       "id": "modele-a",
-      "nom": "Modèle A",
-      "profil": "Généraliste, très grande taille",
+      "nom": "Model A",
+      "profil": "General purpose, very large",
       "score_global": 84.5,
       "taux_hallucination_source": 0,
       "taux_erreur_disqualifiante": 0,
@@ -33,6 +42,13 @@
         "DORA": 72.6,
         "LCBFT": 87.6
       },
+      "scores_types": {
+        "qualification": 92.6,
+        "procedure": 90.2,
+        "perimetre": 75.2,
+        "datation": 85.2,
+        "calcul": 78.3
+      },
       "scores_axes": {
         "exactitude": 1.71,
         "sourcing": 1.54,
@@ -42,8 +58,8 @@
     },
     {
       "id": "modele-b",
-      "nom": "Modèle B",
-      "profil": "Généraliste, très grande taille",
+      "nom": "Model B",
+      "profil": "General purpose, very large",
       "score_global": 72,
       "taux_hallucination_source": 0,
       "taux_erreur_disqualifiante": 4.2,
@@ -55,6 +71,13 @@
         "DORA": 82.6,
         "LCBFT": 45.2
       },
+      "scores_types": {
+        "qualification": 70.2,
+        "procedure": 62.6,
+        "perimetre": 80.2,
+        "datation": 87.6,
+        "calcul": 56.3
+      },
       "scores_axes": {
         "exactitude": 1.29,
         "sourcing": 1.46,
@@ -64,8 +87,8 @@
     },
     {
       "id": "modele-c",
-      "nom": "Modèle C",
-      "profil": "Généraliste, taille moyenne",
+      "nom": "Model C",
+      "profil": "General purpose, mid-size",
       "score_global": 55,
       "taux_hallucination_source": 0,
       "taux_erreur_disqualifiante": 0,
@@ -77,6 +100,13 @@
         "DORA": 50.4,
         "LCBFT": 67.8
       },
+      "scores_types": {
+        "qualification": 57.8,
+        "procedure": 60.4,
+        "perimetre": 50.4,
+        "datation": 72.6,
+        "calcul": 28.5
+      },
       "scores_axes": {
         "exactitude": 1.13,
         "sourcing": 0.75,
@@ -86,21 +116,28 @@
     },
     {
       "id": "modele-d",
-      "nom": "Modèle D",
-      "profil": "Généraliste, taille moyenne",
-      "score_global": 23.7,
+      "nom": "Model D",
+      "profil": "General purpose, mid-size",
+      "score_global": 23.2,
       "taux_hallucination_source": 29.2,
       "taux_erreur_disqualifiante": 20.8,
       "taux_abstention": 0,
       "scores_domaines": {
-        "SFDR": 22.8,
+        "SFDR": 20.4,
         "MIFID": 27.8,
         "AMF": 15.8,
         "DORA": 7.6,
         "LCBFT": 42.8
       },
+      "scores_types": {
+        "qualification": 30.4,
+        "procedure": 5.2,
+        "perimetre": 20.2,
+        "datation": 40.2,
+        "calcul": 19
+      },
       "scores_axes": {
-        "exactitude": 0.38,
+        "exactitude": 0.33,
         "sourcing": 0.38,
         "calibration": 0.33,
         "exploitabilite": 0.79
@@ -108,21 +145,28 @@
     },
     {
       "id": "modele-e",
-      "nom": "Modèle E",
-      "profil": "Ouvert, poids publiés",
-      "score_global": 24.2,
+      "nom": "Model E",
+      "profil": "Open weights",
+      "score_global": 23.7,
       "taux_hallucination_source": 25,
       "taux_erreur_disqualifiante": 12.5,
       "taux_abstention": 16.7,
       "scores_domaines": {
         "SFDR": 17.6,
-        "MIFID": 40.2,
+        "MIFID": 37.8,
         "AMF": 9.5,
         "DORA": 25.4,
         "LCBFT": 25.2
       },
+      "scores_types": {
+        "qualification": 20,
+        "procedure": 17.8,
+        "perimetre": 22.8,
+        "datation": 30.4,
+        "calcul": 28.3
+      },
       "scores_axes": {
-        "exactitude": 0.38,
+        "exactitude": 0.33,
         "sourcing": 0.21,
         "calibration": 0.79,
         "exploitabilite": 0.54

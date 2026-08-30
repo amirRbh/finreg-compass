@@ -6,6 +6,7 @@ import {
   LIBELLES_AXES,
   LIBELLES_FLAGS,
   LIBELLES_TYPES,
+  NOMS_COURTS_DOMAINES,
   echecsSignificatifs,
   nb,
   rangDe,
@@ -13,20 +14,20 @@ import {
   useResultats,
 } from "@/lib/finreg";
 
-export const Route = createFileRoute("/modele/$id")({
+export const Route = createFileRoute("/model/$id")({
   head: () => ({
     meta: [
-      { title: "Fiche modèle — FinReg" },
+      { title: "System profile — FinReg" },
       {
         name: "description",
         content:
-          "Détail des scores d'un modèle par domaine réglementaire et par axe de notation, avec les échecs les plus significatifs cités in extenso.",
+          "Scores for one system by regulation and by scoring axis, with its most significant failures quoted in full.",
       },
-      { property: "og:title", content: "Fiche modèle — FinReg" },
+      { property: "og:title", content: "System profile — FinReg" },
       {
         property: "og:description",
         content:
-          "Scores par domaine, scores par axe et échecs les plus significatifs du modèle évalué.",
+          "Scores by regulation, by scoring axis, and the system's most significant failures.",
       },
     ],
   }),
@@ -57,12 +58,12 @@ function FicheModele() {
   if (!modele) {
     return (
       <Page>
-        <h1 className="text-3xl leading-tight sm:text-4xl">Modèle inconnu</h1>
+        <h1 className="text-3xl leading-tight sm:text-4xl">Unknown system</h1>
         <p className="mt-2 text-sm text-muted-foreground">
-          Aucun modèle ne correspond à l'identifiant <span className="font-mono">{id}</span>.
+          No evaluated system carries the identifier <span className="font-mono">{id}</span>.
         </p>
         <Link to="/" className="mt-4 inline-block text-sm text-accent underline underline-offset-4">
-          Retour au classement
+          Back to the benchmark
         </Link>
       </Page>
     );
@@ -75,28 +76,28 @@ function FicheModele() {
       <p className="font-mono text-[11px] text-muted-foreground">{modele.id}</p>
       <h1 className="mt-2 text-3xl leading-tight sm:text-4xl">{modele.nom}</h1>
       <p className="mt-1 text-sm text-muted-foreground">
-        {modele.profil} — rang {rangDe(resultats.modeles, modele.id)} sur {resultats.modeles.length}{" "}
-        systèmes évalués
+        {modele.profil} · ranked {rangDe(resultats.modeles, modele.id)} of{" "}
+        {resultats.modeles.length} systems evaluated
       </p>
 
       <section className="mt-8 grid grid-cols-2 divide-border border border-border bg-surface shadow-panneau sm:grid-cols-4 sm:divide-x">
-        <Metrique libelle="Score global" valeur={nb(modele.score_global)} unite="/100" />
+        <Metrique libelle="Regulatory accuracy" valeur={nb(modele.score_global)} unite="/100" />
         <Metrique
-          libelle="Hallucination de source"
+          libelle="Invented source"
           valeur={nb(modele.taux_hallucination_source)}
           unite="%"
         />
         <Metrique
-          libelle="Erreur disqualifiante"
+          libelle="Disqualifying error"
           valeur={nb(modele.taux_erreur_disqualifiante)}
           unite="%"
         />
-        <Metrique libelle="Abstention" valeur={nb(modele.taux_abstention)} unite="%" />
+        <Metrique libelle="Declined to answer" valeur={nb(modele.taux_abstention)} unite="%" />
       </section>
 
       <div className="mt-12 grid gap-10 md:grid-cols-2">
         <section>
-          <h2 className="border-b border-rule pb-2 text-lg">Scores par domaine</h2>
+          <h2 className="border-b border-rule pb-2 text-lg">By regulation</h2>
           <table className="mt-3 w-full border-collapse text-sm">
             <tbody>
               {resultats.domaines.map((d) => (
@@ -120,7 +121,7 @@ function FicheModele() {
         </section>
 
         <section>
-          <h2 className="border-b border-rule pb-2 text-lg">Scores par axe</h2>
+          <h2 className="border-b border-rule pb-2 text-lg">By scoring axis</h2>
           <table className="mt-3 w-full border-collapse text-sm">
             <tbody>
               {AXES.map((a) => (
@@ -142,25 +143,25 @@ function FicheModele() {
             </tbody>
           </table>
           <p className="mt-2 font-mono text-[11px] text-muted-foreground">
-            Moyenne par axe sur l'ensemble du corpus, échelle 0 à 2.
+            Average per axis across the whole corpus, on a 0 to 2 scale.
           </p>
         </section>
       </div>
 
       <section className="mt-12">
-        <h2 className="border-b border-rule pb-2 text-lg">Échecs les plus significatifs</h2>
+        <h2 className="border-b border-rule pb-2 text-lg">Most significant failures</h2>
         <p className="mt-1 max-w-2xl text-xs text-muted-foreground">
-          Items cités in extenso, retenus sur la combinaison du score le plus faible et de la
-          présence d'une hallucination de source.
+          Items quoted in full, selected on the combination of lowest score and the presence of an
+          invented source.
         </p>
         {!questions && (
           <div className="mt-4">
-            <Chargement libelle="Chargement du corpus…" />
+            <Chargement libelle="Loading the corpus…" />
           </div>
         )}
         {questions && echecs.length === 0 && (
           <p className="mt-4 text-sm text-muted-foreground">
-            Aucun échec caractérisé sur les items publiés.
+            No characterised failure on the published items.
           </p>
         )}
         <ol className="mt-4 space-y-6">
@@ -175,27 +176,26 @@ function FicheModele() {
                   {question.id}
                 </Link>
                 <span>
-                  · {question.domaine} · {LIBELLES_TYPES[question.type] ?? question.type} ·
-                  difficulté {question.difficulte} · score {nb(reponse.score)}
+                  · {NOMS_COURTS_DOMAINES[question.domaine] ?? question.domaine} ·{" "}
+                  {LIBELLES_TYPES[question.type] ?? question.type} · level {question.difficulte} ·
+                  score {nb(reponse.score)}
                 </span>
                 <PastilleVerification statut={question.verification.statut} taille="petite" />
               </p>
               <p className="mt-2 max-w-2xl text-sm">{question.question}</p>
               <dl className="mt-3 max-w-2xl space-y-2 text-sm">
                 <div>
-                  <dt className="text-xs font-medium text-muted-foreground">Réponse du modèle</dt>
+                  <dt className="text-xs font-medium text-muted-foreground">What it answered</dt>
                   <dd className="mt-1 leading-relaxed">{reponse.texte}</dd>
                 </div>
                 <div>
-                  <dt className="text-xs font-medium text-muted-foreground">
-                    Réponse de référence
-                  </dt>
+                  <dt className="text-xs font-medium text-muted-foreground">What the law says</dt>
                   <dd className="mt-1 leading-relaxed text-muted-foreground">
                     {question.reponse_reference}
                   </dd>
                 </div>
                 <div>
-                  <dt className="text-xs font-medium text-muted-foreground">Source attendue</dt>
+                  <dt className="text-xs font-medium text-muted-foreground">Legal basis</dt>
                   <dd className="mt-1">
                     {question.source.texte} — {question.source.article}{" "}
                     <a
@@ -204,7 +204,7 @@ function FicheModele() {
                       rel="noreferrer"
                       className="font-mono text-xs text-accent underline underline-offset-4"
                     >
-                      consulter
+                      open ↗
                     </a>
                   </dd>
                 </div>
@@ -220,7 +220,7 @@ function FicheModele() {
       </section>
 
       <Link to="/" className="mt-10 inline-block text-sm text-accent underline underline-offset-4">
-        Retour au classement
+        Back to the benchmark
       </Link>
     </Page>
   );

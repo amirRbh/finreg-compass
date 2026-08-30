@@ -4,10 +4,10 @@ import { dateFr, useResultats } from "@/lib/finreg";
 import { BandeauJeuDeDonnees } from "@/components/finreg/Statuts";
 
 const LIENS = [
-  { to: "/", libelle: "Accueil" },
-  { to: "/questions", libelle: "Corpus" },
-  { to: "/methodologie", libelle: "Méthodologie" },
-  { to: "/corpus-prive", libelle: "Corpus privé" },
+  { to: "/", libelle: "Benchmark" },
+  { to: "/questions", libelle: "Questions" },
+  { to: "/methodology", libelle: "Methodology" },
+  { to: "/private-benchmark", libelle: "Private benchmark" },
 ] as const;
 
 export function Entete() {
@@ -16,14 +16,14 @@ export function Entete() {
       <div className="mx-auto flex max-w-5xl flex-col gap-3 px-5 py-3 sm:flex-row sm:items-center sm:justify-between">
         <Link to="/" className="flex items-center gap-2.5">
           <span className="flex size-7 items-center justify-center bg-foreground font-mono text-[11px] font-medium text-background">
-            FR
+            F
           </span>
           <span className="leading-tight">
             <span className="block text-sm font-semibold tracking-tight text-foreground">
               FinReg
             </span>
             <span className="block text-[11px] text-muted-foreground">
-              benchmark de fiabilité réglementaire
+              regulatory accuracy benchmark
             </span>
           </span>
         </Link>
@@ -54,22 +54,20 @@ export function PiedDePage() {
     <footer className="mt-20 border-t border-border bg-surface-sunken">
       <div className="mx-auto flex max-w-5xl flex-col gap-3 px-5 py-6 text-[11px] text-muted-foreground sm:flex-row sm:items-end sm:justify-between">
         <p className="max-w-md leading-relaxed">
-          FinReg publie des mesures, pas des conseils. Ni le classement ni les réponses de référence
-          ne constituent un avis juridique.
+          FinReg publishes measurements, not advice. Neither the benchmark nor the expected answers
+          constitute legal advice.
         </p>
         <p className="font-mono tabulaire sm:text-right">
           {data ? (
             <>
-              {data.statut === "echantillon_demonstration"
-                ? "Échantillon de démonstration"
-                : "Exécution mesurée"}{" "}
-              du {dateFr(data.date_execution)}
+              {data.statut === "echantillon_demonstration" ? "Research preview" : "Measured run"} ·{" "}
+              {dateFr(data.date_execution)}
               <br />
-              {data.nb_questions} questions — {data.modeles.length} systèmes — {data.nb_runs}{" "}
-              exécution{data.nb_runs > 1 ? "s" : ""} par question
+              {data.nb_questions} questions · {data.modeles.length} systems · {data.nb_runs} run
+              {data.nb_runs > 1 ? "s" : ""} per question
             </>
           ) : (
-            "Chargement des métadonnées…"
+            "Loading…"
           )}
         </p>
       </div>
@@ -139,10 +137,10 @@ export function Panneau({ children, className = "" }: { children: ReactNode; cla
   );
 }
 
-export function Chargement({ libelle = "Chargement des données…" }: { libelle?: string }) {
+export function Chargement({ libelle = "Loading…" }: { libelle?: string }) {
   return <p className="font-mono text-xs text-muted-foreground">{libelle}</p>;
 }
 
-export function Erreur({ libelle = "Données indisponibles." }: { libelle?: string }) {
+export function Erreur({ libelle = "Data unavailable." }: { libelle?: string }) {
   return <p className="font-mono text-xs text-destructive">{libelle}</p>;
 }

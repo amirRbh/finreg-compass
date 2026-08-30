@@ -4,21 +4,24 @@
     "domaine": "SFDR",
     "type": "qualification",
     "difficulte": 2,
-    "question": "Un fonds classé article 8 SFDR doit-il obligatoirement publier un indicateur de part d'investissements durables au sens de l'article 2(17) ?",
-    "reponse_reference": "Non. Un produit relevant de l'article 8 promeut des caractéristiques environnementales ou sociales mais n'a pas d'objectif d'investissement durable. La publication d'une part minimale d'investissements durables n'est obligatoire que si le produit s'engage sur une telle part dans sa documentation précontractuelle (annexe II du règlement délégué 2022/1288).",
+    "question": "Must a fund classified under Article 8 SFDR publish a minimum share of sustainable investments within the meaning of Article 2(17)?",
+    "reponse_reference": "No. An Article 8 product promotes environmental or social characteristics but has no sustainable investment objective. Disclosing a minimum share of sustainable investments is required only where the product commits to such a share in its pre-contractual documentation (Annex II to Delegated Regulation (EU) 2022/1288).",
     "source": {
-      "texte": "Règlement (UE) 2019/2088 (SFDR)",
-      "article": "Article 8 et article 2(17)",
-      "url": "https://eur-lex.europa.eu/legal-content/FR/TXT/?uri=CELEX%3A32019R2088",
+      "texte": "Regulation (EU) 2019/2088 (SFDR)",
+      "article": "Article 8 and Article 2(17)",
+      "adopte": "27 November 2019",
+      "url": "https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX%3A32019R2088",
+      "juridiction": "EU",
+      "langue_source": "en",
       "precision": "article"
     },
     "verification": {
       "statut": "source_verifiee",
-      "note": "Contrôle effectué sur : Règlement (UE) 2019/2088 (SFDR), Article 8 et article 2(17). La disposition existe et porte la règle énoncée par la réponse de référence."
+      "note": "Checked against Regulation (EU) 2019/2088 (SFDR), Article 8 and Article 2(17). The provision exists and carries the rule stated in the expected answer."
     },
     "reponses_modeles": {
       "modele-a": {
-        "texte": "Répond non et rattache correctement l'obligation à l'engagement pris dans la documentation précontractuelle, mais ne cite pas l'annexe II du règlement délégué 2022/1288.",
+        "texte": "Answers no and correctly ties the requirement to the commitment made in the pre-contractual documentation, but does not cite Annex II to Delegated Regulation (EU) 2022/1288.",
         "axes": {
           "exactitude": 2,
           "sourcing": 1,
@@ -31,7 +34,7 @@
         ]
       },
       "modele-b": {
-        "texte": "Distingue l'article 8 de l'article 9, rappelle que l'article 2(17) définit l'investissement durable sans l'imposer, et renvoie à l'annexe II du règlement délégué.",
+        "texte": "Distinguishes Article 8 from Article 9, notes that Article 2(17) defines sustainable investment without imposing it, and refers to Annex II of the delegated regulation.",
         "axes": {
           "exactitude": 2,
           "sourcing": 2,
@@ -42,7 +45,7 @@
         "flags": []
       },
       "modele-c": {
-        "texte": "Indique que la réponse dépend des engagements pris dans la documentation précontractuelle et s'abstient de trancher sans consulter le prospectus du fonds.",
+        "texte": "States that the answer depends on the commitments made in the pre-contractual documentation and declines to conclude without the fund's prospectus.",
         "axes": {
           "exactitude": 1,
           "sourcing": 1,
@@ -55,7 +58,7 @@
         ]
       },
       "modele-d": {
-        "texte": "Affirme que tout produit article 8 doit publier une part minimale d'investissements durables, en s'appuyant sur un « article 8(3) » du règlement SFDR qui n'existe pas.",
+        "texte": "Asserts that every Article 8 product must publish a minimum share of sustainable investments, relying on an “Article 8(3)” of SFDR that does not exist.",
         "axes": {
           "exactitude": 0,
           "sourcing": 0,
@@ -66,10 +69,14 @@
         "flags": [
           "hallucination_source",
           "surconfiance"
-        ]
+        ],
+        "analyse": {
+          "correct": "Identified that Article 8 products carry specific pre-contractual disclosure duties.",
+          "incorrect": "Turned a conditional disclosure into a general obligation, and grounded it in Article 8(3). Article 8 of SFDR has no paragraph 3."
+        }
       },
       "modele-e": {
-        "texte": "Confond article 8 et article 9 et conclut à une obligation de publier un objectif d'investissement durable.",
+        "texte": "Confuses Article 8 with Article 9 and concludes that a sustainable investment objective must be disclosed.",
         "axes": {
           "exactitude": 0,
           "sourcing": 1,
@@ -79,7 +86,11 @@
         "score": 2.5,
         "flags": [
           "erreur_disqualifiante"
-        ]
+        ],
+        "analyse": {
+          "correct": "Placed the question in the right regulation.",
+          "incorrect": "Applied the Article 9 regime to an Article 8 product. Only Article 9 products pursue a sustainable investment objective."
+        }
       }
     }
   },
@@ -88,21 +99,24 @@
     "domaine": "SFDR",
     "type": "procedure",
     "difficulte": 3,
-    "question": "Quelle est la périodicité de publication de la déclaration relative aux principales incidences négatives (PAI) au niveau entité pour un acteur des marchés financiers de plus de 500 salariés ?",
-    "reponse_reference": "Publication annuelle, au plus tard le 30 juin de chaque année, portant sur la période de référence du 1er janvier au 31 décembre de l'année précédente, avec comparaison sur les périodes antérieures.",
+    "question": "How often must a financial market participant with more than 500 employees publish its entity-level principal adverse impacts (PAI) statement?",
+    "reponse_reference": "Annually, by 30 June each year, covering the reference period from 1 January to 31 December of the preceding year, with comparison against earlier periods.",
     "source": {
-      "texte": "Règlement délégué (UE) 2022/1288",
-      "article": "Article 6 et annexe I",
-      "url": "https://eur-lex.europa.eu/legal-content/FR/TXT/?uri=CELEX%3A32022R1288",
+      "texte": "Commission Delegated Regulation (EU) 2022/1288",
+      "article": "Article 6 and Annex I",
+      "adopte": "6 April 2022",
+      "url": "https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX%3A32022R1288",
+      "juridiction": "EU",
+      "langue_source": "en",
       "precision": "article"
     },
     "verification": {
       "statut": "source_verifiee",
-      "note": "Contrôle effectué sur : Règlement délégué (UE) 2022/1288, Article 6 et annexe I. La disposition existe et porte la règle énoncée par la réponse de référence."
+      "note": "Checked against Commission Delegated Regulation (EU) 2022/1288, Article 6 and Annex I. The provision exists and carries the rule stated in the expected answer."
     },
     "reponses_modeles": {
       "modele-a": {
-        "texte": "Donne la publication annuelle au 30 juin en citant le règlement délégué 2022/1288, mais ne mentionne pas le seuil de 500 salariés qui conditionne l'obligation.",
+        "texte": "Gives annual publication by 30 June and the calendar-year reference period, citing Delegated Regulation (EU) 2022/1288, but omits the 500-employee threshold that triggers the obligation.",
         "axes": {
           "exactitude": 1,
           "sourcing": 2,
@@ -113,7 +127,7 @@
         "flags": []
       },
       "modele-b": {
-        "texte": "Répond « annuellement » sans préciser la date butoir du 30 juin ni la période de référence.",
+        "texte": "Answers “annually” without specifying the 30 June deadline or the reference period.",
         "axes": {
           "exactitude": 1,
           "sourcing": 1,
@@ -126,7 +140,7 @@
         ]
       },
       "modele-c": {
-        "texte": "Donne le 30 juin mais présente l'obligation comme applicable à tout acteur, sans mentionner le seuil de 500 salariés.",
+        "texte": "Gives 30 June but presents the obligation as applying to every participant, without the 500-employee threshold.",
         "axes": {
           "exactitude": 1,
           "sourcing": 1,
@@ -137,7 +151,7 @@
         "flags": []
       },
       "modele-d": {
-        "texte": "Indique une publication semestrielle et attribue le calendrier à l'article 4 du règlement SFDR, qui ne fixe aucune date.",
+        "texte": "States semi-annual publication and attributes the calendar to Article 4 of SFDR, which sets no date.",
         "axes": {
           "exactitude": 0,
           "sourcing": 0,
@@ -148,10 +162,14 @@
         "flags": [
           "hallucination_source",
           "surconfiance"
-        ]
+        ],
+        "analyse": {
+          "correct": "Identified the entity-level PAI statement as the subject of the question.",
+          "incorrect": "Invented a semi-annual frequency and attributed a publication calendar to Article 4 of SFDR, which contains none. The timing sits in the delegated regulation."
+        }
       },
       "modele-e": {
-        "texte": "Répond ne pas pouvoir donner le calendrier de manière fiable et renvoie au texte.",
+        "texte": "States it cannot give the applicable calendar reliably and refers back to the text.",
         "axes": {
           "exactitude": 0,
           "sourcing": 1,
@@ -170,21 +188,24 @@
     "domaine": "SFDR",
     "type": "perimetre",
     "difficulte": 1,
-    "question": "Le règlement SFDR s'applique-t-il à un conseiller financier employant moins de trois personnes ?",
-    "reponse_reference": "Les États membres peuvent choisir de ne pas appliquer certaines obligations aux conseillers financiers employant moins de trois personnes (article 17). En France, cette exemption n'a pas été retenue de manière générale pour les CIF soumis au régime national.",
+    "question": "Does SFDR apply to a financial adviser employing fewer than three persons?",
+    "reponse_reference": "Article 17 allows Member States to disapply certain obligations to financial advisers employing fewer than three persons. Whether that option has been exercised is a matter of national law and must be checked in the relevant Member State.",
     "source": {
-      "texte": "Règlement (UE) 2019/2088 (SFDR)",
+      "texte": "Regulation (EU) 2019/2088 (SFDR)",
       "article": "Article 17",
-      "url": "https://eur-lex.europa.eu/legal-content/FR/TXT/?uri=CELEX%3A32019R2088",
+      "adopte": "27 November 2019",
+      "url": "https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX%3A32019R2088",
+      "juridiction": "EU",
+      "langue_source": "en",
       "precision": "article"
     },
     "verification": {
       "statut": "en_revue",
-      "note": "L'article 17 laisse une option aux États membres ; l'affirmation sur le choix opéré en France relève de la transposition nationale et n'a pas été confirmée sur une source officielle."
+      "note": "Article 17 opens an option to Member States. Whether France has exercised it for its national investment adviser regime has not been confirmed against an official source, so the item is not marked verified."
     },
     "reponses_modeles": {
       "modele-a": {
-        "texte": "Cite l'article 17 et l'option laissée aux États membres, sans se prononcer sur le choix opéré en France.",
+        "texte": "Cites Article 17 and the option left to Member States, without addressing the choice made in France.",
         "axes": {
           "exactitude": 1,
           "sourcing": 2,
@@ -197,7 +218,7 @@
         ]
       },
       "modele-b": {
-        "texte": "Cite l'article 17, précise qu'il s'agit d'une option nationale et signale que son exercice doit être vérifié dans le droit français.",
+        "texte": "Cites Article 17, notes that this is a national option, and flags that its exercise must be verified in national law.",
         "axes": {
           "exactitude": 2,
           "sourcing": 2,
@@ -208,7 +229,7 @@
         "flags": []
       },
       "modele-c": {
-        "texte": "S'abstient : indique que la réponse dépend de la transposition nationale et ne peut être tranchée sans elle.",
+        "texte": "Declines: states that the answer depends on national transposition and cannot be settled without it.",
         "axes": {
           "exactitude": 1,
           "sourcing": 1,
@@ -221,7 +242,7 @@
         ]
       },
       "modele-d": {
-        "texte": "Affirme que les conseillers employant moins de trois personnes sont exemptés de SFDR dans toute l'Union.",
+        "texte": "Asserts that advisers employing fewer than three persons are exempt from SFDR throughout the Union.",
         "axes": {
           "exactitude": 0,
           "sourcing": 1,
@@ -232,10 +253,14 @@
         "flags": [
           "erreur_disqualifiante",
           "surconfiance"
-        ]
+        ],
+        "analyse": {
+          "correct": "Found the right provision: Article 17 does concern advisers with fewer than three persons.",
+          "incorrect": "Read a Member State option as a Union-wide exemption. The exemption exists only where a Member State has chosen to apply it."
+        }
       },
       "modele-e": {
-        "texte": "Invente un « article 17 bis » qui introduirait un seuil de cinq salariés.",
+        "texte": "Invents an “Article 17a” introducing a five-employee threshold.",
         "axes": {
           "exactitude": 0,
           "sourcing": 0,
@@ -245,7 +270,11 @@
         "score": 0,
         "flags": [
           "hallucination_source"
-        ]
+        ],
+        "analyse": {
+          "correct": "Nothing usable.",
+          "incorrect": "Cited an Article 17a that does not exist in SFDR, and a five-employee threshold that appears nowhere in the regulation."
+        }
       }
     }
   },
@@ -254,21 +283,24 @@
     "domaine": "SFDR",
     "type": "datation",
     "difficulte": 2,
-    "question": "À partir de quelle date les annexes précontractuelles harmonisées SFDR sont-elles obligatoires ?",
-    "reponse_reference": "Depuis le 1er janvier 2023, date d'entrée en application du règlement délégué (UE) 2022/1288 fixant les modèles d'annexes précontractuelles et périodiques.",
+    "question": "From what date have the harmonised SFDR pre-contractual annexes been mandatory?",
+    "reponse_reference": "Since 1 January 2023, the date of application of Delegated Regulation (EU) 2022/1288, which sets out the templates for the pre-contractual and periodic annexes.",
     "source": {
-      "texte": "Règlement délégué (UE) 2022/1288",
+      "texte": "Commission Delegated Regulation (EU) 2022/1288",
       "article": "Article 20",
-      "url": "https://eur-lex.europa.eu/legal-content/FR/TXT/?uri=CELEX%3A32022R1288",
+      "adopte": "6 April 2022",
+      "url": "https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX%3A32022R1288",
+      "juridiction": "EU",
+      "langue_source": "en",
       "precision": "article"
     },
     "verification": {
       "statut": "source_verifiee",
-      "note": "Contrôle effectué sur : Règlement délégué (UE) 2022/1288, Article 20. La disposition existe et porte la règle énoncée par la réponse de référence."
+      "note": "Checked against Commission Delegated Regulation (EU) 2022/1288, Article 20. The provision exists and carries the rule stated in the expected answer."
     },
     "reponses_modeles": {
       "modele-a": {
-        "texte": "Donne le 1er janvier 2023 et rattache la date au règlement délégué 2022/1288.",
+        "texte": "Gives 1 January 2023 and ties the date to Delegated Regulation (EU) 2022/1288.",
         "axes": {
           "exactitude": 2,
           "sourcing": 2,
@@ -279,7 +311,7 @@
         "flags": []
       },
       "modele-b": {
-        "texte": "Donne le 1er janvier 2023 et distingue l'entrée en vigueur du règlement de niveau 1 de l'application des modèles d'annexes.",
+        "texte": "Gives 1 January 2023 and separates the entry into force of the level 1 regulation from the application of the annex templates.",
         "axes": {
           "exactitude": 2,
           "sourcing": 2,
@@ -290,7 +322,7 @@
         "flags": []
       },
       "modele-c": {
-        "texte": "Donne le 1er janvier 2023 sans citer le texte qui fixe cette date.",
+        "texte": "Gives 1 January 2023 without citing the text that sets the date.",
         "axes": {
           "exactitude": 2,
           "sourcing": 0,
@@ -303,20 +335,20 @@
         ]
       },
       "modele-d": {
-        "texte": "Donne le 1er janvier 2023 sans citer le règlement délégué qui fixe cette date.",
+        "texte": "Gives 1 January 2023 but presents it as the date SFDR itself became applicable.",
         "axes": {
-          "exactitude": 2,
+          "exactitude": 1,
           "sourcing": 0,
           "calibration": 1,
           "exploitabilite": 1
         },
-        "score": 5,
+        "score": 3.8,
         "flags": [
           "sourcing_incomplet"
         ]
       },
       "modele-e": {
-        "texte": "Indique le 1er janvier 2022 et cite un « règlement délégué 2021/1288 » inexistant.",
+        "texte": "Gives 1 January 2022 and cites a “Delegated Regulation 2021/1288” that does not exist.",
         "axes": {
           "exactitude": 0,
           "sourcing": 0,
@@ -326,7 +358,11 @@
         "score": 0,
         "flags": [
           "hallucination_source"
-        ]
+        ],
+        "analyse": {
+          "correct": "Recognised that a delegated regulation sets the annex templates.",
+          "incorrect": "Cited Delegated Regulation 2021/1288. The instrument is 2022/1288, and the date given is a year early."
+        }
       }
     }
   },
@@ -335,21 +371,24 @@
     "domaine": "SFDR",
     "type": "calcul",
     "difficulte": 3,
-    "question": "Comment se calcule l'indicateur PAI n°1 (émissions de GES) pour un portefeuille d'actions cotées ?",
-    "reponse_reference": "Somme, pour chaque participation, des émissions de scope 1, 2 et 3 de l'émetteur multipliées par la valeur de la participation divisée par la valeur d'entreprise incluant la trésorerie (EVIC), agrégée sur la valeur totale des investissements.",
+    "question": "How is PAI indicator 1 (GHG emissions) calculated for a listed equity portfolio?",
+    "reponse_reference": "For each holding, the issuer's scope 1, 2 and 3 emissions are multiplied by the value of the holding divided by the issuer's enterprise value including cash (EVIC), and the results are aggregated over the total value of investments.",
     "source": {
-      "texte": "Règlement délégué (UE) 2022/1288",
-      "article": "Annexe I, tableau 1, indicateur 1",
-      "url": "https://eur-lex.europa.eu/legal-content/FR/TXT/?uri=CELEX%3A32022R1288",
+      "texte": "Commission Delegated Regulation (EU) 2022/1288",
+      "article": "Annex I, Table 1, indicator 1",
+      "adopte": "6 April 2022",
+      "url": "https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX%3A32022R1288",
+      "juridiction": "EU",
+      "langue_source": "en",
       "precision": "article"
     },
     "verification": {
       "statut": "source_verifiee",
-      "note": "Contrôle effectué sur : Règlement délégué (UE) 2022/1288, Annexe I, tableau 1, indicateur 1. La disposition existe et porte la règle énoncée par la réponse de référence."
+      "note": "Checked against Commission Delegated Regulation (EU) 2022/1288, Annex I, Table 1, indicator 1. The provision exists and carries the rule stated in the expected answer."
     },
     "reponses_modeles": {
       "modele-a": {
-        "texte": "Décrit la pondération par l'EVIC et l'agrégation sur la valeur totale des investissements, mais reste imprécis sur le traitement du scope 3 et ne cite pas le tableau 1 de l'annexe I.",
+        "texte": "Describes the EVIC weighting and the aggregation over total investments, but stays vague on scope 3 and does not cite Table 1 of Annex I.",
         "axes": {
           "exactitude": 1,
           "sourcing": 1,
@@ -362,7 +401,7 @@
         ]
       },
       "modele-b": {
-        "texte": "Donne la pondération par l'EVIC mais omet le scope 3.",
+        "texte": "Gives the EVIC weighting but omits scope 3 emissions.",
         "axes": {
           "exactitude": 1,
           "sourcing": 1,
@@ -375,7 +414,7 @@
         ]
       },
       "modele-c": {
-        "texte": "Décrit une agrégation au prorata sans nommer l'EVIC ni citer l'annexe I.",
+        "texte": "Describes a pro-rata aggregation without naming EVIC or citing Annex I.",
         "axes": {
           "exactitude": 1,
           "sourcing": 0,
@@ -388,7 +427,7 @@
         ]
       },
       "modele-d": {
-        "texte": "Utilise la capitalisation boursière au lieu de l'EVIC et présente le résultat comme conforme à l'annexe I.",
+        "texte": "Uses market capitalisation instead of EVIC and presents the result as compliant with Annex I.",
         "axes": {
           "exactitude": 0,
           "sourcing": 0,
@@ -401,7 +440,7 @@
         ]
       },
       "modele-e": {
-        "texte": "S'abstient : indique ne pas pouvoir restituer la formule de manière fiable.",
+        "texte": "Declines: states it cannot reproduce the formula reliably.",
         "axes": {
           "exactitude": 0,
           "sourcing": 0,
@@ -420,21 +459,24 @@
     "domaine": "MIFID",
     "type": "qualification",
     "difficulte": 2,
-    "question": "La réception-transmission d'ordres pour compte de tiers constitue-t-elle un service d'investissement au sens de MIF 2 ?",
-    "reponse_reference": "Oui. La réception et la transmission d'ordres portant sur un ou plusieurs instruments financiers figure à la section A, point 1, de l'annexe I de la directive 2014/65/UE.",
+    "question": "Does the reception and transmission of orders on behalf of third parties constitute an investment service under MiFID II?",
+    "reponse_reference": "Yes. Reception and transmission of orders in relation to one or more financial instruments is listed in Annex I, Section A, point 1 of Directive 2014/65/EU.",
     "source": {
-      "texte": "Directive 2014/65/UE (MIF 2)",
-      "article": "Annexe I, section A, point 1",
-      "url": "https://eur-lex.europa.eu/legal-content/FR/TXT/?uri=CELEX%3A32014L0065",
+      "texte": "Directive 2014/65/EU (MiFID II)",
+      "article": "Annex I, Section A, point 1",
+      "adopte": "15 May 2014",
+      "url": "https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX%3A32014L0065",
+      "juridiction": "EU",
+      "langue_source": "en",
       "precision": "article"
     },
     "verification": {
       "statut": "source_verifiee",
-      "note": "Contrôle effectué sur : Directive 2014/65/UE (MIF 2), Annexe I, section A, point 1. La disposition existe et porte la règle énoncée par la réponse de référence."
+      "note": "Checked against Directive 2014/65/EU (MiFID II), Annex I, Section A, point 1. The provision exists and carries the rule stated in the expected answer."
     },
     "reponses_modeles": {
       "modele-a": {
-        "texte": "Répond oui et cite l'annexe I, section A, point 1 de la directive 2014/65/UE.",
+        "texte": "Answers yes and cites Annex I, Section A, point 1 of Directive 2014/65/EU.",
         "axes": {
           "exactitude": 2,
           "sourcing": 2,
@@ -445,7 +487,7 @@
         "flags": []
       },
       "modele-b": {
-        "texte": "Répond oui, cite l'annexe I section A et rappelle la transposition à l'article L. 321-1 du code monétaire et financier.",
+        "texte": "Answers yes, cites Annex I Section A, and recalls the French transposition at Article L. 321-1 of the Code monétaire et financier.",
         "axes": {
           "exactitude": 2,
           "sourcing": 2,
@@ -456,7 +498,7 @@
         "flags": []
       },
       "modele-c": {
-        "texte": "Répond oui sans citer la section de l'annexe.",
+        "texte": "Answers yes without citing the relevant section of the annex.",
         "axes": {
           "exactitude": 2,
           "sourcing": 0,
@@ -469,7 +511,7 @@
         ]
       },
       "modele-d": {
-        "texte": "Répond oui et cite l'annexe I, section A, point 1.",
+        "texte": "Answers yes, correctly placing the service in Annex I, Section A.",
         "axes": {
           "exactitude": 2,
           "sourcing": 2,
@@ -480,7 +522,7 @@
         "flags": []
       },
       "modele-e": {
-        "texte": "Répond oui en citant un « article 4(1)(2) » présenté comme la liste des services, alors que celle-ci figure à l'annexe I.",
+        "texte": "Answers yes citing an “Article 4(1)(2)” presented as the list of services, when that list is in Annex I.",
         "axes": {
           "exactitude": 1,
           "sourcing": 1,
@@ -499,21 +541,24 @@
     "domaine": "MIFID",
     "type": "procedure",
     "difficulte": 2,
-    "question": "Quelle est la durée minimale de conservation des enregistrements de conversations téléphoniques portant sur des ordres ?",
-    "reponse_reference": "Cinq ans à compter de l'enregistrement, portée à sept ans sur demande de l'autorité compétente.",
+    "question": "What is the minimum retention period for recordings of telephone conversations relating to orders?",
+    "reponse_reference": "Five years from the date the record was made, extended to seven years where the competent authority so requests.",
     "source": {
-      "texte": "Directive 2014/65/UE (MIF 2)",
+      "texte": "Directive 2014/65/EU (MiFID II)",
       "article": "Article 16(7)",
-      "url": "https://eur-lex.europa.eu/legal-content/FR/TXT/?uri=CELEX%3A32014L0065",
+      "adopte": "15 May 2014",
+      "url": "https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX%3A32014L0065",
+      "juridiction": "EU",
+      "langue_source": "en",
       "precision": "article"
     },
     "verification": {
       "statut": "source_verifiee",
-      "note": "Contrôle effectué sur : Directive 2014/65/UE (MIF 2), Article 16(7). La disposition existe et porte la règle énoncée par la réponse de référence."
+      "note": "Checked against Directive 2014/65/EU (MiFID II), Article 16(7). The provision exists and carries the rule stated in the expected answer."
     },
     "reponses_modeles": {
       "modele-a": {
-        "texte": "Donne cinq ans et l'extension à sept ans sur demande de l'autorité compétente, en citant l'article 16(7).",
+        "texte": "Gives five years and the extension to seven at the competent authority's request, citing Article 16(7).",
         "axes": {
           "exactitude": 2,
           "sourcing": 2,
@@ -524,7 +569,7 @@
         "flags": []
       },
       "modele-b": {
-        "texte": "Donne cinq ans mais omet l'extension à sept ans.",
+        "texte": "Gives five years but omits the extension to seven years.",
         "axes": {
           "exactitude": 1,
           "sourcing": 1,
@@ -537,7 +582,7 @@
         ]
       },
       "modele-c": {
-        "texte": "Donne cinq ans et signale qu'une durée plus longue peut être imposée, sans la chiffrer.",
+        "texte": "Gives five years and notes that a longer period may be imposed, without quantifying it.",
         "axes": {
           "exactitude": 1,
           "sourcing": 1,
@@ -548,7 +593,7 @@
         "flags": []
       },
       "modele-d": {
-        "texte": "Indique dix ans et attribue la règle au règlement délégué 2017/565, qui ne fixe pas cette durée.",
+        "texte": "Gives ten years and attributes the rule to Delegated Regulation (EU) 2017/565, which sets no such period.",
         "axes": {
           "exactitude": 0,
           "sourcing": 0,
@@ -559,10 +604,14 @@
         "flags": [
           "hallucination_source",
           "surconfiance"
-        ]
+        ],
+        "analyse": {
+          "correct": "Identified that MiFID II imposes a minimum retention period for order-related call recordings.",
+          "incorrect": "Doubled the period to ten years and sourced it to Delegated Regulation 2017/565. The five-year rule sits in Article 16(7) of the directive itself."
+        }
       },
       "modele-e": {
-        "texte": "Indique une durée de conservation de trois ans, inférieure au minimum fixé par la directive.",
+        "texte": "Gives a three-year retention period, below the minimum set by the directive.",
         "axes": {
           "exactitude": 0,
           "sourcing": 0,
@@ -572,7 +621,11 @@
         "score": 1.3,
         "flags": [
           "erreur_disqualifiante"
-        ]
+        ],
+        "analyse": {
+          "correct": "Recognised that a minimum retention period applies.",
+          "incorrect": "Gave three years where the directive requires five. A firm following this answer would destroy records it is still legally required to hold."
+        }
       }
     }
   },
@@ -581,21 +634,24 @@
     "domaine": "MIFID",
     "type": "perimetre",
     "difficulte": 3,
-    "question": "Un client professionnel par nature peut-il demander à être traité comme client non professionnel ?",
-    "reponse_reference": "Oui. Le client professionnel peut demander par écrit un traitement en client non professionnel afin de bénéficier d'un niveau de protection plus élevé ; l'entreprise et le client concluent alors un accord écrit précisant les services et instruments concernés.",
+    "question": "May a per se professional client request to be treated as a retail client?",
+    "reponse_reference": "Yes. A professional client may request in writing to be treated as a retail client in order to obtain a higher level of protection; the firm and the client then enter into a written agreement specifying the services and instruments concerned.",
     "source": {
-      "texte": "Directive 2014/65/UE (MIF 2)",
-      "article": "Annexe II, section I",
-      "url": "https://eur-lex.europa.eu/legal-content/FR/TXT/?uri=CELEX%3A32014L0065",
+      "texte": "Directive 2014/65/EU (MiFID II)",
+      "article": "Annex II, Section I",
+      "adopte": "15 May 2014",
+      "url": "https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX%3A32014L0065",
+      "juridiction": "EU",
+      "langue_source": "en",
       "precision": "article"
     },
     "verification": {
       "statut": "source_verifiee",
-      "note": "Contrôle effectué sur : Directive 2014/65/UE (MIF 2), Annexe II, section I. La disposition existe et porte la règle énoncée par la réponse de référence."
+      "note": "Checked against Directive 2014/65/EU (MiFID II), Annex II, Section I. The provision exists and carries the rule stated in the expected answer."
     },
     "reponses_modeles": {
       "modele-a": {
-        "texte": "Répond oui, décrit la demande écrite puis l'accord écrit délimitant services et instruments, et cite l'annexe II section I.",
+        "texte": "Answers yes, describes the written request then the written agreement delimiting services and instruments, and cites Annex II Section I.",
         "axes": {
           "exactitude": 2,
           "sourcing": 2,
@@ -606,7 +662,7 @@
         "flags": []
       },
       "modele-b": {
-        "texte": "Répond oui et cite l'annexe II, sans mentionner l'accord écrit délimitant services et instruments.",
+        "texte": "Answers yes and cites Annex II, without mentioning the written agreement delimiting services and instruments.",
         "axes": {
           "exactitude": 1,
           "sourcing": 2,
@@ -617,7 +673,7 @@
         "flags": []
       },
       "modele-c": {
-        "texte": "Répond oui sans préciser le formalisme applicable.",
+        "texte": "Answers yes without specifying the required formalities.",
         "axes": {
           "exactitude": 1,
           "sourcing": 0,
@@ -630,7 +686,7 @@
         ]
       },
       "modele-d": {
-        "texte": "Répond non : présente la catégorie de client professionnel par nature comme irréversible.",
+        "texte": "Answers no: presents the per se professional client category as irreversible.",
         "axes": {
           "exactitude": 0,
           "sourcing": 0,
@@ -641,10 +697,14 @@
         "flags": [
           "erreur_disqualifiante",
           "surconfiance"
-        ]
+        ],
+        "analyse": {
+          "correct": "Nothing usable.",
+          "incorrect": "Denied a right the directive expressly grants. Annex II, Section I lets a professional client request retail treatment to obtain a higher level of protection."
+        }
       },
       "modele-e": {
-        "texte": "Répond oui mais décrit la procédure inverse, celle par laquelle un non-professionnel renonce à sa protection.",
+        "texte": "Answers yes but describes the opposite procedure, by which a retail client waives protection.",
         "axes": {
           "exactitude": 0,
           "sourcing": 1,
@@ -661,21 +721,24 @@
     "domaine": "MIFID",
     "type": "calcul",
     "difficulte": 2,
-    "question": "Quel seuil de variation de valeur déclenche l'information du client sur un portefeuille géré avec effet de levier ?",
-    "reponse_reference": "Le seuil par défaut est une dépréciation de 10 % de la valeur totale du portefeuille, puis par multiples de 10 %.",
+    "question": "What depreciation threshold triggers client notification for a leveraged managed portfolio?",
+    "reponse_reference": "The default threshold is a 10% depreciation of the overall value of the portfolio, and thereafter at multiples of 10%.",
     "source": {
-      "texte": "Règlement délégué (UE) 2017/565",
+      "texte": "Commission Delegated Regulation (EU) 2017/565",
       "article": "Article 62(2)",
-      "url": "https://eur-lex.europa.eu/legal-content/FR/TXT/?uri=CELEX%3A32017R0565",
+      "adopte": "25 April 2016",
+      "url": "https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX%3A32017R0565",
+      "juridiction": "EU",
+      "langue_source": "en",
       "precision": "article"
     },
     "verification": {
       "statut": "source_verifiee",
-      "note": "Contrôle effectué sur : Règlement délégué (UE) 2017/565, Article 62(2). La disposition existe et porte la règle énoncée par la réponse de référence."
+      "note": "Checked against Commission Delegated Regulation (EU) 2017/565, Article 62(2). The provision exists and carries the rule stated in the expected answer."
     },
     "reponses_modeles": {
       "modele-a": {
-        "texte": "Donne 10 % puis les multiples successifs de 10 %, en citant l'article 62(2) du règlement délégué 2017/565.",
+        "texte": "Gives 10% then the successive multiples of 10%, citing Article 62(2) of Delegated Regulation (EU) 2017/565.",
         "axes": {
           "exactitude": 2,
           "sourcing": 2,
@@ -686,7 +749,7 @@
         "flags": []
       },
       "modele-b": {
-        "texte": "Donne 10 % et cite le règlement délégué, sans mentionner les multiples successifs.",
+        "texte": "Gives 10% and cites the delegated regulation, without the successive multiples.",
         "axes": {
           "exactitude": 1,
           "sourcing": 2,
@@ -697,7 +760,7 @@
         "flags": []
       },
       "modele-c": {
-        "texte": "S'abstient : indique que le seuil dépend de la convention de gestion signée avec le client.",
+        "texte": "Declines: states the threshold depends on the management agreement signed with the client.",
         "axes": {
           "exactitude": 0,
           "sourcing": 0,
@@ -710,7 +773,7 @@
         ]
       },
       "modele-d": {
-        "texte": "Donne 20 % et présente le seuil comme fixé par la directive elle-même.",
+        "texte": "Gives 20% and presents the threshold as set by the directive itself.",
         "axes": {
           "exactitude": 0,
           "sourcing": 0,
@@ -723,7 +786,7 @@
         ]
       },
       "modele-e": {
-        "texte": "Donne 10 % mais cite un « article 62(4) » du règlement délégué, qui porte sur un autre objet.",
+        "texte": "Gives 10% but cites an “Article 62(4)” of the delegated regulation, which deals with another matter.",
         "axes": {
           "exactitude": 2,
           "sourcing": 0,
@@ -742,21 +805,24 @@
     "domaine": "AMF",
     "type": "procedure",
     "difficulte": 3,
-    "question": "Dans quel délai un émetteur doit-il publier une information privilégiée le concernant ?",
-    "reponse_reference": "Dès que possible, sauf différé licite sous les conditions cumulatives de l'article 17(4) MAR : intérêts légitimes, absence d'induction en erreur du public et confidentialité assurée.",
+    "question": "Within what time must an issuer disclose inside information concerning it?",
+    "reponse_reference": "As soon as possible, unless disclosure is lawfully delayed under the cumulative conditions of Article 17(4) MAR: legitimate interests, delay not likely to mislead the public, and confidentiality of the information ensured.",
     "source": {
-      "texte": "Règlement (UE) 596/2014 (MAR)",
+      "texte": "Regulation (EU) No 596/2014 (MAR)",
       "article": "Article 17",
-      "url": "https://eur-lex.europa.eu/legal-content/FR/TXT/?uri=CELEX%3A32014R0596",
+      "adopte": "16 April 2014",
+      "url": "https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX%3A32014R0596",
+      "juridiction": "EU",
+      "langue_source": "en",
       "precision": "article"
     },
     "verification": {
       "statut": "source_verifiee",
-      "note": "Contrôle effectué sur : Règlement (UE) 596/2014 (MAR), Article 17. La disposition existe et porte la règle énoncée par la réponse de référence."
+      "note": "Checked against Regulation (EU) No 596/2014 (MAR), Article 17. The provision exists and carries the rule stated in the expected answer."
     },
     "reponses_modeles": {
       "modele-a": {
-        "texte": "Donne la publication dès que possible et les trois conditions cumulatives du différé prévu à l'article 17(4).",
+        "texte": "Gives disclosure as soon as possible and the three cumulative conditions for lawful delay under Article 17(4).",
         "axes": {
           "exactitude": 2,
           "sourcing": 2,
@@ -767,7 +833,7 @@
         "flags": []
       },
       "modele-b": {
-        "texte": "Donne la publication dès que possible et le principe du différé, sans énumérer les trois conditions cumulatives.",
+        "texte": "Gives disclosure as soon as possible and the principle of delay, without listing the three cumulative conditions.",
         "axes": {
           "exactitude": 1,
           "sourcing": 2,
@@ -780,7 +846,7 @@
         ]
       },
       "modele-c": {
-        "texte": "Donne la publication dès que possible et signale l'existence d'un différé encadré, en renvoyant au texte pour ses conditions.",
+        "texte": "Gives disclosure as soon as possible and flags a framed delay mechanism, referring to the text for its conditions.",
         "axes": {
           "exactitude": 1,
           "sourcing": 1,
@@ -791,7 +857,7 @@
         "flags": []
       },
       "modele-d": {
-        "texte": "Indique un délai de 24 heures et invente une position-recommandation de l'AMF qui fixerait ce délai.",
+        "texte": "States a 24-hour deadline and invents an AMF position-recommendation that would set it.",
         "axes": {
           "exactitude": 0,
           "sourcing": 0,
@@ -802,10 +868,14 @@
         "flags": [
           "hallucination_source",
           "surconfiance"
-        ]
+        ],
+        "analyse": {
+          "correct": "Identified that disclosure of inside information is time-critical, and that the AMF supervises French issuers.",
+          "incorrect": "MAR sets no 24-hour clock: disclosure is required as soon as possible. The AMF position-recommendation cited to support the deadline does not exist."
+        }
       },
       "modele-e": {
-        "texte": "Donne « sans délai » et confond le différé avec une dérogation propre aux émetteurs de petite capitalisation.",
+        "texte": "Gives “without delay” and confuses the delay mechanism with a derogation specific to small-cap issuers.",
         "axes": {
           "exactitude": 0,
           "sourcing": 0,
@@ -822,21 +892,24 @@
     "domaine": "AMF",
     "type": "qualification",
     "difficulte": 2,
-    "question": "Le franchissement du seuil de 5 % du capital d'une société cotée en France doit-il être déclaré et à qui ?",
-    "reponse_reference": "Oui. Déclaration à la société et à l'AMF dans un délai de quatre jours de négociation suivant le franchissement, avec déclaration d'intention lorsque les seuils de 10, 15, 20 ou 25 % sont franchis.",
+    "question": "Must crossing the 5% shareholding threshold in a French listed company be disclosed, and to whom?",
+    "reponse_reference": "Yes. Disclosure to the company and to the AMF within four trading days of crossing the threshold, together with a statement of intent where the 10, 15, 20 or 25% thresholds are crossed.",
     "source": {
-      "texte": "Code de commerce",
+      "texte": "Code de commerce (France)",
       "article": "Article L. 233-7",
+      "adopte": "Consolidated text",
       "url": "https://www.legifrance.gouv.fr/codes/article_lc/LEGIARTI000038612042",
+      "juridiction": "FR",
+      "langue_source": "fr",
       "precision": "article"
     },
     "verification": {
       "statut": "source_verifiee",
-      "note": "Contrôle effectué sur : Code de commerce, Article L. 233-7. La disposition existe et porte la règle énoncée par la réponse de référence."
+      "note": "Checked against Code de commerce (France), Article L. 233-7. The provision exists and carries the rule stated in the expected answer."
     },
     "reponses_modeles": {
       "modele-a": {
-        "texte": "Donne la déclaration à la société et à l'AMF sous quatre jours de négociation, et cite l'article L. 233-7 du code de commerce.",
+        "texte": "Gives disclosure to the company and to the AMF within four trading days, citing Article L. 233-7 of the Code de commerce.",
         "axes": {
           "exactitude": 2,
           "sourcing": 2,
@@ -847,7 +920,7 @@
         "flags": []
       },
       "modele-b": {
-        "texte": "Donne le principe de la déclaration mais situe l'obligation dans le code monétaire et financier au lieu du code de commerce.",
+        "texte": "Gives the disclosure principle but locates the obligation in the Code monétaire et financier rather than the Code de commerce.",
         "axes": {
           "exactitude": 1,
           "sourcing": 0,
@@ -860,7 +933,7 @@
         ]
       },
       "modele-c": {
-        "texte": "Donne les destinataires et le délai sans citer d'article.",
+        "texte": "Gives the recipients and the deadline without citing any article.",
         "axes": {
           "exactitude": 2,
           "sourcing": 0,
@@ -873,7 +946,7 @@
         ]
       },
       "modele-d": {
-        "texte": "Indique un délai de cinq jours ouvrés et une déclaration à l'AMF seule.",
+        "texte": "Gives a five-business-day deadline and disclosure to the AMF alone.",
         "axes": {
           "exactitude": 0,
           "sourcing": 1,
@@ -886,7 +959,7 @@
         ]
       },
       "modele-e": {
-        "texte": "Invente un « article L. 233-9-1 » et un seuil de déclaration fixé à 3 %.",
+        "texte": "Invents an “Article L. 233-9-1” and a disclosure threshold set at 3%.",
         "axes": {
           "exactitude": 0,
           "sourcing": 0,
@@ -896,7 +969,11 @@
         "score": 0,
         "flags": [
           "hallucination_source"
-        ]
+        ],
+        "analyse": {
+          "correct": "Recognised that crossing a shareholding threshold triggers disclosure in France.",
+          "incorrect": "Cited Article L. 233-9-1, which does not exist, and set the first threshold at 3% instead of 5%."
+        }
       }
     }
   },
@@ -905,21 +982,24 @@
     "domaine": "AMF",
     "type": "datation",
     "difficulte": 1,
-    "question": "Quelle est la date d'entrée en application du règlement Prospectus (UE) 2017/1129 ?",
-    "reponse_reference": "Le 21 juillet 2019 pour l'essentiel de ses dispositions, certaines s'appliquant dès le 20 juillet 2017 et le 21 juillet 2018.",
+    "question": "When did the Prospectus Regulation (EU) 2017/1129 become applicable?",
+    "reponse_reference": "21 July 2019 for most of its provisions, with certain provisions applying from 20 July 2017 and 21 July 2018.",
     "source": {
-      "texte": "Règlement (UE) 2017/1129",
+      "texte": "Regulation (EU) 2017/1129 (Prospectus)",
       "article": "Article 49",
-      "url": "https://eur-lex.europa.eu/legal-content/FR/TXT/?uri=CELEX%3A32017R1129",
+      "adopte": "14 June 2017",
+      "url": "https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX%3A32017R1129",
+      "juridiction": "EU",
+      "langue_source": "en",
       "precision": "article"
     },
     "verification": {
       "statut": "source_verifiee",
-      "note": "Contrôle effectué sur : Règlement (UE) 2017/1129, Article 49. La disposition existe et porte la règle énoncée par la réponse de référence."
+      "note": "Checked against Regulation (EU) 2017/1129 (Prospectus), Article 49. The provision exists and carries the rule stated in the expected answer."
     },
     "reponses_modeles": {
       "modele-a": {
-        "texte": "Donne le 21 juillet 2019 et signale l'application anticipée de certaines dispositions, sans citer l'article 49.",
+        "texte": "Gives 21 July 2019 and flags the early application of certain provisions, without citing Article 49.",
         "axes": {
           "exactitude": 2,
           "sourcing": 1,
@@ -930,7 +1010,7 @@
         "flags": []
       },
       "modele-b": {
-        "texte": "Donne le 21 juillet 2019 sans mentionner les dispositions d'application anticipée.",
+        "texte": "Gives 21 July 2019 without mentioning the provisions that applied earlier.",
         "axes": {
           "exactitude": 2,
           "sourcing": 1,
@@ -941,7 +1021,7 @@
         "flags": []
       },
       "modele-c": {
-        "texte": "Donne le 21 juillet 2019.",
+        "texte": "Gives 21 July 2019 with no further qualification.",
         "axes": {
           "exactitude": 2,
           "sourcing": 1,
@@ -952,7 +1032,7 @@
         "flags": []
       },
       "modele-d": {
-        "texte": "Donne le 20 juillet 2017, date d'entrée en vigueur, présentée comme la date d'application générale.",
+        "texte": "Gives 20 July 2017, the date of entry into force, presented as the general date of application.",
         "axes": {
           "exactitude": 0,
           "sourcing": 1,
@@ -965,7 +1045,7 @@
         ]
       },
       "modele-e": {
-        "texte": "Donne 2018 et attribue la date à la directive 2003/71/CE, abrogée par le règlement.",
+        "texte": "Gives 2018 and attributes the date to Directive 2003/71/EC, repealed by the regulation.",
         "axes": {
           "exactitude": 0,
           "sourcing": 0,
@@ -975,7 +1055,11 @@
         "score": 1.3,
         "flags": [
           "hallucination_source"
-        ]
+        ],
+        "analyse": {
+          "correct": "Recognised that an earlier prospectus regime preceded the current one.",
+          "incorrect": "Sourced the answer to Directive 2003/71/EC, repealed by Regulation 2017/1129. Citing a repealed instrument as the applicable text is the failure the benchmark is built to catch."
+        }
       }
     }
   },
@@ -984,21 +1068,24 @@
     "domaine": "AMF",
     "type": "perimetre",
     "difficulte": 3,
-    "question": "Une société de gestion de portefeuille française gérant uniquement des FIA réservés à des investisseurs professionnels est-elle soumise au régime d'agrément AIFM complet ?",
-    "reponse_reference": "Non nécessairement : sous les seuils de l'article 3(2) de la directive 2011/61/UE (100 M€ avec levier, 500 M€ sans levier et sans rachat pendant 5 ans), le régime allégé d'enregistrement s'applique, sans passeport de gestion.",
+    "question": "Is a French portfolio management company managing only AIFs reserved for professional investors subject to the full AIFMD authorisation regime?",
+    "reponse_reference": "Not necessarily. Below the Article 3(2) thresholds of Directive 2011/61/EU (EUR 100 million with leverage, EUR 500 million unleveraged with no redemption rights for five years), the lighter registration regime applies, without the management passport.",
     "source": {
-      "texte": "Directive 2011/61/UE (AIFM)",
+      "texte": "Directive 2011/61/EU (AIFMD)",
       "article": "Article 3(2)",
-      "url": "https://eur-lex.europa.eu/legal-content/FR/TXT/?uri=CELEX%3A32011L0061",
+      "adopte": "8 June 2011",
+      "url": "https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX%3A32011L0061",
+      "juridiction": "EU",
+      "langue_source": "en",
       "precision": "article"
     },
     "verification": {
       "statut": "source_verifiee",
-      "note": "Contrôle effectué sur : Directive 2011/61/UE (AIFM), Article 3(2). La disposition existe et porte la règle énoncée par la réponse de référence."
+      "note": "Checked against Directive 2011/61/EU (AIFMD), Article 3(2). The provision exists and carries the rule stated in the expected answer."
     },
     "reponses_modeles": {
       "modele-a": {
-        "texte": "Donne les seuils de 100 M€ et 500 M€ mais omet la condition d'absence de rachat pendant cinq ans et ne cite pas l'article 3(2).",
+        "texte": "Gives the EUR 100 million and EUR 500 million thresholds but omits the five-year no-redemption condition and does not cite Article 3(2).",
         "axes": {
           "exactitude": 1,
           "sourcing": 1,
@@ -1011,7 +1098,7 @@
         ]
       },
       "modele-b": {
-        "texte": "Donne les deux seuils et cite l'article 3(2), sans mentionner la condition d'absence de rachat pendant cinq ans.",
+        "texte": "Gives both thresholds and cites Article 3(2), without the five-year no-redemption condition.",
         "axes": {
           "exactitude": 1,
           "sourcing": 2,
@@ -1022,7 +1109,7 @@
         "flags": []
       },
       "modele-c": {
-        "texte": "S'abstient : indique que le régime dépend de l'encours géré et renvoie à la directive sans donner les seuils.",
+        "texte": "Declines: states the regime depends on assets under management and refers to the directive without giving the thresholds.",
         "axes": {
           "exactitude": 0,
           "sourcing": 1,
@@ -1035,7 +1122,7 @@
         ]
       },
       "modele-d": {
-        "texte": "Répond que l'agrément AIFM complet est obligatoire pour toute société de gestion française.",
+        "texte": "Answers that full AIFMD authorisation is mandatory for every French management company.",
         "axes": {
           "exactitude": 0,
           "sourcing": 0,
@@ -1046,10 +1133,14 @@
         "flags": [
           "erreur_disqualifiante",
           "surconfiance"
-        ]
+        ],
+        "analyse": {
+          "correct": "Nothing usable.",
+          "incorrect": "Erased the de minimis regime entirely. Article 3(2) exempts managers below the thresholds from full authorisation, subject to registration."
+        }
       },
       "modele-e": {
-        "texte": "Donne un seuil unique de 1 milliard d'euros, sans base textuelle.",
+        "texte": "Gives a single EUR 1 billion threshold, with no textual basis.",
         "axes": {
           "exactitude": 0,
           "sourcing": 0,
@@ -1059,7 +1150,11 @@
         "score": 0,
         "flags": [
           "hallucination_source"
-        ]
+        ],
+        "analyse": {
+          "correct": "Recognised that a size threshold governs which regime applies.",
+          "incorrect": "Produced a EUR 1 billion figure that appears nowhere in AIFMD, and cited no provision to support it."
+        }
       }
     }
   },
@@ -1068,21 +1163,24 @@
     "domaine": "DORA",
     "type": "procedure",
     "difficulte": 2,
-    "question": "Quel est le délai de notification initiale d'un incident majeur lié aux TIC à l'autorité compétente sous DORA ?",
-    "reponse_reference": "La notification initiale est transmise au plus tard dans les quatre heures suivant la classification de l'incident comme majeur, et en tout état de cause au plus tard 24 heures après sa détection.",
+    "question": "What is the deadline for the initial notification of a major ICT-related incident to the competent authority under DORA?",
+    "reponse_reference": "The initial notification is submitted no later than four hours after the incident is classified as major, and in any event no later than 24 hours after detection.",
     "source": {
-      "texte": "Règlement (UE) 2022/2554 (DORA)",
-      "article": "Article 19 et règlement délégué associé",
-      "url": "https://eur-lex.europa.eu/legal-content/FR/TXT/?uri=CELEX%3A32022R2554",
+      "texte": "Regulation (EU) 2022/2554 (DORA)",
+      "article": "Article 19 and the associated delegated regulation",
+      "adopte": "14 December 2022",
+      "url": "https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX%3A32022R2554",
+      "juridiction": "EU",
+      "langue_source": "en",
       "precision": "article"
     },
     "verification": {
       "statut": "en_revue",
-      "note": "L'article 19 pose l'obligation de notification mais ne fixe pas les délais de 4 h et 24 h : ceux-ci relèvent des normes techniques d'exécution, dont la référence précise reste à établir."
+      "note": "Article 19 establishes the notification duty but does not itself set the 4-hour and 24-hour deadlines: those come from the implementing technical standards, whose precise reference is not yet established."
     },
     "reponses_modeles": {
       "modele-a": {
-        "texte": "Donne les quatre heures après classification et les 24 heures après détection, mais rattache ces délais à l'article 19 lui-même sans mentionner les normes techniques qui les fixent.",
+        "texte": "Gives four hours after classification and 24 hours after detection, but ties them to Article 19 itself without mentioning the technical standards that set them.",
         "axes": {
           "exactitude": 1,
           "sourcing": 1,
@@ -1095,7 +1193,7 @@
         ]
       },
       "modele-b": {
-        "texte": "Donne le principe d'une notification initiale rapide et signale que les délais chiffrés figurent dans les normes techniques, non à l'article 19 lui-même.",
+        "texte": "Gives the principle of a rapid initial notification and flags that the numerical deadlines sit in the technical standards, not in Article 19 itself.",
         "axes": {
           "exactitude": 1,
           "sourcing": 2,
@@ -1106,7 +1204,7 @@
         "flags": []
       },
       "modele-c": {
-        "texte": "S'abstient : indique que les délais sont fixés par un acte délégué qu'il ne peut citer avec certitude.",
+        "texte": "Declines: states the deadlines are set by a delegated act it cannot cite with certainty.",
         "axes": {
           "exactitude": 0,
           "sourcing": 1,
@@ -1119,7 +1217,7 @@
         ]
       },
       "modele-d": {
-        "texte": "Donne 72 heures, délai emprunté au RGPD, et l'attribue à l'article 19 de DORA.",
+        "texte": "Gives 72 hours, a deadline borrowed from the GDPR, and attributes it to Article 19 of DORA.",
         "axes": {
           "exactitude": 0,
           "sourcing": 0,
@@ -1130,10 +1228,14 @@
         "flags": [
           "hallucination_source",
           "surconfiance"
-        ]
+        ],
+        "analyse": {
+          "correct": "Identified that a major ICT incident triggers a mandatory notification to the competent authority.",
+          "incorrect": "Imported the GDPR's 72-hour personal data breach deadline into DORA and attributed it to Article 19. The two regimes are separate, and the DORA deadlines are far shorter."
+        }
       },
       "modele-e": {
-        "texte": "Répond « sans délai » sans autre précision.",
+        "texte": "Answers “without delay” with no further detail.",
         "axes": {
           "exactitude": 0,
           "sourcing": 0,
@@ -1150,21 +1252,24 @@
     "domaine": "DORA",
     "type": "datation",
     "difficulte": 1,
-    "question": "Depuis quelle date DORA est-il applicable ?",
-    "reponse_reference": "Depuis le 17 janvier 2025.",
+    "question": "Since when has DORA applied?",
+    "reponse_reference": "Since 17 January 2025.",
     "source": {
-      "texte": "Règlement (UE) 2022/2554 (DORA)",
+      "texte": "Regulation (EU) 2022/2554 (DORA)",
       "article": "Article 64",
-      "url": "https://eur-lex.europa.eu/legal-content/FR/TXT/?uri=CELEX%3A32022R2554",
+      "adopte": "14 December 2022",
+      "url": "https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX%3A32022R2554",
+      "juridiction": "EU",
+      "langue_source": "en",
       "precision": "article"
     },
     "verification": {
       "statut": "source_verifiee",
-      "note": "Contrôle effectué sur : Règlement (UE) 2022/2554 (DORA), Article 64. La disposition existe et porte la règle énoncée par la réponse de référence."
+      "note": "Checked against Regulation (EU) 2022/2554 (DORA), Article 64. The provision exists and carries the rule stated in the expected answer."
     },
     "reponses_modeles": {
       "modele-a": {
-        "texte": "Donne le 17 janvier 2025 et rappelle que le règlement s'applique directement, sans mesure de transposition.",
+        "texte": "Gives 17 January 2025 and recalls that the regulation applies directly, without national transposition.",
         "axes": {
           "exactitude": 2,
           "sourcing": 1,
@@ -1175,7 +1280,7 @@
         "flags": []
       },
       "modele-b": {
-        "texte": "Donne le 17 janvier 2025 et cite l'article 64.",
+        "texte": "Gives 17 January 2025 and cites Article 64.",
         "axes": {
           "exactitude": 2,
           "sourcing": 2,
@@ -1186,7 +1291,7 @@
         "flags": []
       },
       "modele-c": {
-        "texte": "Donne le 17 janvier 2025, sans distinguer cette date de celle de l'entrée en vigueur.",
+        "texte": "Gives 17 January 2025 without distinguishing that date from entry into force.",
         "axes": {
           "exactitude": 2,
           "sourcing": 1,
@@ -1197,7 +1302,7 @@
         "flags": []
       },
       "modele-d": {
-        "texte": "Donne le 16 janvier 2023, date d'entrée en vigueur, en la présentant comme la date d'application.",
+        "texte": "Gives 16 January 2023, the date of entry into force, presented as the date of application.",
         "axes": {
           "exactitude": 0,
           "sourcing": 1,
@@ -1210,7 +1315,7 @@
         ]
       },
       "modele-e": {
-        "texte": "Donne le 17 janvier 2025 mais ne rattache la date à aucun article du règlement.",
+        "texte": "Gives 17 January 2025 but ties the date to no article of the regulation.",
         "axes": {
           "exactitude": 2,
           "sourcing": 0,
@@ -1227,21 +1332,24 @@
     "domaine": "DORA",
     "type": "qualification",
     "difficulte": 2,
-    "question": "Un prestataire de services de cloud utilisé pour l'hébergement du core banking relève-t-il des fonctions critiques ou importantes ?",
-    "reponse_reference": "Oui lorsque son interruption altérerait de manière significative la performance financière ou la solidité de l'entité, ou la continuité de ses services : le contrat doit alors respecter les exigences renforcées de l'article 30(3).",
+    "question": "Does a cloud provider hosting core banking fall within critical or important functions?",
+    "reponse_reference": "Yes where its disruption would materially impair the financial performance or the soundness of the entity, or the continuity of its services: the contract must then meet the reinforced requirements of Article 30(3).",
     "source": {
-      "texte": "Règlement (UE) 2022/2554 (DORA)",
-      "article": "Articles 3(22) et 30(3)",
-      "url": "https://eur-lex.europa.eu/legal-content/FR/TXT/?uri=CELEX%3A32022R2554",
+      "texte": "Regulation (EU) 2022/2554 (DORA)",
+      "article": "Articles 3(22) and 30(3)",
+      "adopte": "14 December 2022",
+      "url": "https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX%3A32022R2554",
+      "juridiction": "EU",
+      "langue_source": "en",
       "precision": "article"
     },
     "verification": {
       "statut": "source_verifiee",
-      "note": "Contrôle effectué sur : Règlement (UE) 2022/2554 (DORA), Articles 3(22) et 30(3). La disposition existe et porte la règle énoncée par la réponse de référence."
+      "note": "Checked against Regulation (EU) 2022/2554 (DORA), Articles 3(22) and 30(3). The provision exists and carries the rule stated in the expected answer."
     },
     "reponses_modeles": {
       "modele-a": {
-        "texte": "Répond que la qualification dépend de l'impact d'une interruption et renvoie aux articles 3(22) et 30(3).",
+        "texte": "Answers that qualification depends on the impact of a disruption and refers to Articles 3(22) and 30(3).",
         "axes": {
           "exactitude": 2,
           "sourcing": 2,
@@ -1252,7 +1360,7 @@
         "flags": []
       },
       "modele-b": {
-        "texte": "Répond oui pour un core banking et cite les exigences contractuelles renforcées de l'article 30(3).",
+        "texte": "Answers yes for a core banking system and cites the reinforced contractual requirements of Article 30(3).",
         "axes": {
           "exactitude": 2,
           "sourcing": 2,
@@ -1263,7 +1371,7 @@
         "flags": []
       },
       "modele-c": {
-        "texte": "Répond que la qualification relève d'une appréciation de l'entité et s'abstient de trancher.",
+        "texte": "Answers that qualification is a matter for the entity's own assessment and declines to conclude.",
         "axes": {
           "exactitude": 1,
           "sourcing": 1,
@@ -1276,7 +1384,7 @@
         ]
       },
       "modele-d": {
-        "texte": "Répond que tout recours au cloud emporte automatiquement qualification de fonction critique.",
+        "texte": "Answers that any use of cloud automatically qualifies as a critical function.",
         "axes": {
           "exactitude": 0,
           "sourcing": 0,
@@ -1289,7 +1397,7 @@
         ]
       },
       "modele-e": {
-        "texte": "Cite un « article 28(9) » qui imposerait une autorisation préalable de l'autorité compétente et qui n'existe pas.",
+        "texte": "Cites an “Article 28(9)” requiring prior authorisation from the competent authority, which does not exist.",
         "axes": {
           "exactitude": 0,
           "sourcing": 0,
@@ -1299,7 +1407,11 @@
         "score": 0,
         "flags": [
           "hallucination_source"
-        ]
+        ],
+        "analyse": {
+          "correct": "Recognised that DORA imposes specific requirements on ICT third-party arrangements.",
+          "incorrect": "Invented Article 28(9) and a prior authorisation requirement. DORA imposes contractual and register obligations, not authorisation of each provider."
+        }
       }
     }
   },
@@ -1308,21 +1420,24 @@
     "domaine": "DORA",
     "type": "perimetre",
     "difficulte": 3,
-    "question": "Les tests de pénétration fondés sur la menace (TLPT) sont-ils obligatoires pour toutes les entités financières ?",
-    "reponse_reference": "Non. Ils ne s'imposent qu'aux entités identifiées par les autorités compétentes comme significatives au regard de critères de taille, de profil de risque et de criticité, au moins tous les trois ans.",
+    "question": "Is threat-led penetration testing (TLPT) mandatory for all financial entities?",
+    "reponse_reference": "No. It applies only to entities identified by competent authorities as significant on the basis of size, risk profile and criticality, and then at least every three years.",
     "source": {
-      "texte": "Règlement (UE) 2022/2554 (DORA)",
+      "texte": "Regulation (EU) 2022/2554 (DORA)",
       "article": "Article 26",
-      "url": "https://eur-lex.europa.eu/legal-content/FR/TXT/?uri=CELEX%3A32022R2554",
+      "adopte": "14 December 2022",
+      "url": "https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX%3A32022R2554",
+      "juridiction": "EU",
+      "langue_source": "en",
       "precision": "article"
     },
     "verification": {
       "statut": "source_verifiee",
-      "note": "Contrôle effectué sur : Règlement (UE) 2022/2554 (DORA), Article 26. La disposition existe et porte la règle énoncée par la réponse de référence."
+      "note": "Checked against Regulation (EU) 2022/2554 (DORA), Article 26. The provision exists and carries the rule stated in the expected answer."
     },
     "reponses_modeles": {
       "modele-a": {
-        "texte": "Répond non et décrit la désignation par l'autorité compétente, sans mentionner la périodicité d'au moins trois ans.",
+        "texte": "Answers no and describes designation by the competent authority, without mentioning the at-least-three-year cycle.",
         "axes": {
           "exactitude": 1,
           "sourcing": 2,
@@ -1333,7 +1448,7 @@
         "flags": []
       },
       "modele-b": {
-        "texte": "Répond non et cite l'article 26, sans mentionner la périodicité.",
+        "texte": "Answers no and cites Article 26, without mentioning the periodicity.",
         "axes": {
           "exactitude": 1,
           "sourcing": 2,
@@ -1346,7 +1461,7 @@
         ]
       },
       "modele-c": {
-        "texte": "Répond non sans préciser les critères de désignation.",
+        "texte": "Answers no without specifying the designation criteria.",
         "axes": {
           "exactitude": 1,
           "sourcing": 0,
@@ -1357,7 +1472,7 @@
         "flags": []
       },
       "modele-d": {
-        "texte": "Répond oui : présente les TLPT comme obligatoires pour toutes les entités financières.",
+        "texte": "Answers yes: presents TLPT as mandatory for every financial entity.",
         "axes": {
           "exactitude": 0,
           "sourcing": 0,
@@ -1368,10 +1483,14 @@
         "flags": [
           "erreur_disqualifiante",
           "surconfiance"
-        ]
+        ],
+        "analyse": {
+          "correct": "Nothing usable.",
+          "incorrect": "Extended to all entities a requirement Article 26 reserves for those designated as significant. Acting on it would impose a costly testing programme on entities that owe none."
+        }
       },
       "modele-e": {
-        "texte": "Répond non mais renvoie au cadre TIBER-EU comme s'il s'agissait du texte applicable.",
+        "texte": "Answers no but refers to the TIBER-EU framework as though it were the applicable text.",
         "axes": {
           "exactitude": 1,
           "sourcing": 0,
@@ -1390,21 +1509,24 @@
     "domaine": "DORA",
     "type": "calcul",
     "difficulte": 3,
-    "question": "Quels seuils de matérialité permettent de classer un incident TIC comme majeur ?",
-    "reponse_reference": "La classification combine notamment le nombre de clients affectés et la part des transactions concernées, la durée et l'indisponibilité du service, l'étendue géographique, les pertes de données et l'impact économique, selon les seuils du règlement délégué de classification.",
+    "question": "Which materiality thresholds allow an ICT incident to be classified as major?",
+    "reponse_reference": "Classification combines, among others, the number of clients affected and the share of transactions concerned, the duration and service downtime, the geographical spread, data losses and economic impact, against the thresholds set in the delegated regulation on classification.",
     "source": {
-      "texte": "Règlement (UE) 2022/2554 (DORA)",
-      "article": "Article 18 et règlement délégué de classification",
-      "url": "https://eur-lex.europa.eu/legal-content/FR/TXT/?uri=CELEX%3A32022R2554",
+      "texte": "Regulation (EU) 2022/2554 (DORA)",
+      "article": "Article 18 and the delegated regulation on classification",
+      "adopte": "14 December 2022",
+      "url": "https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX%3A32022R2554",
+      "juridiction": "EU",
+      "langue_source": "en",
       "precision": "article"
     },
     "verification": {
       "statut": "en_revue",
-      "note": "L'article 18 énonce les critères de classification ; les seuils de matérialité chiffrés relèvent du règlement délégué de classification, dont la référence précise reste à établir."
+      "note": "Article 18 lists the classification criteria; the numerical materiality thresholds sit in the delegated regulation on classification, whose precise reference is not yet established."
     },
     "reponses_modeles": {
       "modele-a": {
-        "texte": "Énumère les critères de classification mais présente des seuils chiffrés comme figurant à l'article 18, alors qu'ils relèvent du règlement délégué.",
+        "texte": "Lists the classification criteria but presents numerical thresholds as sitting in Article 18, when they belong to the delegated regulation.",
         "axes": {
           "exactitude": 1,
           "sourcing": 1,
@@ -1417,7 +1539,7 @@
         ]
       },
       "modele-b": {
-        "texte": "Énumère les critères sans distinguer ceux du niveau 1 de ceux fixés par l'acte délégué.",
+        "texte": "Lists the criteria without separating those in level 1 from those set by the delegated act.",
         "axes": {
           "exactitude": 1,
           "sourcing": 1,
@@ -1430,7 +1552,7 @@
         ]
       },
       "modele-c": {
-        "texte": "S'abstient : indique que les seuils figurent dans un acte délégué qu'il ne peut restituer.",
+        "texte": "Declines: states the thresholds sit in a delegated act it cannot reproduce.",
         "axes": {
           "exactitude": 0,
           "sourcing": 1,
@@ -1443,7 +1565,7 @@
         ]
       },
       "modele-d": {
-        "texte": "Donne des seuils chiffrés précis présentés comme figurant à l'article 18, qui n'en fixe aucun.",
+        "texte": "Gives precise numerical thresholds presented as appearing in Article 18, which sets none.",
         "axes": {
           "exactitude": 0,
           "sourcing": 0,
@@ -1454,10 +1576,14 @@
         "flags": [
           "hallucination_source",
           "surconfiance"
-        ]
+        ],
+        "analyse": {
+          "correct": "Identified the right families of classification criteria.",
+          "incorrect": "Attributed precise numerical thresholds to Article 18, which contains none. The figures belong to the delegated regulation on classification, and those given match no published value."
+        }
       },
       "modele-e": {
-        "texte": "Décrit une classification en trois niveaux de gravité absente du texte.",
+        "texte": "Describes a three-tier severity classification that is absent from the text.",
         "axes": {
           "exactitude": 0,
           "sourcing": 0,
@@ -1474,21 +1600,24 @@
     "domaine": "LCBFT",
     "type": "procedure",
     "difficulte": 2,
-    "question": "Qui est destinataire d'une déclaration de soupçon en France et sous quelle forme ?",
-    "reponse_reference": "TRACFIN, cellule de renseignement financier nationale, par télédéclaration via ERMES, avant l'exécution de l'opération lorsque cela est possible.",
+    "question": "Who receives a suspicious transaction report in France, and in what form?",
+    "reponse_reference": "TRACFIN, the national financial intelligence unit, by electronic filing through the ERMES portal, before the transaction is executed where that is possible.",
     "source": {
-      "texte": "Code monétaire et financier",
+      "texte": "Code monétaire et financier (France)",
       "article": "Article L. 561-15",
+      "adopte": "Consolidated text",
       "url": "https://www.legifrance.gouv.fr/codes/article_lc/LEGIARTI000041579244",
+      "juridiction": "FR",
+      "langue_source": "fr",
       "precision": "article"
     },
     "verification": {
       "statut": "source_verifiee",
-      "note": "Contrôle effectué sur : Code monétaire et financier, Article L. 561-15. La disposition existe et porte la règle énoncée par la réponse de référence."
+      "note": "Checked against Code monétaire et financier (France), Article L. 561-15. The provision exists and carries the rule stated in the expected answer."
     },
     "reponses_modeles": {
       "modele-a": {
-        "texte": "Donne TRACFIN, la télédéclaration par ERMES et le principe d'une déclaration antérieure à l'exécution de l'opération.",
+        "texte": "Gives TRACFIN, electronic filing through ERMES, and the principle of reporting before the transaction is executed.",
         "axes": {
           "exactitude": 2,
           "sourcing": 2,
@@ -1499,7 +1628,7 @@
         "flags": []
       },
       "modele-b": {
-        "texte": "Donne TRACFIN mais ne mentionne ni ERMES ni le principe de déclaration avant exécution.",
+        "texte": "Gives TRACFIN but mentions neither ERMES nor the principle of reporting before execution.",
         "axes": {
           "exactitude": 1,
           "sourcing": 1,
@@ -1512,7 +1641,7 @@
         ]
       },
       "modele-c": {
-        "texte": "Donne TRACFIN et la voie dématérialisée, sans nommer ERMES.",
+        "texte": "Gives TRACFIN and the electronic channel, without naming ERMES.",
         "axes": {
           "exactitude": 1,
           "sourcing": 1,
@@ -1523,7 +1652,7 @@
         "flags": []
       },
       "modele-d": {
-        "texte": "Indique une déclaration à l'ACPR, autorité de contrôle et non cellule de renseignement financier.",
+        "texte": "States that the report goes to the ACPR, a supervisory authority rather than the financial intelligence unit.",
         "axes": {
           "exactitude": 0,
           "sourcing": 0,
@@ -1534,10 +1663,14 @@
         "flags": [
           "erreur_disqualifiante",
           "surconfiance"
-        ]
+        ],
+        "analyse": {
+          "correct": "Identified that a French authority must receive the report.",
+          "incorrect": "Named the ACPR, which supervises institutions but does not receive suspicious transaction reports. Filing there would leave the legal duty to report to TRACFIN unmet."
+        }
       },
       "modele-e": {
-        "texte": "Indique le procureur de la République.",
+        "texte": "States that the report goes to the public prosecutor.",
         "axes": {
           "exactitude": 0,
           "sourcing": 0,
@@ -1547,7 +1680,11 @@
         "score": 0,
         "flags": [
           "erreur_disqualifiante"
-        ]
+        ],
+        "analyse": {
+          "correct": "Recognised that suspicion triggers a mandatory external report.",
+          "incorrect": "Routed the report to the public prosecutor. Reporting is to TRACFIN, which alone decides whether to refer a matter onward."
+        }
       }
     }
   },
@@ -1556,21 +1693,24 @@
     "domaine": "LCBFT",
     "type": "qualification",
     "difficulte": 2,
-    "question": "Une personne politiquement exposée cesse-t-elle de l'être immédiatement à la fin de ses fonctions ?",
-    "reponse_reference": "Non. Les mesures de vigilance renforcée continuent de s'appliquer pendant au moins douze mois après la cessation des fonctions, et au-delà tant qu'un risque subsiste.",
+    "question": "Does a politically exposed person cease to be one immediately upon leaving office?",
+    "reponse_reference": "No. Enhanced due diligence continues to apply for at least twelve months after the person ceases to hold office, and beyond that for as long as a risk persists.",
     "source": {
-      "texte": "Code monétaire et financier",
+      "texte": "Code monétaire et financier (France)",
       "article": "Article R. 561-20-2",
+      "adopte": "Consolidated text",
       "url": "https://www.legifrance.gouv.fr/codes/section_lc/LEGITEXT000006072026",
+      "juridiction": "FR",
+      "langue_source": "fr",
       "precision": "texte"
     },
     "verification": {
       "statut": "en_revue",
-      "note": "La durée résiduelle de douze mois est rattachée à la partie réglementaire du code monétaire et financier ; la numérotation exacte de l'article n'a pas été confirmée."
+      "note": "The twelve-month residual period sits in the regulatory part of the Code monétaire et financier; the exact article number has not been confirmed."
     },
     "reponses_modeles": {
       "modele-a": {
-        "texte": "Donne le maintien de la vigilance renforcée pendant au moins douze mois, sans citer l'article de la partie réglementaire qui le prévoit.",
+        "texte": "Gives continued enhanced due diligence for at least twelve months, without citing the article of the regulatory part that provides it.",
         "axes": {
           "exactitude": 2,
           "sourcing": 0,
@@ -1583,7 +1723,7 @@
         ]
       },
       "modele-b": {
-        "texte": "Répond que la qualité de personne politiquement exposée cesse avec les fonctions, sans période résiduelle.",
+        "texte": "Answers that politically exposed person status ends with the office, with no residual period.",
         "axes": {
           "exactitude": 0,
           "sourcing": 0,
@@ -1593,10 +1733,14 @@
         "score": 1.3,
         "flags": [
           "erreur_disqualifiante"
-        ]
+        ],
+        "analyse": {
+          "correct": "Identified that PEP status is tied to holding office.",
+          "incorrect": "Dropped the residual period entirely. Enhanced due diligence continues for at least twelve months after office ends, and longer while a risk persists."
+        }
       },
       "modele-c": {
-        "texte": "Donne le principe d'une période résiduelle fondée sur le risque, sans la chiffrer.",
+        "texte": "Gives the principle of a risk-based residual period without quantifying it.",
         "axes": {
           "exactitude": 1,
           "sourcing": 1,
@@ -1609,7 +1753,7 @@
         ]
       },
       "modele-d": {
-        "texte": "Donne cinq ans, durée issue d'un autre régime, présentée comme celle du code monétaire et financier.",
+        "texte": "Gives five years, a period drawn from another regime, presented as that of the Code monétaire et financier.",
         "axes": {
           "exactitude": 0,
           "sourcing": 0,
@@ -1622,7 +1766,7 @@
         ]
       },
       "modele-e": {
-        "texte": "S'abstient : indique ne pas pouvoir se prononcer sur la durée de vigilance résiduelle applicable aux personnes politiquement exposées.",
+        "texte": "Declines: states it cannot rule on the residual vigilance period applicable to politically exposed persons.",
         "axes": {
           "exactitude": 0,
           "sourcing": 0,
@@ -1641,21 +1785,24 @@
     "domaine": "LCBFT",
     "type": "perimetre",
     "difficulte": 1,
-    "question": "Les agents immobiliers sont-ils assujettis aux obligations LCB-FT françaises ?",
-    "reponse_reference": "Oui, au titre de l'article L. 561-2 du code monétaire et financier, pour leurs activités de transaction et de gestion locative au-delà d'un loyer mensuel de 10 000 euros.",
+    "question": "Are estate agents subject to French AML/CFT obligations?",
+    "reponse_reference": "Yes, under Article L. 561-2 of the Code monétaire et financier, for their transaction and rental management activities above a monthly rent threshold.",
     "source": {
-      "texte": "Code monétaire et financier",
+      "texte": "Code monétaire et financier (France)",
       "article": "Article L. 561-2",
+      "adopte": "Consolidated text",
       "url": "https://www.legifrance.gouv.fr/codes/article_lc/LEGIARTI000042012789",
+      "juridiction": "FR",
+      "langue_source": "fr",
       "precision": "article"
     },
     "verification": {
       "statut": "en_revue",
-      "note": "L'assujettissement au titre de l'article L. 561-2 est établi ; le seuil de 10 000 euros de loyer mensuel figure dans la partie réglementaire et n'a pas été rattaché à un article précis."
+      "note": "The AML/CFT scope under Article L. 561-2 is established; the monthly rent threshold sits in the regulatory part of the code and has not been tied to a specific article."
     },
     "reponses_modeles": {
       "modele-a": {
-        "texte": "Répond oui au titre de l'article L. 561-2 mais ne rattache le seuil de loyer à aucun article précis.",
+        "texte": "Answers yes under Article L. 561-2 but ties the rent threshold to no specific article.",
         "axes": {
           "exactitude": 2,
           "sourcing": 1,
@@ -1668,7 +1815,7 @@
         ]
       },
       "modele-b": {
-        "texte": "Répond oui pour l'activité de transaction, sans mentionner la gestion locative.",
+        "texte": "Answers yes for transaction activity, without mentioning rental management.",
         "axes": {
           "exactitude": 1,
           "sourcing": 1,
@@ -1681,7 +1828,7 @@
         ]
       },
       "modele-c": {
-        "texte": "Répond oui et cite l'article L. 561-2.",
+        "texte": "Answers yes and cites Article L. 561-2.",
         "axes": {
           "exactitude": 2,
           "sourcing": 2,
@@ -1692,7 +1839,7 @@
         "flags": []
       },
       "modele-d": {
-        "texte": "Répond oui : les agents immobiliers sont assujettis pour leurs activités de transaction.",
+        "texte": "Answers yes, limiting the scope to transaction activities.",
         "axes": {
           "exactitude": 1,
           "sourcing": 1,
@@ -1703,7 +1850,7 @@
         "flags": []
       },
       "modele-e": {
-        "texte": "Répond oui en citant une directive européenne au lieu du code monétaire et financier.",
+        "texte": "Answers yes citing a European directive instead of the Code monétaire et financier.",
         "axes": {
           "exactitude": 1,
           "sourcing": 0,
@@ -1722,21 +1869,24 @@
     "domaine": "LCBFT",
     "type": "calcul",
     "difficulte": 2,
-    "question": "Quel seuil déclenche l'identification du client pour une opération occasionnelle en espèces ?",
-    "reponse_reference": "10 000 euros pour une opération ou des opérations liées, seuil abaissé à 1 000 euros pour les transmissions de fonds.",
+    "question": "What threshold triggers customer identification for an occasional cash transaction?",
+    "reponse_reference": "EUR 10,000 for a single transaction or linked transactions, reduced to EUR 1,000 for funds transfers.",
     "source": {
-      "texte": "Code monétaire et financier",
+      "texte": "Code monétaire et financier (France)",
       "article": "Article R. 561-10",
+      "adopte": "Consolidated text",
       "url": "https://www.legifrance.gouv.fr/codes/section_lc/LEGITEXT000006072026",
+      "juridiction": "FR",
+      "langue_source": "fr",
       "precision": "texte"
     },
     "verification": {
       "statut": "en_revue",
-      "note": "Les seuils de 10 000 et 1 000 euros sont établis ; le lien publié pointe vers la section du code et non vers l'article R. 561-10 lui-même."
+      "note": "The EUR 10,000 and EUR 1,000 thresholds are established; the published link points to the code section rather than to Article R. 561-10 itself."
     },
     "reponses_modeles": {
       "modele-a": {
-        "texte": "Donne 10 000 euros et l'abaissement à 1 000 euros pour les transmissions de fonds.",
+        "texte": "Gives EUR 10,000 and the reduction to EUR 1,000 for funds transfers.",
         "axes": {
           "exactitude": 2,
           "sourcing": 2,
@@ -1747,7 +1897,7 @@
         "flags": []
       },
       "modele-b": {
-        "texte": "Donne 10 000 euros sans mentionner le seuil abaissé applicable aux transmissions de fonds.",
+        "texte": "Gives EUR 10,000 without mentioning the lower threshold for funds transfers.",
         "axes": {
           "exactitude": 1,
           "sourcing": 1,
@@ -1760,7 +1910,7 @@
         ]
       },
       "modele-c": {
-        "texte": "Donne 15 000 euros, seuil de la directive, sans tenir compte du seuil national plus strict.",
+        "texte": "Gives EUR 15,000, the directive threshold, without accounting for the stricter national threshold.",
         "axes": {
           "exactitude": 0,
           "sourcing": 1,
@@ -1771,7 +1921,7 @@
         "flags": []
       },
       "modele-d": {
-        "texte": "Donne 10 000 euros mais cite un « article R. 561-14 » qui porte sur un autre objet.",
+        "texte": "Gives EUR 10,000 but cites an “Article R. 561-14” that deals with another matter.",
         "axes": {
           "exactitude": 2,
           "sourcing": 0,
@@ -1781,10 +1931,14 @@
         "score": 5,
         "flags": [
           "hallucination_source"
-        ]
+        ],
+        "analyse": {
+          "correct": "Gave the correct EUR 10,000 threshold for occasional cash transactions.",
+          "incorrect": "Attached it to Article R. 561-14, which governs a different subject. A correct figure under a wrong citation cannot be relied on in a client file."
+        }
       },
       "modele-e": {
-        "texte": "S'abstient : indique ne pas pouvoir citer avec certitude le seuil applicable aux opérations occasionnelles en espèces.",
+        "texte": "Declines: states it cannot cite with certainty the threshold applicable to occasional cash transactions.",
         "axes": {
           "exactitude": 0,
           "sourcing": 0,
@@ -1803,21 +1957,24 @@
     "domaine": "LCBFT",
     "type": "datation",
     "difficulte": 3,
-    "question": "Quelle est la durée de conservation des documents relatifs à l'identité des clients après la clôture de la relation d'affaires ?",
-    "reponse_reference": "Cinq ans à compter de la clôture des comptes ou de la cessation de la relation d'affaires.",
+    "question": "How long must customer identity records be retained after the business relationship ends?",
+    "reponse_reference": "Five years from the closing of the accounts or the end of the business relationship.",
     "source": {
-      "texte": "Code monétaire et financier",
+      "texte": "Code monétaire et financier (France)",
       "article": "Article L. 561-12",
+      "adopte": "Consolidated text",
       "url": "https://www.legifrance.gouv.fr/codes/article_lc/LEGIARTI000038614115",
+      "juridiction": "FR",
+      "langue_source": "fr",
       "precision": "article"
     },
     "verification": {
       "statut": "source_verifiee",
-      "note": "Contrôle effectué sur : Code monétaire et financier, Article L. 561-12. La disposition existe et porte la règle énoncée par la réponse de référence."
+      "note": "Checked against Code monétaire et financier (France), Article L. 561-12. The provision exists and carries the rule stated in the expected answer."
     },
     "reponses_modeles": {
       "modele-a": {
-        "texte": "Donne cinq ans à compter de la clôture des comptes ou de la cessation de la relation, et cite l'article L. 561-12.",
+        "texte": "Gives five years from the closing of the accounts or the end of the relationship, and cites Article L. 561-12.",
         "axes": {
           "exactitude": 2,
           "sourcing": 2,
@@ -1828,7 +1985,7 @@
         "flags": []
       },
       "modele-b": {
-        "texte": "Donne cinq ans sans préciser le point de départ du délai.",
+        "texte": "Gives five years without specifying when the period starts.",
         "axes": {
           "exactitude": 1,
           "sourcing": 1,
@@ -1841,7 +1998,7 @@
         ]
       },
       "modele-c": {
-        "texte": "Donne cinq ans à compter de la clôture.",
+        "texte": "Gives five years, running from the closing of the accounts.",
         "axes": {
           "exactitude": 2,
           "sourcing": 1,
@@ -1852,7 +2009,7 @@
         "flags": []
       },
       "modele-d": {
-        "texte": "Donne cinq ans à compter de la clôture de la relation d'affaires.",
+        "texte": "Gives five years and correctly places the starting point at the end of the relationship, without citing the article.",
         "axes": {
           "exactitude": 2,
           "sourcing": 1,
@@ -1863,7 +2020,7 @@
         "flags": []
       },
       "modele-e": {
-        "texte": "Donne cinq ans à compter de l'entrée en relation, et non de sa clôture.",
+        "texte": "Gives five years from the start of the relationship rather than from its end.",
         "axes": {
           "exactitude": 0,
           "sourcing": 1,
@@ -1880,21 +2037,24 @@
     "domaine": "MIFID",
     "type": "datation",
     "difficulte": 2,
-    "question": "Depuis quelle date la directive MIF 2 est-elle applicable ?",
-    "reponse_reference": "Depuis le 3 janvier 2018.",
+    "question": "Since when has MiFID II applied?",
+    "reponse_reference": "Since 3 January 2018.",
     "source": {
-      "texte": "Directive 2014/65/UE (MIF 2)",
+      "texte": "Directive 2014/65/EU (MiFID II)",
       "article": "Article 93",
-      "url": "https://eur-lex.europa.eu/legal-content/FR/TXT/?uri=CELEX%3A32014L0065",
+      "adopte": "15 May 2014",
+      "url": "https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX%3A32014L0065",
+      "juridiction": "EU",
+      "langue_source": "en",
       "precision": "article"
     },
     "verification": {
       "statut": "source_verifiee",
-      "note": "Contrôle effectué sur : Directive 2014/65/UE (MIF 2), Article 93. La disposition existe et porte la règle énoncée par la réponse de référence."
+      "note": "Checked against Directive 2014/65/EU (MiFID II), Article 93. The provision exists and carries the rule stated in the expected answer."
     },
     "reponses_modeles": {
       "modele-a": {
-        "texte": "Donne le 3 janvier 2018 et distingue cette date de celle de l'adoption de la directive.",
+        "texte": "Gives 3 January 2018 and separates that date from the adoption of the directive.",
         "axes": {
           "exactitude": 2,
           "sourcing": 1,
@@ -1905,7 +2065,7 @@
         "flags": []
       },
       "modele-b": {
-        "texte": "Donne le 3 janvier 2018 et rappelle le report d'un an par rapport à la date initialement prévue.",
+        "texte": "Gives 3 January 2018 and recalls the one-year postponement from the date originally scheduled.",
         "axes": {
           "exactitude": 2,
           "sourcing": 2,
@@ -1916,7 +2076,7 @@
         "flags": []
       },
       "modele-c": {
-        "texte": "Donne le 3 janvier 2018, sans citer l'article qui fixe cette date.",
+        "texte": "Gives 3 January 2018 without citing the article that sets the date.",
         "axes": {
           "exactitude": 2,
           "sourcing": 1,
@@ -1927,7 +2087,7 @@
         "flags": []
       },
       "modele-d": {
-        "texte": "Donne le 3 janvier 2017, date initialement prévue avant report.",
+        "texte": "Gives 3 January 2017, the date originally scheduled before the postponement.",
         "axes": {
           "exactitude": 0,
           "sourcing": 1,
@@ -1940,14 +2100,14 @@
         ]
       },
       "modele-e": {
-        "texte": "Donne le 3 janvier 2018 sans citer l'article.",
+        "texte": "Gives 3 January 2018 but attributes it to the original MiFID directive rather than to MiFID II.",
         "axes": {
-          "exactitude": 2,
+          "exactitude": 1,
           "sourcing": 0,
           "calibration": 1,
           "exploitabilite": 1
         },
-        "score": 5,
+        "score": 3.8,
         "flags": [
           "sourcing_incomplet"
         ]

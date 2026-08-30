@@ -72,13 +72,11 @@ export function BandeauJeuDeDonnees() {
   return (
     <div className="border-b border-accent/30 bg-accent-soft">
       <p className="mx-auto max-w-5xl px-5 py-2 text-[12px] leading-relaxed text-accent">
-        <span className="font-mono text-[11px] tracking-[0.08em] uppercase">
-          Échantillon de démonstration
-        </span>{" "}
-        — les notes affichées illustrent le barème et ne proviennent d'aucune exécution mesurée.
-        Aucun modèle commercialisé n'est nommé ni noté.{" "}
-        <Link to="/methodologie" hash="jeu-de-donnees" className="underline underline-offset-2">
-          Ce que cela veut dire
+        <span className="font-mono text-[11px] tracking-[0.08em] uppercase">Research preview</span>{" "}
+        — the corpus, sources and verification are real. The scores illustrate the rubric and come
+        from no measured run: no commercial model is named or scored.{" "}
+        <Link to="/methodology" hash="dataset" className="underline underline-offset-2">
+          What this means
         </Link>
         .
       </p>

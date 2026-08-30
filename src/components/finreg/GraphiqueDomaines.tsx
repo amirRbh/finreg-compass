@@ -1,4 +1,4 @@
-import { nb, type Modele } from "@/lib/finreg";
+import { NOMS_COURTS_DOMAINES, nb, type Modele } from "@/lib/finreg";
 
 const LARGEUR = 900;
 const HAUTEUR = 300;
@@ -23,7 +23,7 @@ export function GraphiqueDomaines({
           viewBox={`0 0 ${LARGEUR} ${HAUTEUR}`}
           className="h-72 w-full min-w-[36rem]"
           role="img"
-          aria-label="Scores par domaine réglementaire et par modèle"
+          aria-label="Regulatory accuracy by domain and by system"
         >
           {[0, 25, 50, 75, 100].map((t) => {
             const y = MARGE.haut + zoneH - (t / 100) * zoneH;
@@ -68,7 +68,7 @@ export function GraphiqueDomaines({
                       opacity={opacite}
                       rx={0.5}
                     >
-                      <title>{`${m.nom} — ${domaine} : ${nb(valeur)}`}</title>
+                      <title>{`${m.nom} — ${NOMS_COURTS_DOMAINES[domaine] ?? domaine}: ${nb(valeur)}`}</title>
                     </rect>
                   );
                 })}
@@ -79,7 +79,7 @@ export function GraphiqueDomaines({
                   className="fill-[var(--color-foreground)] font-mono"
                   fontSize={10}
                 >
-                  {domaine}
+                  {NOMS_COURTS_DOMAINES[domaine] ?? domaine}
                 </text>
               </g>
             );
@@ -108,7 +108,7 @@ export function GraphiqueDomaines({
                 scope="col"
                 className="py-2 pr-4 text-left text-xs font-medium text-muted-foreground"
               >
-                Modèle
+                System
               </th>
               {domaines.map((d) => (
                 <th
@@ -116,7 +116,7 @@ export function GraphiqueDomaines({
                   scope="col"
                   className="py-2 pr-4 text-right text-xs font-medium text-muted-foreground"
                 >
-                  {d}
+                  {NOMS_COURTS_DOMAINES[d] ?? d}
                 </th>
               ))}
             </tr>

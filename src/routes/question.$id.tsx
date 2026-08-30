@@ -3,7 +3,9 @@ import { Chargement, Erreur, Page, Panneau } from "@/components/finreg/Chrome";
 import { ExplicationVerification } from "@/components/finreg/Statuts";
 import {
   AXES,
+  EXPLICATIONS_AXES,
   LIBELLES_AXES,
+  LIBELLES_DIFFICULTE,
   LIBELLES_DOMAINES,
   LIBELLES_FLAGS,
   LIBELLES_TYPES,
@@ -16,28 +18,22 @@ import {
 export const Route = createFileRoute("/question/$id")({
   head: () => ({
     meta: [
-      { title: "Item du corpus — FinReg" },
+      { title: "Benchmark item — FinReg" },
       {
         name: "description",
         content:
-          "Un item du corpus FinReg : la question, la réponse de référence, l'article dont elle est tirée, le statut de vérification de cette citation et la réponse notée de chaque système.",
+          "One item from the FinReg corpus: the question, what the law says, the article it comes from, the verification of that citation, and what each AI system answered.",
       },
-      { property: "og:title", content: "Item du corpus — FinReg" },
+      { property: "og:title", content: "Benchmark item — FinReg" },
       {
         property: "og:description",
         content:
-          "Question, réponse de référence, fondement juridique, vérification de la citation et notes détaillées par axe.",
+          "Question, expected answer, legal basis, citation verification, and scored model answers.",
       },
     ],
   }),
   component: FicheQuestion,
 });
-
-const LIBELLES_DIFFICULTE: Record<number, string> = {
-  1: "1 — application directe",
-  2: "2 — combinaison de deux dispositions",
-  3: "3 — périmètre ou datation",
-};
 
 function FicheQuestion() {
   const { id } = Route.useParams();
@@ -47,14 +43,14 @@ function FicheQuestion() {
   if (isPending) {
     return (
       <Page>
-        <Chargement libelle="Chargement du corpus…" />
+        <Chargement libelle="Loading the corpus…" />
       </Page>
     );
   }
   if (isError || !questions) {
     return (
       <Page>
-        <Erreur libelle="Corpus indisponible." />
+        <Erreur libelle="Corpus unavailable." />
       </Page>
     );
   }
@@ -63,15 +59,15 @@ function FicheQuestion() {
   if (!question) {
     return (
       <Page>
-        <h1 className="text-3xl leading-tight sm:text-4xl">Item inconnu</h1>
+        <h1 className="text-3xl leading-tight sm:text-4xl">Unknown item</h1>
         <p className="mt-2 text-sm text-muted-foreground">
-          Aucun item du corpus ne porte l'identifiant <span className="font-mono">{id}</span>.
+          No item in the corpus carries the identifier <span className="font-mono">{id}</span>.
         </p>
         <Link
           to="/questions"
           className="mt-4 inline-block text-sm text-accent underline underline-offset-4"
         >
-          Retour au corpus
+          Back to the corpus
         </Link>
       </Page>
     );
@@ -83,8 +79,8 @@ function FicheQuestion() {
   const nomModele = (idModele: string) =>
     resultats?.modeles.find((m) => m.id === idModele)?.nom ?? idModele;
 
-  // Classement des réponses de la meilleure à la moins bonne : la comparaison
-  // est le sujet de la page, elle ne doit pas dépendre de l'ordre du fichier.
+  // De la meilleure réponse à la moins bonne : la comparaison est le sujet de
+  // la page, elle ne doit pas dépendre de l'ordre du fichier.
   const reponses = Object.entries(question.reponses_modeles).sort(
     (a, b) => b[1].score - a[1].score,
   );
@@ -93,7 +89,7 @@ function FicheQuestion() {
     <Page>
       <nav className="flex items-center gap-2 text-xs text-muted-foreground">
         <Link to="/questions" className="underline underline-offset-4 hover:text-foreground">
-          Corpus
+          Questions
         </Link>
         <span aria-hidden="true">/</span>
         <span className="font-mono">{question.id}</span>
@@ -103,27 +99,37 @@ function FicheQuestion() {
       <h1 className="mt-2 max-w-3xl text-2xl leading-snug sm:text-3xl">{question.question}</h1>
       <p className="mt-3 font-mono text-[11px] text-muted-foreground">
         {LIBELLES_TYPES[question.type] ?? question.type} ·{" "}
-        {LIBELLES_DIFFICULTE[question.difficulte] ?? `difficulté ${question.difficulte}`}
+        {LIBELLES_DIFFICULTE[question.difficulte] ?? `difficulty ${question.difficulte}`}
       </p>
 
-      {/* 1. La réponse attendue */}
+      {/* 1 — Ce que dit réellement le texte */}
       <section className="mt-10">
-        <h2 className="border-b border-rule pb-2 text-lg">Réponse de référence</h2>
+        <h2 className="border-b border-rule pb-2 text-lg">What the law says</h2>
         <p className="mt-3 max-w-2xl text-[15px] leading-relaxed">{question.reponse_reference}</p>
       </section>
 
-      {/* 2. D'où elle sort */}
+      {/* 2 — D'où cela sort */}
       <section className="mt-10">
-        <h2 className="border-b border-rule pb-2 text-lg">Fondement juridique</h2>
+        <h2 className="border-b border-rule pb-2 text-lg">Legal basis</h2>
         <Panneau className="mt-3 max-w-2xl p-5">
           <dl className="grid gap-4 sm:grid-cols-2">
             <div>
-              <dt className="etiquette">Texte</dt>
+              <dt className="etiquette">Act</dt>
               <dd className="mt-1.5 text-sm">{question.source.texte}</dd>
             </div>
             <div>
-              <dt className="etiquette">Disposition</dt>
+              <dt className="etiquette">Provision</dt>
               <dd className="mt-1.5 text-sm">{question.source.article}</dd>
+            </div>
+            <div>
+              <dt className="etiquette">Version</dt>
+              <dd className="mt-1.5 text-sm">{question.source.adopte}</dd>
+            </div>
+            <div>
+              <dt className="etiquette">Jurisdiction</dt>
+              <dd className="mt-1.5 text-sm">
+                {question.source.juridiction === "EU" ? "European Union" : "France"}
+              </dd>
             </div>
           </dl>
           <div className="mt-4 border-t border-rule pt-4">
@@ -133,33 +139,34 @@ function FicheQuestion() {
               rel="noreferrer"
               className="font-mono text-xs text-accent underline underline-offset-4"
             >
-              Consulter la source officielle ↗
+              Open the official source ↗
             </a>
             <p className="mt-2 text-[13px] leading-relaxed text-muted-foreground">
               {question.source.precision === "article"
-                ? "Le lien ouvre l'article cité."
-                : "Le lien ouvre le texte consolidé, et non l'article cité directement : la disposition est à retrouver dans le sommaire."}
+                ? "The link opens the cited article."
+                : "The link opens the consolidated text rather than the cited article: the provision has to be found from the table of contents."}
+              {question.source.langue_source === "fr" && " Légifrance publishes in French only."}
             </p>
           </div>
         </Panneau>
       </section>
 
-      {/* 3. Ce que vaut cette citation */}
+      {/* 3 — Ce que vaut cette citation */}
       <section className="mt-10">
-        <h2 className="border-b border-rule pb-2 text-lg">Vérification de la source</h2>
+        <h2 className="border-b border-rule pb-2 text-lg">Verification</h2>
         <div className="mt-3 max-w-2xl">
           <ExplicationVerification verification={question.verification} />
         </div>
       </section>
 
-      {/* 4. Ce que les modèles en ont fait */}
+      {/* 4 — Ce que les systèmes en ont fait */}
       <section className="mt-12">
-        <h2 className="border-b border-rule pb-2 text-lg">Réponses évaluées</h2>
+        <h2 className="border-b border-rule pb-2 text-lg">What the systems answered</h2>
         <p className="mt-3 max-w-2xl text-sm text-muted-foreground">
-          Chaque réponse est notée de 0 à 2 sur quatre axes — exactitude, sourcing, calibration,
-          exploitabilité — dont la somme donne la note sur 10.{" "}
-          <Link to="/methodologie" className="text-accent underline underline-offset-4">
-            Voir le barème
+          Each answer is scored 0 to 2 on four axes — legal accuracy, citation accuracy,
+          calibration, usability — whose sum gives the score out of 10.{" "}
+          <Link to="/methodology" className="text-accent underline underline-offset-4">
+            See the rubric
           </Link>
           .
         </p>
@@ -170,57 +177,78 @@ function FicheQuestion() {
             return (
               <li
                 key={idModele}
-                className={`border bg-surface p-5 shadow-panneau ${
+                className={`border bg-surface shadow-panneau ${
                   grave ? "border-accent/50" : "border-border"
                 }`}
               >
-                <div className="flex flex-wrap items-baseline justify-between gap-3">
-                  <Link
-                    to="/modele/$id"
-                    params={{ id: idModele }}
-                    className="font-medium underline decoration-border decoration-1 underline-offset-4 hover:text-accent hover:decoration-accent"
-                  >
-                    {nomModele(idModele)}
-                  </Link>
-                  <p className="font-mono text-lg tabulaire">
-                    {nb(reponse.score)}
-                    <span className="text-xs text-muted-foreground"> /10</span>
+                <div className="p-5">
+                  <div className="flex flex-wrap items-baseline justify-between gap-3">
+                    <Link
+                      to="/model/$id"
+                      params={{ id: idModele }}
+                      className="font-medium underline decoration-border decoration-1 underline-offset-4 hover:text-accent hover:decoration-accent"
+                    >
+                      {nomModele(idModele)}
+                    </Link>
+                    <p className={`font-mono text-lg tabulaire ${grave ? "text-accent" : ""}`}>
+                      {nb(reponse.score)}
+                      <span className="text-xs text-muted-foreground"> /10</span>
+                    </p>
+                  </div>
+
+                  <p className="mt-3 max-w-2xl text-sm leading-relaxed text-muted-foreground">
+                    {reponse.texte}
                   </p>
+
+                  <div className="mt-4 flex flex-wrap items-end gap-x-6 gap-y-3 border-t border-rule pt-3">
+                    {AXES.map((axe) => (
+                      <div key={axe} title={EXPLICATIONS_AXES[axe]}>
+                        <p className="font-mono text-[10px] tracking-[0.08em] text-muted-foreground uppercase">
+                          {LIBELLES_AXES[axe]}
+                        </p>
+                        <p className="mt-1 font-mono text-sm tabulaire">
+                          {reponse.axes[axe] ?? "—"}
+                          <span className="text-[10px] text-muted-foreground"> /2</span>
+                        </p>
+                      </div>
+                    ))}
+                    {reponse.flags.length > 0 && (
+                      <ul className="flex flex-wrap gap-2">
+                        {reponse.flags.map((f) => (
+                          <li
+                            key={f}
+                            className={`border px-2 py-0.5 font-mono text-[10px] tracking-[0.06em] uppercase ${
+                              estGrave(f)
+                                ? "border-accent/40 bg-accent-soft text-accent"
+                                : "border-border text-muted-foreground"
+                            }`}
+                          >
+                            {LIBELLES_FLAGS[f] ?? f}
+                          </li>
+                        ))}
+                      </ul>
+                    )}
+                  </div>
                 </div>
 
-                <p className="mt-3 max-w-2xl text-sm leading-relaxed text-muted-foreground">
-                  {reponse.texte}
-                </p>
-
-                <div className="mt-4 flex flex-wrap items-end gap-x-6 gap-y-3 border-t border-rule pt-3">
-                  {AXES.map((axe) => (
-                    <div key={axe}>
-                      <p className="font-mono text-[10px] tracking-[0.08em] text-muted-foreground uppercase">
-                        {LIBELLES_AXES[axe]}
-                      </p>
-                      <p className="mt-1 font-mono text-sm tabulaire">
-                        {reponse.axes[axe] ?? "—"}
-                        <span className="text-[10px] text-muted-foreground"> /2</span>
-                      </p>
-                    </div>
-                  ))}
-                  {reponse.flags.length > 0 && (
-                    <ul className="flex flex-wrap gap-2">
-                      {reponse.flags.map((f) => (
-                        <li
-                          key={f}
-                          className={`border px-2 py-0.5 font-mono text-[10px] tracking-[0.06em] uppercase ${
-                            estGrave(f)
-                              ? "border-accent/40 bg-accent-soft text-accent"
-                              : "border-border text-muted-foreground"
-                          }`}
-                        >
-                          {LIBELLES_FLAGS[f] ?? f}
-                        </li>
-                      ))}
-                    </ul>
-                  )}
-                </div>
+                {/* Le « pourquoi » : ce que le système a vu juste, et où il bascule. */}
+                {reponse.analyse && (
+                  <div className="border-t border-accent/30 bg-accent-soft/40 p-5">
+                    <p className="etiquette text-accent">Why it fails</p>
+                    <dl className="mt-3 grid gap-4 sm:grid-cols-2">
+                      <div>
+                        <dt className="text-xs font-medium text-muted-foreground">Got right</dt>
+                        <dd className="mt-1 text-sm leading-relaxed">{reponse.analyse.correct}</dd>
+                      </div>
+                      <div>
+                        <dt className="text-xs font-medium text-accent">Got wrong</dt>
+                        <dd className="mt-1 text-sm leading-relaxed">
+                          {reponse.analyse.incorrect}
+                        </dd>
+                      </div>
+                    </dl>
+                  </div>
+                )}
               </li>
             );
           })}

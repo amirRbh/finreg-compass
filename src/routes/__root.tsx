@@ -77,14 +77,14 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
     meta: [
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
-      { title: "FinReg — benchmark de fiabilité réglementaire" },
+      { title: "FinReg — Benchmarking AI on Regulatory Accuracy" },
       {
         name: "description",
         content:
-          "Banc de mesure public de la fiabilité des modèles de langage sur la réglementation financière française et européenne.",
+          "Can you trust an AI with regulation? A public benchmark testing AI systems on EU and French financial regulation, with every answer traceable to a primary legal source.",
       },
       { property: "og:type", content: "website" },
-      { property: "og:locale", content: "fr_FR" },
+      { property: "og:locale", content: "en_GB" },
       { property: "og:site_name", content: "FinReg" },
       { property: "og:image", content: "/apercu.png" },
       { property: "og:image:width", content: "1200" },
@@ -118,7 +118,7 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
 
 function RootShell({ children }: { children: ReactNode }) {
   return (
-    <html lang="fr">
+    <html lang="en">
       <head>
         <HeadContent />
       </head>

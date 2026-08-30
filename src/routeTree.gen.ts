@@ -10,10 +10,10 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
-import { Route as CorpusPriveRouteImport } from './routes/corpus-prive'
-import { Route as MethodologieRouteImport } from './routes/methodologie'
+import { Route as MethodologyRouteImport } from './routes/methodology'
+import { Route as PrivateBenchmarkRouteImport } from './routes/private-benchmark'
 import { Route as QuestionsRouteImport } from './routes/questions'
-import { Route as ModeleIdRouteImport } from './routes/modele.$id'
+import { Route as ModelIdRouteImport } from './routes/model.$id'
 import { Route as QuestionIdRouteImport } from './routes/question.$id'
 
 const IndexRoute = IndexRouteImport.update({
@@ -21,14 +21,14 @@ const IndexRoute = IndexRouteImport.update({
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
-const CorpusPriveRoute = CorpusPriveRouteImport.update({
-  id: '/corpus-prive',
-  path: '/corpus-prive',
+const MethodologyRoute = MethodologyRouteImport.update({
+  id: '/methodology',
+  path: '/methodology',
   getParentRoute: () => rootRouteImport,
 } as any)
-const MethodologieRoute = MethodologieRouteImport.update({
-  id: '/methodologie',
-  path: '/methodologie',
+const PrivateBenchmarkRoute = PrivateBenchmarkRouteImport.update({
+  id: '/private-benchmark',
+  path: '/private-benchmark',
   getParentRoute: () => rootRouteImport,
 } as any)
 const QuestionsRoute = QuestionsRouteImport.update({
@@ -36,9 +36,9 @@ const QuestionsRoute = QuestionsRouteImport.update({
   path: '/questions',
   getParentRoute: () => rootRouteImport,
 } as any)
-const ModeleIdRoute = ModeleIdRouteImport.update({
-  id: '/modele/$id',
-  path: '/modele/$id',
+const ModelIdRoute = ModelIdRouteImport.update({
+  id: '/model/$id',
+  path: '/model/$id',
   getParentRoute: () => rootRouteImport,
 } as any)
 const QuestionIdRoute = QuestionIdRouteImport.update({
@@ -49,62 +49,62 @@ const QuestionIdRoute = QuestionIdRouteImport.update({
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
-  '/corpus-prive': typeof CorpusPriveRoute
-  '/methodologie': typeof MethodologieRoute
+  '/methodology': typeof MethodologyRoute
+  '/private-benchmark': typeof PrivateBenchmarkRoute
   '/questions': typeof QuestionsRoute
-  '/modele/$id': typeof ModeleIdRoute
+  '/model/$id': typeof ModelIdRoute
   '/question/$id': typeof QuestionIdRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
-  '/corpus-prive': typeof CorpusPriveRoute
-  '/methodologie': typeof MethodologieRoute
+  '/methodology': typeof MethodologyRoute
+  '/private-benchmark': typeof PrivateBenchmarkRoute
   '/questions': typeof QuestionsRoute
-  '/modele/$id': typeof ModeleIdRoute
+  '/model/$id': typeof ModelIdRoute
   '/question/$id': typeof QuestionIdRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
-  '/corpus-prive': typeof CorpusPriveRoute
-  '/methodologie': typeof MethodologieRoute
+  '/methodology': typeof MethodologyRoute
+  '/private-benchmark': typeof PrivateBenchmarkRoute
   '/questions': typeof QuestionsRoute
-  '/modele/$id': typeof ModeleIdRoute
+  '/model/$id': typeof ModelIdRoute
   '/question/$id': typeof QuestionIdRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
     | '/'
-    | '/corpus-prive'
-    | '/methodologie'
+    | '/methodology'
+    | '/private-benchmark'
     | '/questions'
-    | '/modele/$id'
+    | '/model/$id'
     | '/question/$id'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
-    | '/corpus-prive'
-    | '/methodologie'
+    | '/methodology'
+    | '/private-benchmark'
     | '/questions'
-    | '/modele/$id'
+    | '/model/$id'
     | '/question/$id'
   id:
     | '__root__'
     | '/'
-    | '/corpus-prive'
-    | '/methodologie'
+    | '/methodology'
+    | '/private-benchmark'
     | '/questions'
-    | '/modele/$id'
+    | '/model/$id'
     | '/question/$id'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
-  CorpusPriveRoute: typeof CorpusPriveRoute
-  MethodologieRoute: typeof MethodologieRoute
+  MethodologyRoute: typeof MethodologyRoute
+  PrivateBenchmarkRoute: typeof PrivateBenchmarkRoute
   QuestionsRoute: typeof QuestionsRoute
-  ModeleIdRoute: typeof ModeleIdRoute
+  ModelIdRoute: typeof ModelIdRoute
   QuestionIdRoute: typeof QuestionIdRoute
 }
 
@@ -117,18 +117,18 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/corpus-prive': {
-      id: '/corpus-prive'
-      path: '/corpus-prive'
-      fullPath: '/corpus-prive'
-      preLoaderRoute: typeof CorpusPriveRouteImport
+    '/methodology': {
+      id: '/methodology'
+      path: '/methodology'
+      fullPath: '/methodology'
+      preLoaderRoute: typeof MethodologyRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/methodologie': {
-      id: '/methodologie'
-      path: '/methodologie'
-      fullPath: '/methodologie'
-      preLoaderRoute: typeof MethodologieRouteImport
+    '/private-benchmark': {
+      id: '/private-benchmark'
+      path: '/private-benchmark'
+      fullPath: '/private-benchmark'
+      preLoaderRoute: typeof PrivateBenchmarkRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/questions': {
@@ -138,11 +138,11 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof QuestionsRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/modele/$id': {
-      id: '/modele/$id'
-      path: '/modele/$id'
-      fullPath: '/modele/$id'
-      preLoaderRoute: typeof ModeleIdRouteImport
+    '/model/$id': {
+      id: '/model/$id'
+      path: '/model/$id'
+      fullPath: '/model/$id'
+      preLoaderRoute: typeof ModelIdRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/question/$id': {
@@ -157,10 +157,10 @@ declare module '@tanstack/react-router' {
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
-  CorpusPriveRoute: CorpusPriveRoute,
-  MethodologieRoute: MethodologieRoute,
+  MethodologyRoute: MethodologyRoute,
+  PrivateBenchmarkRoute: PrivateBenchmarkRoute,
   QuestionsRoute: QuestionsRoute,
-  ModeleIdRoute: ModeleIdRoute,
+  ModelIdRoute: ModelIdRoute,
   QuestionIdRoute: QuestionIdRoute,
 }
 export const routeTree = rootRouteImport

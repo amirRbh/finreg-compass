@@ -1,10 +1,17 @@
 # FINREG V1 — SHIP REPORT
 
+> **Mise à jour — V1 pitch-ready.** Le produit est passé en anglais (accroche,
+> navigation, corpus, méthodologie), l'erreur de modèle est devenue le cœur de
+> la démonstration, et le score se lit sans ouvrir la méthodologie. Les
+> sections ci-dessous reflètent l'état livré.
+
 ## 1. What FinReg does
 
-FinReg mesure ce qu'un modèle de langage sait réellement de la réglementation
-financière française et européenne, et publie chaque note avec l'item qui l'a
-produite.
+**Benchmarking AI on regulatory accuracy.** FinReg teste si un système d'IA
+répond correctement à des questions de réglementation financière européenne et
+française, et confronte chaque réponse au texte juridique primaire.
+
+Accroche du produit : *AI can write regulation. Can it get regulation right?*
 
 Le pari du produit tient en une phrase : **un assistant qui cite un article
 inexistant est inutilisable en conformité**, parce que sa réponse ne peut être
@@ -14,9 +21,12 @@ comme un échec distinct de l'erreur de fond, et la mesure séparément.
 Chaque item du corpus tient les cinq maillons de la chaîne :
 
 ```
-Texte réglementaire  →  Question  →  Réponse de référence  →  Vérification  →  Note
-   (acte, article)      (fermée)      (rédigée du texte)     (de la citation)  (4 axes)
+Question  →  What the law says  →  Source  →  Verification  →  Model answer
 ```
+
+Le produit est en anglais. Le corpus porte sur le droit européen et français ;
+les liens EUR-Lex ouvrent la version anglaise officielle, Légifrance n'existe
+qu'en français et la page le signale.
 
 ## 2. Target user
 
@@ -30,38 +40,48 @@ indépendante, et investisseurs évaluant la fiabilité annoncée d'un produit.
 ## 3. Core user journey
 
 ```
-Accueil                    le problème, la chaîne, un item en entier
+/                     l'accroche, le chiffre de risque, UNE erreur en entier
   ↓
-Corpus (/questions)        24 items filtrables, chacun avec son statut
+/questions            24 items filtrables, chacun avec son statut
   ↓
-Item (/question/$id)       question → réponse attendue → article → vérification
-  ↓                        → réponse de chaque système, notée sur 4 axes
-Fiche système (/modele/$id) scores par domaine et par axe, échecs cités in extenso
+/question/$id         question → ce que dit la loi → article → vérification
+  ↓                   → réponse de chaque système + « why it fails »
+/model/$id            un système : scores par domaine et par axe, échecs cités
   ↓
-Méthodologie               barème, statuts, protocole, prompt système publié
+/methodology          ce qui est testé, le barème, les limites, le prompt
 ```
 
-Parcours vérifié de bout en bout au navigateur, en 3 minutes, sans impasse.
+Parcours rejoué au navigateur contre le chronomètre du brief (0-10 s / 10-30 s /
+30-90 s / 90-150 s / 150-180 s) : **25 contrôles, 25 passent, aucune erreur JS.**
 
 ## 4. Features shipped
 
-- **Page item (`/question/$id`)** — nouvelle, et centrale. C'est la page qui
-  démontre le produit : la question, la réponse de référence, le texte et
-  l'article dont elle sort avec lien vers la source officielle, le résultat du
-  contrôle de cette citation, puis la réponse de chaque système avec ses quatre
-  notes d'axe et ses drapeaux. Permalien, navigation item précédent / suivant.
-- **Accueil reconstruit** — énonce le problème et la chaîne mesurée avant tout
-  chiffre, montre un item en entier, puis les agrégats et le classement.
+- **Page item (`/question/$id`)** — la meilleure page du produit : la question,
+  ce que dit la loi, l'acte + l'article + la date + la juridiction + le lien
+  officiel, le contrôle de cette citation, puis la réponse de chaque système
+  avec ses quatre notes d'axe, ses drapeaux et, pour tout défaut grave, un bloc
+  **« Why it fails »** en deux colonnes : *Got right* / *Got wrong*.
+- **Accueil refait pour les 5 premières secondes** — accroche en deux lignes,
+  une phrase d'explication, deux CTA (*Explore the benchmark* / *See a
+  question*), puis le chiffre de risque et **une erreur réelle en entier** :
+  la loi à gauche, la réponse assurée du modèle à droite, pourquoi elle échoue
+  en dessous.
+- **22 analyses d'erreur** rédigées à la main, une par défaut grave.
+- **Score lisible sans la méthodologie** — « Regulatory accuracy » en tête, puis
+  le détail par axe renommé en clair : Legal accuracy, Citation accuracy,
+  Calibration, Usability.
+- **Produit en anglais** de bout en bout, y compris le corpus et le barème.
 - **Statut de vérification par item** — « source vérifiée » / « en cours de
   vérification », avec la raison exacte du blocage, visible partout où l'item
   apparaît, et filtrable dans le corpus.
-- **Bandeau de statut du jeu de données** — permanent, sur toutes les pages,
-  découlant d'un champ des données et non d'un texte en dur.
+- **Bandeau « Research preview »** — permanent, sur toutes les pages, découlant
+  d'un champ des données et non d'un texte en dur.
 - **Données recalculées** — plus aucun agrégat n'est saisi à la main.
 - **Corpus explorable** — filtres domaine / type / difficulté / vérification,
   items cliquables portant leur source.
 - **35 tests**, scripts `typecheck` / `lint` / `test` / `donnees` / `verifier`.
-- **Aperçu de partage** (Open Graph) et métadonnées par page.
+- **Aperçu de partage** (Open Graph) régénéré en anglais, métadonnées par page,
+  titre « FinReg — Benchmarking AI on Regulatory Accuracy ».
 
 ## 5. Features deliberately postponed
 
@@ -111,7 +131,7 @@ blocage affichée :
 
 | Item | Ce qui bloque |
 | --- | --- |
-| `SFDR-0003` | L'option de l'article 17 est ouverte aux États membres ; le choix français n'a pas été confirmé sur source officielle |
+| `SFDR-0003` | L'option de l'article 17 est ouverte aux États membres ; l'exercice de cette option n'a pas été confirmé sur source officielle |
 | `DORA-0014` | Les délais de 4 h / 24 h relèvent des normes techniques, pas de l'article 19 |
 | `DORA-0018` | Les seuils de matérialité relèvent du règlement délégué de classification |
 | `LCBFT-0020` | Numérotation de l'article de la partie réglementaire non confirmée |
@@ -129,13 +149,17 @@ Le classement est un **échantillon de démonstration**, marqué comme tel :
   (« généraliste, très grande taille », « ouvert, poids publiés »). **Aucun
   éditeur réel n'est nommé, aucun produit commercialisé n'est noté.**
 - 120 évaluations écrites une par une, chacune rattachée à la règle, au seuil ou
-  à la date de son item.
+  à la date de son item, plus 22 analyses d'erreur détaillées.
 - Chaque réponse notée de 0 à 2 sur les quatre axes ; la note sur 10 et tous les
   agrégats en sont déduits.
 
-Résultats de l'échantillon : 84,5 / 72,0 / 55,0 / 24,2 / 23,7 sur 100.
-Sur les 120 réponses, **10,8 % citent une source inexistante, abrogée ou hors
-sujet**, et 60,8 points séparent le meilleur du moins bon système.
+Résultats de l'échantillon : 84.5 / 72.0 / 55.0 / 23.7 / 23.2 sur 100, pour une
+exactitude réglementaire moyenne de **51.7 / 100**.
+
+Le chiffre de tête est celui qui parle à un responsable conformité :
+**18.3 % des 120 réponses évaluées ne sont pas exploitables** — elles inventent
+une source ou énoncent une règle que le texte ne contient pas. 61.3 points
+séparent le meilleur du moins bon système.
 
 Deux mécanismes tiennent la distinction :
 
@@ -178,7 +202,7 @@ bun run verifier   →  typecheck + lint + test + build
 | --- | --- |
 | `typecheck` (tsc --noEmit) | PASS |
 | `lint` (eslint + prettier) | PASS — 0 erreur, 6 avertissements préexistants sur les composants shadcn/ui |
-| `test` (vitest) | PASS — 35 tests, 2 fichiers |
+| `test` (vitest) | PASS — 38 tests, 2 fichiers |
 | `build` (vite + nitro) | PASS |
 
 Les tests protègent les propriétés dont dépend la crédibilité, pas
@@ -186,7 +210,10 @@ l'apparence. Ils refusent : une source hors EUR-Lex / Légifrance, une
 appréciation recopiée d'un item à l'autre, un agrégat qui ne se recalcule pas,
 une date d'exécution dans le futur, un nombre de questions annoncé supérieur au
 nombre publié, un item marqué vérifié dont le lien ne pointe pas vers l'article
-cité, et un échantillon de démonstration qui nommerait un éditeur réel.
+cité, un échantillon de démonstration qui nommerait un éditeur réel, un lien
+EUR-Lex qui n'ouvrirait pas la version anglaise, et **un défaut grave publié
+sans explication** — un verdict que le lecteur ne pourrait pas vérifier étant
+exactement ce que le produit reproche aux systèmes évalués.
 
 Trois d'entre eux ont trouvé de vrais défauts en étant écrits (quatre
 appréciations dupliquées, une trop laconique pour être une évaluation).
@@ -210,10 +237,9 @@ passe par le compte Lovable / Cloudflare du fondateur, auquel je n'ai pas accès
    limitation majeure, et elle est affichée en permanence.
 2. **24 items ne couvrent pas la réglementation.** Un écart de quelques points
    n'y serait pas significatif ; seuls les écarts de nature se lisent.
-3. **Pas de canal de contact.** Le formulaire promettait une réponse sous cinq
-   jours ouvrés alors que rien n'était transmis. Il est retiré ; la constante
-   `ADRESSE_CONTACT` dans `src/routes/corpus-prive.tsx` n'attend qu'une adresse
-   pour réactiver un lien `mailto`. **À faire avant tout pitch.**
+3. **Pas de canal de contact.** La constante `ADRESSE_CONTACT` dans
+   `src/routes/private-benchmark.tsx` n'attend qu'une adresse pour activer un
+   lien `mailto`. **À faire avant tout pitch.**
 4. **Corpus public donc contaminable** — assumé et expliqué ; c'est la raison
    d'être du corpus privé.
 5. **Vérification = contrôle de citation**, pas revue juridique. Aucun juriste
@@ -223,8 +249,8 @@ passe par le compte Lovable / Cloudflare du fondateur, auquel je n'ai pas accès
 
 ## 14. Recommended next 5 actions
 
-1. **Renseigner `ADRESSE_CONTACT`** et redéployer. Un pitch sans moyen de
-   recontact perd le lead. 5 minutes.
+1. **Renseigner `ADRESSE_CONTACT`** (`src/routes/private-benchmark.tsx`) et
+   redéployer. Un pitch sans moyen de recontact perd le lead. 5 minutes.
 2. **Déployer et faire circuler l'URL** auprès de 5 responsables conformité.
    L'objectif est une réaction, pas une vente.
 3. **Exécuter une vraie mesure sur 2 ou 3 modèles**, sur ces 24 items. Le
