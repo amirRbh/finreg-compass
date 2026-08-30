@@ -8,6 +8,11 @@
     "build": "vite build",
     "build:dev": "vite build --mode development",
     "preview": "vite preview",
+    "donnees": "node scripts/construire-donnees.mjs",
+    "typecheck": "tsc --noEmit",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "verifier": "npm run typecheck && npm run lint && npm run test && npm run build",
     "lint": "eslint .",
     "format": "prettier --write ."
   },
@@ -85,6 +90,7 @@
     "prettier": "^3.7.3",
     "typescript": "^5.8.3",
     "typescript-eslint": "^8.56.1",
-    "vite": "8.1.5"
+    "vite": "8.1.5",
+    "vitest": "^3.2.7"
   }
 }
