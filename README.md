@@ -1,136 +1,112 @@
-# FinReg Compass
+# FinReg
 
-Construis un site public de benchmark : "FinReg ", un classement 
+Banc de mesure public de la fiabilité des modèles de langage sur la
+réglementation financière française et européenne — SFDR, MIF 2, doctrine et
+réglementation AMF, DORA, LCB-FT. Le site est en français.
 
-de fiabilité des modèles de langage sur la réglementation financière 
+## Ce que fait le produit
 
-française et européenne. Le site est en français.
+Un assistant qui cite un article inexistant est inutilisable en conformité : sa
+réponse ne peut être ni vérifiée, ni opposée, ni archivée. FinReg confronte les
+modèles à des questions dont la réponse *et* la source sont établies, puis
+publie chaque note avec l'item qui l'a produite.
 
-POSITIONNEMENT VISUEL
+Chaque item du corpus tient les cinq maillons de la chaîne :
 
-C'est un instrument de mesure, pas une startup. L'esthétique de 
-
-référence est celle d'un rapport de régulateur ou d'un papier de 
-
-recherche : dense, austère, la donnée occupe la place. Fond clair, 
-
-une seule couleur d'accent, chiffres en police monospace, tableaux 
-
-serrés. Interdits : dégradés, ombres portées, illustrations, 
-
-emoji, icônes décoratives, hero marketing, témoignages, badges 
-
-"as seen on".
-
-DONNÉES
-
-Aucun backend. Tout est lu depuis deux fichiers statiques dans 
-
-/public/data/. Crée-les avec des données factices respectant 
-
-exactement ces formes :
-
-results.json :
-
-{ "date_execution": "2026-09-15", "nb_questions": 150, "nb_runs": 3,
-
-  "modeles": [ { "id": "modele-a", "nom": "Modèle A", "editeur": "…",
-
-    "score_global": 72.4, "taux_hallucination_source": 11.2,
-
-    "taux_abstention_correcte": 34.0, "ecart_type": 2.1,
-
-    "scores_domaines": { "SFDR": 78.0, "MIFID": 69.5, "AMF": 55.2,
-
-      "DORA": 81.0, "LCBFT": 74.3 },
-
-    "scores_axes": { "exactitude": 1.6, "sourcing": 1.2,
-
-      "calibration": 1.1, "exploitabilite": 1.7 } } ] }
-
-questions.json : liste d'items
-
-{ "id": "SFDR-0001", "domaine": "SFDR", "type": "qualification",
-
-  "difficulte": 2, "question": "…", "reponse_reference": "…",
-
-  "source": { "texte": "…", "article": "…", "url": "…" },
-
-  "reponses_modeles": { "modele-a": { "texte": "…", "score": 6,
-
-    "flags": ["hallucination_source"] } } }
-
-PAGES
-
-1. Accueil — en haut, une seule statistique en très grand caractère : 
-
-le taux d'hallucination de source du modèle médian, avec sous-titre 
-
-explicatif d'une ligne. Puis le tableau de classement : rang, modèle, 
-
-éditeur, score global, taux d'hallucination, écart-type. Colonnes 
-
-triables. Une ligne par modèle, pas de cartes. Sous le tableau, un 
-
-graphique en barres groupées des scores par domaine.
-
-2. Méthodologie — texte long, structuré, avec le barème des 4 axes 
-
-en tableau, le protocole d'exécution et le prompt système publié 
-
-dans un bloc de code copiable.
-
-3. Questions — explorateur du corpus public. Filtres par domaine, 
-
-type et difficulté. Chaque item est une ligne dépliable qui révèle 
-
-la réponse de référence, la source cliquable, et les réponses des 
-
-modèles avec leur score et leurs flags. Les items flaggés 
-
-"hallucination_source" sont signalés visuellement de manière sobre.
-
-4. Modèle/:id — fiche détaillée d'un modèle : scores par domaine, 
-
-par axe, et les 5 échecs les plus significatifs cités in extenso.
-
-5. Corpus privé — page courte expliquant qu'un jeu de questions 
-
-non publié existe et sert à évaluer des systèmes en production. 
-
-Un formulaire simple (nom, société, email, message) qui appelle 
-
-une fonction placeholder à brancher plus tard. Pas de tarif affiché.
-
-CONTRAINTES TECHNIQUES
-
-React + Tailwind, responsive mobile. Pas de localStorage ni de 
-
-sessionStorage. Dates au format français. Tous les chiffres avec 
-
-une décimale et le séparateur français. Un bandeau discret en pied 
-
-de page indiquant la date de la dernière exécution et le nombre 
-
-de questions.
-
-This project was built with [Lovable](https://lovable.dev).
-
-## Build with Lovable
-
-Continue developing this project in the [Lovable editor](https://lovable.dev/projects/c47fae80-3159-4847-9ba3-d8c5dda9c555).
-
-- **Ship faster**: describe what you want to build and Lovable handles the code.
-- **Stay in sync**: every change made in Lovable is committed straight to this repository.
-- **Full ownership**: this code is yours. Push to `main` on GitHub and your changes sync back into Lovable, ready for your next prompt.
-
-## Development
-
-Prefer working locally? You need Node.js and npm — [install with nvm](https://github.com/nvm-sh/nvm#installing-and-updating).
-
-```sh
-git clone <this-repository-url>
-cd <repository-name>
-npm i
-npm run dev
 ```
+Texte réglementaire  →  Question  →  Réponse de référence  →  Vérification  →  Note
+   (acte, article)      (fermée)      (rédigée du texte)      (de la citation)  (4 axes)
+```
+
+## Statut du jeu de données publié
+
+Le corpus, les réponses de référence, les sources et leur statut de
+vérification sont réels. **Le classement, lui, est un échantillon de
+démonstration** : les cinq systèmes « Modèle A » à « Modèle E » sont des
+archétypes, et leurs réponses ont été écrites à la main pour illustrer ce que
+mesure chaque axe du barème. Aucun modèle commercialisé n'est nommé, noté ni
+classé.
+
+Deux mécanismes tiennent cette distinction, plutôt qu'une simple bonne
+intention :
+
+- `public/data/results.json` porte un champ `statut`. Tant qu'il vaut
+  `echantillon_demonstration`, un bandeau apparaît en haut de **toutes** les
+  pages. Il disparaîtra le jour où une exécution mesurée remplacera
+  l'échantillon, et pas avant.
+- Aucun agrégat n'est saisi à la main. Score global, taux de source inventée,
+  taux d'abstention, scores par domaine et par axe sont tous recalculés depuis
+  les réponses item par item, et un test le vérifie à chaque exécution.
+
+De la même manière, un item dont la citation n'a pas pu être rattachée à un
+article précis reste publié avec le statut « en cours de vérification » et la
+raison exacte du blocage. Il n'est jamais promu au rang de vérifié.
+
+## Architecture
+
+Application [TanStack Start](https://tanstack.com/start) (React 19, Vite,
+Tailwind v4), sans backend. Les pages lisent deux fichiers statiques servis
+depuis `public/data/`.
+
+```
+scripts/corpus-source.json         questions, sources, statut de vérification
+scripts/reponses-echantillon.json  réponses de l'échantillon de démonstration
+        │
+        └── scripts/construire-donnees.mjs   (bun run donnees)
+                    │
+                    ├── public/data/questions.json
+                    └── public/data/results.json
+```
+
+Les deux fichiers de `scripts/` sont les sources d'autorité : c'est là qu'on
+édite le corpus. Les fichiers de `public/data/` sont générés — les modifier à
+la main serait sans effet à la prochaine génération, et casserait les tests
+d'intégrité.
+
+### Pages
+
+| Route            | Rôle                                                             |
+| ---------------- | ---------------------------------------------------------------- |
+| `/`              | Ce que fait FinReg, la chaîne, un item en entier, le classement   |
+| `/questions`     | Corpus public, filtrable par domaine, type, difficulté et statut  |
+| `/question/$id`  | Un item de bout en bout : question → source → vérification → notes |
+| `/modele/$id`    | Fiche d'un système : scores par domaine, par axe, échecs cités     |
+| `/methodologie`  | Barème, statuts de vérification, protocole, prompt système publié  |
+| `/corpus-prive`  | Évaluation sur corpus non publié                                   |
+
+## Développement
+
+```bash
+bun install
+bun run dev          # serveur de développement
+bun run donnees      # régénère public/data depuis scripts/
+bun run verifier     # typecheck + lint + tests + build
+```
+
+Commandes disponibles séparément : `typecheck`, `lint`, `test`, `test:watch`,
+`build`, `format`.
+
+### Modifier le corpus
+
+1. Éditer `scripts/corpus-source.json` (question, source, statut de
+   vérification) et `scripts/reponses-echantillon.json` (réponses évaluées,
+   notées de 0 à 2 sur les quatre axes).
+2. `bun run donnees`
+3. `bun run test` — les contrôles d'intégrité refusent notamment une source non
+   officielle, une appréciation recopiée d'un item à l'autre, un agrégat qui ne
+   se recalcule pas, une date d'exécution dans le futur, ou un item marqué
+   vérifié dont le lien ne pointe pas vers l'article cité.
+
+## Déploiement
+
+Le build produit une application Nitro ciblant Cloudflare Workers
+(`.output/`, `wrangler.json` généré). Le projet est connecté à
+[Lovable](https://lovable.dev) : les commits poussés sur la branche connectée
+sont synchronisés vers l'éditeur.
+
+## Avertissement
+
+FinReg publie des mesures, pas des conseils. Ni le classement ni les réponses
+de référence ne constituent un avis juridique. Le contrôle de vérification
+porte sur l'existence et la pertinence de la citation, pas sur l'application de
+la règle à un cas d'espèce.
