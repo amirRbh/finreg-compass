@@ -1,13 +1,19 @@
-import { DOMAINES, nb, type Modele } from "@/lib/finreg";
+import { nb, type Modele } from "@/lib/finreg";
 
 const LARGEUR = 900;
 const HAUTEUR = 300;
 const MARGE = { haut: 12, bas: 34, gauche: 34, droite: 8 };
 
-export function GraphiqueDomaines({ modeles }: { modeles: Modele[] }) {
+export function GraphiqueDomaines({
+  modeles,
+  domaines,
+}: {
+  modeles: Modele[];
+  domaines: string[];
+}) {
   const zoneL = LARGEUR - MARGE.gauche - MARGE.droite;
   const zoneH = HAUTEUR - MARGE.haut - MARGE.bas;
-  const largeurGroupe = zoneL / DOMAINES.length;
+  const largeurGroupe = zoneL / domaines.length;
   const largeurBarre = (largeurGroupe * 0.78) / modeles.length;
 
   return (
@@ -43,7 +49,7 @@ export function GraphiqueDomaines({ modeles }: { modeles: Modele[] }) {
               </g>
             );
           })}
-          {DOMAINES.map((domaine, i) => {
+          {domaines.map((domaine, i) => {
             const x0 = MARGE.gauche + i * largeurGroupe + largeurGroupe * 0.11;
             return (
               <g key={domaine}>
@@ -98,10 +104,13 @@ export function GraphiqueDomaines({ modeles }: { modeles: Modele[] }) {
         <table className="w-full min-w-[36rem] border-collapse text-sm">
           <thead>
             <tr className="border-b border-rule bg-surface-sunken">
-              <th scope="col" className="py-2 pr-4 text-left text-xs font-medium text-muted-foreground">
+              <th
+                scope="col"
+                className="py-2 pr-4 text-left text-xs font-medium text-muted-foreground"
+              >
                 Modèle
               </th>
-              {DOMAINES.map((d) => (
+              {domaines.map((d) => (
                 <th
                   key={d}
                   scope="col"
@@ -116,7 +125,7 @@ export function GraphiqueDomaines({ modeles }: { modeles: Modele[] }) {
             {modeles.map((m) => (
               <tr key={m.id} className="border-b border-border">
                 <td className="py-2 pr-4">{m.nom}</td>
-                {DOMAINES.map((d) => (
+                {domaines.map((d) => (
                   <td key={d} className="py-2 pr-4 text-right font-mono tabulaire">
                     {nb(m.scores_domaines[d])}
                   </td>

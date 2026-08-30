@@ -1,15 +1,13 @@
-import { createFileRoute } from "@tanstack/react-router";
+import { createFileRoute, Link } from "@tanstack/react-router";
 import { useMemo, useState } from "react";
 import { Chargement, Erreur, Page } from "@/components/finreg/Chrome";
+import { PastilleVerification } from "@/components/finreg/Statuts";
 import {
-  DOMAINES,
-  LIBELLES_FLAGS,
   LIBELLES_TYPES,
+  LIBELLES_VERIFICATION,
+  ORDRE_DOMAINES,
   ORDRE_TYPES,
-  estGrave,
-  nb,
   useQuestions,
-  useResultats,
   valeursPresentes,
   type Question,
 } from "@/lib/finreg";
@@ -17,17 +15,17 @@ import {
 export const Route = createFileRoute("/questions")({
   head: () => ({
     meta: [
-      { title: "Corpus public de questions — FinReg" },
+      { title: "Corpus public — FinReg" },
       {
         name: "description",
         content:
-          "Explorateur du corpus public FinReg : questions réglementaires, réponses de référence sourcées et réponses notées de chaque modèle.",
+          "Le corpus public FinReg : chaque question réglementaire avec sa réponse de référence, l'article dont elle est tirée et le statut de vérification de cette citation.",
       },
-      { property: "og:title", content: "Corpus public de questions — FinReg" },
+      { property: "og:title", content: "Corpus public — FinReg" },
       {
         property: "og:description",
         content:
-          "Filtrez par domaine, type et difficulté, et comparez les réponses des modèles à la réponse de référence.",
+          "Filtrez par domaine, type, difficulté et statut de vérification, puis ouvrez un item pour suivre la chaîne complète.",
       },
     ],
   }),
@@ -35,21 +33,28 @@ export const Route = createFileRoute("/questions")({
 });
 
 const LIBELLES_DIFFICULTE: Record<string, string> = {
-  "1": "1 — directe",
-  "2": "2 — combinée",
-  "3": "3 — périmètre",
+  "1": "1 — application directe",
+  "2": "2 — combinaison",
+  "3": "3 — périmètre / datation",
 };
 
 function Questions() {
   const { data: questions, isPending, isError } = useQuestions();
-  const { data: resultats } = useResultats();
   const [domaine, setDomaine] = useState("tous");
   const [type, setType] = useState("tous");
   const [difficulte, setDifficulte] = useState("toutes");
-  const [ouvert, setOuvert] = useState<string | null>(null);
+  const [verification, setVerification] = useState("toutes");
 
   // Les options de filtre viennent du corpus publié, pas d'une liste figée ici :
-  // le vocabulaire du harnais fait foi, et aucun item ne doit rester introuvable.
+  // le vocabulaire des données fait foi, et aucun item ne doit rester introuvable.
+  const domainesPresents = useMemo(
+    () =>
+      valeursPresentes(
+        (questions ?? []).map((q) => q.domaine),
+        ORDRE_DOMAINES,
+      ),
+    [questions],
+  );
   const typesPresents = useMemo(
     () =>
       valeursPresentes(
@@ -70,30 +75,37 @@ function Questions() {
       (q) =>
         (domaine === "tous" || q.domaine === domaine) &&
         (type === "tous" || q.type === type) &&
-        (difficulte === "toutes" || String(q.difficulte) === difficulte),
+        (difficulte === "toutes" || String(q.difficulte) === difficulte) &&
+        (verification === "toutes" || q.verification.statut === verification),
     );
-  }, [questions, domaine, type, difficulte]);
+  }, [questions, domaine, type, difficulte, verification]);
 
-  const nomModele = (id: string) => resultats?.modeles.find((m) => m.id === id)?.nom ?? id;
+  const verifiees =
+    questions?.filter((q) => q.verification.statut === "source_verifiee").length ?? 0;
 
   return (
     <Page>
-      <p className="etiquette">Corpus · 24 items publiés</p>
-      <h1 className="text-3xl leading-tight sm:text-4xl">Corpus public</h1>
+      <p className="etiquette">Corpus public</p>
+      <h1 className="text-3xl leading-tight sm:text-4xl">Les questions, en clair</h1>
       <p className="mt-4 max-w-2xl text-[15px] leading-relaxed text-muted-foreground">
-        Chaque item indique la réponse de référence, sa source et les réponses notées de chaque
-        modèle. Les réponses citant une source inexistante, abrogée ou inapplicable sont signalées.
+        Le corpus est publié intégralement : c'est ce qui rend le barème vérifiable. Chaque item
+        porte sa réponse de référence, l'article dont elle est tirée et le résultat du contrôle de
+        cette citation. Ouvrez un item pour voir ce que chaque système a répondu.
       </p>
+
+      {questions && (
+        <p className="mt-4 font-mono text-[11px] text-muted-foreground">
+          {questions.length} items publiés — {verifiees} à source vérifiée,{" "}
+          {questions.length - verifiees} en cours de vérification.
+        </p>
+      )}
 
       <div className="mt-8 flex flex-wrap gap-5 border border-border bg-surface px-4 py-3 shadow-panneau">
         <Filtre
           libelle="Domaine"
           valeur={domaine}
           onChange={setDomaine}
-          options={[
-            { v: "tous", l: "Tous" },
-            ...DOMAINES.map((d) => ({ v: d, l: d })),
-          ]}
+          options={[{ v: "tous", l: "Tous" }, ...domainesPresents.map((d) => ({ v: d, l: d }))]}
         />
         <Filtre
           libelle="Type"
@@ -113,6 +125,15 @@ function Questions() {
             ...difficultesPresentes.map((d) => ({ v: d, l: LIBELLES_DIFFICULTE[d] ?? d })),
           ]}
         />
+        <Filtre
+          libelle="Vérification"
+          valeur={verification}
+          onChange={setVerification}
+          options={[
+            { v: "toutes", l: "Toutes" },
+            ...Object.entries(LIBELLES_VERIFICATION).map(([v, l]) => ({ v, l })),
+          ]}
+        />
       </div>
 
       {isPending && (
@@ -128,18 +149,12 @@ function Questions() {
 
       {questions && (
         <>
-          <p className="mt-4 font-mono text-[11px] text-muted-foreground">
-            {filtrees.length} item(s) sur {questions.length} publiés
+          <p className="mt-6 font-mono text-[11px] text-muted-foreground">
+            {filtrees.length} item(s) affiché(s)
           </p>
           <ul className="mt-2 border-t border-rule">
             {filtrees.map((q) => (
-              <Item
-                key={q.id}
-                question={q}
-                ouvert={ouvert === q.id}
-                onToggle={() => setOuvert(ouvert === q.id ? null : q.id)}
-                nomModele={nomModele}
-              />
+              <Item key={q.id} question={q} />
             ))}
           </ul>
           {filtrees.length === 0 && (
@@ -182,111 +197,26 @@ function Filtre({
   );
 }
 
-function Item({
-  question,
-  ouvert,
-  onToggle,
-  nomModele,
-}: {
-  question: Question;
-  ouvert: boolean;
-  onToggle: () => void;
-  nomModele: (id: string) => string;
-}) {
-  const halluciné = Object.values(question.reponses_modeles).some((r) =>
-    r.flags.includes("hallucination_source"),
-  );
-
+function Item({ question }: { question: Question }) {
   return (
-    <li className={`border-b border-border ${halluciné ? "border-l-2 border-l-accent" : ""}`}>
-      <button
-        type="button"
-        onClick={onToggle}
-        className="flex w-full items-baseline gap-3 px-3 py-3.5 text-left transition-colors hover:bg-surface-sunken"
-        aria-expanded={ouvert}
+    <li className="border-b border-border">
+      <Link
+        to="/question/$id"
+        params={{ id: question.id }}
+        className="block px-3 py-4 transition-colors hover:bg-surface-sunken"
       >
-        <span className="w-24 shrink-0 font-mono text-[11px] text-muted-foreground">
-          {question.id}
-        </span>
-        <span className="flex-1 text-sm">{question.question}</span>
-        <span className="hidden shrink-0 font-mono text-[11px] text-muted-foreground sm:inline">
-          {LIBELLES_TYPES[question.type] ?? question.type} · diff. {question.difficulte}
-        </span>
-        <span className="shrink-0 font-mono text-xs text-accent">{ouvert ? "−" : "+"}</span>
-      </button>
-
-      {halluciné && !ouvert && (
-        <p className="px-3 pb-3 font-mono text-[11px] text-accent">
-          Au moins une réponse cite une source non vérifiable.
-        </p>
-      )}
-
-      {ouvert && (
-        <div className="bg-surface-sunken/60 px-3 pt-1 pb-5">
-          <dl className="max-w-2xl text-sm">
-            <dt className="text-xs font-medium text-muted-foreground">Réponse de référence</dt>
-            <dd className="mt-1 leading-relaxed">{question.reponse_reference}</dd>
-            <dt className="mt-3 text-xs font-medium text-muted-foreground">Source</dt>
-            <dd className="mt-1">
-              {question.source.texte} — {question.source.article}{" "}
-              <a
-                href={question.source.url}
-                target="_blank"
-                rel="noreferrer"
-                className="font-mono text-xs text-accent underline underline-offset-4"
-              >
-                consulter
-              </a>
-            </dd>
-          </dl>
-
-          <div className="mt-4 -mx-4 overflow-x-auto px-4">
-            <table className="w-full min-w-[40rem] border-collapse text-sm">
-              <thead>
-                <tr className="border-b border-rule bg-surface-sunken">
-                  <th scope="col" className="py-2 pr-4 text-left text-xs font-medium text-muted-foreground">
-                    Modèle
-                  </th>
-                  <th scope="col" className="py-2 pr-4 text-right text-xs font-medium text-muted-foreground">
-                    Score
-                  </th>
-                  <th scope="col" className="py-2 pr-4 text-left text-xs font-medium text-muted-foreground">
-                    Évaluation
-                  </th>
-                  <th scope="col" className="py-2 text-left text-xs font-medium text-muted-foreground">
-                    Drapeaux
-                  </th>
-                </tr>
-              </thead>
-              <tbody>
-                {Object.entries(question.reponses_modeles).map(([id, r]) => (
-                  <tr key={id} className="border-b border-border align-top">
-                    <td className="py-2 pr-4 whitespace-nowrap">{nomModele(id)}</td>
-                    <td className="py-2 pr-4 text-right font-mono tabulaire">{nb(r.score)}</td>
-                    <td className="py-2 pr-4 text-muted-foreground">{r.texte}</td>
-                    <td className="py-2 font-mono text-[11px]">
-                      {r.flags.length === 0 ? (
-                        <span className="text-muted-foreground">—</span>
-                      ) : (
-                        r.flags.map((f) => (
-                          <span
-                            key={f}
-                            className={`block ${
-                              estGrave(f) ? "text-accent" : "text-muted-foreground"
-                            }`}
-                          >
-                            {LIBELLES_FLAGS[f] ?? f}
-                          </span>
-                        ))
-                      )}
-                    </td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
-          </div>
+        <div className="flex flex-wrap items-center gap-x-3 gap-y-2">
+          <span className="font-mono text-[11px] text-muted-foreground">{question.id}</span>
+          <PastilleVerification statut={question.verification.statut} taille="petite" />
+          <span className="font-mono text-[11px] text-muted-foreground">
+            {LIBELLES_TYPES[question.type] ?? question.type} · diff. {question.difficulte}
+          </span>
         </div>
-      )}
+        <p className="mt-2 max-w-3xl text-sm leading-relaxed">{question.question}</p>
+        <p className="mt-1.5 font-mono text-[11px] text-muted-foreground">
+          {question.source.texte} — {question.source.article}
+        </p>
+      </Link>
     </li>
   );
 }
