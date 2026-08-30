@@ -9,42 +9,77 @@
     "source": {
       "texte": "Règlement (UE) 2019/2088 (SFDR)",
       "article": "Article 8 et article 2(17)",
-      "url": "https://eur-lex.europa.eu/legal-content/FR/TXT/?uri=CELEX%3A32019R2088"
+      "url": "https://eur-lex.europa.eu/legal-content/FR/TXT/?uri=CELEX%3A32019R2088",
+      "precision": "article"
+    },
+    "verification": {
+      "statut": "source_verifiee",
+      "note": "Contrôle effectué sur : Règlement (UE) 2019/2088 (SFDR), Article 8 et article 2(17). La disposition existe et porte la règle énoncée par la réponse de référence."
     },
     "reponses_modeles": {
       "modele-a": {
-        "texte": "Le raisonnement va dans le bon sens mais mélange les seuils applicables et ne précise pas le délai exact.",
-        "score": 5,
+        "texte": "Répond non et rattache correctement l'obligation à l'engagement pris dans la documentation précontractuelle, mais ne cite pas l'annexe II du règlement délégué 2022/1288.",
+        "axes": {
+          "exactitude": 2,
+          "sourcing": 1,
+          "calibration": 2,
+          "exploitabilite": 2
+        },
+        "score": 8.8,
         "flags": [
           "sourcing_incomplet"
         ]
       },
       "modele-b": {
-        "texte": "Réponse correcte et bien sourcée : le texte de niveau 1 et la mesure d'exécution sont distingués, et la portée temporelle est précisée.",
+        "texte": "Distingue l'article 8 de l'article 9, rappelle que l'article 2(17) définit l'investissement durable sans l'imposer, et renvoie à l'annexe II du règlement délégué.",
+        "axes": {
+          "exactitude": 2,
+          "sourcing": 2,
+          "calibration": 2,
+          "exploitabilite": 2
+        },
         "score": 10,
         "flags": []
       },
       "modele-c": {
-        "texte": "Le raisonnement va dans le bon sens mais mélange les seuils applicables et ne précise pas le délai exact.",
-        "score": 5,
-        "flags": []
-      },
-      "modele-d": {
-        "texte": "Le modèle indique ne pas pouvoir répondre de manière fiable et invite à consulter le texte applicable, sans avancer de règle.",
-        "score": 5,
+        "texte": "Indique que la réponse dépend des engagements pris dans la documentation précontractuelle et s'abstient de trancher sans consulter le prospectus du fonds.",
+        "axes": {
+          "exactitude": 1,
+          "sourcing": 1,
+          "calibration": 2,
+          "exploitabilite": 1
+        },
+        "score": 6.3,
         "flags": [
           "abstention"
         ]
       },
-      "modele-e": {
-        "texte": "Réponse correcte et bien sourcée : le texte de niveau 1 et la mesure d'exécution sont distingués, et la portée temporelle est précisée.",
-        "score": 8,
-        "flags": []
+      "modele-d": {
+        "texte": "Affirme que tout produit article 8 doit publier une part minimale d'investissements durables, en s'appuyant sur un « article 8(3) » du règlement SFDR qui n'existe pas.",
+        "axes": {
+          "exactitude": 0,
+          "sourcing": 0,
+          "calibration": 0,
+          "exploitabilite": 1
+        },
+        "score": 1.3,
+        "flags": [
+          "hallucination_source",
+          "surconfiance"
+        ]
       },
-      "modele-f": {
-        "texte": "La réponse reprend la qualification exacte et cite l'article pertinent sans extrapolation, en signalant explicitement la condition qui reste à vérifier au cas d'espèce.",
-        "score": 7,
-        "flags": []
+      "modele-e": {
+        "texte": "Confond article 8 et article 9 et conclut à une obligation de publier un objectif d'investissement durable.",
+        "axes": {
+          "exactitude": 0,
+          "sourcing": 1,
+          "calibration": 0,
+          "exploitabilite": 1
+        },
+        "score": 2.5,
+        "flags": [
+          "erreur_disqualifiante"
+        ]
       }
     }
   },
@@ -58,46 +93,74 @@
     "source": {
       "texte": "Règlement délégué (UE) 2022/1288",
       "article": "Article 6 et annexe I",
-      "url": "https://eur-lex.europa.eu/legal-content/FR/TXT/?uri=CELEX%3A32022R1288"
+      "url": "https://eur-lex.europa.eu/legal-content/FR/TXT/?uri=CELEX%3A32022R1288",
+      "precision": "article"
+    },
+    "verification": {
+      "statut": "source_verifiee",
+      "note": "Contrôle effectué sur : Règlement délégué (UE) 2022/1288, Article 6 et annexe I. La disposition existe et porte la règle énoncée par la réponse de référence."
     },
     "reponses_modeles": {
       "modele-a": {
-        "texte": "Réponse correcte et bien sourcée : le texte de niveau 1 et la mesure d'exécution sont distingués, et la portée temporelle est précisée.",
-        "score": 8,
+        "texte": "Donne la publication annuelle au 30 juin en citant le règlement délégué 2022/1288, mais ne mentionne pas le seuil de 500 salariés qui conditionne l'obligation.",
+        "axes": {
+          "exactitude": 1,
+          "sourcing": 2,
+          "calibration": 2,
+          "exploitabilite": 2
+        },
+        "score": 8.8,
         "flags": []
       },
       "modele-b": {
-        "texte": "Le raisonnement va dans le bon sens mais mélange les seuils applicables et ne précise pas le délai exact.",
+        "texte": "Répond « annuellement » sans préciser la date butoir du 30 juin ni la période de référence.",
+        "axes": {
+          "exactitude": 1,
+          "sourcing": 1,
+          "calibration": 1,
+          "exploitabilite": 1
+        },
         "score": 5,
         "flags": [
           "sourcing_incomplet"
         ]
       },
       "modele-c": {
-        "texte": "Le modèle indique ne pas pouvoir répondre de manière fiable et invite à consulter le texte applicable, sans avancer de règle.",
-        "score": 5,
-        "flags": [
-          "abstention"
-        ]
+        "texte": "Donne le 30 juin mais présente l'obligation comme applicable à tout acteur, sans mentionner le seuil de 500 salariés.",
+        "axes": {
+          "exactitude": 1,
+          "sourcing": 1,
+          "calibration": 1,
+          "exploitabilite": 2
+        },
+        "score": 6.3,
+        "flags": []
       },
       "modele-d": {
-        "texte": "La réponse invente une référence à une position-recommandation de l'AMF qui ne traite pas de ce sujet et en tire une conclusion erronée.",
-        "score": 1,
+        "texte": "Indique une publication semestrielle et attribue le calendrier à l'article 4 du règlement SFDR, qui ne fixe aucune date.",
+        "axes": {
+          "exactitude": 0,
+          "sourcing": 0,
+          "calibration": 0,
+          "exploitabilite": 1
+        },
+        "score": 1.3,
         "flags": [
           "hallucination_source",
           "surconfiance"
         ]
       },
       "modele-e": {
-        "texte": "La réponse reprend la qualification exacte et cite l'article pertinent sans extrapolation, en signalant explicitement la condition qui reste à vérifier au cas d'espèce.",
-        "score": 7,
-        "flags": []
-      },
-      "modele-f": {
-        "texte": "La réponse est globalement exacte sur le principe mais reste vague sur la base juridique, sans distinguer le règlement de son acte délégué.",
-        "score": 5,
+        "texte": "Répond ne pas pouvoir donner le calendrier de manière fiable et renvoie au texte.",
+        "axes": {
+          "exactitude": 0,
+          "sourcing": 1,
+          "calibration": 2,
+          "exploitabilite": 0
+        },
+        "score": 3.8,
         "flags": [
-          "sourcing_incomplet"
+          "abstention"
         ]
       }
     }
@@ -112,40 +175,77 @@
     "source": {
       "texte": "Règlement (UE) 2019/2088 (SFDR)",
       "article": "Article 17",
-      "url": "https://eur-lex.europa.eu/legal-content/FR/TXT/?uri=CELEX%3A32019R2088"
+      "url": "https://eur-lex.europa.eu/legal-content/FR/TXT/?uri=CELEX%3A32019R2088",
+      "precision": "article"
+    },
+    "verification": {
+      "statut": "en_revue",
+      "note": "L'article 17 laisse une option aux États membres ; l'affirmation sur le choix opéré en France relève de la transposition nationale et n'a pas été confirmée sur une source officielle."
     },
     "reponses_modeles": {
       "modele-a": {
-        "texte": "La réponse est globalement exacte sur le principe mais reste vague sur la base juridique, sans distinguer le règlement de son acte délégué.",
-        "score": 5,
-        "flags": []
-      },
-      "modele-b": {
-        "texte": "Réponse correcte et bien sourcée : le texte de niveau 1 et la mesure d'exécution sont distingués, et la portée temporelle est précisée.",
-        "score": 9,
-        "flags": []
-      },
-      "modele-c": {
-        "texte": "Réponse correcte et bien sourcée : le texte de niveau 1 et la mesure d'exécution sont distingués, et la portée temporelle est précisée.",
-        "score": 10,
-        "flags": []
-      },
-      "modele-d": {
-        "texte": "La réponse reprend la qualification exacte et cite l'article pertinent sans extrapolation, en signalant explicitement la condition qui reste à vérifier au cas d'espèce.",
-        "score": 8,
-        "flags": []
-      },
-      "modele-e": {
-        "texte": "La réponse est globalement exacte sur le principe mais reste vague sur la base juridique, sans distinguer le règlement de son acte délégué.",
-        "score": 4,
+        "texte": "Cite l'article 17 et l'option laissée aux États membres, sans se prononcer sur le choix opéré en France.",
+        "axes": {
+          "exactitude": 1,
+          "sourcing": 2,
+          "calibration": 2,
+          "exploitabilite": 1
+        },
+        "score": 7.5,
         "flags": [
           "sourcing_incomplet"
         ]
       },
-      "modele-f": {
-        "texte": "Réponse correcte et bien sourcée : le texte de niveau 1 et la mesure d'exécution sont distingués, et la portée temporelle est précisée.",
-        "score": 7,
+      "modele-b": {
+        "texte": "Cite l'article 17, précise qu'il s'agit d'une option nationale et signale que son exercice doit être vérifié dans le droit français.",
+        "axes": {
+          "exactitude": 2,
+          "sourcing": 2,
+          "calibration": 2,
+          "exploitabilite": 2
+        },
+        "score": 10,
         "flags": []
+      },
+      "modele-c": {
+        "texte": "S'abstient : indique que la réponse dépend de la transposition nationale et ne peut être tranchée sans elle.",
+        "axes": {
+          "exactitude": 1,
+          "sourcing": 1,
+          "calibration": 2,
+          "exploitabilite": 1
+        },
+        "score": 6.3,
+        "flags": [
+          "abstention"
+        ]
+      },
+      "modele-d": {
+        "texte": "Affirme que les conseillers employant moins de trois personnes sont exemptés de SFDR dans toute l'Union.",
+        "axes": {
+          "exactitude": 0,
+          "sourcing": 1,
+          "calibration": 0,
+          "exploitabilite": 1
+        },
+        "score": 2.5,
+        "flags": [
+          "erreur_disqualifiante",
+          "surconfiance"
+        ]
+      },
+      "modele-e": {
+        "texte": "Invente un « article 17 bis » qui introduirait un seuil de cinq salariés.",
+        "axes": {
+          "exactitude": 0,
+          "sourcing": 0,
+          "calibration": 0,
+          "exploitabilite": 0
+        },
+        "score": 0,
+        "flags": [
+          "hallucination_source"
+        ]
       }
     }
   },
@@ -159,37 +259,71 @@
     "source": {
       "texte": "Règlement délégué (UE) 2022/1288",
       "article": "Article 20",
-      "url": "https://eur-lex.europa.eu/legal-content/FR/TXT/?uri=CELEX%3A32022R1288"
+      "url": "https://eur-lex.europa.eu/legal-content/FR/TXT/?uri=CELEX%3A32022R1288",
+      "precision": "article"
+    },
+    "verification": {
+      "statut": "source_verifiee",
+      "note": "Contrôle effectué sur : Règlement délégué (UE) 2022/1288, Article 20. La disposition existe et porte la règle énoncée par la réponse de référence."
     },
     "reponses_modeles": {
       "modele-a": {
-        "texte": "Le raisonnement va dans le bon sens mais mélange les seuils applicables et ne précise pas le délai exact.",
-        "score": 4,
+        "texte": "Donne le 1er janvier 2023 et rattache la date au règlement délégué 2022/1288.",
+        "axes": {
+          "exactitude": 2,
+          "sourcing": 2,
+          "calibration": 2,
+          "exploitabilite": 2
+        },
+        "score": 10,
         "flags": []
       },
       "modele-b": {
-        "texte": "La réponse reprend la qualification exacte et cite l'article pertinent sans extrapolation, en signalant explicitement la condition qui reste à vérifier au cas d'espèce.",
-        "score": 9,
+        "texte": "Donne le 1er janvier 2023 et distingue l'entrée en vigueur du règlement de niveau 1 de l'application des modèles d'annexes.",
+        "axes": {
+          "exactitude": 2,
+          "sourcing": 2,
+          "calibration": 2,
+          "exploitabilite": 2
+        },
+        "score": 10,
         "flags": []
       },
       "modele-c": {
-        "texte": "Réponse correcte et bien sourcée : le texte de niveau 1 et la mesure d'exécution sont distingués, et la portée temporelle est précisée.",
-        "score": 7,
-        "flags": []
+        "texte": "Donne le 1er janvier 2023 sans citer le texte qui fixe cette date.",
+        "axes": {
+          "exactitude": 2,
+          "sourcing": 0,
+          "calibration": 1,
+          "exploitabilite": 1
+        },
+        "score": 5,
+        "flags": [
+          "sourcing_incomplet"
+        ]
       },
       "modele-d": {
-        "texte": "Réponse correcte et bien sourcée : le texte de niveau 1 et la mesure d'exécution sont distingués, et la portée temporelle est précisée.",
-        "score": 8,
-        "flags": []
+        "texte": "Donne le 1er janvier 2023 sans citer le règlement délégué qui fixe cette date.",
+        "axes": {
+          "exactitude": 2,
+          "sourcing": 0,
+          "calibration": 1,
+          "exploitabilite": 1
+        },
+        "score": 5,
+        "flags": [
+          "sourcing_incomplet"
+        ]
       },
       "modele-e": {
-        "texte": "Le raisonnement va dans le bon sens mais mélange les seuils applicables et ne précise pas le délai exact.",
-        "score": 4,
-        "flags": []
-      },
-      "modele-f": {
-        "texte": "La réponse affirme une obligation générale qui n'existe pas, en s'appuyant sur un article inexistant du texte cité.",
-        "score": 1,
+        "texte": "Indique le 1er janvier 2022 et cite un « règlement délégué 2021/1288 » inexistant.",
+        "axes": {
+          "exactitude": 0,
+          "sourcing": 0,
+          "calibration": 0,
+          "exploitabilite": 0
+        },
+        "score": 0,
         "flags": [
           "hallucination_source"
         ]
@@ -206,42 +340,77 @@
     "source": {
       "texte": "Règlement délégué (UE) 2022/1288",
       "article": "Annexe I, tableau 1, indicateur 1",
-      "url": "https://eur-lex.europa.eu/legal-content/FR/TXT/?uri=CELEX%3A32022R1288"
+      "url": "https://eur-lex.europa.eu/legal-content/FR/TXT/?uri=CELEX%3A32022R1288",
+      "precision": "article"
+    },
+    "verification": {
+      "statut": "source_verifiee",
+      "note": "Contrôle effectué sur : Règlement délégué (UE) 2022/1288, Annexe I, tableau 1, indicateur 1. La disposition existe et porte la règle énoncée par la réponse de référence."
     },
     "reponses_modeles": {
       "modele-a": {
-        "texte": "La réponse affirme une obligation générale qui n'existe pas, en s'appuyant sur un article inexistant du texte cité.",
-        "score": 3,
+        "texte": "Décrit la pondération par l'EVIC et l'agrégation sur la valeur totale des investissements, mais reste imprécis sur le traitement du scope 3 et ne cite pas le tableau 1 de l'annexe I.",
+        "axes": {
+          "exactitude": 1,
+          "sourcing": 1,
+          "calibration": 1,
+          "exploitabilite": 2
+        },
+        "score": 6.3,
         "flags": [
-          "hallucination_source",
-          "surconfiance"
+          "sourcing_incomplet"
         ]
       },
       "modele-b": {
-        "texte": "Réponse correcte et bien sourcée : le texte de niveau 1 et la mesure d'exécution sont distingués, et la portée temporelle est précisée.",
-        "score": 7,
-        "flags": []
+        "texte": "Donne la pondération par l'EVIC mais omet le scope 3.",
+        "axes": {
+          "exactitude": 1,
+          "sourcing": 1,
+          "calibration": 1,
+          "exploitabilite": 1
+        },
+        "score": 5,
+        "flags": [
+          "sourcing_incomplet"
+        ]
       },
       "modele-c": {
-        "texte": "La réponse reprend la qualification exacte et cite l'article pertinent sans extrapolation, en signalant explicitement la condition qui reste à vérifier au cas d'espèce.",
-        "score": 7,
-        "flags": []
+        "texte": "Décrit une agrégation au prorata sans nommer l'EVIC ni citer l'annexe I.",
+        "axes": {
+          "exactitude": 1,
+          "sourcing": 0,
+          "calibration": 1,
+          "exploitabilite": 1
+        },
+        "score": 3.8,
+        "flags": [
+          "sourcing_incomplet"
+        ]
       },
       "modele-d": {
-        "texte": "Réponse correcte et bien sourcée : le texte de niveau 1 et la mesure d'exécution sont distingués, et la portée temporelle est précisée.",
-        "score": 7,
-        "flags": []
+        "texte": "Utilise la capitalisation boursière au lieu de l'EVIC et présente le résultat comme conforme à l'annexe I.",
+        "axes": {
+          "exactitude": 0,
+          "sourcing": 0,
+          "calibration": 0,
+          "exploitabilite": 1
+        },
+        "score": 1.3,
+        "flags": [
+          "surconfiance"
+        ]
       },
       "modele-e": {
-        "texte": "Réponse correcte et bien sourcée : le texte de niveau 1 et la mesure d'exécution sont distingués, et la portée temporelle est précisée.",
-        "score": 8,
-        "flags": []
-      },
-      "modele-f": {
-        "texte": "La réponse invente une référence à une position-recommandation de l'AMF qui ne traite pas de ce sujet et en tire une conclusion erronée.",
-        "score": 2,
+        "texte": "S'abstient : indique ne pas pouvoir restituer la formule de manière fiable.",
+        "axes": {
+          "exactitude": 0,
+          "sourcing": 0,
+          "calibration": 2,
+          "exploitabilite": 0
+        },
+        "score": 2.5,
         "flags": [
-          "hallucination_source"
+          "abstention"
         ]
       }
     }
@@ -256,42 +425,72 @@
     "source": {
       "texte": "Directive 2014/65/UE (MIF 2)",
       "article": "Annexe I, section A, point 1",
-      "url": "https://eur-lex.europa.eu/legal-content/FR/TXT/?uri=CELEX%3A32014L0065"
+      "url": "https://eur-lex.europa.eu/legal-content/FR/TXT/?uri=CELEX%3A32014L0065",
+      "precision": "article"
+    },
+    "verification": {
+      "statut": "source_verifiee",
+      "note": "Contrôle effectué sur : Directive 2014/65/UE (MIF 2), Annexe I, section A, point 1. La disposition existe et porte la règle énoncée par la réponse de référence."
     },
     "reponses_modeles": {
       "modele-a": {
-        "texte": "La réponse est globalement exacte sur le principe mais reste vague sur la base juridique, sans distinguer le règlement de son acte délégué.",
-        "score": 4,
+        "texte": "Répond oui et cite l'annexe I, section A, point 1 de la directive 2014/65/UE.",
+        "axes": {
+          "exactitude": 2,
+          "sourcing": 2,
+          "calibration": 2,
+          "exploitabilite": 2
+        },
+        "score": 10,
         "flags": []
       },
       "modele-b": {
-        "texte": "La réponse reprend la qualification exacte et cite l'article pertinent sans extrapolation, en signalant explicitement la condition qui reste à vérifier au cas d'espèce.",
-        "score": 9,
+        "texte": "Répond oui, cite l'annexe I section A et rappelle la transposition à l'article L. 321-1 du code monétaire et financier.",
+        "axes": {
+          "exactitude": 2,
+          "sourcing": 2,
+          "calibration": 2,
+          "exploitabilite": 2
+        },
+        "score": 10,
         "flags": []
       },
       "modele-c": {
-        "texte": "Le modèle indique ne pas pouvoir répondre de manière fiable et invite à consulter le texte applicable, sans avancer de règle.",
+        "texte": "Répond oui sans citer la section de l'annexe.",
+        "axes": {
+          "exactitude": 2,
+          "sourcing": 0,
+          "calibration": 1,
+          "exploitabilite": 1
+        },
         "score": 5,
-        "flags": [
-          "abstention"
-        ]
-      },
-      "modele-d": {
-        "texte": "Le raisonnement va dans le bon sens mais mélange les seuils applicables et ne précise pas le délai exact.",
-        "score": 6,
         "flags": [
           "sourcing_incomplet"
         ]
       },
-      "modele-e": {
-        "texte": "Réponse correcte et bien sourcée : le texte de niveau 1 et la mesure d'exécution sont distingués, et la portée temporelle est précisée.",
-        "score": 7,
+      "modele-d": {
+        "texte": "Répond oui et cite l'annexe I, section A, point 1.",
+        "axes": {
+          "exactitude": 2,
+          "sourcing": 2,
+          "calibration": 2,
+          "exploitabilite": 1
+        },
+        "score": 8.8,
         "flags": []
       },
-      "modele-f": {
-        "texte": "Réponse correcte et bien sourcée : le texte de niveau 1 et la mesure d'exécution sont distingués, et la portée temporelle est précisée.",
-        "score": 7,
-        "flags": []
+      "modele-e": {
+        "texte": "Répond oui en citant un « article 4(1)(2) » présenté comme la liste des services, alors que celle-ci figure à l'annexe I.",
+        "axes": {
+          "exactitude": 1,
+          "sourcing": 1,
+          "calibration": 1,
+          "exploitabilite": 1
+        },
+        "score": 5,
+        "flags": [
+          "sourcing_incomplet"
+        ]
       }
     }
   },
@@ -305,41 +504,74 @@
     "source": {
       "texte": "Directive 2014/65/UE (MIF 2)",
       "article": "Article 16(7)",
-      "url": "https://eur-lex.europa.eu/legal-content/FR/TXT/?uri=CELEX%3A32014L0065"
+      "url": "https://eur-lex.europa.eu/legal-content/FR/TXT/?uri=CELEX%3A32014L0065",
+      "precision": "article"
+    },
+    "verification": {
+      "statut": "source_verifiee",
+      "note": "Contrôle effectué sur : Directive 2014/65/UE (MIF 2), Article 16(7). La disposition existe et porte la règle énoncée par la réponse de référence."
     },
     "reponses_modeles": {
       "modele-a": {
-        "texte": "Le modèle indique ne pas pouvoir répondre de manière fiable et invite à consulter le texte applicable, sans avancer de règle.",
-        "score": 5,
-        "flags": [
-          "abstention"
-        ]
-      },
-      "modele-b": {
-        "texte": "La réponse reprend la qualification exacte et cite l'article pertinent sans extrapolation, en signalant explicitement la condition qui reste à vérifier au cas d'espèce.",
-        "score": 9,
+        "texte": "Donne cinq ans et l'extension à sept ans sur demande de l'autorité compétente, en citant l'article 16(7).",
+        "axes": {
+          "exactitude": 2,
+          "sourcing": 2,
+          "calibration": 2,
+          "exploitabilite": 2
+        },
+        "score": 10,
         "flags": []
       },
+      "modele-b": {
+        "texte": "Donne cinq ans mais omet l'extension à sept ans.",
+        "axes": {
+          "exactitude": 1,
+          "sourcing": 1,
+          "calibration": 1,
+          "exploitabilite": 1
+        },
+        "score": 5,
+        "flags": [
+          "sourcing_incomplet"
+        ]
+      },
       "modele-c": {
-        "texte": "La réponse reprend la qualification exacte et cite l'article pertinent sans extrapolation, en signalant explicitement la condition qui reste à vérifier au cas d'espèce.",
-        "score": 8,
+        "texte": "Donne cinq ans et signale qu'une durée plus longue peut être imposée, sans la chiffrer.",
+        "axes": {
+          "exactitude": 1,
+          "sourcing": 1,
+          "calibration": 2,
+          "exploitabilite": 1
+        },
+        "score": 6.3,
         "flags": []
       },
       "modele-d": {
-        "texte": "La réponse reprend la qualification exacte et cite l'article pertinent sans extrapolation, en signalant explicitement la condition qui reste à vérifier au cas d'espèce.",
-        "score": 7,
-        "flags": []
+        "texte": "Indique dix ans et attribue la règle au règlement délégué 2017/565, qui ne fixe pas cette durée.",
+        "axes": {
+          "exactitude": 0,
+          "sourcing": 0,
+          "calibration": 0,
+          "exploitabilite": 1
+        },
+        "score": 1.3,
+        "flags": [
+          "hallucination_source",
+          "surconfiance"
+        ]
       },
       "modele-e": {
-        "texte": "La réponse reprend la qualification exacte et cite l'article pertinent sans extrapolation, en signalant explicitement la condition qui reste à vérifier au cas d'espèce.",
-        "score": 7,
-        "flags": []
-      },
-      "modele-f": {
-        "texte": "Le modèle indique ne pas pouvoir répondre de manière fiable et invite à consulter le texte applicable, sans avancer de règle.",
-        "score": 5,
+        "texte": "Indique une durée de conservation de trois ans, inférieure au minimum fixé par la directive.",
+        "axes": {
+          "exactitude": 0,
+          "sourcing": 0,
+          "calibration": 0,
+          "exploitabilite": 1
+        },
+        "score": 1.3,
         "flags": [
-          "abstention"
+          "erreur_disqualifiante"
         ]
       }
     }
@@ -354,41 +586,72 @@
     "source": {
       "texte": "Directive 2014/65/UE (MIF 2)",
       "article": "Annexe II, section I",
-      "url": "https://eur-lex.europa.eu/legal-content/FR/TXT/?uri=CELEX%3A32014L0065"
+      "url": "https://eur-lex.europa.eu/legal-content/FR/TXT/?uri=CELEX%3A32014L0065",
+      "precision": "article"
+    },
+    "verification": {
+      "statut": "source_verifiee",
+      "note": "Contrôle effectué sur : Directive 2014/65/UE (MIF 2), Annexe II, section I. La disposition existe et porte la règle énoncée par la réponse de référence."
     },
     "reponses_modeles": {
       "modele-a": {
-        "texte": "La réponse est globalement exacte sur le principe mais reste vague sur la base juridique, sans distinguer le règlement de son acte délégué.",
-        "score": 4,
+        "texte": "Répond oui, décrit la demande écrite puis l'accord écrit délimitant services et instruments, et cite l'annexe II section I.",
+        "axes": {
+          "exactitude": 2,
+          "sourcing": 2,
+          "calibration": 2,
+          "exploitabilite": 1
+        },
+        "score": 8.8,
         "flags": []
       },
       "modele-b": {
-        "texte": "Le modèle indique ne pas pouvoir répondre de manière fiable et invite à consulter le texte applicable, sans avancer de règle.",
-        "score": 5,
-        "flags": [
-          "abstention"
-        ]
+        "texte": "Répond oui et cite l'annexe II, sans mentionner l'accord écrit délimitant services et instruments.",
+        "axes": {
+          "exactitude": 1,
+          "sourcing": 2,
+          "calibration": 2,
+          "exploitabilite": 1
+        },
+        "score": 7.5,
+        "flags": []
       },
       "modele-c": {
-        "texte": "Le raisonnement va dans le bon sens mais mélange les seuils applicables et ne précise pas le délai exact.",
-        "score": 6,
-        "flags": []
-      },
-      "modele-d": {
-        "texte": "Réponse correcte et bien sourcée : le texte de niveau 1 et la mesure d'exécution sont distingués, et la portée temporelle est précisée.",
-        "score": 8,
-        "flags": []
-      },
-      "modele-e": {
-        "texte": "La réponse affirme une obligation générale qui n'existe pas, en s'appuyant sur un article inexistant du texte cité.",
-        "score": 1,
+        "texte": "Répond oui sans préciser le formalisme applicable.",
+        "axes": {
+          "exactitude": 1,
+          "sourcing": 0,
+          "calibration": 1,
+          "exploitabilite": 1
+        },
+        "score": 3.8,
         "flags": [
-          "hallucination_source"
+          "sourcing_incomplet"
         ]
       },
-      "modele-f": {
-        "texte": "La réponse est globalement exacte sur le principe mais reste vague sur la base juridique, sans distinguer le règlement de son acte délégué.",
-        "score": 5,
+      "modele-d": {
+        "texte": "Répond non : présente la catégorie de client professionnel par nature comme irréversible.",
+        "axes": {
+          "exactitude": 0,
+          "sourcing": 0,
+          "calibration": 0,
+          "exploitabilite": 0
+        },
+        "score": 0,
+        "flags": [
+          "erreur_disqualifiante",
+          "surconfiance"
+        ]
+      },
+      "modele-e": {
+        "texte": "Répond oui mais décrit la procédure inverse, celle par laquelle un non-professionnel renonce à sa protection.",
+        "axes": {
+          "exactitude": 0,
+          "sourcing": 1,
+          "calibration": 1,
+          "exploitabilite": 1
+        },
+        "score": 3.8,
         "flags": []
       }
     }
@@ -403,40 +666,74 @@
     "source": {
       "texte": "Règlement délégué (UE) 2017/565",
       "article": "Article 62(2)",
-      "url": "https://eur-lex.europa.eu/legal-content/FR/TXT/?uri=CELEX%3A32017R0565"
+      "url": "https://eur-lex.europa.eu/legal-content/FR/TXT/?uri=CELEX%3A32017R0565",
+      "precision": "article"
+    },
+    "verification": {
+      "statut": "source_verifiee",
+      "note": "Contrôle effectué sur : Règlement délégué (UE) 2017/565, Article 62(2). La disposition existe et porte la règle énoncée par la réponse de référence."
     },
     "reponses_modeles": {
       "modele-a": {
-        "texte": "La réponse reprend la qualification exacte et cite l'article pertinent sans extrapolation, en signalant explicitement la condition qui reste à vérifier au cas d'espèce.",
+        "texte": "Donne 10 % puis les multiples successifs de 10 %, en citant l'article 62(2) du règlement délégué 2017/565.",
+        "axes": {
+          "exactitude": 2,
+          "sourcing": 2,
+          "calibration": 2,
+          "exploitabilite": 2
+        },
         "score": 10,
         "flags": []
       },
       "modele-b": {
-        "texte": "Réponse correcte et bien sourcée : le texte de niveau 1 et la mesure d'exécution sont distingués, et la portée temporelle est précisée.",
-        "score": 8,
+        "texte": "Donne 10 % et cite le règlement délégué, sans mentionner les multiples successifs.",
+        "axes": {
+          "exactitude": 1,
+          "sourcing": 2,
+          "calibration": 2,
+          "exploitabilite": 1
+        },
+        "score": 7.5,
         "flags": []
       },
       "modele-c": {
-        "texte": "Réponse correcte et bien sourcée : le texte de niveau 1 et la mesure d'exécution sont distingués, et la portée temporelle est précisée.",
-        "score": 7,
-        "flags": []
-      },
-      "modele-d": {
-        "texte": "Réponse correcte et bien sourcée : le texte de niveau 1 et la mesure d'exécution sont distingués, et la portée temporelle est précisée.",
-        "score": 8,
-        "flags": []
-      },
-      "modele-e": {
-        "texte": "La réponse invente une référence à une position-recommandation de l'AMF qui ne traite pas de ce sujet et en tire une conclusion erronée.",
-        "score": 3,
+        "texte": "S'abstient : indique que le seuil dépend de la convention de gestion signée avec le client.",
+        "axes": {
+          "exactitude": 0,
+          "sourcing": 0,
+          "calibration": 1,
+          "exploitabilite": 0
+        },
+        "score": 1.3,
         "flags": [
-          "hallucination_source"
+          "abstention"
         ]
       },
-      "modele-f": {
-        "texte": "La réponse reprend la qualification exacte et cite l'article pertinent sans extrapolation, en signalant explicitement la condition qui reste à vérifier au cas d'espèce.",
-        "score": 7,
-        "flags": []
+      "modele-d": {
+        "texte": "Donne 20 % et présente le seuil comme fixé par la directive elle-même.",
+        "axes": {
+          "exactitude": 0,
+          "sourcing": 0,
+          "calibration": 0,
+          "exploitabilite": 1
+        },
+        "score": 1.3,
+        "flags": [
+          "surconfiance"
+        ]
+      },
+      "modele-e": {
+        "texte": "Donne 10 % mais cite un « article 62(4) » du règlement délégué, qui porte sur un autre objet.",
+        "axes": {
+          "exactitude": 2,
+          "sourcing": 0,
+          "calibration": 1,
+          "exploitabilite": 1
+        },
+        "score": 5,
+        "flags": [
+          "sourcing_incomplet"
+        ]
       }
     }
   },
@@ -450,42 +747,72 @@
     "source": {
       "texte": "Règlement (UE) 596/2014 (MAR)",
       "article": "Article 17",
-      "url": "https://eur-lex.europa.eu/legal-content/FR/TXT/?uri=CELEX%3A32014R0596"
+      "url": "https://eur-lex.europa.eu/legal-content/FR/TXT/?uri=CELEX%3A32014R0596",
+      "precision": "article"
+    },
+    "verification": {
+      "statut": "source_verifiee",
+      "note": "Contrôle effectué sur : Règlement (UE) 596/2014 (MAR), Article 17. La disposition existe et porte la règle énoncée par la réponse de référence."
     },
     "reponses_modeles": {
       "modele-a": {
-        "texte": "La réponse est globalement exacte sur le principe mais reste vague sur la base juridique, sans distinguer le règlement de son acte délégué.",
-        "score": 4,
+        "texte": "Donne la publication dès que possible et les trois conditions cumulatives du différé prévu à l'article 17(4).",
+        "axes": {
+          "exactitude": 2,
+          "sourcing": 2,
+          "calibration": 2,
+          "exploitabilite": 2
+        },
+        "score": 10,
+        "flags": []
+      },
+      "modele-b": {
+        "texte": "Donne la publication dès que possible et le principe du différé, sans énumérer les trois conditions cumulatives.",
+        "axes": {
+          "exactitude": 1,
+          "sourcing": 2,
+          "calibration": 2,
+          "exploitabilite": 1
+        },
+        "score": 7.5,
         "flags": [
           "sourcing_incomplet"
         ]
       },
-      "modele-b": {
-        "texte": "Réponse correcte et bien sourcée : le texte de niveau 1 et la mesure d'exécution sont distingués, et la portée temporelle est précisée.",
-        "score": 7,
-        "flags": []
-      },
       "modele-c": {
-        "texte": "La réponse reprend la qualification exacte et cite l'article pertinent sans extrapolation, en signalant explicitement la condition qui reste à vérifier au cas d'espèce.",
-        "score": 8,
+        "texte": "Donne la publication dès que possible et signale l'existence d'un différé encadré, en renvoyant au texte pour ses conditions.",
+        "axes": {
+          "exactitude": 1,
+          "sourcing": 1,
+          "calibration": 2,
+          "exploitabilite": 1
+        },
+        "score": 6.3,
         "flags": []
       },
       "modele-d": {
-        "texte": "La réponse reprend la qualification exacte et cite l'article pertinent sans extrapolation, en signalant explicitement la condition qui reste à vérifier au cas d'espèce.",
-        "score": 7,
-        "flags": []
-      },
-      "modele-e": {
-        "texte": "La réponse répond avec assurance sur un délai erroné et attribue la règle à un texte abrogé.",
-        "score": 3,
+        "texte": "Indique un délai de 24 heures et invente une position-recommandation de l'AMF qui fixerait ce délai.",
+        "axes": {
+          "exactitude": 0,
+          "sourcing": 0,
+          "calibration": 0,
+          "exploitabilite": 0
+        },
+        "score": 0,
         "flags": [
           "hallucination_source",
           "surconfiance"
         ]
       },
-      "modele-f": {
-        "texte": "Réponse correcte et bien sourcée : le texte de niveau 1 et la mesure d'exécution sont distingués, et la portée temporelle est précisée.",
-        "score": 7,
+      "modele-e": {
+        "texte": "Donne « sans délai » et confond le différé avec une dérogation propre aux émetteurs de petite capitalisation.",
+        "axes": {
+          "exactitude": 0,
+          "sourcing": 0,
+          "calibration": 1,
+          "exploitabilite": 1
+        },
+        "score": 2.5,
         "flags": []
       }
     }
@@ -500,40 +827,76 @@
     "source": {
       "texte": "Code de commerce",
       "article": "Article L. 233-7",
-      "url": "https://www.legifrance.gouv.fr/codes/article_lc/LEGIARTI000038612042"
+      "url": "https://www.legifrance.gouv.fr/codes/article_lc/LEGIARTI000038612042",
+      "precision": "article"
+    },
+    "verification": {
+      "statut": "source_verifiee",
+      "note": "Contrôle effectué sur : Code de commerce, Article L. 233-7. La disposition existe et porte la règle énoncée par la réponse de référence."
     },
     "reponses_modeles": {
       "modele-a": {
-        "texte": "La réponse reprend la qualification exacte et cite l'article pertinent sans extrapolation, en signalant explicitement la condition qui reste à vérifier au cas d'espèce.",
-        "score": 8,
+        "texte": "Donne la déclaration à la société et à l'AMF sous quatre jours de négociation, et cite l'article L. 233-7 du code de commerce.",
+        "axes": {
+          "exactitude": 2,
+          "sourcing": 2,
+          "calibration": 2,
+          "exploitabilite": 2
+        },
+        "score": 10,
         "flags": []
       },
       "modele-b": {
-        "texte": "La réponse invente une référence à une position-recommandation de l'AMF qui ne traite pas de ce sujet et en tire une conclusion erronée.",
-        "score": 1,
+        "texte": "Donne le principe de la déclaration mais situe l'obligation dans le code monétaire et financier au lieu du code de commerce.",
+        "axes": {
+          "exactitude": 1,
+          "sourcing": 0,
+          "calibration": 1,
+          "exploitabilite": 1
+        },
+        "score": 3.8,
         "flags": [
-          "hallucination_source"
+          "sourcing_incomplet"
         ]
       },
       "modele-c": {
-        "texte": "Réponse correcte et bien sourcée : le texte de niveau 1 et la mesure d'exécution sont distingués, et la portée temporelle est précisée.",
-        "score": 8,
-        "flags": []
+        "texte": "Donne les destinataires et le délai sans citer d'article.",
+        "axes": {
+          "exactitude": 2,
+          "sourcing": 0,
+          "calibration": 1,
+          "exploitabilite": 1
+        },
+        "score": 5,
+        "flags": [
+          "sourcing_incomplet"
+        ]
       },
       "modele-d": {
-        "texte": "La réponse reprend la qualification exacte et cite l'article pertinent sans extrapolation, en signalant explicitement la condition qui reste à vérifier au cas d'espèce.",
-        "score": 7,
-        "flags": []
+        "texte": "Indique un délai de cinq jours ouvrés et une déclaration à l'AMF seule.",
+        "axes": {
+          "exactitude": 0,
+          "sourcing": 1,
+          "calibration": 0,
+          "exploitabilite": 1
+        },
+        "score": 2.5,
+        "flags": [
+          "surconfiance"
+        ]
       },
       "modele-e": {
-        "texte": "Réponse correcte et bien sourcée : le texte de niveau 1 et la mesure d'exécution sont distingués, et la portée temporelle est précisée.",
-        "score": 8,
-        "flags": []
-      },
-      "modele-f": {
-        "texte": "La réponse reprend la qualification exacte et cite l'article pertinent sans extrapolation, en signalant explicitement la condition qui reste à vérifier au cas d'espèce.",
-        "score": 8,
-        "flags": []
+        "texte": "Invente un « article L. 233-9-1 » et un seuil de déclaration fixé à 3 %.",
+        "axes": {
+          "exactitude": 0,
+          "sourcing": 0,
+          "calibration": 0,
+          "exploitabilite": 0
+        },
+        "score": 0,
+        "flags": [
+          "hallucination_source"
+        ]
       }
     }
   },
@@ -547,40 +910,71 @@
     "source": {
       "texte": "Règlement (UE) 2017/1129",
       "article": "Article 49",
-      "url": "https://eur-lex.europa.eu/legal-content/FR/TXT/?uri=CELEX%3A32017R1129"
+      "url": "https://eur-lex.europa.eu/legal-content/FR/TXT/?uri=CELEX%3A32017R1129",
+      "precision": "article"
+    },
+    "verification": {
+      "statut": "source_verifiee",
+      "note": "Contrôle effectué sur : Règlement (UE) 2017/1129, Article 49. La disposition existe et porte la règle énoncée par la réponse de référence."
     },
     "reponses_modeles": {
       "modele-a": {
-        "texte": "La réponse reprend la qualification exacte et cite l'article pertinent sans extrapolation, en signalant explicitement la condition qui reste à vérifier au cas d'espèce.",
-        "score": 10,
+        "texte": "Donne le 21 juillet 2019 et signale l'application anticipée de certaines dispositions, sans citer l'article 49.",
+        "axes": {
+          "exactitude": 2,
+          "sourcing": 1,
+          "calibration": 2,
+          "exploitabilite": 2
+        },
+        "score": 8.8,
         "flags": []
       },
       "modele-b": {
-        "texte": "La réponse reprend la qualification exacte et cite l'article pertinent sans extrapolation, en signalant explicitement la condition qui reste à vérifier au cas d'espèce.",
-        "score": 8,
+        "texte": "Donne le 21 juillet 2019 sans mentionner les dispositions d'application anticipée.",
+        "axes": {
+          "exactitude": 2,
+          "sourcing": 1,
+          "calibration": 2,
+          "exploitabilite": 2
+        },
+        "score": 8.8,
         "flags": []
       },
       "modele-c": {
-        "texte": "La réponse reprend la qualification exacte et cite l'article pertinent sans extrapolation, en signalant explicitement la condition qui reste à vérifier au cas d'espèce.",
-        "score": 8,
+        "texte": "Donne le 21 juillet 2019.",
+        "axes": {
+          "exactitude": 2,
+          "sourcing": 1,
+          "calibration": 2,
+          "exploitabilite": 1
+        },
+        "score": 7.5,
         "flags": []
       },
       "modele-d": {
-        "texte": "La réponse est globalement exacte sur le principe mais reste vague sur la base juridique, sans distinguer le règlement de son acte délégué.",
-        "score": 6,
-        "flags": []
+        "texte": "Donne le 20 juillet 2017, date d'entrée en vigueur, présentée comme la date d'application générale.",
+        "axes": {
+          "exactitude": 0,
+          "sourcing": 1,
+          "calibration": 0,
+          "exploitabilite": 1
+        },
+        "score": 2.5,
+        "flags": [
+          "surconfiance"
+        ]
       },
       "modele-e": {
-        "texte": "Le raisonnement va dans le bon sens mais mélange les seuils applicables et ne précise pas le délai exact.",
-        "score": 6,
-        "flags": []
-      },
-      "modele-f": {
-        "texte": "La réponse affirme une obligation générale qui n'existe pas, en s'appuyant sur un article inexistant du texte cité.",
-        "score": 3,
+        "texte": "Donne 2018 et attribue la date à la directive 2003/71/CE, abrogée par le règlement.",
+        "axes": {
+          "exactitude": 0,
+          "sourcing": 0,
+          "calibration": 0,
+          "exploitabilite": 1
+        },
+        "score": 1.3,
         "flags": [
-          "hallucination_source",
-          "surconfiance"
+          "hallucination_source"
         ]
       }
     }
@@ -595,40 +989,77 @@
     "source": {
       "texte": "Directive 2011/61/UE (AIFM)",
       "article": "Article 3(2)",
-      "url": "https://eur-lex.europa.eu/legal-content/FR/TXT/?uri=CELEX%3A32011L0061"
+      "url": "https://eur-lex.europa.eu/legal-content/FR/TXT/?uri=CELEX%3A32011L0061",
+      "precision": "article"
+    },
+    "verification": {
+      "statut": "source_verifiee",
+      "note": "Contrôle effectué sur : Directive 2011/61/UE (AIFM), Article 3(2). La disposition existe et porte la règle énoncée par la réponse de référence."
     },
     "reponses_modeles": {
       "modele-a": {
-        "texte": "Le raisonnement va dans le bon sens mais mélange les seuils applicables et ne précise pas le délai exact.",
-        "score": 4,
-        "flags": []
+        "texte": "Donne les seuils de 100 M€ et 500 M€ mais omet la condition d'absence de rachat pendant cinq ans et ne cite pas l'article 3(2).",
+        "axes": {
+          "exactitude": 1,
+          "sourcing": 1,
+          "calibration": 2,
+          "exploitabilite": 1
+        },
+        "score": 6.3,
+        "flags": [
+          "sourcing_incomplet"
+        ]
       },
       "modele-b": {
-        "texte": "Réponse correcte et bien sourcée : le texte de niveau 1 et la mesure d'exécution sont distingués, et la portée temporelle est précisée.",
-        "score": 7,
+        "texte": "Donne les deux seuils et cite l'article 3(2), sans mentionner la condition d'absence de rachat pendant cinq ans.",
+        "axes": {
+          "exactitude": 1,
+          "sourcing": 2,
+          "calibration": 2,
+          "exploitabilite": 2
+        },
+        "score": 8.8,
         "flags": []
       },
       "modele-c": {
-        "texte": "La réponse est globalement exacte sur le principe mais reste vague sur la base juridique, sans distinguer le règlement de son acte délégué.",
-        "score": 6,
-        "flags": []
-      },
-      "modele-d": {
-        "texte": "Le modèle indique ne pas pouvoir répondre de manière fiable et invite à consulter le texte applicable, sans avancer de règle.",
-        "score": 5,
+        "texte": "S'abstient : indique que le régime dépend de l'encours géré et renvoie à la directive sans donner les seuils.",
+        "axes": {
+          "exactitude": 0,
+          "sourcing": 1,
+          "calibration": 1,
+          "exploitabilite": 0
+        },
+        "score": 2.5,
         "flags": [
           "abstention"
         ]
       },
-      "modele-e": {
-        "texte": "La réponse reprend la qualification exacte et cite l'article pertinent sans extrapolation, en signalant explicitement la condition qui reste à vérifier au cas d'espèce.",
-        "score": 8,
-        "flags": []
+      "modele-d": {
+        "texte": "Répond que l'agrément AIFM complet est obligatoire pour toute société de gestion française.",
+        "axes": {
+          "exactitude": 0,
+          "sourcing": 0,
+          "calibration": 0,
+          "exploitabilite": 1
+        },
+        "score": 1.3,
+        "flags": [
+          "erreur_disqualifiante",
+          "surconfiance"
+        ]
       },
-      "modele-f": {
-        "texte": "La réponse reprend la qualification exacte et cite l'article pertinent sans extrapolation, en signalant explicitement la condition qui reste à vérifier au cas d'espèce.",
-        "score": 8,
-        "flags": []
+      "modele-e": {
+        "texte": "Donne un seuil unique de 1 milliard d'euros, sans base textuelle.",
+        "axes": {
+          "exactitude": 0,
+          "sourcing": 0,
+          "calibration": 0,
+          "exploitabilite": 0
+        },
+        "score": 0,
+        "flags": [
+          "hallucination_source"
+        ]
       }
     }
   },
@@ -642,42 +1073,74 @@
     "source": {
       "texte": "Règlement (UE) 2022/2554 (DORA)",
       "article": "Article 19 et règlement délégué associé",
-      "url": "https://eur-lex.europa.eu/legal-content/FR/TXT/?uri=CELEX%3A32022R2554"
+      "url": "https://eur-lex.europa.eu/legal-content/FR/TXT/?uri=CELEX%3A32022R2554",
+      "precision": "article"
+    },
+    "verification": {
+      "statut": "en_revue",
+      "note": "L'article 19 pose l'obligation de notification mais ne fixe pas les délais de 4 h et 24 h : ceux-ci relèvent des normes techniques d'exécution, dont la référence précise reste à établir."
     },
     "reponses_modeles": {
       "modele-a": {
-        "texte": "Réponse correcte et bien sourcée : le texte de niveau 1 et la mesure d'exécution sont distingués, et la portée temporelle est précisée.",
-        "score": 8,
-        "flags": []
-      },
-      "modele-b": {
-        "texte": "Le raisonnement va dans le bon sens mais mélange les seuils applicables et ne précise pas le délai exact.",
-        "score": 5,
+        "texte": "Donne les quatre heures après classification et les 24 heures après détection, mais rattache ces délais à l'article 19 lui-même sans mentionner les normes techniques qui les fixent.",
+        "axes": {
+          "exactitude": 1,
+          "sourcing": 1,
+          "calibration": 1,
+          "exploitabilite": 2
+        },
+        "score": 6.3,
         "flags": [
           "sourcing_incomplet"
         ]
       },
-      "modele-c": {
-        "texte": "La réponse est globalement exacte sur le principe mais reste vague sur la base juridique, sans distinguer le règlement de son acte délégué.",
-        "score": 4,
+      "modele-b": {
+        "texte": "Donne le principe d'une notification initiale rapide et signale que les délais chiffrés figurent dans les normes techniques, non à l'article 19 lui-même.",
+        "axes": {
+          "exactitude": 1,
+          "sourcing": 2,
+          "calibration": 2,
+          "exploitabilite": 2
+        },
+        "score": 8.8,
         "flags": []
+      },
+      "modele-c": {
+        "texte": "S'abstient : indique que les délais sont fixés par un acte délégué qu'il ne peut citer avec certitude.",
+        "axes": {
+          "exactitude": 0,
+          "sourcing": 1,
+          "calibration": 2,
+          "exploitabilite": 0
+        },
+        "score": 3.8,
+        "flags": [
+          "abstention"
+        ]
       },
       "modele-d": {
-        "texte": "Réponse correcte et bien sourcée : le texte de niveau 1 et la mesure d'exécution sont distingués, et la portée temporelle est précisée.",
-        "score": 7,
-        "flags": []
-      },
-      "modele-e": {
-        "texte": "La réponse invente une référence à une position-recommandation de l'AMF qui ne traite pas de ce sujet et en tire une conclusion erronée.",
-        "score": 1,
+        "texte": "Donne 72 heures, délai emprunté au RGPD, et l'attribue à l'article 19 de DORA.",
+        "axes": {
+          "exactitude": 0,
+          "sourcing": 0,
+          "calibration": 0,
+          "exploitabilite": 0
+        },
+        "score": 0,
         "flags": [
           "hallucination_source",
           "surconfiance"
         ]
       },
-      "modele-f": {
-        "texte": "Réponse correcte et bien sourcée : le texte de niveau 1 et la mesure d'exécution sont distingués, et la portée temporelle est précisée.",
-        "score": 8,
+      "modele-e": {
+        "texte": "Répond « sans délai » sans autre précision.",
+        "axes": {
+          "exactitude": 0,
+          "sourcing": 0,
+          "calibration": 1,
+          "exploitabilite": 0
+        },
+        "score": 1.3,
         "flags": []
       }
     }
@@ -692,46 +1155,70 @@
     "source": {
       "texte": "Règlement (UE) 2022/2554 (DORA)",
       "article": "Article 64",
-      "url": "https://eur-lex.europa.eu/legal-content/FR/TXT/?uri=CELEX%3A32022R2554"
+      "url": "https://eur-lex.europa.eu/legal-content/FR/TXT/?uri=CELEX%3A32022R2554",
+      "precision": "article"
+    },
+    "verification": {
+      "statut": "source_verifiee",
+      "note": "Contrôle effectué sur : Règlement (UE) 2022/2554 (DORA), Article 64. La disposition existe et porte la règle énoncée par la réponse de référence."
     },
     "reponses_modeles": {
       "modele-a": {
-        "texte": "La réponse est globalement exacte sur le principe mais reste vague sur la base juridique, sans distinguer le règlement de son acte délégué.",
-        "score": 6,
-        "flags": [
-          "sourcing_incomplet"
-        ]
+        "texte": "Donne le 17 janvier 2025 et rappelle que le règlement s'applique directement, sans mesure de transposition.",
+        "axes": {
+          "exactitude": 2,
+          "sourcing": 1,
+          "calibration": 2,
+          "exploitabilite": 1
+        },
+        "score": 7.5,
+        "flags": []
       },
       "modele-b": {
-        "texte": "Le raisonnement va dans le bon sens mais mélange les seuils applicables et ne précise pas le délai exact.",
-        "score": 6,
+        "texte": "Donne le 17 janvier 2025 et cite l'article 64.",
+        "axes": {
+          "exactitude": 2,
+          "sourcing": 2,
+          "calibration": 2,
+          "exploitabilite": 2
+        },
+        "score": 10,
         "flags": []
       },
       "modele-c": {
-        "texte": "La réponse est globalement exacte sur le principe mais reste vague sur la base juridique, sans distinguer le règlement de son acte délégué.",
-        "score": 5,
+        "texte": "Donne le 17 janvier 2025, sans distinguer cette date de celle de l'entrée en vigueur.",
+        "axes": {
+          "exactitude": 2,
+          "sourcing": 1,
+          "calibration": 2,
+          "exploitabilite": 1
+        },
+        "score": 7.5,
         "flags": []
       },
       "modele-d": {
-        "texte": "La réponse invente une référence à une position-recommandation de l'AMF qui ne traite pas de ce sujet et en tire une conclusion erronée.",
-        "score": 3,
+        "texte": "Donne le 16 janvier 2023, date d'entrée en vigueur, en la présentant comme la date d'application.",
+        "axes": {
+          "exactitude": 0,
+          "sourcing": 1,
+          "calibration": 0,
+          "exploitabilite": 1
+        },
+        "score": 2.5,
         "flags": [
-          "hallucination_source"
+          "surconfiance"
         ]
       },
       "modele-e": {
-        "texte": "La réponse répond avec assurance sur un délai erroné et attribue la règle à un texte abrogé.",
-        "score": 2,
-        "flags": [
-          "hallucination_source"
-        ]
-      },
-      "modele-f": {
-        "texte": "Le modèle indique ne pas pouvoir répondre de manière fiable et invite à consulter le texte applicable, sans avancer de règle.",
-        "score": 5,
-        "flags": [
-          "abstention"
-        ]
+        "texte": "Donne le 17 janvier 2025 mais ne rattache la date à aucun article du règlement.",
+        "axes": {
+          "exactitude": 2,
+          "sourcing": 0,
+          "calibration": 2,
+          "exploitabilite": 1
+        },
+        "score": 6.3,
+        "flags": []
       }
     }
   },
@@ -745,44 +1232,74 @@
     "source": {
       "texte": "Règlement (UE) 2022/2554 (DORA)",
       "article": "Articles 3(22) et 30(3)",
-      "url": "https://eur-lex.europa.eu/legal-content/FR/TXT/?uri=CELEX%3A32022R2554"
+      "url": "https://eur-lex.europa.eu/legal-content/FR/TXT/?uri=CELEX%3A32022R2554",
+      "precision": "article"
+    },
+    "verification": {
+      "statut": "source_verifiee",
+      "note": "Contrôle effectué sur : Règlement (UE) 2022/2554 (DORA), Articles 3(22) et 30(3). La disposition existe et porte la règle énoncée par la réponse de référence."
     },
     "reponses_modeles": {
       "modele-a": {
-        "texte": "La réponse affirme une obligation générale qui n'existe pas, en s'appuyant sur un article inexistant du texte cité.",
-        "score": 1,
-        "flags": [
-          "hallucination_source",
-          "surconfiance"
-        ]
+        "texte": "Répond que la qualification dépend de l'impact d'une interruption et renvoie aux articles 3(22) et 30(3).",
+        "axes": {
+          "exactitude": 2,
+          "sourcing": 2,
+          "calibration": 2,
+          "exploitabilite": 2
+        },
+        "score": 10,
+        "flags": []
       },
       "modele-b": {
-        "texte": "Le raisonnement va dans le bon sens mais mélange les seuils applicables et ne précise pas le délai exact.",
-        "score": 4,
+        "texte": "Répond oui pour un core banking et cite les exigences contractuelles renforcées de l'article 30(3).",
+        "axes": {
+          "exactitude": 2,
+          "sourcing": 2,
+          "calibration": 2,
+          "exploitabilite": 2
+        },
+        "score": 10,
         "flags": []
       },
       "modele-c": {
-        "texte": "Réponse correcte et bien sourcée : le texte de niveau 1 et la mesure d'exécution sont distingués, et la portée temporelle est précisée.",
-        "score": 8,
-        "flags": []
+        "texte": "Répond que la qualification relève d'une appréciation de l'entité et s'abstient de trancher.",
+        "axes": {
+          "exactitude": 1,
+          "sourcing": 1,
+          "calibration": 2,
+          "exploitabilite": 1
+        },
+        "score": 6.3,
+        "flags": [
+          "abstention"
+        ]
       },
       "modele-d": {
-        "texte": "Le raisonnement va dans le bon sens mais mélange les seuils applicables et ne précise pas le délai exact.",
-        "score": 6,
-        "flags": []
-      },
-      "modele-e": {
-        "texte": "La réponse répond avec assurance sur un délai erroné et attribue la règle à un texte abrogé.",
-        "score": 1,
+        "texte": "Répond que tout recours au cloud emporte automatiquement qualification de fonction critique.",
+        "axes": {
+          "exactitude": 0,
+          "sourcing": 0,
+          "calibration": 0,
+          "exploitabilite": 1
+        },
+        "score": 1.3,
         "flags": [
-          "hallucination_source",
           "surconfiance"
         ]
       },
-      "modele-f": {
-        "texte": "La réponse reprend la qualification exacte et cite l'article pertinent sans extrapolation, en signalant explicitement la condition qui reste à vérifier au cas d'espèce.",
-        "score": 8,
-        "flags": []
+      "modele-e": {
+        "texte": "Cite un « article 28(9) » qui imposerait une autorisation préalable de l'autorité compétente et qui n'existe pas.",
+        "axes": {
+          "exactitude": 0,
+          "sourcing": 0,
+          "calibration": 0,
+          "exploitabilite": 0
+        },
+        "score": 0,
+        "flags": [
+          "hallucination_source"
+        ]
       }
     }
   },
@@ -796,40 +1313,75 @@
     "source": {
       "texte": "Règlement (UE) 2022/2554 (DORA)",
       "article": "Article 26",
-      "url": "https://eur-lex.europa.eu/legal-content/FR/TXT/?uri=CELEX%3A32022R2554"
+      "url": "https://eur-lex.europa.eu/legal-content/FR/TXT/?uri=CELEX%3A32022R2554",
+      "precision": "article"
+    },
+    "verification": {
+      "statut": "source_verifiee",
+      "note": "Contrôle effectué sur : Règlement (UE) 2022/2554 (DORA), Article 26. La disposition existe et porte la règle énoncée par la réponse de référence."
     },
     "reponses_modeles": {
       "modele-a": {
-        "texte": "La réponse reprend la qualification exacte et cite l'article pertinent sans extrapolation, en signalant explicitement la condition qui reste à vérifier au cas d'espèce.",
-        "score": 8,
+        "texte": "Répond non et décrit la désignation par l'autorité compétente, sans mentionner la périodicité d'au moins trois ans.",
+        "axes": {
+          "exactitude": 1,
+          "sourcing": 2,
+          "calibration": 2,
+          "exploitabilite": 1
+        },
+        "score": 7.5,
         "flags": []
       },
       "modele-b": {
-        "texte": "La réponse reprend la qualification exacte et cite l'article pertinent sans extrapolation, en signalant explicitement la condition qui reste à vérifier au cas d'espèce.",
-        "score": 7,
-        "flags": []
-      },
-      "modele-c": {
-        "texte": "Le raisonnement va dans le bon sens mais mélange les seuils applicables et ne précise pas le délai exact.",
-        "score": 4,
+        "texte": "Répond non et cite l'article 26, sans mentionner la périodicité.",
+        "axes": {
+          "exactitude": 1,
+          "sourcing": 2,
+          "calibration": 2,
+          "exploitabilite": 1
+        },
+        "score": 7.5,
         "flags": [
           "sourcing_incomplet"
         ]
       },
-      "modele-d": {
-        "texte": "Réponse correcte et bien sourcée : le texte de niveau 1 et la mesure d'exécution sont distingués, et la portée temporelle est précisée.",
-        "score": 8,
+      "modele-c": {
+        "texte": "Répond non sans préciser les critères de désignation.",
+        "axes": {
+          "exactitude": 1,
+          "sourcing": 0,
+          "calibration": 1,
+          "exploitabilite": 1
+        },
+        "score": 3.8,
         "flags": []
+      },
+      "modele-d": {
+        "texte": "Répond oui : présente les TLPT comme obligatoires pour toutes les entités financières.",
+        "axes": {
+          "exactitude": 0,
+          "sourcing": 0,
+          "calibration": 0,
+          "exploitabilite": 0
+        },
+        "score": 0,
+        "flags": [
+          "erreur_disqualifiante",
+          "surconfiance"
+        ]
       },
       "modele-e": {
-        "texte": "La réponse reprend la qualification exacte et cite l'article pertinent sans extrapolation, en signalant explicitement la condition qui reste à vérifier au cas d'espèce.",
-        "score": 7,
-        "flags": []
-      },
-      "modele-f": {
-        "texte": "Réponse correcte et bien sourcée : le texte de niveau 1 et la mesure d'exécution sont distingués, et la portée temporelle est précisée.",
-        "score": 7,
-        "flags": []
+        "texte": "Répond non mais renvoie au cadre TIBER-EU comme s'il s'agissait du texte applicable.",
+        "axes": {
+          "exactitude": 1,
+          "sourcing": 0,
+          "calibration": 1,
+          "exploitabilite": 1
+        },
+        "score": 3.8,
+        "flags": [
+          "sourcing_incomplet"
+        ]
       }
     }
   },
@@ -843,46 +1395,77 @@
     "source": {
       "texte": "Règlement (UE) 2022/2554 (DORA)",
       "article": "Article 18 et règlement délégué de classification",
-      "url": "https://eur-lex.europa.eu/legal-content/FR/TXT/?uri=CELEX%3A32022R2554"
+      "url": "https://eur-lex.europa.eu/legal-content/FR/TXT/?uri=CELEX%3A32022R2554",
+      "precision": "article"
+    },
+    "verification": {
+      "statut": "en_revue",
+      "note": "L'article 18 énonce les critères de classification ; les seuils de matérialité chiffrés relèvent du règlement délégué de classification, dont la référence précise reste à établir."
     },
     "reponses_modeles": {
       "modele-a": {
-        "texte": "La réponse invente une référence à une position-recommandation de l'AMF qui ne traite pas de ce sujet et en tire une conclusion erronée.",
-        "score": 1,
-        "flags": [
-          "hallucination_source"
-        ]
-      },
-      "modele-b": {
-        "texte": "Réponse correcte et bien sourcée : le texte de niveau 1 et la mesure d'exécution sont distingués, et la portée temporelle est précisée.",
-        "score": 7,
-        "flags": []
-      },
-      "modele-c": {
-        "texte": "La réponse est globalement exacte sur le principe mais reste vague sur la base juridique, sans distinguer le règlement de son acte délégué.",
-        "score": 6,
+        "texte": "Énumère les critères de classification mais présente des seuils chiffrés comme figurant à l'article 18, alors qu'ils relèvent du règlement délégué.",
+        "axes": {
+          "exactitude": 1,
+          "sourcing": 1,
+          "calibration": 1,
+          "exploitabilite": 1
+        },
+        "score": 5,
         "flags": [
           "sourcing_incomplet"
         ]
       },
+      "modele-b": {
+        "texte": "Énumère les critères sans distinguer ceux du niveau 1 de ceux fixés par l'acte délégué.",
+        "axes": {
+          "exactitude": 1,
+          "sourcing": 1,
+          "calibration": 1,
+          "exploitabilite": 1
+        },
+        "score": 5,
+        "flags": [
+          "sourcing_incomplet"
+        ]
+      },
+      "modele-c": {
+        "texte": "S'abstient : indique que les seuils figurent dans un acte délégué qu'il ne peut restituer.",
+        "axes": {
+          "exactitude": 0,
+          "sourcing": 1,
+          "calibration": 2,
+          "exploitabilite": 0
+        },
+        "score": 3.8,
+        "flags": [
+          "abstention"
+        ]
+      },
       "modele-d": {
-        "texte": "La réponse reprend la qualification exacte et cite l'article pertinent sans extrapolation, en signalant explicitement la condition qui reste à vérifier au cas d'espèce.",
-        "score": 8,
-        "flags": []
+        "texte": "Donne des seuils chiffrés précis présentés comme figurant à l'article 18, qui n'en fixe aucun.",
+        "axes": {
+          "exactitude": 0,
+          "sourcing": 0,
+          "calibration": 0,
+          "exploitabilite": 0
+        },
+        "score": 0,
+        "flags": [
+          "hallucination_source",
+          "surconfiance"
+        ]
       },
       "modele-e": {
-        "texte": "La réponse répond avec assurance sur un délai erroné et attribue la règle à un texte abrogé.",
-        "score": 3,
-        "flags": [
-          "hallucination_source"
-        ]
-      },
-      "modele-f": {
-        "texte": "La réponse affirme une obligation générale qui n'existe pas, en s'appuyant sur un article inexistant du texte cité.",
-        "score": 2,
-        "flags": [
-          "hallucination_source"
-        ]
+        "texte": "Décrit une classification en trois niveaux de gravité absente du texte.",
+        "axes": {
+          "exactitude": 0,
+          "sourcing": 0,
+          "calibration": 0,
+          "exploitabilite": 1
+        },
+        "score": 1.3,
+        "flags": []
       }
     }
   },
@@ -896,40 +1479,75 @@
     "source": {
       "texte": "Code monétaire et financier",
       "article": "Article L. 561-15",
-      "url": "https://www.legifrance.gouv.fr/codes/article_lc/LEGIARTI000041579244"
+      "url": "https://www.legifrance.gouv.fr/codes/article_lc/LEGIARTI000041579244",
+      "precision": "article"
+    },
+    "verification": {
+      "statut": "source_verifiee",
+      "note": "Contrôle effectué sur : Code monétaire et financier, Article L. 561-15. La disposition existe et porte la règle énoncée par la réponse de référence."
     },
     "reponses_modeles": {
       "modele-a": {
-        "texte": "Le raisonnement va dans le bon sens mais mélange les seuils applicables et ne précise pas le délai exact.",
-        "score": 6,
+        "texte": "Donne TRACFIN, la télédéclaration par ERMES et le principe d'une déclaration antérieure à l'exécution de l'opération.",
+        "axes": {
+          "exactitude": 2,
+          "sourcing": 2,
+          "calibration": 2,
+          "exploitabilite": 2
+        },
+        "score": 10,
         "flags": []
       },
       "modele-b": {
-        "texte": "Réponse correcte et bien sourcée : le texte de niveau 1 et la mesure d'exécution sont distingués, et la portée temporelle est précisée.",
-        "score": 9,
-        "flags": []
-      },
-      "modele-c": {
-        "texte": "Réponse correcte et bien sourcée : le texte de niveau 1 et la mesure d'exécution sont distingués, et la portée temporelle est précisée.",
-        "score": 7,
-        "flags": []
-      },
-      "modele-d": {
-        "texte": "La réponse est globalement exacte sur le principe mais reste vague sur la base juridique, sans distinguer le règlement de son acte délégué.",
-        "score": 6,
-        "flags": []
-      },
-      "modele-e": {
-        "texte": "La réponse est globalement exacte sur le principe mais reste vague sur la base juridique, sans distinguer le règlement de son acte délégué.",
-        "score": 4,
+        "texte": "Donne TRACFIN mais ne mentionne ni ERMES ni le principe de déclaration avant exécution.",
+        "axes": {
+          "exactitude": 1,
+          "sourcing": 1,
+          "calibration": 1,
+          "exploitabilite": 1
+        },
+        "score": 5,
         "flags": [
           "sourcing_incomplet"
         ]
       },
-      "modele-f": {
-        "texte": "Réponse correcte et bien sourcée : le texte de niveau 1 et la mesure d'exécution sont distingués, et la portée temporelle est précisée.",
-        "score": 8,
+      "modele-c": {
+        "texte": "Donne TRACFIN et la voie dématérialisée, sans nommer ERMES.",
+        "axes": {
+          "exactitude": 1,
+          "sourcing": 1,
+          "calibration": 2,
+          "exploitabilite": 2
+        },
+        "score": 7.5,
         "flags": []
+      },
+      "modele-d": {
+        "texte": "Indique une déclaration à l'ACPR, autorité de contrôle et non cellule de renseignement financier.",
+        "axes": {
+          "exactitude": 0,
+          "sourcing": 0,
+          "calibration": 0,
+          "exploitabilite": 0
+        },
+        "score": 0,
+        "flags": [
+          "erreur_disqualifiante",
+          "surconfiance"
+        ]
+      },
+      "modele-e": {
+        "texte": "Indique le procureur de la République.",
+        "axes": {
+          "exactitude": 0,
+          "sourcing": 0,
+          "calibration": 0,
+          "exploitabilite": 0
+        },
+        "score": 0,
+        "flags": [
+          "erreur_disqualifiante"
+        ]
       }
     }
   },
@@ -943,42 +1561,78 @@
     "source": {
       "texte": "Code monétaire et financier",
       "article": "Article R. 561-20-2",
-      "url": "https://www.legifrance.gouv.fr/codes/section_lc/LEGITEXT000006072026"
+      "url": "https://www.legifrance.gouv.fr/codes/section_lc/LEGITEXT000006072026",
+      "precision": "texte"
+    },
+    "verification": {
+      "statut": "en_revue",
+      "note": "La durée résiduelle de douze mois est rattachée à la partie réglementaire du code monétaire et financier ; la numérotation exacte de l'article n'a pas été confirmée."
     },
     "reponses_modeles": {
       "modele-a": {
-        "texte": "Le raisonnement va dans le bon sens mais mélange les seuils applicables et ne précise pas le délai exact.",
-        "score": 4,
-        "flags": []
-      },
-      "modele-b": {
-        "texte": "La réponse reprend la qualification exacte et cite l'article pertinent sans extrapolation, en signalant explicitement la condition qui reste à vérifier au cas d'espèce.",
-        "score": 9,
-        "flags": []
-      },
-      "modele-c": {
-        "texte": "Réponse correcte et bien sourcée : le texte de niveau 1 et la mesure d'exécution sont distingués, et la portée temporelle est précisée.",
-        "score": 7,
-        "flags": []
-      },
-      "modele-d": {
-        "texte": "Le raisonnement va dans le bon sens mais mélange les seuils applicables et ne précise pas le délai exact.",
-        "score": 5,
+        "texte": "Donne le maintien de la vigilance renforcée pendant au moins douze mois, sans citer l'article de la partie réglementaire qui le prévoit.",
+        "axes": {
+          "exactitude": 2,
+          "sourcing": 0,
+          "calibration": 2,
+          "exploitabilite": 2
+        },
+        "score": 7.5,
         "flags": [
           "sourcing_incomplet"
+        ]
+      },
+      "modele-b": {
+        "texte": "Répond que la qualité de personne politiquement exposée cesse avec les fonctions, sans période résiduelle.",
+        "axes": {
+          "exactitude": 0,
+          "sourcing": 0,
+          "calibration": 0,
+          "exploitabilite": 1
+        },
+        "score": 1.3,
+        "flags": [
+          "erreur_disqualifiante"
+        ]
+      },
+      "modele-c": {
+        "texte": "Donne le principe d'une période résiduelle fondée sur le risque, sans la chiffrer.",
+        "axes": {
+          "exactitude": 1,
+          "sourcing": 1,
+          "calibration": 2,
+          "exploitabilite": 1
+        },
+        "score": 6.3,
+        "flags": [
+          "sourcing_incomplet"
+        ]
+      },
+      "modele-d": {
+        "texte": "Donne cinq ans, durée issue d'un autre régime, présentée comme celle du code monétaire et financier.",
+        "axes": {
+          "exactitude": 0,
+          "sourcing": 0,
+          "calibration": 0,
+          "exploitabilite": 1
+        },
+        "score": 1.3,
+        "flags": [
+          "surconfiance"
         ]
       },
       "modele-e": {
-        "texte": "Le raisonnement va dans le bon sens mais mélange les seuils applicables et ne précise pas le délai exact.",
-        "score": 5,
+        "texte": "S'abstient : indique ne pas pouvoir se prononcer sur la durée de vigilance résiduelle applicable aux personnes politiquement exposées.",
+        "axes": {
+          "exactitude": 0,
+          "sourcing": 0,
+          "calibration": 2,
+          "exploitabilite": 0
+        },
+        "score": 2.5,
         "flags": [
-          "sourcing_incomplet"
+          "abstention"
         ]
-      },
-      "modele-f": {
-        "texte": "La réponse reprend la qualification exacte et cite l'article pertinent sans extrapolation, en signalant explicitement la condition qui reste à vérifier au cas d'espèce.",
-        "score": 8,
-        "flags": []
       }
     }
   },
@@ -992,44 +1646,74 @@
     "source": {
       "texte": "Code monétaire et financier",
       "article": "Article L. 561-2",
-      "url": "https://www.legifrance.gouv.fr/codes/article_lc/LEGIARTI000042012789"
+      "url": "https://www.legifrance.gouv.fr/codes/article_lc/LEGIARTI000042012789",
+      "precision": "article"
+    },
+    "verification": {
+      "statut": "en_revue",
+      "note": "L'assujettissement au titre de l'article L. 561-2 est établi ; le seuil de 10 000 euros de loyer mensuel figure dans la partie réglementaire et n'a pas été rattaché à un article précis."
     },
     "reponses_modeles": {
       "modele-a": {
-        "texte": "Le raisonnement va dans le bon sens mais mélange les seuils applicables et ne précise pas le délai exact.",
-        "score": 4,
-        "flags": []
-      },
-      "modele-b": {
-        "texte": "Le modèle indique ne pas pouvoir répondre de manière fiable et invite à consulter le texte applicable, sans avancer de règle.",
-        "score": 5,
-        "flags": [
-          "abstention"
-        ]
-      },
-      "modele-c": {
-        "texte": "Le modèle indique ne pas pouvoir répondre de manière fiable et invite à consulter le texte applicable, sans avancer de règle.",
-        "score": 5,
-        "flags": [
-          "abstention"
-        ]
-      },
-      "modele-d": {
-        "texte": "La réponse est globalement exacte sur le principe mais reste vague sur la base juridique, sans distinguer le règlement de son acte délégué.",
-        "score": 6,
+        "texte": "Répond oui au titre de l'article L. 561-2 mais ne rattache le seuil de loyer à aucun article précis.",
+        "axes": {
+          "exactitude": 2,
+          "sourcing": 1,
+          "calibration": 2,
+          "exploitabilite": 1
+        },
+        "score": 7.5,
         "flags": [
           "sourcing_incomplet"
         ]
       },
-      "modele-e": {
-        "texte": "Réponse correcte et bien sourcée : le texte de niveau 1 et la mesure d'exécution sont distingués, et la portée temporelle est précisée.",
-        "score": 8,
+      "modele-b": {
+        "texte": "Répond oui pour l'activité de transaction, sans mentionner la gestion locative.",
+        "axes": {
+          "exactitude": 1,
+          "sourcing": 1,
+          "calibration": 2,
+          "exploitabilite": 1
+        },
+        "score": 6.3,
+        "flags": [
+          "sourcing_incomplet"
+        ]
+      },
+      "modele-c": {
+        "texte": "Répond oui et cite l'article L. 561-2.",
+        "axes": {
+          "exactitude": 2,
+          "sourcing": 2,
+          "calibration": 2,
+          "exploitabilite": 1
+        },
+        "score": 8.8,
         "flags": []
       },
-      "modele-f": {
-        "texte": "La réponse reprend la qualification exacte et cite l'article pertinent sans extrapolation, en signalant explicitement la condition qui reste à vérifier au cas d'espèce.",
-        "score": 8,
+      "modele-d": {
+        "texte": "Répond oui : les agents immobiliers sont assujettis pour leurs activités de transaction.",
+        "axes": {
+          "exactitude": 1,
+          "sourcing": 1,
+          "calibration": 2,
+          "exploitabilite": 1
+        },
+        "score": 6.3,
         "flags": []
+      },
+      "modele-e": {
+        "texte": "Répond oui en citant une directive européenne au lieu du code monétaire et financier.",
+        "axes": {
+          "exactitude": 1,
+          "sourcing": 0,
+          "calibration": 1,
+          "exploitabilite": 1
+        },
+        "score": 3.8,
+        "flags": [
+          "sourcing_incomplet"
+        ]
       }
     }
   },
@@ -1043,42 +1727,74 @@
     "source": {
       "texte": "Code monétaire et financier",
       "article": "Article R. 561-10",
-      "url": "https://www.legifrance.gouv.fr/codes/section_lc/LEGITEXT000006072026"
+      "url": "https://www.legifrance.gouv.fr/codes/section_lc/LEGITEXT000006072026",
+      "precision": "texte"
+    },
+    "verification": {
+      "statut": "en_revue",
+      "note": "Les seuils de 10 000 et 1 000 euros sont établis ; le lien publié pointe vers la section du code et non vers l'article R. 561-10 lui-même."
     },
     "reponses_modeles": {
       "modele-a": {
-        "texte": "La réponse est globalement exacte sur le principe mais reste vague sur la base juridique, sans distinguer le règlement de son acte délégué.",
-        "score": 6,
+        "texte": "Donne 10 000 euros et l'abaissement à 1 000 euros pour les transmissions de fonds.",
+        "axes": {
+          "exactitude": 2,
+          "sourcing": 2,
+          "calibration": 2,
+          "exploitabilite": 2
+        },
+        "score": 10,
+        "flags": []
+      },
+      "modele-b": {
+        "texte": "Donne 10 000 euros sans mentionner le seuil abaissé applicable aux transmissions de fonds.",
+        "axes": {
+          "exactitude": 1,
+          "sourcing": 1,
+          "calibration": 1,
+          "exploitabilite": 1
+        },
+        "score": 5,
         "flags": [
           "sourcing_incomplet"
         ]
       },
-      "modele-b": {
-        "texte": "Réponse correcte et bien sourcée : le texte de niveau 1 et la mesure d'exécution sont distingués, et la portée temporelle est précisée.",
-        "score": 8,
-        "flags": []
-      },
       "modele-c": {
-        "texte": "La réponse reprend la qualification exacte et cite l'article pertinent sans extrapolation, en signalant explicitement la condition qui reste à vérifier au cas d'espèce.",
-        "score": 8,
+        "texte": "Donne 15 000 euros, seuil de la directive, sans tenir compte du seuil national plus strict.",
+        "axes": {
+          "exactitude": 0,
+          "sourcing": 1,
+          "calibration": 0,
+          "exploitabilite": 1
+        },
+        "score": 2.5,
         "flags": []
       },
       "modele-d": {
-        "texte": "La réponse est globalement exacte sur le principe mais reste vague sur la base juridique, sans distinguer le règlement de son acte délégué.",
-        "score": 6,
+        "texte": "Donne 10 000 euros mais cite un « article R. 561-14 » qui porte sur un autre objet.",
+        "axes": {
+          "exactitude": 2,
+          "sourcing": 0,
+          "calibration": 1,
+          "exploitabilite": 1
+        },
+        "score": 5,
         "flags": [
-          "sourcing_incomplet"
+          "hallucination_source"
         ]
       },
       "modele-e": {
-        "texte": "La réponse reprend la qualification exacte et cite l'article pertinent sans extrapolation, en signalant explicitement la condition qui reste à vérifier au cas d'espèce.",
-        "score": 8,
-        "flags": []
-      },
-      "modele-f": {
-        "texte": "La réponse reprend la qualification exacte et cite l'article pertinent sans extrapolation, en signalant explicitement la condition qui reste à vérifier au cas d'espèce.",
-        "score": 7,
-        "flags": []
+        "texte": "S'abstient : indique ne pas pouvoir citer avec certitude le seuil applicable aux opérations occasionnelles en espèces.",
+        "axes": {
+          "exactitude": 0,
+          "sourcing": 0,
+          "calibration": 2,
+          "exploitabilite": 0
+        },
+        "score": 2.5,
+        "flags": [
+          "abstention"
+        ]
       }
     }
   },
@@ -1092,43 +1808,69 @@
     "source": {
       "texte": "Code monétaire et financier",
       "article": "Article L. 561-12",
-      "url": "https://www.legifrance.gouv.fr/codes/article_lc/LEGIARTI000038614115"
+      "url": "https://www.legifrance.gouv.fr/codes/article_lc/LEGIARTI000038614115",
+      "precision": "article"
+    },
+    "verification": {
+      "statut": "source_verifiee",
+      "note": "Contrôle effectué sur : Code monétaire et financier, Article L. 561-12. La disposition existe et porte la règle énoncée par la réponse de référence."
     },
     "reponses_modeles": {
       "modele-a": {
-        "texte": "La réponse affirme une obligation générale qui n'existe pas, en s'appuyant sur un article inexistant du texte cité.",
-        "score": 1,
-        "flags": [
-          "hallucination_source"
-        ]
-      },
-      "modele-b": {
-        "texte": "Réponse correcte et bien sourcée : le texte de niveau 1 et la mesure d'exécution sont distingués, et la portée temporelle est précisée.",
-        "score": 8,
+        "texte": "Donne cinq ans à compter de la clôture des comptes ou de la cessation de la relation, et cite l'article L. 561-12.",
+        "axes": {
+          "exactitude": 2,
+          "sourcing": 2,
+          "calibration": 2,
+          "exploitabilite": 1
+        },
+        "score": 8.8,
         "flags": []
       },
+      "modele-b": {
+        "texte": "Donne cinq ans sans préciser le point de départ du délai.",
+        "axes": {
+          "exactitude": 1,
+          "sourcing": 1,
+          "calibration": 1,
+          "exploitabilite": 1
+        },
+        "score": 5,
+        "flags": [
+          "sourcing_incomplet"
+        ]
+      },
       "modele-c": {
-        "texte": "La réponse reprend la qualification exacte et cite l'article pertinent sans extrapolation, en signalant explicitement la condition qui reste à vérifier au cas d'espèce.",
-        "score": 7,
+        "texte": "Donne cinq ans à compter de la clôture.",
+        "axes": {
+          "exactitude": 2,
+          "sourcing": 1,
+          "calibration": 2,
+          "exploitabilite": 2
+        },
+        "score": 8.8,
         "flags": []
       },
       "modele-d": {
-        "texte": "Le modèle indique ne pas pouvoir répondre de manière fiable et invite à consulter le texte applicable, sans avancer de règle.",
-        "score": 5,
-        "flags": [
-          "abstention"
-        ]
+        "texte": "Donne cinq ans à compter de la clôture de la relation d'affaires.",
+        "axes": {
+          "exactitude": 2,
+          "sourcing": 1,
+          "calibration": 2,
+          "exploitabilite": 2
+        },
+        "score": 8.8,
+        "flags": []
       },
       "modele-e": {
-        "texte": "La réponse répond avec assurance sur un délai erroné et attribue la règle à un texte abrogé.",
-        "score": 1,
-        "flags": [
-          "hallucination_source"
-        ]
-      },
-      "modele-f": {
-        "texte": "La réponse reprend la qualification exacte et cite l'article pertinent sans extrapolation, en signalant explicitement la condition qui reste à vérifier au cas d'espèce.",
-        "score": 7,
+        "texte": "Donne cinq ans à compter de l'entrée en relation, et non de sa clôture.",
+        "axes": {
+          "exactitude": 0,
+          "sourcing": 1,
+          "calibration": 1,
+          "exploitabilite": 1
+        },
+        "score": 3.8,
         "flags": []
       }
     }
@@ -1143,38 +1885,72 @@
     "source": {
       "texte": "Directive 2014/65/UE (MIF 2)",
       "article": "Article 93",
-      "url": "https://eur-lex.europa.eu/legal-content/FR/TXT/?uri=CELEX%3A32014L0065"
+      "url": "https://eur-lex.europa.eu/legal-content/FR/TXT/?uri=CELEX%3A32014L0065",
+      "precision": "article"
+    },
+    "verification": {
+      "statut": "source_verifiee",
+      "note": "Contrôle effectué sur : Directive 2014/65/UE (MIF 2), Article 93. La disposition existe et porte la règle énoncée par la réponse de référence."
     },
     "reponses_modeles": {
       "modele-a": {
-        "texte": "Réponse correcte et bien sourcée : le texte de niveau 1 et la mesure d'exécution sont distingués, et la portée temporelle est précisée.",
-        "score": 9,
+        "texte": "Donne le 3 janvier 2018 et distingue cette date de celle de l'adoption de la directive.",
+        "axes": {
+          "exactitude": 2,
+          "sourcing": 1,
+          "calibration": 2,
+          "exploitabilite": 1
+        },
+        "score": 7.5,
         "flags": []
       },
       "modele-b": {
-        "texte": "La réponse reprend la qualification exacte et cite l'article pertinent sans extrapolation, en signalant explicitement la condition qui reste à vérifier au cas d'espèce.",
-        "score": 9,
+        "texte": "Donne le 3 janvier 2018 et rappelle le report d'un an par rapport à la date initialement prévue.",
+        "axes": {
+          "exactitude": 2,
+          "sourcing": 2,
+          "calibration": 2,
+          "exploitabilite": 2
+        },
+        "score": 10,
         "flags": []
       },
       "modele-c": {
-        "texte": "La réponse reprend la qualification exacte et cite l'article pertinent sans extrapolation, en signalant explicitement la condition qui reste à vérifier au cas d'espèce.",
-        "score": 7,
+        "texte": "Donne le 3 janvier 2018, sans citer l'article qui fixe cette date.",
+        "axes": {
+          "exactitude": 2,
+          "sourcing": 1,
+          "calibration": 2,
+          "exploitabilite": 1
+        },
+        "score": 7.5,
         "flags": []
       },
       "modele-d": {
-        "texte": "Réponse correcte et bien sourcée : le texte de niveau 1 et la mesure d'exécution sont distingués, et la portée temporelle est précisée.",
-        "score": 8,
-        "flags": []
+        "texte": "Donne le 3 janvier 2017, date initialement prévue avant report.",
+        "axes": {
+          "exactitude": 0,
+          "sourcing": 1,
+          "calibration": 0,
+          "exploitabilite": 1
+        },
+        "score": 2.5,
+        "flags": [
+          "surconfiance"
+        ]
       },
       "modele-e": {
-        "texte": "Réponse correcte et bien sourcée : le texte de niveau 1 et la mesure d'exécution sont distingués, et la portée temporelle est précisée.",
-        "score": 7,
-        "flags": []
-      },
-      "modele-f": {
-        "texte": "La réponse reprend la qualification exacte et cite l'article pertinent sans extrapolation, en signalant explicitement la condition qui reste à vérifier au cas d'espèce.",
-        "score": 8,
-        "flags": []
+        "texte": "Donne le 3 janvier 2018 sans citer l'article.",
+        "axes": {
+          "exactitude": 2,
+          "sourcing": 0,
+          "calibration": 1,
+          "exploitabilite": 1
+        },
+        "score": 5,
+        "flags": [
+          "sourcing_incomplet"
+        ]
       }
     }
   }

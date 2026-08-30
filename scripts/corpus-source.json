@@ -1,0 +1,434 @@
+[
+  {
+    "id": "SFDR-0001",
+    "domaine": "SFDR",
+    "type": "qualification",
+    "difficulte": 2,
+    "question": "Un fonds classé article 8 SFDR doit-il obligatoirement publier un indicateur de part d'investissements durables au sens de l'article 2(17) ?",
+    "reponse_reference": "Non. Un produit relevant de l'article 8 promeut des caractéristiques environnementales ou sociales mais n'a pas d'objectif d'investissement durable. La publication d'une part minimale d'investissements durables n'est obligatoire que si le produit s'engage sur une telle part dans sa documentation précontractuelle (annexe II du règlement délégué 2022/1288).",
+    "source": {
+      "texte": "Règlement (UE) 2019/2088 (SFDR)",
+      "article": "Article 8 et article 2(17)",
+      "url": "https://eur-lex.europa.eu/legal-content/FR/TXT/?uri=CELEX%3A32019R2088",
+      "precision": "article"
+    },
+    "verification": {
+      "statut": "source_verifiee",
+      "note": "Contrôle effectué sur : Règlement (UE) 2019/2088 (SFDR), Article 8 et article 2(17). La disposition existe et porte la règle énoncée par la réponse de référence."
+    }
+  },
+  {
+    "id": "SFDR-0002",
+    "domaine": "SFDR",
+    "type": "procedure",
+    "difficulte": 3,
+    "question": "Quelle est la périodicité de publication de la déclaration relative aux principales incidences négatives (PAI) au niveau entité pour un acteur des marchés financiers de plus de 500 salariés ?",
+    "reponse_reference": "Publication annuelle, au plus tard le 30 juin de chaque année, portant sur la période de référence du 1er janvier au 31 décembre de l'année précédente, avec comparaison sur les périodes antérieures.",
+    "source": {
+      "texte": "Règlement délégué (UE) 2022/1288",
+      "article": "Article 6 et annexe I",
+      "url": "https://eur-lex.europa.eu/legal-content/FR/TXT/?uri=CELEX%3A32022R1288",
+      "precision": "article"
+    },
+    "verification": {
+      "statut": "source_verifiee",
+      "note": "Contrôle effectué sur : Règlement délégué (UE) 2022/1288, Article 6 et annexe I. La disposition existe et porte la règle énoncée par la réponse de référence."
+    }
+  },
+  {
+    "id": "SFDR-0003",
+    "domaine": "SFDR",
+    "type": "perimetre",
+    "difficulte": 1,
+    "question": "Le règlement SFDR s'applique-t-il à un conseiller financier employant moins de trois personnes ?",
+    "reponse_reference": "Les États membres peuvent choisir de ne pas appliquer certaines obligations aux conseillers financiers employant moins de trois personnes (article 17). En France, cette exemption n'a pas été retenue de manière générale pour les CIF soumis au régime national.",
+    "source": {
+      "texte": "Règlement (UE) 2019/2088 (SFDR)",
+      "article": "Article 17",
+      "url": "https://eur-lex.europa.eu/legal-content/FR/TXT/?uri=CELEX%3A32019R2088",
+      "precision": "article"
+    },
+    "verification": {
+      "statut": "en_revue",
+      "note": "L'article 17 laisse une option aux États membres ; l'affirmation sur le choix opéré en France relève de la transposition nationale et n'a pas été confirmée sur une source officielle."
+    }
+  },
+  {
+    "id": "SFDR-0004",
+    "domaine": "SFDR",
+    "type": "datation",
+    "difficulte": 2,
+    "question": "À partir de quelle date les annexes précontractuelles harmonisées SFDR sont-elles obligatoires ?",
+    "reponse_reference": "Depuis le 1er janvier 2023, date d'entrée en application du règlement délégué (UE) 2022/1288 fixant les modèles d'annexes précontractuelles et périodiques.",
+    "source": {
+      "texte": "Règlement délégué (UE) 2022/1288",
+      "article": "Article 20",
+      "url": "https://eur-lex.europa.eu/legal-content/FR/TXT/?uri=CELEX%3A32022R1288",
+      "precision": "article"
+    },
+    "verification": {
+      "statut": "source_verifiee",
+      "note": "Contrôle effectué sur : Règlement délégué (UE) 2022/1288, Article 20. La disposition existe et porte la règle énoncée par la réponse de référence."
+    }
+  },
+  {
+    "id": "SFDR-0005",
+    "domaine": "SFDR",
+    "type": "calcul",
+    "difficulte": 3,
+    "question": "Comment se calcule l'indicateur PAI n°1 (émissions de GES) pour un portefeuille d'actions cotées ?",
+    "reponse_reference": "Somme, pour chaque participation, des émissions de scope 1, 2 et 3 de l'émetteur multipliées par la valeur de la participation divisée par la valeur d'entreprise incluant la trésorerie (EVIC), agrégée sur la valeur totale des investissements.",
+    "source": {
+      "texte": "Règlement délégué (UE) 2022/1288",
+      "article": "Annexe I, tableau 1, indicateur 1",
+      "url": "https://eur-lex.europa.eu/legal-content/FR/TXT/?uri=CELEX%3A32022R1288",
+      "precision": "article"
+    },
+    "verification": {
+      "statut": "source_verifiee",
+      "note": "Contrôle effectué sur : Règlement délégué (UE) 2022/1288, Annexe I, tableau 1, indicateur 1. La disposition existe et porte la règle énoncée par la réponse de référence."
+    }
+  },
+  {
+    "id": "MIFID-0006",
+    "domaine": "MIFID",
+    "type": "qualification",
+    "difficulte": 2,
+    "question": "La réception-transmission d'ordres pour compte de tiers constitue-t-elle un service d'investissement au sens de MIF 2 ?",
+    "reponse_reference": "Oui. La réception et la transmission d'ordres portant sur un ou plusieurs instruments financiers figure à la section A, point 1, de l'annexe I de la directive 2014/65/UE.",
+    "source": {
+      "texte": "Directive 2014/65/UE (MIF 2)",
+      "article": "Annexe I, section A, point 1",
+      "url": "https://eur-lex.europa.eu/legal-content/FR/TXT/?uri=CELEX%3A32014L0065",
+      "precision": "article"
+    },
+    "verification": {
+      "statut": "source_verifiee",
+      "note": "Contrôle effectué sur : Directive 2014/65/UE (MIF 2), Annexe I, section A, point 1. La disposition existe et porte la règle énoncée par la réponse de référence."
+    }
+  },
+  {
+    "id": "MIFID-0007",
+    "domaine": "MIFID",
+    "type": "procedure",
+    "difficulte": 2,
+    "question": "Quelle est la durée minimale de conservation des enregistrements de conversations téléphoniques portant sur des ordres ?",
+    "reponse_reference": "Cinq ans à compter de l'enregistrement, portée à sept ans sur demande de l'autorité compétente.",
+    "source": {
+      "texte": "Directive 2014/65/UE (MIF 2)",
+      "article": "Article 16(7)",
+      "url": "https://eur-lex.europa.eu/legal-content/FR/TXT/?uri=CELEX%3A32014L0065",
+      "precision": "article"
+    },
+    "verification": {
+      "statut": "source_verifiee",
+      "note": "Contrôle effectué sur : Directive 2014/65/UE (MIF 2), Article 16(7). La disposition existe et porte la règle énoncée par la réponse de référence."
+    }
+  },
+  {
+    "id": "MIFID-0008",
+    "domaine": "MIFID",
+    "type": "perimetre",
+    "difficulte": 3,
+    "question": "Un client professionnel par nature peut-il demander à être traité comme client non professionnel ?",
+    "reponse_reference": "Oui. Le client professionnel peut demander par écrit un traitement en client non professionnel afin de bénéficier d'un niveau de protection plus élevé ; l'entreprise et le client concluent alors un accord écrit précisant les services et instruments concernés.",
+    "source": {
+      "texte": "Directive 2014/65/UE (MIF 2)",
+      "article": "Annexe II, section I",
+      "url": "https://eur-lex.europa.eu/legal-content/FR/TXT/?uri=CELEX%3A32014L0065",
+      "precision": "article"
+    },
+    "verification": {
+      "statut": "source_verifiee",
+      "note": "Contrôle effectué sur : Directive 2014/65/UE (MIF 2), Annexe II, section I. La disposition existe et porte la règle énoncée par la réponse de référence."
+    }
+  },
+  {
+    "id": "MIFID-0009",
+    "domaine": "MIFID",
+    "type": "calcul",
+    "difficulte": 2,
+    "question": "Quel seuil de variation de valeur déclenche l'information du client sur un portefeuille géré avec effet de levier ?",
+    "reponse_reference": "Le seuil par défaut est une dépréciation de 10 % de la valeur totale du portefeuille, puis par multiples de 10 %.",
+    "source": {
+      "texte": "Règlement délégué (UE) 2017/565",
+      "article": "Article 62(2)",
+      "url": "https://eur-lex.europa.eu/legal-content/FR/TXT/?uri=CELEX%3A32017R0565",
+      "precision": "article"
+    },
+    "verification": {
+      "statut": "source_verifiee",
+      "note": "Contrôle effectué sur : Règlement délégué (UE) 2017/565, Article 62(2). La disposition existe et porte la règle énoncée par la réponse de référence."
+    }
+  },
+  {
+    "id": "AMF-0010",
+    "domaine": "AMF",
+    "type": "procedure",
+    "difficulte": 3,
+    "question": "Dans quel délai un émetteur doit-il publier une information privilégiée le concernant ?",
+    "reponse_reference": "Dès que possible, sauf différé licite sous les conditions cumulatives de l'article 17(4) MAR : intérêts légitimes, absence d'induction en erreur du public et confidentialité assurée.",
+    "source": {
+      "texte": "Règlement (UE) 596/2014 (MAR)",
+      "article": "Article 17",
+      "url": "https://eur-lex.europa.eu/legal-content/FR/TXT/?uri=CELEX%3A32014R0596",
+      "precision": "article"
+    },
+    "verification": {
+      "statut": "source_verifiee",
+      "note": "Contrôle effectué sur : Règlement (UE) 596/2014 (MAR), Article 17. La disposition existe et porte la règle énoncée par la réponse de référence."
+    }
+  },
+  {
+    "id": "AMF-0011",
+    "domaine": "AMF",
+    "type": "qualification",
+    "difficulte": 2,
+    "question": "Le franchissement du seuil de 5 % du capital d'une société cotée en France doit-il être déclaré et à qui ?",
+    "reponse_reference": "Oui. Déclaration à la société et à l'AMF dans un délai de quatre jours de négociation suivant le franchissement, avec déclaration d'intention lorsque les seuils de 10, 15, 20 ou 25 % sont franchis.",
+    "source": {
+      "texte": "Code de commerce",
+      "article": "Article L. 233-7",
+      "url": "https://www.legifrance.gouv.fr/codes/article_lc/LEGIARTI000038612042",
+      "precision": "article"
+    },
+    "verification": {
+      "statut": "source_verifiee",
+      "note": "Contrôle effectué sur : Code de commerce, Article L. 233-7. La disposition existe et porte la règle énoncée par la réponse de référence."
+    }
+  },
+  {
+    "id": "AMF-0012",
+    "domaine": "AMF",
+    "type": "datation",
+    "difficulte": 1,
+    "question": "Quelle est la date d'entrée en application du règlement Prospectus (UE) 2017/1129 ?",
+    "reponse_reference": "Le 21 juillet 2019 pour l'essentiel de ses dispositions, certaines s'appliquant dès le 20 juillet 2017 et le 21 juillet 2018.",
+    "source": {
+      "texte": "Règlement (UE) 2017/1129",
+      "article": "Article 49",
+      "url": "https://eur-lex.europa.eu/legal-content/FR/TXT/?uri=CELEX%3A32017R1129",
+      "precision": "article"
+    },
+    "verification": {
+      "statut": "source_verifiee",
+      "note": "Contrôle effectué sur : Règlement (UE) 2017/1129, Article 49. La disposition existe et porte la règle énoncée par la réponse de référence."
+    }
+  },
+  {
+    "id": "AMF-0013",
+    "domaine": "AMF",
+    "type": "perimetre",
+    "difficulte": 3,
+    "question": "Une société de gestion de portefeuille française gérant uniquement des FIA réservés à des investisseurs professionnels est-elle soumise au régime d'agrément AIFM complet ?",
+    "reponse_reference": "Non nécessairement : sous les seuils de l'article 3(2) de la directive 2011/61/UE (100 M€ avec levier, 500 M€ sans levier et sans rachat pendant 5 ans), le régime allégé d'enregistrement s'applique, sans passeport de gestion.",
+    "source": {
+      "texte": "Directive 2011/61/UE (AIFM)",
+      "article": "Article 3(2)",
+      "url": "https://eur-lex.europa.eu/legal-content/FR/TXT/?uri=CELEX%3A32011L0061",
+      "precision": "article"
+    },
+    "verification": {
+      "statut": "source_verifiee",
+      "note": "Contrôle effectué sur : Directive 2011/61/UE (AIFM), Article 3(2). La disposition existe et porte la règle énoncée par la réponse de référence."
+    }
+  },
+  {
+    "id": "DORA-0014",
+    "domaine": "DORA",
+    "type": "procedure",
+    "difficulte": 2,
+    "question": "Quel est le délai de notification initiale d'un incident majeur lié aux TIC à l'autorité compétente sous DORA ?",
+    "reponse_reference": "La notification initiale est transmise au plus tard dans les quatre heures suivant la classification de l'incident comme majeur, et en tout état de cause au plus tard 24 heures après sa détection.",
+    "source": {
+      "texte": "Règlement (UE) 2022/2554 (DORA)",
+      "article": "Article 19 et règlement délégué associé",
+      "url": "https://eur-lex.europa.eu/legal-content/FR/TXT/?uri=CELEX%3A32022R2554",
+      "precision": "article"
+    },
+    "verification": {
+      "statut": "en_revue",
+      "note": "L'article 19 pose l'obligation de notification mais ne fixe pas les délais de 4 h et 24 h : ceux-ci relèvent des normes techniques d'exécution, dont la référence précise reste à établir."
+    }
+  },
+  {
+    "id": "DORA-0015",
+    "domaine": "DORA",
+    "type": "datation",
+    "difficulte": 1,
+    "question": "Depuis quelle date DORA est-il applicable ?",
+    "reponse_reference": "Depuis le 17 janvier 2025.",
+    "source": {
+      "texte": "Règlement (UE) 2022/2554 (DORA)",
+      "article": "Article 64",
+      "url": "https://eur-lex.europa.eu/legal-content/FR/TXT/?uri=CELEX%3A32022R2554",
+      "precision": "article"
+    },
+    "verification": {
+      "statut": "source_verifiee",
+      "note": "Contrôle effectué sur : Règlement (UE) 2022/2554 (DORA), Article 64. La disposition existe et porte la règle énoncée par la réponse de référence."
+    }
+  },
+  {
+    "id": "DORA-0016",
+    "domaine": "DORA",
+    "type": "qualification",
+    "difficulte": 2,
+    "question": "Un prestataire de services de cloud utilisé pour l'hébergement du core banking relève-t-il des fonctions critiques ou importantes ?",
+    "reponse_reference": "Oui lorsque son interruption altérerait de manière significative la performance financière ou la solidité de l'entité, ou la continuité de ses services : le contrat doit alors respecter les exigences renforcées de l'article 30(3).",
+    "source": {
+      "texte": "Règlement (UE) 2022/2554 (DORA)",
+      "article": "Articles 3(22) et 30(3)",
+      "url": "https://eur-lex.europa.eu/legal-content/FR/TXT/?uri=CELEX%3A32022R2554",
+      "precision": "article"
+    },
+    "verification": {
+      "statut": "source_verifiee",
+      "note": "Contrôle effectué sur : Règlement (UE) 2022/2554 (DORA), Articles 3(22) et 30(3). La disposition existe et porte la règle énoncée par la réponse de référence."
+    }
+  },
+  {
+    "id": "DORA-0017",
+    "domaine": "DORA",
+    "type": "perimetre",
+    "difficulte": 3,
+    "question": "Les tests de pénétration fondés sur la menace (TLPT) sont-ils obligatoires pour toutes les entités financières ?",
+    "reponse_reference": "Non. Ils ne s'imposent qu'aux entités identifiées par les autorités compétentes comme significatives au regard de critères de taille, de profil de risque et de criticité, au moins tous les trois ans.",
+    "source": {
+      "texte": "Règlement (UE) 2022/2554 (DORA)",
+      "article": "Article 26",
+      "url": "https://eur-lex.europa.eu/legal-content/FR/TXT/?uri=CELEX%3A32022R2554",
+      "precision": "article"
+    },
+    "verification": {
+      "statut": "source_verifiee",
+      "note": "Contrôle effectué sur : Règlement (UE) 2022/2554 (DORA), Article 26. La disposition existe et porte la règle énoncée par la réponse de référence."
+    }
+  },
+  {
+    "id": "DORA-0018",
+    "domaine": "DORA",
+    "type": "calcul",
+    "difficulte": 3,
+    "question": "Quels seuils de matérialité permettent de classer un incident TIC comme majeur ?",
+    "reponse_reference": "La classification combine notamment le nombre de clients affectés et la part des transactions concernées, la durée et l'indisponibilité du service, l'étendue géographique, les pertes de données et l'impact économique, selon les seuils du règlement délégué de classification.",
+    "source": {
+      "texte": "Règlement (UE) 2022/2554 (DORA)",
+      "article": "Article 18 et règlement délégué de classification",
+      "url": "https://eur-lex.europa.eu/legal-content/FR/TXT/?uri=CELEX%3A32022R2554",
+      "precision": "article"
+    },
+    "verification": {
+      "statut": "en_revue",
+      "note": "L'article 18 énonce les critères de classification ; les seuils de matérialité chiffrés relèvent du règlement délégué de classification, dont la référence précise reste à établir."
+    }
+  },
+  {
+    "id": "LCBFT-0019",
+    "domaine": "LCBFT",
+    "type": "procedure",
+    "difficulte": 2,
+    "question": "Qui est destinataire d'une déclaration de soupçon en France et sous quelle forme ?",
+    "reponse_reference": "TRACFIN, cellule de renseignement financier nationale, par télédéclaration via ERMES, avant l'exécution de l'opération lorsque cela est possible.",
+    "source": {
+      "texte": "Code monétaire et financier",
+      "article": "Article L. 561-15",
+      "url": "https://www.legifrance.gouv.fr/codes/article_lc/LEGIARTI000041579244",
+      "precision": "article"
+    },
+    "verification": {
+      "statut": "source_verifiee",
+      "note": "Contrôle effectué sur : Code monétaire et financier, Article L. 561-15. La disposition existe et porte la règle énoncée par la réponse de référence."
+    }
+  },
+  {
+    "id": "LCBFT-0020",
+    "domaine": "LCBFT",
+    "type": "qualification",
+    "difficulte": 2,
+    "question": "Une personne politiquement exposée cesse-t-elle de l'être immédiatement à la fin de ses fonctions ?",
+    "reponse_reference": "Non. Les mesures de vigilance renforcée continuent de s'appliquer pendant au moins douze mois après la cessation des fonctions, et au-delà tant qu'un risque subsiste.",
+    "source": {
+      "texte": "Code monétaire et financier",
+      "article": "Article R. 561-20-2",
+      "url": "https://www.legifrance.gouv.fr/codes/section_lc/LEGITEXT000006072026",
+      "precision": "texte"
+    },
+    "verification": {
+      "statut": "en_revue",
+      "note": "La durée résiduelle de douze mois est rattachée à la partie réglementaire du code monétaire et financier ; la numérotation exacte de l'article n'a pas été confirmée."
+    }
+  },
+  {
+    "id": "LCBFT-0021",
+    "domaine": "LCBFT",
+    "type": "perimetre",
+    "difficulte": 1,
+    "question": "Les agents immobiliers sont-ils assujettis aux obligations LCB-FT françaises ?",
+    "reponse_reference": "Oui, au titre de l'article L. 561-2 du code monétaire et financier, pour leurs activités de transaction et de gestion locative au-delà d'un loyer mensuel de 10 000 euros.",
+    "source": {
+      "texte": "Code monétaire et financier",
+      "article": "Article L. 561-2",
+      "url": "https://www.legifrance.gouv.fr/codes/article_lc/LEGIARTI000042012789",
+      "precision": "article"
+    },
+    "verification": {
+      "statut": "en_revue",
+      "note": "L'assujettissement au titre de l'article L. 561-2 est établi ; le seuil de 10 000 euros de loyer mensuel figure dans la partie réglementaire et n'a pas été rattaché à un article précis."
+    }
+  },
+  {
+    "id": "LCBFT-0022",
+    "domaine": "LCBFT",
+    "type": "calcul",
+    "difficulte": 2,
+    "question": "Quel seuil déclenche l'identification du client pour une opération occasionnelle en espèces ?",
+    "reponse_reference": "10 000 euros pour une opération ou des opérations liées, seuil abaissé à 1 000 euros pour les transmissions de fonds.",
+    "source": {
+      "texte": "Code monétaire et financier",
+      "article": "Article R. 561-10",
+      "url": "https://www.legifrance.gouv.fr/codes/section_lc/LEGITEXT000006072026",
+      "precision": "texte"
+    },
+    "verification": {
+      "statut": "en_revue",
+      "note": "Les seuils de 10 000 et 1 000 euros sont établis ; le lien publié pointe vers la section du code et non vers l'article R. 561-10 lui-même."
+    }
+  },
+  {
+    "id": "LCBFT-0023",
+    "domaine": "LCBFT",
+    "type": "datation",
+    "difficulte": 3,
+    "question": "Quelle est la durée de conservation des documents relatifs à l'identité des clients après la clôture de la relation d'affaires ?",
+    "reponse_reference": "Cinq ans à compter de la clôture des comptes ou de la cessation de la relation d'affaires.",
+    "source": {
+      "texte": "Code monétaire et financier",
+      "article": "Article L. 561-12",
+      "url": "https://www.legifrance.gouv.fr/codes/article_lc/LEGIARTI000038614115",
+      "precision": "article"
+    },
+    "verification": {
+      "statut": "source_verifiee",
+      "note": "Contrôle effectué sur : Code monétaire et financier, Article L. 561-12. La disposition existe et porte la règle énoncée par la réponse de référence."
+    }
+  },
+  {
+    "id": "MIFID-0024",
+    "domaine": "MIFID",
+    "type": "datation",
+    "difficulte": 2,
+    "question": "Depuis quelle date la directive MIF 2 est-elle applicable ?",
+    "reponse_reference": "Depuis le 3 janvier 2018.",
+    "source": {
+      "texte": "Directive 2014/65/UE (MIF 2)",
+      "article": "Article 93",
+      "url": "https://eur-lex.europa.eu/legal-content/FR/TXT/?uri=CELEX%3A32014L0065",
+      "precision": "article"
+    },
+    "verification": {
+      "statut": "source_verifiee",
+      "note": "Contrôle effectué sur : Directive 2014/65/UE (MIF 2), Article 93. La disposition existe et porte la règle énoncée par la réponse de référence."
+    }
+  }
+]

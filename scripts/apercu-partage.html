@@ -1,0 +1,41 @@
+<!doctype html>
+<html lang="fr"><head><meta charset="utf-8">
+<style>
+  @font-face{font-family:fallback;src:local("Georgia")}
+  *{margin:0;padding:0;box-sizing:border-box}
+  body{width:1200px;height:630px;background:#f7f5f0;color:#332f2a;
+       font-family:"IBM Plex Sans",system-ui,sans-serif;display:flex;flex-direction:column;
+       padding:64px 72px;justify-content:space-between}
+  .marque{display:flex;align-items:center;gap:14px}
+  .sigle{width:44px;height:44px;background:#332f2a;color:#f7f5f0;font-family:ui-monospace,monospace;
+         font-size:16px;display:flex;align-items:center;justify-content:center}
+  .nom{font-size:26px;font-weight:600;letter-spacing:-.01em}
+  .sous{font-size:15px;color:#6b655c;margin-top:2px}
+  h1{font-family:Georgia,serif;font-size:56px;line-height:1.12;letter-spacing:-.02em;max-width:16ch;font-weight:400}
+  .chaine{display:flex;gap:0;border:1px solid #ccc5b9;background:#fdfcfa}
+  .maillon{flex:1;padding:18px 20px;border-right:1px solid #ccc5b9}
+  .maillon:last-child{border-right:0}
+  .num{font-family:ui-monospace,monospace;font-size:12px;color:#8a8378;letter-spacing:.1em}
+  .lib{font-size:17px;margin-top:8px}
+  .pied{display:flex;justify-content:space-between;align-items:flex-end;
+        font-family:ui-monospace,monospace;font-size:14px;color:#6b655c}
+  .accent{color:#8a3324}
+</style></head>
+<body>
+  <div class="marque">
+    <div class="sigle">FR</div>
+    <div><div class="nom">FinReg</div><div class="sous">benchmark de fiabilité réglementaire</div></div>
+  </div>
+  <h1>Ce qu'un modèle de langage sait vraiment de la réglementation financière</h1>
+  <div class="chaine">
+    <div class="maillon"><div class="num">01</div><div class="lib">Texte</div></div>
+    <div class="maillon"><div class="num">02</div><div class="lib">Question</div></div>
+    <div class="maillon"><div class="num">03</div><div class="lib">Référence</div></div>
+    <div class="maillon"><div class="num">04</div><div class="lib">Vérification</div></div>
+    <div class="maillon"><div class="num">05</div><div class="lib">Note</div></div>
+  </div>
+  <div class="pied">
+    <span>SFDR · MIF 2 · AMF · DORA · LCB-FT</span>
+    <span class="accent">Corpus public — chaque note rattachée à son article</span>
+  </div>
+</body></html>
