@@ -5,6 +5,18 @@ const LARGEUR = 900;
 const HAUTEUR = 300;
 const MARGE = { haut: 12, bas: 34, gauche: 34, droite: 8 };
 
+/** Une couleur pleine par système : plus lisible qu'un dégradé d'opacité. */
+const COULEURS = [
+  "var(--color-chart-1)",
+  "var(--color-chart-2)",
+  "var(--color-chart-3)",
+  "var(--color-chart-4)",
+  "var(--color-chart-5)",
+  "var(--color-chart-6)",
+];
+const couleur = (i: number) => COULEURS[i % COULEURS.length];
+
+
 export function GraphiqueDomaines({
   modeles,
   domaines,
