@@ -1,5 +1,5 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { Page, Panneau } from "@/components/finreg/Chrome";
+import { Page, Panneau, Titre } from "@/components/finreg/Chrome";
 
 /**
  * Adresse de contact publiée sur le site.
