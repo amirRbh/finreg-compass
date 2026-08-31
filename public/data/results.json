@@ -20,69 +20,69 @@
   ],
   "synthese": {
     "nb_reponses": 120,
-    "exactitude_reglementaire": 62.9,
-    "taux_hallucination_source": 26.7,
-    "taux_erreur_disqualifiante": 14.2,
+    "exactitude_reglementaire": 71.9,
+    "taux_hallucination_source": 28.3,
+    "taux_erreur_disqualifiante": 12.5,
     "taux_abstention": 1.7,
-    "ecart_meilleur_moins_bon": 49.5,
-    "taux_reponse_non_fiable": 34.2
+    "ecart_meilleur_moins_bon": 18.5,
+    "taux_reponse_non_fiable": 31.7
   },
   "modeles": [
     {
       "id": "gpt-5-4",
       "nom": "GPT-5.4",
       "profil": "OpenAI · frontier",
-      "score_global": 74.7,
-      "taux_hallucination_source": 29.2,
-      "taux_erreur_disqualifiante": 8.3,
-      "taux_abstention": 8.3,
+      "score_global": 77.3,
+      "taux_hallucination_source": 25,
+      "taux_erreur_disqualifiante": 4.2,
+      "taux_abstention": 4.2,
       "scores_domaines": {
-        "SFDR": 72.6,
-        "MIFID": 92.6,
-        "AMF": 81.5,
+        "SFDR": 72.8,
+        "MIFID": 95.2,
+        "AMF": 87.5,
         "DORA": 70.2,
-        "LCBFT": 57.8
+        "LCBFT": 62.6
       },
       "scores_types": {
-        "qualification": 90.2,
-        "procedure": 65,
-        "perimetre": 57.8,
-        "datation": 85.2,
+        "qualification": 75.2,
+        "procedure": 70,
+        "perimetre": 67.8,
+        "datation": 97.6,
         "calcul": 75.3
       },
       "scores_axes": {
-        "exactitude": 1.42,
-        "sourcing": 1.42,
-        "calibration": 1.63,
-        "exploitabilite": 1.5
+        "exactitude": 1.54,
+        "sourcing": 1.25,
+        "calibration": 1.71,
+        "exploitabilite": 1.67
       }
     },
     {
       "id": "gpt-5-4-mini",
       "nom": "GPT-5.4 mini",
       "profil": "OpenAI · compact",
-      "score_global": 63.8,
+      "score_global": 67.9,
       "taux_hallucination_source": 33.3,
-      "taux_erreur_disqualifiante": 16.7,
-      "taux_abstention": 0,
+      "taux_erreur_disqualifiante": 4.2,
+      "taux_abstention": 4.2,
       "scores_domaines": {
-        "SFDR": 48,
-        "MIFID": 72.8,
-        "AMF": 65.8,
-        "DORA": 77.8,
+        "SFDR": 65.4,
+        "MIFID": 85,
+        "AMF": 59.5,
+        "DORA": 72.8,
         "LCBFT": 55.2
       },
       "scores_types": {
-        "qualification": 60.2,
-        "procedure": 72.8,
-        "perimetre": 55.4,
-        "datation": 90.2,
-        "calcul": 34.8
+        "qualification": 80.2,
+        "procedure": 67.8,
+        "perimetre": 55.2,
+        "datation": 80.2,
+        "calcul": 53.3
       },
       "scores_axes": {
-        "exactitude": 1.25,
-        "sourcing": 1.08,
-        "calibration": 1.42,
+        "exactitude": 1.33,
+        "sourcing": 1.21,
+        "calibration": 1.54,
         "exploitabilite": 1.33
       }
     },
@@ -90,87 +90,87 @@
       "id": "gemini-3-7-flash",
       "nom": "Gemini 3.7 Flash",
       "profil": "Google · fast tier",
-      "score_global": 82.5,
-      "taux_hallucination_source": 12.5,
+      "score_global": 81.8,
+      "taux_hallucination_source": 4.2,
       "taux_erreur_disqualifiante": 8.3,
       "taux_abstention": 0,
       "scores_domaines": {
-        "SFDR": 87.8,
-        "MIFID": 97.6,
-        "AMF": 81.3,
-        "DORA": 80.2,
-        "LCBFT": 65.2
+        "SFDR": 72.6,
+        "MIFID": 75,
+        "AMF": 100,
+        "DORA": 82.6,
+        "LCBFT": 82.6
       },
       "scores_types": {
         "qualification": 87.6,
-        "procedure": 92.6,
-        "perimetre": 80.2,
-        "datation": 85,
-        "calcul": 63
+        "procedure": 82.6,
+        "perimetre": 82.6,
+        "datation": 100,
+        "calcul": 50
       },
       "scores_axes": {
-        "exactitude": 1.63,
+        "exactitude": 1.54,
         "sourcing": 1.67,
-        "calibration": 1.71,
-        "exploitabilite": 1.58
+        "calibration": 1.58,
+        "exploitabilite": 1.75
       }
     },
     {
       "id": "gemini-3-1-flash-lite",
       "nom": "Gemini 3.1 Flash Lite",
       "profil": "Google · cost tier",
-      "score_global": 60.7,
-      "taux_hallucination_source": 58.3,
-      "taux_erreur_disqualifiante": 20.8,
+      "score_global": 63.3,
+      "taux_hallucination_source": 37.5,
+      "taux_erreur_disqualifiante": 16.7,
       "taux_abstention": 0,
       "scores_domaines": {
-        "SFDR": 52.8,
-        "MIFID": 72.8,
-        "AMF": 84.8,
-        "DORA": 50.2,
-        "LCBFT": 47.8
+        "SFDR": 45.4,
+        "MIFID": 80.2,
+        "AMF": 87.5,
+        "DORA": 50.4,
+        "LCBFT": 57.8
       },
       "scores_types": {
-        "qualification": 82.8,
-        "procedure": 62.6,
-        "perimetre": 57.8,
-        "datation": 70.4,
-        "calcul": 22.3
+        "qualification": 85.2,
+        "procedure": 60.2,
+        "perimetre": 75.2,
+        "datation": 62.8,
+        "calcul": 25.5
       },
       "scores_axes": {
-        "exactitude": 1.17,
-        "sourcing": 1.17,
-        "calibration": 1.21,
-        "exploitabilite": 1.29
+        "exactitude": 1.29,
+        "sourcing": 1.08,
+        "calibration": 1.17,
+        "exploitabilite": 1.5
       }
     },
     {
       "id": "gemini-2-5-pro",
       "nom": "Gemini 2.5 Pro",
       "profil": "Google · reasoning tier",
-      "score_global": 33,
-      "taux_hallucination_source": 0,
-      "taux_erreur_disqualifiante": 16.7,
+      "score_global": 69.4,
+      "taux_hallucination_source": 41.7,
+      "taux_erreur_disqualifiante": 29.2,
       "taux_abstention": 0,
       "scores_domaines": {
-        "SFDR": 27.6,
-        "MIFID": 45.4,
-        "AMF": 34.5,
-        "DORA": 22.6,
-        "LCBFT": 35.2
+        "SFDR": 42.8,
+        "MIFID": 85,
+        "AMF": 100,
+        "DORA": 50,
+        "LCBFT": 75.2
       },
       "scores_types": {
-        "qualification": 35.2,
-        "procedure": 35.4,
-        "perimetre": 30.2,
-        "datation": 45,
-        "calcul": 15.8
+        "qualification": 85.2,
+        "procedure": 60,
+        "perimetre": 80,
+        "datation": 82.6,
+        "calcul": 31.5
       },
       "scores_axes": {
-        "exactitude": 0.96,
-        "sourcing": 0.21,
-        "calibration": 0.92,
-        "exploitabilite": 0.54
+        "exactitude": 1.46,
+        "sourcing": 1.25,
+        "calibration": 1.38,
+        "exploitabilite": 1.46
       }
     }
   ]
