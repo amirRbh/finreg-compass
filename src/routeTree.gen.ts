@@ -17,6 +17,7 @@ import { Route as ImportRouteImport } from './routes/import'
 import { Route as MethodologyRouteImport } from './routes/methodology'
 import { Route as PrivateBenchmarkRouteImport } from './routes/private-benchmark'
 import { Route as QuestionsRouteImport } from './routes/questions'
+import { Route as TestRouteImport } from './routes/test'
 import { Route as ModelIdRouteImport } from './routes/model.$id'
 import { Route as QuestionIdRouteImport } from './routes/question.$id'
 
@@ -60,6 +61,11 @@ const QuestionsRoute = QuestionsRouteImport.update({
   path: '/questions',
   getParentRoute: () => rootRouteImport,
 } as any)
+const TestRoute = TestRouteImport.update({
+  id: '/test',
+  path: '/test',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const ModelIdRoute = ModelIdRouteImport.update({
   id: '/model/$id',
   path: '/model/$id',
@@ -80,6 +86,7 @@ export interface FileRoutesByFullPath {
   '/methodology': typeof MethodologyRoute
   '/private-benchmark': typeof PrivateBenchmarkRoute
   '/questions': typeof QuestionsRoute
+  '/test': typeof TestRoute
   '/model/$id': typeof ModelIdRoute
   '/question/$id': typeof QuestionIdRoute
 }
@@ -92,6 +99,7 @@ export interface FileRoutesByTo {
   '/methodology': typeof MethodologyRoute
   '/private-benchmark': typeof PrivateBenchmarkRoute
   '/questions': typeof QuestionsRoute
+  '/test': typeof TestRoute
   '/model/$id': typeof ModelIdRoute
   '/question/$id': typeof QuestionIdRoute
 }
@@ -105,6 +113,7 @@ export interface FileRoutesById {
   '/methodology': typeof MethodologyRoute
   '/private-benchmark': typeof PrivateBenchmarkRoute
   '/questions': typeof QuestionsRoute
+  '/test': typeof TestRoute
   '/model/$id': typeof ModelIdRoute
   '/question/$id': typeof QuestionIdRoute
 }
@@ -119,6 +128,7 @@ export interface FileRouteTypes {
     | '/methodology'
     | '/private-benchmark'
     | '/questions'
+    | '/test'
     | '/model/$id'
     | '/question/$id'
   fileRoutesByTo: FileRoutesByTo
@@ -131,6 +141,7 @@ export interface FileRouteTypes {
     | '/methodology'
     | '/private-benchmark'
     | '/questions'
+    | '/test'
     | '/model/$id'
     | '/question/$id'
   id:
@@ -143,6 +154,7 @@ export interface FileRouteTypes {
     | '/methodology'
     | '/private-benchmark'
     | '/questions'
+    | '/test'
     | '/model/$id'
     | '/question/$id'
   fileRoutesById: FileRoutesById
@@ -156,6 +168,7 @@ export interface RootRouteChildren {
   MethodologyRoute: typeof MethodologyRoute
   PrivateBenchmarkRoute: typeof PrivateBenchmarkRoute
   QuestionsRoute: typeof QuestionsRoute
+  TestRoute: typeof TestRoute
   ModelIdRoute: typeof ModelIdRoute
   QuestionIdRoute: typeof QuestionIdRoute
 }
@@ -218,6 +231,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof QuestionsRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/test': {
+      id: '/test'
+      path: '/test'
+      fullPath: '/test'
+      preLoaderRoute: typeof TestRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/model/$id': {
       id: '/model/$id'
       path: '/model/$id'
@@ -244,6 +264,7 @@ const rootRouteChildren: RootRouteChildren = {
   MethodologyRoute: MethodologyRoute,
   PrivateBenchmarkRoute: PrivateBenchmarkRoute,
   QuestionsRoute: QuestionsRoute,
+  TestRoute: TestRoute,
   ModelIdRoute: ModelIdRoute,
   QuestionIdRoute: QuestionIdRoute,
 }
