@@ -9,6 +9,7 @@ const LIENS = [
   { to: "/questions", en: "Questions", fr: "Questions" },
   { to: "/methodology", en: "Methodology", fr: "Méthodologie" },
   { to: "/private-benchmark", en: "Private benchmark", fr: "Corpus privé" },
+  { to: "/import", en: "Import", fr: "Import" },
 ] as const;
 
 /** Sélecteur de langue. La langue vit dans l'URL, jamais en stockage local. */
