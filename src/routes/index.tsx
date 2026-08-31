@@ -288,14 +288,14 @@ function Accueil() {
           >
             <Panneau className="mt-4 overflow-hidden">
               <div className="overflow-x-auto">
-                <table className="w-full min-w-[48rem] border-collapse text-sm">
+                <table className="zebre w-full min-w-[48rem] border-collapse text-sm">
                   <thead>
-                    <tr className="border-b border-rule bg-surface-sunken">
+                    <tr className="border-b border-foreground/60 bg-surface-sunken">
                       {COLONNES.map((c) => (
                         <th
                           key={c.cle}
                           scope="col"
-                          className={`px-4 py-2.5 text-xs font-medium ${c.num ? "text-right" : "text-left"}`}
+                          className={`px-4 py-2.5 ${c.num ? "text-right" : "text-left"}`}
                           aria-sort={
                             cle === c.cle ? (ascendant ? "ascending" : "descending") : "none"
                           }
@@ -303,8 +303,8 @@ function Accueil() {
                           <button
                             type="button"
                             onClick={() => basculer(c.cle)}
-                            className={`transition-colors hover:text-foreground ${
-                              cle === c.cle ? "text-accent" : "text-muted-foreground"
+                            className={`entete-col transition-colors hover:text-foreground ${
+                              cle === c.cle ? "text-accent" : ""
                             }`}
                           >
                             {c.libelle}
@@ -314,6 +314,7 @@ function Accueil() {
                       ))}
                     </tr>
                   </thead>
+
                   <tbody>
                     {lignes.map((m) => {
                       const rang = rangDe(data.modeles, m.id);
