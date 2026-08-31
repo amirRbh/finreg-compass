@@ -12,31 +12,29 @@ const LIENS = [
 
 export function Entete() {
   return (
-    <header className="sticky top-0 z-30 border-b border-border bg-background/85 backdrop-blur supports-[backdrop-filter]:bg-background/70">
+    <header className="sticky top-0 z-30 border-b border-rule bg-background/90 backdrop-blur supports-[backdrop-filter]:bg-background/75">
       <div className="mx-auto flex max-w-5xl flex-col gap-3 px-5 py-3 sm:flex-row sm:items-center sm:justify-between">
-        <Link to="/" className="flex items-center gap-2.5">
-          <span className="flex size-7 items-center justify-center bg-foreground font-mono text-[11px] font-medium text-background">
-            F
+        <Link to="/" className="group flex items-center gap-3">
+          <span className="flex size-8 items-center justify-center border border-foreground font-mono text-[11px] font-medium text-foreground transition-colors group-hover:bg-foreground group-hover:text-background">
+            FR
           </span>
           <span className="leading-tight">
-            <span className="block text-sm font-semibold tracking-tight text-foreground">
+            <span className="block font-serif text-[15px] font-semibold tracking-tight text-foreground">
               FinReg
             </span>
-            <span className="block text-[11px] text-muted-foreground">
-              regulatory accuracy benchmark
-            </span>
+            <span className="etiquette block">regulatory accuracy benchmark</span>
           </span>
         </Link>
-        <nav className="flex flex-wrap items-center gap-1 text-xs">
+        <nav className="-mx-1 flex flex-wrap items-center gap-0.5">
           {LIENS.map((lien) => (
             <Link
               key={lien.to}
               to={lien.to}
               activeOptions={{ exact: lien.to === "/" }}
-              className="px-2.5 py-1.5 text-muted-foreground transition-colors hover:bg-surface-sunken hover:text-foreground"
+              className="border border-transparent px-2.5 py-1.5 font-mono text-[11px] tracking-[0.08em] text-muted-foreground uppercase transition-colors hover:border-border hover:bg-surface hover:text-foreground"
               activeProps={{
                 className:
-                  "bg-foreground text-background hover:bg-foreground hover:text-background",
+                  "border-foreground bg-foreground text-background hover:bg-foreground hover:text-background hover:border-foreground",
               }}
             >
               {lien.libelle}
@@ -47,6 +45,7 @@ export function Entete() {
     </header>
   );
 }
+
 
 export function PiedDePage() {
   const { data } = useResultats();
