@@ -1,5 +1,7 @@
 import { useQuery } from "@tanstack/react-query";
 
+export type LangueDonnees = "en" | "fr";
+
 // Ordre d'affichage des domaines. Comme pour les types, un domaine absent de
 // cette liste reste affiché, à la suite : les données publiées font foi.
 export const ORDRE_DOMAINES: string[] = ["SFDR", "MIFID", "AMF", "DORA", "LCBFT"];
@@ -12,6 +14,14 @@ export const LIBELLES_DOMAINES: Record<string, string> = {
   LCBFT: "AML / CFT",
 };
 
+const LIBELLES_DOMAINES_FR: Record<string, string> = {
+  SFDR: "SFDR — publication en durabilité",
+  MIFID: "MIF II — services d'investissement",
+  AMF: "Abus de marché & émetteurs",
+  DORA: "DORA — résilience opérationnelle",
+  LCBFT: "LCB-FT",
+};
+
 /** Nom court, pour les colonnes et les axes de graphique. */
 export const NOMS_COURTS_DOMAINES: Record<string, string> = {
   SFDR: "SFDR",
@@ -20,6 +30,15 @@ export const NOMS_COURTS_DOMAINES: Record<string, string> = {
   DORA: "DORA",
   LCBFT: "AML/CFT",
 };
+
+const NOMS_COURTS_DOMAINES_FR: Record<string, string> = {
+  SFDR: "SFDR",
+  MIFID: "MIF II",
+  AMF: "Abus de marché",
+  DORA: "DORA",
+  LCBFT: "LCB-FT",
+};
+
 export const AXES = ["exactitude", "sourcing", "calibration", "exploitabilite"] as const;
 
 /** Libellés du barème, en langage compréhensible sans lire la méthodologie. */
@@ -30,6 +49,13 @@ export const LIBELLES_AXES: Record<string, string> = {
   exploitabilite: "Usability",
 };
 
+const LIBELLES_AXES_FR: Record<string, string> = {
+  exactitude: "Exactitude juridique",
+  sourcing: "Exactitude de la citation",
+  calibration: "Calibration",
+  exploitabilite: "Exploitabilité",
+};
+
 export const EXPLICATIONS_AXES: Record<string, string> = {
   exactitude: "Is the rule stated the one the applicable text actually lays down?",
   sourcing: "Does the cited article exist, and does it carry that rule?",
@@ -37,10 +63,15 @@ export const EXPLICATIONS_AXES: Record<string, string> = {
   exploitabilite: "Can a compliance professional act on it as written?",
 };
 
+const EXPLICATIONS_AXES_FR: Record<string, string> = {
+  exactitude: "La règle énoncée est-elle celle que pose le texte applicable ?",
+  sourcing: "L'article cité existe-t-il, et porte-t-il bien cette règle ?",
+  calibration: "L'assurance affichée correspond-elle à la fiabilité réelle de la réponse ?",
+  exploitabilite: "Un professionnel de la conformité peut-il agir sur cette réponse telle quelle ?",
+};
+
 // Vocabulaire du harnais d'évaluation (dépôt amirRbh/FINREG, src/schema.py) : c'est
-// lui qui fait foi, le site doit savoir afficher ce qu'il publie. Les libellés des
-// anciennes valeurs sont conservés pour que les jeux de données antérieurs restent
-// lisibles.
+// lui qui fait foi, le site doit savoir afficher ce qu'il publie.
 export const LIBELLES_TYPES: Record<string, string> = {
   fait: "Fact",
   qualification: "Qualification",
@@ -50,6 +81,17 @@ export const LIBELLES_TYPES: Record<string, string> = {
   procedure: "Procedure",
   perimetre: "Scope",
   datation: "Timing",
+};
+
+const LIBELLES_TYPES_FR: Record<string, string> = {
+  fait: "Fait",
+  qualification: "Qualification",
+  calcul: "Calcul",
+  piege: "Piège",
+  abstention: "Abstention",
+  procedure: "Procédure",
+  perimetre: "Périmètre",
+  datation: "Datation",
 };
 
 // Ordre d'affichage des types dans les filtres. Un type absent d'ici est affiché
@@ -76,11 +118,23 @@ export const LIBELLES_VERIFICATION: Record<string, string> = {
   en_revue: "Under review",
 };
 
+const LIBELLES_VERIFICATION_FR: Record<string, string> = {
+  source_verifiee: "Source vérifiée",
+  en_revue: "En revue",
+};
+
 export const EXPLICATIONS_VERIFICATION: Record<string, string> = {
   source_verifiee:
     "The cited act and article were checked: they exist and carry the rule stated. This check covers the citation. It is not legal advice.",
   en_revue:
     "The rule has been identified, but it is not yet tied to a specific article. The item is published as it stands rather than presented as verified.",
+};
+
+const EXPLICATIONS_VERIFICATION_FR: Record<string, string> = {
+  source_verifiee:
+    "Le texte et l'article cités ont été contrôlés : ils existent et portent bien la règle énoncée. Ce contrôle porte sur la citation. Ce n'est pas un avis juridique.",
+  en_revue:
+    "La règle est identifiée, mais elle n'est pas encore rattachée à un article précis. L'item est publié en l'état plutôt que présenté comme vérifié.",
 };
 
 export const LIBELLES_FLAGS: Record<string, string> = {
@@ -91,11 +145,41 @@ export const LIBELLES_FLAGS: Record<string, string> = {
   abstention: "Declined to answer",
 };
 
+const LIBELLES_FLAGS_FR: Record<string, string> = {
+  hallucination_source: "Source inventée",
+  erreur_disqualifiante: "Erreur disqualifiante",
+  sourcing_incomplet: "Citation incomplète",
+  surconfiance: "Surconfiance",
+  abstention: "Abstention",
+};
+
 export const LIBELLES_DIFFICULTE: Record<number, string> = {
   1: "Direct application",
   2: "Two provisions combined",
   3: "Scope or timing with an exception",
 };
+
+const LIBELLES_DIFFICULTE_FR: Record<number, string> = {
+  1: "Application directe",
+  2: "Deux dispositions combinées",
+  3: "Périmètre ou datation avec exception",
+};
+
+/** Tout le vocabulaire affiché, dans la langue demandée. */
+export function libelles(langue: LangueDonnees) {
+  const fr = langue === "fr";
+  return {
+    domaines: fr ? LIBELLES_DOMAINES_FR : LIBELLES_DOMAINES,
+    domainesCourts: fr ? NOMS_COURTS_DOMAINES_FR : NOMS_COURTS_DOMAINES,
+    axes: fr ? LIBELLES_AXES_FR : LIBELLES_AXES,
+    explicationsAxes: fr ? EXPLICATIONS_AXES_FR : EXPLICATIONS_AXES,
+    types: fr ? LIBELLES_TYPES_FR : LIBELLES_TYPES,
+    verification: fr ? LIBELLES_VERIFICATION_FR : LIBELLES_VERIFICATION,
+    explicationsVerification: fr ? EXPLICATIONS_VERIFICATION_FR : EXPLICATIONS_VERIFICATION,
+    flags: fr ? LIBELLES_FLAGS_FR : LIBELLES_FLAGS,
+    difficulte: fr ? LIBELLES_DIFFICULTE_FR : LIBELLES_DIFFICULTE,
+  };
+}
 
 // Drapeaux qui signalent un défaut grave : ils sont mis en évidence et comptent
 // comme échec significatif sur la fiche d'un modèle.
