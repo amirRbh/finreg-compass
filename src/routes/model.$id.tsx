@@ -1,5 +1,5 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { Chargement, Erreur, Page } from "@/components/finreg/Chrome";
+import { Chargement, Erreur, Page, Section, Titre } from "@/components/finreg/Chrome";
 import { PastilleVerification } from "@/components/finreg/Statuts";
 import {
   AXES,
