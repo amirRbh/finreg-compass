@@ -1,5 +1,5 @@
 import { Link } from "@tanstack/react-router";
-import { libelles, texteAffiche, type Defaillance } from "@/lib/finreg";
+import { libelleCategorie, libelles, texteAffiche, type Defaillance } from "@/lib/finreg";
 import { LigneVerification, Pastille, Squelette } from "@/components/finreg/Ui";
 import { useLangue } from "@/lib/langue";
 
@@ -89,7 +89,7 @@ export function ConsoleEvaluation({ cas }: { cas: Defaillance | undefined }) {
                 : t("Regulatory failure", "Défaillance réglementaire")}
             </Pastille>
             <span className="font-mono text-[10px] tracking-[0.12em] text-danger uppercase">
-              {cas.categorie}
+              {libelleCategorie(cas.categorie, langue)}
             </span>
           </div>
           <p className="mt-3 text-[14px] leading-relaxed font-medium text-foreground">
