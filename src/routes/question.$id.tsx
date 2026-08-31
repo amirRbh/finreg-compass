@@ -12,7 +12,9 @@ import {
   estGrave,
   nb,
   useQuestions,
-  useResultats, texteAffiche,} from "@/lib/finreg";
+  useResultats,
+  texteAffiche,
+} from "@/lib/finreg";
 
 export const Route = createFileRoute("/question/$id")({
   head: () => ({

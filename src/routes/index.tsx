@@ -12,7 +12,9 @@ import {
   trier,
   useQuestions,
   useResultats,
-  type CleTri, texteAffiche,} from "@/lib/finreg";
+  type CleTri,
+  texteAffiche,
+} from "@/lib/finreg";
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -166,7 +168,6 @@ function Accueil() {
         </Panneau>
       )}
 
-
       {isPending && (
         <div className="mt-10">
           <Chargement />
@@ -214,7 +215,9 @@ function Accueil() {
                     <span className="text-xs text-muted-foreground"> /10</span>
                   </p>
                 </div>
-                <p className="mt-3 text-sm leading-relaxed">{texteAffiche(reponseVitrine.r.texte)}</p>
+                <p className="mt-3 text-sm leading-relaxed">
+                  {texteAffiche(reponseVitrine.r.texte)}
+                </p>
                 <ul className="mt-4 flex flex-wrap gap-2">
                   {reponseVitrine.r.flags.map((f) => (
                     <li
@@ -387,7 +390,6 @@ function Accueil() {
                       </th>
                       {Object.keys(LIBELLES_AXES).map((a) => (
                         <th key={a} scope="col" className="entete-col px-4 py-2.5 text-right">
-
                           {LIBELLES_AXES[a]}
                         </th>
                       ))}

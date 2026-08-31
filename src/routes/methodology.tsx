@@ -1,13 +1,7 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { useState } from "react";
 import { Page } from "@/components/finreg/Chrome";
-import {
-  dateFr,
-  EXPLICATIONS_AXES,
-  LIBELLES_AXES,
-  useQuestions,
-  useResultats,
-} from "@/lib/finreg";
+import { dateFr, EXPLICATIONS_AXES, LIBELLES_AXES, useQuestions, useResultats } from "@/lib/finreg";
 
 export const Route = createFileRoute("/methodology")({
   head: () => ({
@@ -155,7 +149,6 @@ function Methodologie() {
         </table>
       </div>
 
-
       <section className="mt-6 max-w-2xl space-y-3 text-[15px] leading-relaxed">
         <p>
           Two rates are reported alongside the score.{" "}
@@ -218,13 +211,12 @@ function Methodologie() {
           actually returned, not a summary of it.
         </p>
         <p>
-          Every figure on the site — regulatory accuracy, invented-source rate, declined rate, scores
-          by regulation and by axis — is recomputed from those item-level answers: no aggregate is
-          typed by hand, and any figure shown can be reconstructed from the corpus pages. The
-          harness, the system prompt and the judge prompt are published with the corpus, so the run
-          can be replicated.
+          Every figure on the site — regulatory accuracy, invented-source rate, declined rate,
+          scores by regulation and by axis — is recomputed from those item-level answers: no
+          aggregate is typed by hand, and any figure shown can be reconstructed from the corpus
+          pages. The harness, the system prompt and the judge prompt are published with the corpus,
+          so the run can be replicated.
         </p>
-
 
         <h2 className="mt-10 border-b border-rule pb-2 text-lg">Current limitations</h2>
         <p>

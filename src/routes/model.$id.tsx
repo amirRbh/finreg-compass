@@ -11,7 +11,9 @@ import {
   nb,
   rangDe,
   useQuestions,
-  useResultats, texteAffiche,} from "@/lib/finreg";
+  useResultats,
+  texteAffiche,
+} from "@/lib/finreg";
 
 export const Route = createFileRoute("/model/$id")({
   head: () => ({
