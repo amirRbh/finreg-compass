@@ -3,10 +3,7 @@ import { Chargement, Erreur, Page, Section, Titre } from "@/components/finreg/Ch
 import { PastilleVerification } from "@/components/finreg/Statuts";
 import {
   AXES,
-  LIBELLES_AXES,
-  LIBELLES_FLAGS,
-  LIBELLES_TYPES,
-  NOMS_COURTS_DOMAINES,
+  libelles,
   echecsSignificatifs,
   nb,
   rangDe,
@@ -14,6 +11,7 @@ import {
   useResultats,
   texteAffiche,
 } from "@/lib/finreg";
+import { useLangue } from "@/lib/langue";
 
 export const Route = createFileRoute("/model/$id")({
   head: () => ({
@@ -39,6 +37,8 @@ function FicheModele() {
   const { id } = Route.useParams();
   const { data: resultats, isPending, isError } = useResultats();
   const { data: questions } = useQuestions();
+  const { langue, t } = useLangue();
+  const L = libelles(langue);
 
   if (isPending) {
     return (
@@ -59,12 +59,15 @@ function FicheModele() {
   if (!modele) {
     return (
       <Page>
-        <h1 className="text-3xl leading-tight sm:text-4xl">Unknown system</h1>
+        <h1 className="text-3xl leading-tight sm:text-4xl">
+          {t("Unknown system", "Système inconnu")}
+        </h1>
         <p className="mt-2 text-sm text-muted-foreground">
-          No evaluated system carries the identifier <span className="font-mono">{id}</span>.
+          {t("No evaluated system carries the identifier ", "Aucun système évalué ne porte l'identifiant ")}
+          <span className="font-mono">{id}</span>.
         </p>
         <Link to="/" className="mt-4 inline-block text-sm text-accent underline underline-offset-4">
-          Back to the benchmark
+          {t("Back to the benchmark", "Retour au classement")}
         </Link>
       </Page>
     );
@@ -79,30 +82,40 @@ function FicheModele() {
         titre={modele.nom}
         chapeau={
           <>
-            {modele.profil} · ranked{" "}
-            <span className="font-mono tabulaire">{rangDe(resultats.modeles, modele.id)}</span> of{" "}
-            <span className="font-mono tabulaire">{resultats.modeles.length}</span> systems evaluated
+            {modele.profil} · {t("ranked", "classé")}{" "}
+            <span className="font-mono tabulaire">{rangDe(resultats.modeles, modele.id)}</span>{" "}
+            {t("of", "sur")}{" "}
+            <span className="font-mono tabulaire">{resultats.modeles.length}</span>{" "}
+            {t("systems evaluated", "systèmes évalués")}
           </>
         }
       />
 
       <section className="mt-10 grid grid-cols-2 gap-px bg-rule sm:grid-cols-4">
-        <Metrique libelle="Regulatory accuracy" valeur={nb(modele.score_global)} unite="/100" />
         <Metrique
-          libelle="Invented source"
+          libelle={t("Regulatory accuracy", "Exactitude réglementaire")}
+          valeur={nb(modele.score_global)}
+          unite="/100"
+        />
+        <Metrique
+          libelle={t("Invented source", "Source inventée")}
           valeur={nb(modele.taux_hallucination_source)}
           unite="%"
         />
         <Metrique
-          libelle="Disqualifying error"
+          libelle={t("Disqualifying error", "Erreur disqualifiante")}
           valeur={nb(modele.taux_erreur_disqualifiante)}
           unite="%"
         />
-        <Metrique libelle="Declined to answer" valeur={nb(modele.taux_abstention)} unite="%" />
+        <Metrique
+          libelle={t("Declined to answer", "Abstention")}
+          valeur={nb(modele.taux_abstention)}
+          unite="%"
+        />
       </section>
 
       <div className="grid gap-x-12 md:grid-cols-2">
-        <Section numero="01" titre="By regulation">
+        <Section numero="01" titre={t("By regulation", "Par réglementation")}>
           <table className="mt-4 w-full border-collapse text-sm">
             <tbody>
               {resultats.domaines.map((d) => (
@@ -124,16 +137,19 @@ function FicheModele() {
             </tbody>
           </table>
           <p className="mt-2.5 font-mono text-[11px] text-muted-foreground">
-            Average item score per regulation, out of 100.
+            {t(
+              "Average item score per regulation, out of 100.",
+              "Note moyenne par réglementation, sur 100.",
+            )}
           </p>
         </Section>
 
-        <Section numero="02" titre="By scoring axis">
+        <Section numero="02" titre={t("By scoring axis", "Par axe de notation")}>
           <table className="mt-4 w-full border-collapse text-sm">
             <tbody>
               {AXES.map((a) => (
                 <tr key={a} className="border-b border-border">
-                  <td className="py-2.5 pr-4">{LIBELLES_AXES[a]}</td>
+                  <td className="py-2.5 pr-4">{L.axes[a]}</td>
                   <td className="py-2.5 pr-4">
                     <div className="h-[3px] w-full bg-surface-sunken">
                       <div
@@ -150,24 +166,33 @@ function FicheModele() {
             </tbody>
           </table>
           <p className="mt-2.5 font-mono text-[11px] text-muted-foreground">
-            Average per axis across the whole corpus, on a 0 to 2 scale.
+            {t(
+              "Average per axis across the whole corpus, on a 0 to 2 scale.",
+              "Moyenne par axe sur tout le corpus, sur une échelle de 0 à 2.",
+            )}
           </p>
         </Section>
       </div>
 
       <Section
         numero="03"
-        titre="Most significant failures"
-        chapeau="Items quoted in full, selected on the combination of lowest score and the presence of an invented source."
+        titre={t("Most significant failures", "Échecs les plus significatifs")}
+        chapeau={t(
+          "Items quoted in full, selected on the combination of lowest score and the presence of an invented source.",
+          "Items cités in extenso, retenus sur la combinaison de la note la plus basse et de la présence d'une source inventée.",
+        )}
       >
         {!questions && (
           <div className="mt-4">
-            <Chargement libelle="Loading the corpus…" />
+            <Chargement libelle={t("Loading the corpus…", "Chargement du corpus…")} />
           </div>
         )}
         {questions && echecs.length === 0 && (
           <p className="mt-4 text-sm text-muted-foreground">
-            No characterised failure on the published items.
+            {t(
+              "No characterised failure on the published items.",
+              "Aucun échec caractérisé sur les items publiés.",
+            )}
           </p>
         )}
         <ol className="mt-6 space-y-8">
@@ -182,26 +207,26 @@ function FicheModele() {
                   {question.id}
                 </Link>
                 <span className="tabulaire">
-                  · {NOMS_COURTS_DOMAINES[question.domaine] ?? question.domaine} ·{" "}
-                  {LIBELLES_TYPES[question.type] ?? question.type} · level {question.difficulte} ·
-                  score {nb(reponse.score)}
+                  · {L.domainesCourts[question.domaine] ?? question.domaine} ·{" "}
+                  {L.types[question.type] ?? question.type} · {t("level", "niveau")}{" "}
+                  {question.difficulte} · {t("score", "note")} {nb(reponse.score)}
                 </span>
                 <PastilleVerification statut={question.verification.statut} taille="petite" />
               </p>
               <p className="mt-2.5 max-w-2xl text-[15px] leading-relaxed">{question.question}</p>
               <dl className="mt-4 max-w-2xl space-y-3 text-sm">
                 <div>
-                  <dt className="etiquette">What it answered</dt>
+                  <dt className="etiquette">{t("What it answered", "Ce qu'il a répondu")}</dt>
                   <dd className="mt-1.5 leading-relaxed">{texteAffiche(reponse.texte)}</dd>
                 </div>
                 <div>
-                  <dt className="etiquette">What the law says</dt>
+                  <dt className="etiquette">{t("What the law says", "Ce que dit le texte")}</dt>
                   <dd className="mt-1.5 leading-relaxed text-muted-foreground">
                     {question.reponse_reference}
                   </dd>
                 </div>
                 <div>
-                  <dt className="etiquette">Legal basis</dt>
+                  <dt className="etiquette">{t("Legal basis", "Fondement juridique")}</dt>
                   <dd className="mt-1.5">
                     {question.source.texte} — {question.source.article}{" "}
                     <a
@@ -210,7 +235,7 @@ function FicheModele() {
                       rel="noreferrer"
                       className="font-mono text-xs text-accent underline underline-offset-4"
                     >
-                      open ↗
+                      {t("open ↗", "ouvrir ↗")}
                     </a>
                   </dd>
                 </div>
@@ -222,7 +247,7 @@ function FicheModele() {
                       key={f}
                       className="border border-accent/40 bg-accent-soft px-2 py-0.5 font-mono text-[10px] tracking-[0.06em] text-accent uppercase"
                     >
-                      {LIBELLES_FLAGS[f] ?? f}
+                      {L.flags[f] ?? f}
                     </li>
                   ))}
                 </ul>
@@ -236,7 +261,7 @@ function FicheModele() {
         to="/"
         className="mt-14 inline-block font-mono text-[11px] tracking-[0.08em] text-accent uppercase underline underline-offset-4"
       >
-        ← Back to the benchmark
+        ← {t("Back to the benchmark", "Retour au classement")}
       </Link>
     </Page>
   );
