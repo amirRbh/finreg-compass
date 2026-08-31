@@ -227,8 +227,37 @@ def _sse_texte(reponse):
     return "".join(morceaux).strip()
 
 
+def _anthropic(modele, question, budget):
+    """Direct Anthropic call: these models are not served by the gateway."""
+    corps = {
+        "model": modele.split("/", 1)[1],
+        "max_tokens": min(budget, 4000),
+        "temperature": 0.2,
+        "system": PROMPT_SYSTEME,
+        "messages": [{"role": "user", "content": question}],
+    }
+    entetes_anthropic = {
+        "content-type": "application/json",
+        "x-api-key": CLE_ANTHROPIC,
+        "anthropic-version": "2023-06-01",
+    }
+    for tentative in range(6):
+        reponse = requests.post(ANTHROPIC, headers=entetes_anthropic, json=corps, timeout=900)
+        if reponse.status_code < 400:
+            blocs = reponse.json().get("content", [])
+            return "".join(b.get("text", "") for b in blocs if b.get("type") == "text").strip()
+        if reponse.status_code == 429 or reponse.status_code >= 500:
+            attente = float(reponse.headers.get("retry-after") or 2**tentative)
+            time.sleep(attente + random.random())
+            continue
+        raise RuntimeError(f"anthropic [{reponse.status_code}] {reponse.text[:400]}")
+    raise RuntimeError("anthropic: rate limited after 6 attempts")
+
+
 def repondre(modele, question, budget=4000):
     """Puts one question to one system, in an independent session."""
+    if modele.startswith("anthropic/"):
+        return _anthropic(modele, question, budget)
     if modele.startswith("openai/"):
         reponse = _post(
             "/responses",
