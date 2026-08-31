@@ -11,12 +11,10 @@ import {
 } from "@/components/finreg/Ui";
 import {
   DIMENSIONS,
-  LIBELLES_DIMENSIONS,
   NUMEROS_DIMENSIONS,
-  QUESTIONS_DIMENSIONS,
-  ECHECS_TYPES_DIMENSIONS,
   casVitrine,
   dateFr,
+  dimensionsLib,
   fiabilite,
   libelles,
   nb,
@@ -24,6 +22,7 @@ import {
   useQuestions,
   useResultats,
 } from "@/lib/finreg";
+import { useLangue } from "@/lib/langue";
 
 const TITRE = "FinReg — The independent benchmark for regulatory AI";
 const DESCRIPTION =
@@ -43,30 +42,48 @@ export const Route = createFileRoute("/")({
 
 const PROBLEMES = [
   {
-    titre: "Fabricated source",
-    resume: "The AI cites an article that does not exist.",
-    detail:
+    titre: ["Fabricated source", "Source inventée"],
+    resume: [
+      "The AI cites an article that does not exist.",
+      "L'IA cite un article qui n'existe pas.",
+    ],
+    detail: [
       "“Article 14(3) of Regulation (EU) 2019/2088 requires…” — SFDR has no Article 14(3). The obligation is invented, and so is the number that supports it.",
+      "« L'article 14(3) du règlement (UE) 2019/2088 impose… » — SFDR n'a pas d'article 14(3). L'obligation est inventée, et le numéro qui la soutient aussi.",
+    ],
   },
   {
-    titre: "Wrong citation",
-    resume: "The cited article exists — but does not support the answer.",
-    detail:
+    titre: ["Wrong citation", "Citation erronée"],
+    resume: [
+      "The cited article exists — but does not support the answer.",
+      "L'article cité existe — mais ne soutient pas la réponse.",
+    ],
+    detail: [
       "An answer on suitability assessments cites a MiFID II article that governs best execution. The reference is checkable, and it checks out false.",
+      "Une réponse sur l'évaluation d'adéquation cite un article MiFID II qui régit la meilleure exécution. La référence est vérifiable, et elle est fausse.",
+    ],
   },
   {
-    titre: "Overconfident answer",
-    resume: "The AI should have abstained but provides a definitive legal conclusion.",
-    detail:
+    titre: ["Overconfident answer", "Réponse surconfiante"],
+    resume: [
+      "The AI should have abstained but provides a definitive legal conclusion.",
+      "L'IA aurait dû s'abstenir : elle tranche définitivement.",
+    ],
+    detail: [
       "Where the text leaves scope or timing open, the system answers “yes, the firm may rely on it” with no condition, no exception and no caveat.",
+      "Là où le texte laisse le périmètre ou la datation ouverts, le système répond « oui, l'entreprise peut s'en prévaloir », sans condition ni exception.",
+    ],
   },
 ];
 
 function Accueil() {
   const { data, isPending, isError } = useResultats();
   const { data: questions } = useQuestions();
+  const { langue, t } = useLangue();
+  const i = langue === "fr" ? 1 : 0;
 
-  const L = libelles("en");
+  const L = libelles(langue);
+  const D = dimensionsLib(langue);
   const cas = questions && data ? casVitrine(questions, data.modeles) : undefined;
   const classement = data ? trier(data.modeles, "score_global", false) : [];
   const tete = classement[0];
@@ -85,19 +102,27 @@ function Accueil() {
           <div className="relative mx-auto grid max-w-6xl gap-12 lg:grid-cols-[minmax(0,1fr)_minmax(0,28rem)] lg:items-center lg:gap-16">
             <div>
               <p className="etiquette">
-                Independent evaluation • Financial regulation • Reproducible methodology
+                {t(
+                  "Independent evaluation • Financial regulation • Reproducible methodology",
+                  "Évaluation indépendante • Réglementation financière • Méthodologie reproductible",
+                )}
               </p>
               <h1 className="mt-5 text-[2.5rem] leading-[1.05] text-balance sm:text-[3.4rem]">
-                Can your AI be trusted with regulation?
+                {t(
+                  "Can your AI be trusted with regulation?",
+                  "Peut-on confier la réglementation à votre IA ?",
+                )}
               </h1>
               <p className="mt-6 max-w-xl text-[18px] leading-relaxed text-muted-foreground">
-                FinReg independently tests regulatory AI for legal accuracy, citation integrity,
-                hallucinations and calibration.
+                {t(
+                  "FinReg independently tests regulatory AI for legal accuracy, citation integrity, hallucinations and calibration.",
+                  "FinReg teste de façon indépendante les IA réglementaires : exactitude juridique, intégrité des citations, hallucinations et calibration.",
+                )}
               </p>
               <div className="mt-8 flex flex-wrap items-center gap-3">
-                <BoutonLien to="/test">Test your AI →</BoutonLien>
+                <BoutonLien to="/test">{t("Test your AI →", "Tester votre IA →")}</BoutonLien>
                 <BoutonLien to="/benchmark" variante="secondaire">
-                  Explore the benchmark
+                  {t("Explore the benchmark", "Explorer le benchmark")}
                 </BoutonLien>
               </div>
               {data && (
@@ -106,8 +131,8 @@ function Accueil() {
                   entrees={[
                     ["Benchmark", "v1.0"],
                     ["Questions", String(data.nb_questions)],
-                    ["Domains", String(data.domaines.length)],
-                    ["Evaluated", dateFr(data.date_execution, "en")],
+                    [t("Domains", "Domaines"), String(data.domaines.length)],
+                    [t("Evaluated", "Évalué le"), dateFr(data.date_execution, langue)],
                   ]}
                 />
               )}
@@ -130,34 +155,56 @@ function Accueil() {
         {data && (
           <section className="mt-14">
             <div className="flex flex-wrap items-baseline justify-between gap-3">
-              <h2 className="text-[1.3rem]">What we measured on the public benchmark</h2>
-              <Pastille ton="succes">Measured run · not demo data</Pastille>
+              <h2 className="text-[1.3rem]">
+                {t(
+                  "What we measured on the public benchmark",
+                  "Ce que nous avons mesuré sur le benchmark public",
+                )}
+              </h2>
+              <Pastille ton="succes">
+                {t("Measured run · not demo data", "Exécution mesurée · pas de données factices")}
+              </Pastille>
             </div>
             <Panneau className="mt-4 grid gap-px bg-border sm:grid-cols-2 lg:grid-cols-4">
               <Tuile
-                etiquette="Answers not safe to rely on"
+                etiquette={t("Answers not safe to rely on", "Réponses non fiables")}
                 valeur={nb(data.synthese.taux_reponse_non_fiable)}
                 unite="%"
                 ton="danger"
-                note={`of the ${data.synthese.nb_reponses} scored answers invent a source or state a rule the text does not contain.`}
+                note={t(
+                  `of the ${data.synthese.nb_reponses} scored answers invent a source or state a rule the text does not contain.`,
+                  `des ${data.synthese.nb_reponses} réponses notées inventent une source ou énoncent une règle absente du texte.`,
+                )}
               />
               <Tuile
-                etiquette="Fabricated or unsupported citation"
+                etiquette={t(
+                  "Fabricated or unsupported citation",
+                  "Citation inventée ou non étayée",
+                )}
                 valeur={nb(data.synthese.taux_hallucination_source)}
                 unite="%"
-                note="of answers cite an article that does not exist, or one that says something else."
+                note={t(
+                  "of answers cite an article that does not exist, or one that says something else.",
+                  "des réponses citent un article inexistant, ou qui dit autre chose.",
+                )}
               />
               <Tuile
-                etiquette="Declined to answer"
+                etiquette={t("Declined to answer", "Abstentions")}
                 valeur={nb(data.synthese.taux_abstention)}
                 unite="%"
-                note="systems almost never abstain — even where the applicable text leaves the point open."
+                note={t(
+                  "systems almost never abstain — even where the applicable text leaves the point open.",
+                  "les systèmes ne s'abstiennent presque jamais — même quand le texte laisse la question ouverte.",
+                )}
               />
               <Tuile
-                etiquette="Verified sources in corpus"
+                etiquette={t("Verified sources in corpus", "Sources vérifiées du corpus")}
                 valeur={`${verifiees ?? "—"}`}
                 unite={`/ ${data.nb_questions}`}
-                note="items whose cited act and article were checked against the primary text."
+                note={t(
+                  "items whose cited act and article were checked against the primary text.",
+                  "items dont le texte et l'article cités ont été vérifiés à la source.",
+                )}
               />
             </Panneau>
           </section>
@@ -166,43 +213,55 @@ function Accueil() {
         {/* ── LE PROBLÈME ────────────────────────────────────────────────── */}
         <section className="mt-20">
           <div className="max-w-3xl">
-            <p className="etiquette">The problem</p>
+            <p className="etiquette">{t("The problem", "Le problème")}</p>
             <h2 className="mt-3 text-[2rem] leading-[1.12] sm:text-[2.4rem]">
-              AI can sound right and still be wrong.
+              {t(
+                "AI can sound right and still be wrong.",
+                "Une IA peut sonner juste et se tromper.",
+              )}
             </h2>
             <p className="mt-4 text-[15px] leading-relaxed text-muted-foreground">
-              A regulatory hallucination isn't just a bad answer. It can mean a fabricated citation,
-              an incorrect legal interpretation or a false statement about an obligation — delivered
-              in the register of a compliance memo, which is exactly what makes it dangerous.
+              {t(
+                "A regulatory hallucination isn't just a bad answer. It can mean a fabricated citation, an incorrect legal interpretation or a false statement about an obligation — delivered in the register of a compliance memo, which is exactly what makes it dangerous.",
+                "Une hallucination réglementaire n'est pas qu'une mauvaise réponse : c'est une citation inventée, une interprétation juridique fausse ou une obligation imaginaire — énoncée dans le registre d'une note de conformité, et c'est exactement ce qui la rend dangereuse.",
+              )}
             </p>
           </div>
           <div className="mt-8 grid gap-px border border-border bg-border md:grid-cols-3">
-            {PROBLEMES.map((p, i) => (
-              <article key={p.titre} className="flex flex-col bg-surface p-6">
+            {PROBLEMES.map((p, n) => (
+              <article key={p.titre[0]} className="flex flex-col bg-surface p-6">
                 <p className="font-mono text-[10px] tracking-[0.14em] text-danger uppercase">
-                  {String(i + 1).padStart(2, "0")} — {p.titre}
+                  {String(n + 1).padStart(2, "0")} — {p.titre[i]}
                 </p>
-                <p className="mt-4 text-[15px] leading-snug font-medium">{p.resume}</p>
+                <p className="mt-4 text-[15px] leading-snug font-medium">{p.resume[i]}</p>
                 <p className="mt-3 border-t border-rule pt-3 text-[13px] leading-relaxed text-muted-foreground">
-                  {p.detail}
+                  {p.detail[i]}
                 </p>
               </article>
             ))}
           </div>
           <p className="mt-4 text-[12px] text-muted-foreground">
-            Illustrative failure patterns. Every real case in the{" "}
+            {t("Illustrative failure patterns. Every real case in the", "Motifs d'échec illustratifs. Chaque cas réel de la")}{" "}
             <Link to="/failures" className="text-accent underline underline-offset-2">
-              failure database
+              {t("failure database", "base des défaillances")}
             </Link>{" "}
-            is tied to a measured answer and a primary source.
+            {t(
+              "is tied to a measured answer and a primary source.",
+              "renvoie à une réponse mesurée et à une source officielle.",
+            )}
           </p>
         </section>
 
         {/* ── CE QUE FINREG MESURE ───────────────────────────────────────── */}
         <section className="mt-20">
           <div className="max-w-3xl">
-            <p className="etiquette">What FinReg measures</p>
-            <h2 className="mt-3 text-[1.9rem] leading-[1.15]">Five dimensions, scored per answer</h2>
+            <p className="etiquette">{t("What FinReg measures", "Ce que FinReg mesure")}</p>
+            <h2 className="mt-3 text-[1.9rem] leading-[1.15]">
+              {t(
+                "Five dimensions, scored per answer",
+                "Cinq dimensions, notées réponse par réponse",
+              )}
+            </h2>
           </div>
           <div className="mt-8 border border-border bg-surface">
             {DIMENSIONS.map((d) => {
@@ -216,24 +275,24 @@ function Accueil() {
                     {NUMEROS_DIMENSIONS[d]}
                   </span>
                   <div>
-                    <p className="text-[15px] font-medium">{LIBELLES_DIMENSIONS[d]}</p>
+                    <p className="text-[15px] font-medium">{D.libelles[d]}</p>
                     <p className="mt-1 text-[13px] leading-relaxed text-muted-foreground">
-                      {QUESTIONS_DIMENSIONS[d]}
+                      {D.questions[d]}
                     </p>
                   </div>
                   <p className="border-l-2 border-danger/40 pl-3 text-[12.5px] leading-relaxed text-muted-foreground">
                     <span className="font-mono text-[10px] tracking-[0.12em] text-danger uppercase">
-                      Example failure
+                      {t("Example failure", "Exemple d'échec")}
                     </span>
                     <br />
-                    {ECHECS_TYPES_DIMENSIONS[d]}
+                    {D.echecs[d]}
                   </p>
                   <div className="lg:text-right">
                     <p className="chiffre text-2xl text-ink">
                       {valeur !== undefined ? nb(valeur) : "—"}
                     </p>
                     <p className="mt-1 font-mono text-[10px] tracking-[0.1em] text-muted-foreground uppercase">
-                      best system
+                      {t("best system", "meilleur système")}
                     </p>
                   </div>
                 </div>
@@ -248,16 +307,21 @@ function Accueil() {
             <div className="max-w-2xl">
               <p className="etiquette">Regulatory Reliability Score™</p>
               <h2 className="mt-3 text-[1.9rem] leading-[1.15]">
-                One number a risk committee can read
+                {t(
+                  "One number a risk committee can read",
+                  "Un chiffre lisible par un comité des risques",
+                )}
               </h2>
               <p className="mt-3 text-[14px] leading-relaxed text-muted-foreground">
-                Derived from the five measured dimensions, on a 0–100 scale. It is a reliability
-                indicator for an AI system, not a compliance certificate and not a legal opinion.
+                {t(
+                  "Derived from the five measured dimensions, on a 0–100 scale. It is a reliability indicator for an AI system, not a compliance certificate and not a legal opinion.",
+                  "Dérivé des cinq dimensions mesurées, sur une échelle de 0 à 100. C'est un indicateur de fiabilité d'un système d'IA, pas un certificat de conformité ni une opinion juridique.",
+                )}
               </p>
             </div>
             {tete && (
               <p className="font-mono text-[11px] tracking-[0.1em] text-muted-foreground uppercase">
-                shown for {tete.nom} · leading system
+                {t(`shown for ${tete.nom} · leading system`, `affiché pour ${tete.nom} · système de tête`)}
               </p>
             )}
           </div>
@@ -266,8 +330,11 @@ function Accueil() {
               <CarteFiabilite
                 score={f.global}
                 dimensions={f.dimensions}
-                libellesDimensions={LIBELLES_DIMENSIONS}
-                sousTitre={`${tete.nom} · ${data?.nb_questions} questions · ${data?.domaines.length} regulatory domains · judged answer by answer against the primary text.`}
+                libellesDimensions={D.libelles}
+                sousTitre={t(
+                  `${tete.nom} · ${data?.nb_questions} questions · ${data?.domaines.length} regulatory domains · judged answer by answer against the primary text.`,
+                  `${tete.nom} · ${data?.nb_questions} questions · ${data?.domaines.length} domaines réglementaires · noté réponse par réponse face au texte officiel.`,
+                )}
               />
             ) : (
               <Squelette lignes={6} />
@@ -284,7 +351,7 @@ function Accueil() {
                 to="/benchmark"
                 className="font-mono text-[11px] tracking-[0.12em] text-accent uppercase hover:underline"
               >
-                Full leaderboard →
+                {t("Full leaderboard →", "Classement complet →")}
               </Link>
             </div>
             <div className="mt-4 overflow-x-auto">
@@ -292,19 +359,27 @@ function Accueil() {
                 <thead>
                   <tr className="border-b border-border">
                     <th className="entete-col px-4 py-2.5 text-left">#</th>
-                    <th className="entete-col px-4 py-2.5 text-left">System</th>
-                    <th className="entete-col px-4 py-2.5 text-right">Reliability</th>
-                    <th className="entete-col px-4 py-2.5 text-right">Legal accuracy</th>
-                    <th className="entete-col px-4 py-2.5 text-right">Citation integrity</th>
+                    <th className="entete-col px-4 py-2.5 text-left">
+                      {t("System", "Système")}
+                    </th>
+                    <th className="entete-col px-4 py-2.5 text-right">
+                      {t("Reliability", "Fiabilité")}
+                    </th>
+                    <th className="entete-col px-4 py-2.5 text-right">
+                      {t("Legal accuracy", "Exactitude juridique")}
+                    </th>
+                    <th className="entete-col px-4 py-2.5 text-right">
+                      {t("Citation integrity", "Intégrité des citations")}
+                    </th>
                   </tr>
                 </thead>
                 <tbody>
-                  {classement.slice(0, 4).map((m, i) => {
+                  {classement.slice(0, 4).map((m, n) => {
                     const fm = fiabilite(m);
                     return (
                       <tr key={m.id} className="border-b border-rule last:border-b-0">
                         <td className="px-4 py-2.5 chiffre text-[13px] text-muted-foreground">
-                          {i + 1}
+                          {n + 1}
                         </td>
                         <td className="px-4 py-2.5">
                           <Link
@@ -330,8 +405,9 @@ function Accueil() {
               </table>
             </div>
             <p className="mt-3 font-mono text-[11px] tabulaire text-muted-foreground">
-              Measured run · {dateFr(data.date_execution, "en")} · judge {data.juge ?? "—"} ·{" "}
-              {data.nb_runs} run per question · domains{" "}
+              {t("Measured run", "Exécution mesurée")} · {dateFr(data.date_execution, langue)} ·{" "}
+              {t("judge", "juge")} {data.juge ?? "—"} · {data.nb_runs}{" "}
+              {t("run per question", "passage par question")} · {t("domains", "domaines")}{" "}
               {data.domaines.map((d) => L.domainesCourts[d] ?? d).join(", ")}
             </p>
           </section>
@@ -342,17 +418,21 @@ function Accueil() {
           <div>
             <p className="etiquette">FinReg Verified</p>
             <h2 className="mt-3 text-[1.7rem] leading-[1.15]">
-              An independent reliability assessment for regulatory AI systems
+              {t(
+                "An independent reliability assessment for regulatory AI systems",
+                "Une évaluation indépendante de fiabilité pour les IA réglementaires",
+              )}
             </h2>
             <p className="mt-4 max-w-xl text-[14px] leading-relaxed text-muted-foreground">
-              Designed to become an independent reliability standard. An assessment rests on a
-              defined benchmark, a reproducible methodology, source verification, hallucination
-              testing and calibration testing — nothing else.
+              {t(
+                "Designed to become an independent reliability standard. An assessment rests on a defined benchmark, a reproducible methodology, source verification, hallucination testing and calibration testing — nothing else.",
+                "Conçue pour devenir un standard indépendant de fiabilité. Une évaluation repose sur un benchmark défini, une méthodologie reproductible, la vérification des sources, le test des hallucinations et celui de la calibration — rien d'autre.",
+              )}
             </p>
             <div className="mt-6 flex flex-wrap gap-3">
-              <BoutonLien to="/audit">Request an audit →</BoutonLien>
+              <BoutonLien to="/audit">{t("Request an audit →", "Demander un audit →")}</BoutonLien>
               <BoutonLien to="/methodology" variante="secondaire">
-                Read the methodology
+                {t("Read the methodology", "Lire la méthodologie")}
               </BoutonLien>
             </div>
           </div>
@@ -360,15 +440,17 @@ function Accueil() {
             <p className="font-mono text-[10px] tracking-[0.18em] uppercase opacity-70">
               FinReg Verified
             </p>
-            <p className="mt-3 text-[15px] font-medium">Regulatory AI Reliability</p>
+            <p className="mt-3 text-[15px] font-medium">
+              {t("Regulatory AI Reliability", "Fiabilité d'IA réglementaire")}
+            </p>
             <p className="mt-6 chiffre text-4xl">
               91<span className="text-base opacity-60"> /100</span>
             </p>
             <p className="mt-2 font-mono text-[11px] tracking-[0.1em] uppercase opacity-70">
-              Assessment: 2026
+              {t("Assessment: 2026", "Évaluation : 2026")}
             </p>
             <p className="mt-5 border-t border-background/20 pt-3 font-mono text-[10px] tracking-[0.12em] uppercase text-chart-4">
-              Badge concept · illustrative score
+              {t("Badge concept · illustrative score", "Concept de badge · score illustratif")}
             </p>
           </div>
         </section>
@@ -378,17 +460,22 @@ function Accueil() {
           <div className="grid gap-8 lg:grid-cols-[minmax(0,1fr)_auto] lg:items-end">
             <div>
               <h2 className="text-[1.9rem] leading-[1.12]">
-                Find out how your AI performs on regulation.
+                {t(
+                  "Find out how your AI performs on regulation.",
+                  "Découvrez comment votre IA se comporte sur la réglementation.",
+                )}
               </h2>
               <p className="mt-3 max-w-xl text-[14px] leading-relaxed text-muted-foreground">
-                Start with a free AI check on a sample of your system's answers. Move to a private
-                benchmark on your own corpus when you need production evidence.
+                {t(
+                  "Start with a free AI check on a sample of your system's answers. Move to a private benchmark on your own corpus when you need production evidence.",
+                  "Commencez par un contrôle gratuit sur un échantillon des réponses de votre système. Passez à un benchmark privé sur votre propre corpus quand il faut des preuves en production.",
+                )}
               </p>
             </div>
             <div className="flex flex-wrap gap-3">
-              <BoutonLien to="/test">Test your AI →</BoutonLien>
+              <BoutonLien to="/test">{t("Test your AI →", "Tester votre IA →")}</BoutonLien>
               <BoutonLien to="/private-benchmark" variante="secondaire">
-                Request a private benchmark →
+                {t("Request a private benchmark →", "Demander un benchmark privé →")}
               </BoutonLien>
             </div>
           </div>

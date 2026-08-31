@@ -594,3 +594,76 @@ export function casVitrine(questions: Question[], modeles: Modele[]): Defaillanc
   );
   return cat.find((d) => d.domaine === "MIFID") ?? cat[0];
 }
+
+/* ── Vocabulaire commercial bilingue (V1) ────────────────────────────────── */
+
+const LIBELLES_DIMENSIONS_FR: Record<Dimension, string> = {
+  legal_accuracy: "Exactitude juridique",
+  citation_integrity: "Intégrité des citations",
+  hallucination_resistance: "Résistance à l'hallucination",
+  calibration: "Calibration",
+  operational_usability: "Exploitabilité opérationnelle",
+};
+
+const QUESTIONS_DIMENSIONS_FR: Record<Dimension, string> = {
+  legal_accuracy: "L'IA comprend-elle correctement la règle applicable ?",
+  citation_integrity: "La source citée soutient-elle réellement la réponse ?",
+  hallucination_resistance: "L'IA invente-t-elle des textes, articles, obligations ou sources ?",
+  calibration: "L'IA sait-elle quand répondre « je ne sais pas » ?",
+  operational_usability: "Un professionnel de la conformité peut-il exploiter la réponse ?",
+};
+
+const ECHECS_TYPES_DIMENSIONS_FR: Record<Dimension, string> = {
+  legal_accuracy: "Affirme un seuil ou une obligation que l'article applicable ne prévoit pas.",
+  citation_integrity: "Cite un article réel qui régit autre chose que ce que la réponse prétend.",
+  hallucination_resistance: "Cite un numéro d'article introuvable dans le texte visé.",
+  calibration: "Tranche définitivement là où le texte laisse la question ouverte.",
+  operational_usability: "Répond juste, mais sans étapes, délai ni périmètre pour agir.",
+};
+
+/** Libellés des cinq dimensions dans la langue demandée. */
+export function dimensionsLib(langue: LangueDonnees) {
+  const fr = langue === "fr";
+  return {
+    libelles: fr ? LIBELLES_DIMENSIONS_FR : LIBELLES_DIMENSIONS,
+    questions: fr ? QUESTIONS_DIMENSIONS_FR : QUESTIONS_DIMENSIONS,
+    echecs: fr ? ECHECS_TYPES_DIMENSIONS_FR : ECHECS_TYPES_DIMENSIONS,
+  };
+}
+
+/** Bande de fiabilité localisée. */
+export function bandeFiabiliteL(
+  score: number,
+  langue: LangueDonnees,
+): { libelle: string; ton: "haut" | "moyen" | "bas" } {
+  const b = bandeFiabilite(score);
+  if (langue !== "fr") return b;
+  const fr: Record<typeof b.ton, string> = {
+    haut: "Fiabilité élevée",
+    moyen: "Fiabilité modérée",
+    bas: "Fiabilité faible",
+  };
+  return { libelle: fr[b.ton], ton: b.ton };
+}
+
+const CATEGORIES_ECHEC_FR: Record<CategorieEchec, string> = {
+  "Citation integrity": "Intégrité des citations",
+  "Fabricated source": "Source inventée",
+  "Legal accuracy": "Exactitude juridique",
+  Overconfidence: "Surconfiance",
+  "Operational usability": "Exploitabilité",
+};
+
+export function libelleCategorie(c: CategorieEchec, langue: LangueDonnees): string {
+  return langue === "fr" ? CATEGORIES_ECHEC_FR[c] : c;
+}
+
+const SEVERITES_FR: Record<Severite, string> = {
+  critical: "critique",
+  high: "élevée",
+  medium: "moyenne",
+};
+
+export function libelleSeverite(s: Severite, langue: LangueDonnees): string {
+  return langue === "fr" ? SEVERITES_FR[s] : s;
+}
