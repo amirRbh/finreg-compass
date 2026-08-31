@@ -78,7 +78,8 @@ function Questions() {
 
   const verifiees =
     questions?.filter((q) => q.verification.statut === "source_verifiee").length ?? 0;
-  const toutes = t("All", "Tous");
+  const tous = t("All", "Tous");
+  const toutes = t("All", "Toutes");
 
   return (
     <Page>
@@ -105,7 +106,7 @@ function Questions() {
           valeur={domaine}
           onChange={setDomaine}
           options={[
-            { v: "tous", l: toutes },
+            { v: "tous", l: tous },
             ...domainesPresents.map((d) => ({ v: d, l: L.domainesCourts[d] ?? d })),
           ]}
         />
@@ -114,7 +115,7 @@ function Questions() {
           valeur={type}
           onChange={setType}
           options={[
-            { v: "tous", l: toutes },
+            { v: "tous", l: tous },
             ...typesPresents.map((x) => ({ v: x, l: L.types[x] ?? x })),
           ]}
         />
