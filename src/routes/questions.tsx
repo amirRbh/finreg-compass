@@ -96,7 +96,7 @@ function Questions() {
         </p>
       )}
 
-      <div className="mt-8 flex flex-wrap gap-5 border border-border bg-surface px-4 py-3 shadow-panneau">
+      <div className="mt-8 flex flex-wrap gap-x-6 gap-y-3 border-y border-rule bg-surface px-4 py-3">
         <Filtre
           libelle="Regulation"
           valeur={domaine}
