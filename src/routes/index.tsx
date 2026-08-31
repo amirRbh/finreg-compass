@@ -143,10 +143,9 @@ function Accueil() {
                 </div>
                 <div className="border-t border-rule pt-4">
                   <p className="font-mono text-3xl leading-none tabulaire">
-                    {nb(data.synthese.taux_reponse_non_fiable)}
-                    <span className="text-lg"> %</span>
+                    {data.modeles.length}
                   </p>
-                  <p className="mt-1.5 etiquette">{t("Not reliable", "Non fiables")}</p>
+                  <p className="mt-1.5 etiquette">{t("Systems tested", "Systèmes testés")}</p>
                 </div>
                 <div className="border-t border-rule pt-4">
                   <p className="font-mono text-3xl leading-none tabulaire">{data.nb_questions}</p>
