@@ -170,9 +170,9 @@ function FicheModele() {
             No characterised failure on the published items.
           </p>
         )}
-        <ol className="mt-4 space-y-6">
+        <ol className="mt-6 space-y-8">
           {echecs.map(({ question, reponse }) => (
-            <li key={question.id} className="border-l-2 border-l-accent pl-4">
+            <li key={question.id} className="filet-accent">
               <p className="flex flex-wrap items-center gap-x-2 gap-y-1 font-mono text-[11px] text-muted-foreground">
                 <Link
                   to="/question/$id"
@@ -181,28 +181,28 @@ function FicheModele() {
                 >
                   {question.id}
                 </Link>
-                <span>
+                <span className="tabulaire">
                   · {NOMS_COURTS_DOMAINES[question.domaine] ?? question.domaine} ·{" "}
                   {LIBELLES_TYPES[question.type] ?? question.type} · level {question.difficulte} ·
                   score {nb(reponse.score)}
                 </span>
                 <PastilleVerification statut={question.verification.statut} taille="petite" />
               </p>
-              <p className="mt-2 max-w-2xl text-sm">{question.question}</p>
-              <dl className="mt-3 max-w-2xl space-y-2 text-sm">
+              <p className="mt-2.5 max-w-2xl text-[15px] leading-relaxed">{question.question}</p>
+              <dl className="mt-4 max-w-2xl space-y-3 text-sm">
                 <div>
-                  <dt className="text-xs font-medium text-muted-foreground">What it answered</dt>
-                  <dd className="mt-1 leading-relaxed">{texteAffiche(reponse.texte)}</dd>
+                  <dt className="etiquette">What it answered</dt>
+                  <dd className="mt-1.5 leading-relaxed">{texteAffiche(reponse.texte)}</dd>
                 </div>
                 <div>
-                  <dt className="text-xs font-medium text-muted-foreground">What the law says</dt>
-                  <dd className="mt-1 leading-relaxed text-muted-foreground">
+                  <dt className="etiquette">What the law says</dt>
+                  <dd className="mt-1.5 leading-relaxed text-muted-foreground">
                     {question.reponse_reference}
                   </dd>
                 </div>
                 <div>
-                  <dt className="text-xs font-medium text-muted-foreground">Legal basis</dt>
-                  <dd className="mt-1">
+                  <dt className="etiquette">Legal basis</dt>
+                  <dd className="mt-1.5">
                     {question.source.texte} — {question.source.article}{" "}
                     <a
                       href={question.source.url}
@@ -216,17 +216,27 @@ function FicheModele() {
                 </div>
               </dl>
               {reponse.flags.length > 0 && (
-                <p className="mt-2 font-mono text-[11px] text-accent">
-                  {reponse.flags.map((f) => LIBELLES_FLAGS[f] ?? f).join(" · ")}
-                </p>
+                <ul className="mt-3 flex flex-wrap gap-2">
+                  {reponse.flags.map((f) => (
+                    <li
+                      key={f}
+                      className="border border-accent/40 bg-accent-soft px-2 py-0.5 font-mono text-[10px] tracking-[0.06em] text-accent uppercase"
+                    >
+                      {LIBELLES_FLAGS[f] ?? f}
+                    </li>
+                  ))}
+                </ul>
               )}
             </li>
           ))}
         </ol>
-      </section>
+      </Section>
 
-      <Link to="/" className="mt-10 inline-block text-sm text-accent underline underline-offset-4">
-        Back to the benchmark
+      <Link
+        to="/"
+        className="mt-14 inline-block font-mono text-[11px] tracking-[0.08em] text-accent uppercase underline underline-offset-4"
+      >
+        ← Back to the benchmark
       </Link>
     </Page>
   );
@@ -234,9 +244,9 @@ function FicheModele() {
 
 function Metrique({ libelle, valeur, unite }: { libelle: string; valeur: string; unite: string }) {
   return (
-    <div className="border-b border-border p-5 last:border-b-0 sm:border-b-0">
+    <div className="bg-surface p-5">
       <p className="etiquette">{libelle}</p>
-      <p className="mt-3 font-mono text-2xl tracking-tight tabulaire">
+      <p className="mt-3 font-mono text-[1.6rem] leading-none tracking-tight tabulaire">
         {valeur}
         <span className="ml-1 text-xs text-muted-foreground">{unite}</span>
       </p>
