@@ -180,12 +180,12 @@ function Filtre({
   options: { v: string; l: string }[];
 }) {
   return (
-    <label className="flex items-baseline gap-2 text-xs">
-      <span className="text-muted-foreground">{libelle}</span>
+    <label className="flex items-baseline gap-2">
+      <span className="etiquette">{libelle}</span>
       <select
         value={valeur}
         onChange={(e) => onChange(e.target.value)}
-        className="border border-border bg-background px-2 py-1 font-mono text-xs text-foreground focus:border-accent focus:ring-1 focus:ring-accent focus:outline-none"
+        className="border-b border-foreground/40 bg-transparent py-0.5 font-mono text-xs text-foreground focus:border-accent focus:outline-none"
       >
         {options.map((o) => (
           <option key={o.v} value={o.v}>
@@ -194,6 +194,7 @@ function Filtre({
         ))}
       </select>
     </label>
+
   );
 }
 
@@ -203,7 +204,7 @@ function Item({ question }: { question: Question }) {
       <Link
         to="/question/$id"
         params={{ id: question.id }}
-        className="block px-3 py-4 transition-colors hover:bg-surface-sunken"
+        className="group block border-l-2 border-transparent px-3 py-4 transition-colors hover:border-accent hover:bg-surface"
       >
         <div className="flex flex-wrap items-center gap-x-3 gap-y-2">
           <span className="font-mono text-[11px] text-muted-foreground">{question.id}</span>
@@ -212,7 +213,9 @@ function Item({ question }: { question: Question }) {
             {LIBELLES_TYPES[question.type] ?? question.type} · level {question.difficulte}
           </span>
         </div>
-        <p className="mt-2 max-w-3xl text-sm leading-relaxed">{question.question}</p>
+        <p className="mt-2 max-w-3xl text-[15px] leading-relaxed transition-colors group-hover:text-accent">
+          {question.question}
+        </p>
         <p className="mt-1.5 font-mono text-[11px] text-muted-foreground">
           {question.source.texte} — {question.source.article}
         </p>
@@ -220,3 +223,4 @@ function Item({ question }: { question: Question }) {
     </li>
   );
 }
+
