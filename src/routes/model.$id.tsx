@@ -74,14 +74,19 @@ function FicheModele() {
 
   return (
     <Page>
-      <p className="font-mono text-[11px] text-muted-foreground">{modele.id}</p>
-      <h1 className="mt-2 text-3xl leading-tight sm:text-4xl">{modele.nom}</h1>
-      <p className="mt-1 text-sm text-muted-foreground">
-        {modele.profil} · ranked {rangDe(resultats.modeles, modele.id)} of{" "}
-        {resultats.modeles.length} systems evaluated
-      </p>
+      <Titre
+        etiquette={modele.id}
+        titre={modele.nom}
+        chapeau={
+          <>
+            {modele.profil} · ranked{" "}
+            <span className="font-mono tabulaire">{rangDe(resultats.modeles, modele.id)}</span> of{" "}
+            <span className="font-mono tabulaire">{resultats.modeles.length}</span> systems evaluated
+          </>
+        }
+      />
 
-      <section className="mt-8 grid grid-cols-2 divide-border border border-border bg-surface shadow-panneau sm:grid-cols-4 sm:divide-x">
+      <section className="mt-10 grid grid-cols-2 gap-px bg-rule sm:grid-cols-4">
         <Metrique libelle="Regulatory accuracy" valeur={nb(modele.score_global)} unite="/100" />
         <Metrique
           libelle="Invented source"
@@ -96,65 +101,65 @@ function FicheModele() {
         <Metrique libelle="Declined to answer" valeur={nb(modele.taux_abstention)} unite="%" />
       </section>
 
-      <div className="mt-12 grid gap-10 md:grid-cols-2">
-        <section>
-          <h2 className="border-b border-foreground/60 pb-2 text-lg">By regulation</h2>
-          <table className="mt-3 w-full border-collapse text-sm">
+      <div className="grid gap-x-12 md:grid-cols-2">
+        <Section numero="01" titre="By regulation">
+          <table className="mt-4 w-full border-collapse text-sm">
             <tbody>
               {resultats.domaines.map((d) => (
                 <tr key={d} className="border-b border-border">
-                  <td className="py-2 pr-4 font-mono text-xs">{d}</td>
-                  <td className="py-2 pr-4">
-                    <div className="h-1.5 w-full bg-muted">
+                  <td className="py-2.5 pr-4 font-mono text-[11px] tracking-[0.04em]">{d}</td>
+                  <td className="py-2.5 pr-4">
+                    <div className="h-[3px] w-full bg-surface-sunken">
                       <div
-                        className="h-1.5 bg-accent"
+                        className="h-[3px] bg-accent"
                         style={{ width: `${modele.scores_domaines[d] ?? 0}%` }}
                       />
                     </div>
                   </td>
-                  <td className="w-14 py-2 text-right font-mono">
+                  <td className="w-14 py-2.5 text-right font-mono tabulaire">
                     {nb(modele.scores_domaines[d])}
                   </td>
                 </tr>
               ))}
             </tbody>
           </table>
-        </section>
+          <p className="mt-2.5 font-mono text-[11px] text-muted-foreground">
+            Average item score per regulation, out of 100.
+          </p>
+        </Section>
 
-        <section>
-          <h2 className="border-b border-foreground/60 pb-2 text-lg">By scoring axis</h2>
-          <table className="mt-3 w-full border-collapse text-sm">
+        <Section numero="02" titre="By scoring axis">
+          <table className="mt-4 w-full border-collapse text-sm">
             <tbody>
               {AXES.map((a) => (
                 <tr key={a} className="border-b border-border">
-                  <td className="py-2 pr-4">{LIBELLES_AXES[a]}</td>
-                  <td className="py-2 pr-4">
-                    <div className="h-1.5 w-full bg-muted">
+                  <td className="py-2.5 pr-4">{LIBELLES_AXES[a]}</td>
+                  <td className="py-2.5 pr-4">
+                    <div className="h-[3px] w-full bg-surface-sunken">
                       <div
-                        className="h-1.5 bg-accent"
+                        className="h-[3px] bg-accent"
                         style={{ width: `${((modele.scores_axes[a] ?? 0) / 2) * 100}%` }}
                       />
                     </div>
                   </td>
-                  <td className="w-16 py-2 text-right font-mono">
+                  <td className="w-16 py-2.5 text-right font-mono tabulaire">
                     {nb(modele.scores_axes[a])} / 2
                   </td>
                 </tr>
               ))}
             </tbody>
           </table>
-          <p className="mt-2 font-mono text-[11px] text-muted-foreground">
+          <p className="mt-2.5 font-mono text-[11px] text-muted-foreground">
             Average per axis across the whole corpus, on a 0 to 2 scale.
           </p>
-        </section>
+        </Section>
       </div>
 
-      <section className="mt-12">
-        <h2 className="border-b border-foreground/60 pb-2 text-lg">Most significant failures</h2>
-        <p className="mt-1 max-w-2xl text-xs text-muted-foreground">
-          Items quoted in full, selected on the combination of lowest score and the presence of an
-          invented source.
-        </p>
+      <Section
+        numero="03"
+        titre="Most significant failures"
+        chapeau="Items quoted in full, selected on the combination of lowest score and the presence of an invented source."
+      >
         {!questions && (
           <div className="mt-4">
             <Chargement libelle="Loading the corpus…" />
