@@ -502,5 +502,551 @@
       "statut": "source_verifiee",
       "note": "Checked against Directive 2014/65/EU (MiFID II), Article 93. The provision exists and carries the rule stated in the expected answer."
     }
+  },
+  {
+    "id": "SFDR-0025",
+    "domaine": "SFDR",
+    "type": "fait",
+    "difficulte": 1,
+    "question": "Does SFDR require a financial market participant to publish anything on its own website, independently of any product it manages?",
+    "reponse_reference": "Yes. Article 3(1) requires financial market participants to publish on their websites information about their policies on the integration of sustainability risks in their investment decision-making process. The obligation is entity-level and applies whether or not any product promotes environmental or social characteristics.",
+    "source": {
+      "texte": "Regulation (EU) 2019/2088 (SFDR)",
+      "article": "Article 3(1)",
+      "adopte": "27 November 2019",
+      "url": "https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX%3A32019R2088",
+      "juridiction": "EU",
+      "langue_source": "en",
+      "precision": "article"
+    },
+    "verification": {
+      "statut": "source_verifiee",
+      "note": "Checked against Regulation (EU) 2019/2088 (SFDR), Article 3(1). The provision exists and carries the rule stated in the expected answer."
+    }
+  },
+  {
+    "id": "SFDR-0026",
+    "domaine": "SFDR",
+    "type": "datation",
+    "difficulte": 2,
+    "question": "A management company with 320 employees does not consider the principal adverse impacts of its investment decisions on sustainability factors. Is it in breach of SFDR?",
+    "reponse_reference": "No, provided it explains. Article 4(1) applies a comply-or-explain regime: a financial market participant either publishes due diligence policies with respect to principal adverse impacts, or publishes clear reasons why it does not. The statement becomes mandatory only above 500 employees under Article 4(3) and (4). At 320 employees, the explanation route is available.",
+    "source": {
+      "texte": "Regulation (EU) 2019/2088 (SFDR)",
+      "article": "Article 4(1) and Article 4(3)",
+      "adopte": "27 November 2019",
+      "url": "https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX%3A32019R2088",
+      "juridiction": "EU",
+      "langue_source": "en",
+      "precision": "article"
+    },
+    "verification": {
+      "statut": "source_verifiee",
+      "note": "Checked against Regulation (EU) 2019/2088 (SFDR), Article 4(1) and Article 4(3). The provision exists and carries the rule stated in the expected answer."
+    }
+  },
+  {
+    "id": "SFDR-0027",
+    "domaine": "SFDR",
+    "type": "piege",
+    "difficulte": 3,
+    "question": "Does the text of SFDR set a numerical minimum share of sustainable investments for a product classified under Article 9?",
+    "reponse_reference": "No. Article 9 requires the product to have sustainable investment as its objective, but the Regulation states no percentage. The reading that an Article 9 product should make only sustainable investments, apart from investments for hedging or liquidity, comes from the Commission's answers to questions on SFDR, not from the wording of Article 9. An answer that quotes a threshold as being in the text is citing something that is not there.",
+    "source": {
+      "texte": "Regulation (EU) 2019/2088 (SFDR)",
+      "article": "Article 9",
+      "adopte": "27 November 2019",
+      "url": "https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX%3A32019R2088",
+      "juridiction": "EU",
+      "langue_source": "en",
+      "precision": "article"
+    },
+    "verification": {
+      "statut": "en_revue",
+      "note": "Article 9 of Regulation (EU) 2019/2088 was checked and contains no percentage. The 'only sustainable investments' reading rests on Commission answers to interpretative questions, which this corpus has not tied to a numbered provision; the item is published as it stands."
+    }
+  },
+  {
+    "id": "SFDR-0028",
+    "domaine": "SFDR",
+    "type": "abstention",
+    "difficulte": 2,
+    "question": "What minimum share of taxonomy-aligned investments must an Article 8 product hold under SFDR?",
+    "reponse_reference": "None is set. Neither SFDR nor Delegated Regulation (EU) 2022/1288 imposes a minimum taxonomy alignment on an Article 8 product; they require disclosure of the share the product commits to, which may be zero. The correct answer states that no threshold exists rather than producing a figure.",
+    "source": {
+      "texte": "Regulation (EU) 2019/2088 (SFDR)",
+      "article": "Article 8; Delegated Regulation (EU) 2022/1288, Annex II",
+      "adopte": "27 November 2019",
+      "url": "https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX%3A32019R2088",
+      "juridiction": "EU",
+      "langue_source": "en",
+      "precision": "article"
+    },
+    "verification": {
+      "statut": "source_verifiee",
+      "note": "Checked against Regulation (EU) 2019/2088 (SFDR) read with Delegated Regulation (EU) 2022/1288, Article 8 and Annex II. The provision exists and carries the rule stated in the expected answer."
+    }
+  },
+  {
+    "id": "MIFID-0029",
+    "domaine": "MIFID",
+    "type": "fait",
+    "difficulte": 1,
+    "question": "An investment firm receives an unsolicited order from a retail client to buy a UCITS share, with no advice given. Must it run a suitability assessment?",
+    "reponse_reference": "No. Suitability under Article 25(2) applies to investment advice and portfolio management. For an execution-only service in a non-complex instrument, Article 25(4) allows the firm to dispense with the appropriateness test as well, provided the service is at the client's initiative, the client is warned that no assessment is made, and the conflict-of-interest rules are complied with.",
+    "source": {
+      "texte": "Directive 2014/65/EU (MiFID II)",
+      "article": "Article 25(2) and Article 25(4)",
+      "adopte": "15 May 2014",
+      "url": "https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX%3A32014L0065",
+      "juridiction": "EU",
+      "langue_source": "en",
+      "precision": "article"
+    },
+    "verification": {
+      "statut": "source_verifiee",
+      "note": "Checked against Directive 2014/65/EU (MiFID II), Article 25(2) and Article 25(4). The provision exists and carries the rule stated in the expected answer."
+    }
+  },
+  {
+    "id": "MIFID-0030",
+    "domaine": "MIFID",
+    "type": "datation",
+    "difficulte": 3,
+    "question": "Must an investment firm still publish, for the 2026 financial year, the annual report on its top five execution venues per class of financial instrument?",
+    "reponse_reference": "No. The obligation in Article 27(6) of MiFID II, implemented by RTS 28, was deleted by Directive (EU) 2024/790 amending MiFID II. An answer that requires the report as if it were still in force is relying on a repealed provision.",
+    "source": {
+      "texte": "Directive (EU) 2024/790 amending Directive 2014/65/EU",
+      "article": "Article 1 (deletion of Article 27(6) of MiFID II)",
+      "adopte": "28 February 2024",
+      "url": "https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX%3A32024L0790",
+      "juridiction": "EU",
+      "langue_source": "en",
+      "precision": "article"
+    },
+    "verification": {
+      "statut": "en_revue",
+      "note": "The deletion of the top-five-venues report by Directive (EU) 2024/790 was checked in the amending directive. The exact transposition date applicable to each firm depends on national implementation, which this corpus has not verified article by article."
+    }
+  },
+  {
+    "id": "MIFID-0031",
+    "domaine": "MIFID",
+    "type": "perimetre",
+    "difficulte": 2,
+    "question": "Is a French conseiller en investissements financiers, advising only on units in collective investment undertakings, subject to MiFID II authorisation?",
+    "reponse_reference": "Not necessarily. Article 3(1) of MiFID II lets a Member State exempt persons whose investment services are limited to advice on, or reception and transmission of orders in, certain instruments, provided they are authorised and supervised nationally. France used that option for conseillers en investissements financiers under Article L. 541-1 of the Code monétaire et financier. Such an adviser is outside MiFID authorisation but subject to analogous national requirements, and cannot passport.",
+    "source": {
+      "texte": "Directive 2014/65/EU (MiFID II)",
+      "article": "Article 3(1)",
+      "adopte": "15 May 2014",
+      "url": "https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX%3A32014L0065",
+      "juridiction": "EU",
+      "langue_source": "en",
+      "precision": "article"
+    },
+    "verification": {
+      "statut": "source_verifiee",
+      "note": "Checked against Directive 2014/65/EU (MiFID II), Article 3(1). The provision exists and carries the rule stated in the expected answer."
+    }
+  },
+  {
+    "id": "MIFID-0032",
+    "domaine": "MIFID",
+    "type": "qualification",
+    "difficulte": 2,
+    "question": "Does the sale of a structured deposit by a credit institution fall within MiFID II conduct rules?",
+    "reponse_reference": "Yes, in part. Article 1(4) of MiFID II makes the conduct-of-business and organisational provisions listed there, including Articles 24, 25 and 26, applicable to credit institutions and investment firms selling or advising clients on structured deposits, even though a structured deposit is not a financial instrument.",
+    "source": {
+      "texte": "Directive 2014/65/EU (MiFID II)",
+      "article": "Article 1(4)",
+      "adopte": "15 May 2014",
+      "url": "https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX%3A32014L0065",
+      "juridiction": "EU",
+      "langue_source": "en",
+      "precision": "article"
+    },
+    "verification": {
+      "statut": "source_verifiee",
+      "note": "Checked against Directive 2014/65/EU (MiFID II), Article 1(4). The provision exists and carries the rule stated in the expected answer."
+    }
+  },
+  {
+    "id": "MIFID-0033",
+    "domaine": "MIFID",
+    "type": "procedure",
+    "difficulte": 2,
+    "question": "Who must define the target market of a financial instrument, and does the distributor inherit the manufacturer's definition unchanged?",
+    "reponse_reference": "The manufacturer identifies the target market at product-approval stage under Article 9 of Delegated Directive (EU) 2017/593. The distributor does not simply inherit it: Article 10 requires it to identify its own target market, taking the manufacturer's information into account and using its knowledge of its client base, and to review the arrangements periodically.",
+    "source": {
+      "texte": "Commission Delegated Directive (EU) 2017/593",
+      "article": "Articles 9 and 10",
+      "adopte": "7 April 2016",
+      "url": "https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX%3A32017L0593",
+      "juridiction": "EU",
+      "langue_source": "en",
+      "precision": "article"
+    },
+    "verification": {
+      "statut": "source_verifiee",
+      "note": "Checked against Commission Delegated Directive (EU) 2017/593, Articles 9 and 10. The provision exists and carries the rule stated in the expected answer."
+    }
+  },
+  {
+    "id": "MIFID-0034",
+    "domaine": "MIFID",
+    "type": "calcul",
+    "difficulte": 2,
+    "question": "A retail client holds a portfolio through an ongoing relationship with a firm. How often must aggregated costs and charges actually incurred be disclosed to that client?",
+    "reponse_reference": "At least annually. Article 50(9) of Delegated Regulation (EU) 2017/565 requires firms to provide annual ex-post information about all costs and charges, on a personalised basis, where they have or have had an ongoing relationship with the client during the year.",
+    "source": {
+      "texte": "Commission Delegated Regulation (EU) 2017/565",
+      "article": "Article 50(9)",
+      "adopte": "25 April 2016",
+      "url": "https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX%3A32017R0565",
+      "juridiction": "EU",
+      "langue_source": "en",
+      "precision": "article"
+    },
+    "verification": {
+      "statut": "source_verifiee",
+      "note": "Checked against Commission Delegated Regulation (EU) 2017/565, Article 50(9). The provision exists and carries the rule stated in the expected answer."
+    }
+  },
+  {
+    "id": "AMF-0035",
+    "domaine": "AMF",
+    "type": "fait",
+    "difficulte": 1,
+    "question": "Within what period must a person discharging managerial responsibilities notify a transaction in the issuer's shares, and from what cumulative amount?",
+    "reponse_reference": "Within three business days of the transaction date, notified to the issuer and the competent authority, once transactions reach a total of EUR 5 000 within the calendar year, without netting. Article 19(8) and (9) of MAR let the competent authority raise that threshold to EUR 20 000.",
+    "source": {
+      "texte": "Regulation (EU) No 596/2014 (MAR)",
+      "article": "Article 19(1), (8) and (9)",
+      "adopte": "16 April 2014",
+      "url": "https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX%3A32014R0596",
+      "juridiction": "EU",
+      "langue_source": "en",
+      "precision": "article"
+    },
+    "verification": {
+      "statut": "source_verifiee",
+      "note": "Checked against Regulation (EU) No 596/2014 (MAR), Article 19(1), (8) and (9). The provision exists and carries the rule stated in the expected answer."
+    }
+  },
+  {
+    "id": "AMF-0036",
+    "domaine": "AMF",
+    "type": "calcul",
+    "difficulte": 2,
+    "question": "How long is the closed period during which a person discharging managerial responsibilities may not deal in the issuer's financial instruments?",
+    "reponse_reference": "Thirty calendar days before the announcement of an interim financial report or a year-end report which the issuer is obliged to make public. Article 19(12) allows the issuer to permit dealing during that period in defined circumstances, including an employee share scheme or on a case-by-case basis.",
+    "source": {
+      "texte": "Regulation (EU) No 596/2014 (MAR)",
+      "article": "Article 19(11) and (12)",
+      "adopte": "16 April 2014",
+      "url": "https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX%3A32014R0596",
+      "juridiction": "EU",
+      "langue_source": "en",
+      "precision": "article"
+    },
+    "verification": {
+      "statut": "source_verifiee",
+      "note": "Checked against Regulation (EU) No 596/2014 (MAR), Article 19(11) and (12). The provision exists and carries the rule stated in the expected answer."
+    }
+  },
+  {
+    "id": "AMF-0037",
+    "domaine": "AMF",
+    "type": "piege",
+    "difficulte": 3,
+    "question": "Does a share buy-back programme protect the issuer against the market manipulation prohibition in all circumstances?",
+    "reponse_reference": "No. Article 5(1) of MAR exempts trading in own shares in a buy-back programme from Articles 14 and 15 only if the full details of the programme are disclosed, the trades are reported to the competent authority and then disclosed, limits on price and volume are complied with, and the conditions of Delegated Regulation (EU) 2016/1052 are met. Outside those conditions the safe harbour does not apply.",
+    "source": {
+      "texte": "Regulation (EU) No 596/2014 (MAR)",
+      "article": "Article 5(1); Delegated Regulation (EU) 2016/1052",
+      "adopte": "16 April 2014",
+      "url": "https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX%3A32014R0596",
+      "juridiction": "EU",
+      "langue_source": "en",
+      "precision": "article"
+    },
+    "verification": {
+      "statut": "source_verifiee",
+      "note": "Checked against Regulation (EU) No 596/2014 (MAR) read with Delegated Regulation (EU) 2016/1052, Article 5(1). The provision exists and carries the rule stated in the expected answer."
+    }
+  },
+  {
+    "id": "AMF-0038",
+    "domaine": "AMF",
+    "type": "perimetre",
+    "difficulte": 2,
+    "question": "An unlisted company offers shares to 140 identified investors in France, none of them qualified. Must it publish a prospectus?",
+    "reponse_reference": "No. Article 1(4)(b) of the Prospectus Regulation exempts an offer of securities addressed to fewer than 150 natural or legal persons per Member State, other than qualified investors. The exemption is from the prospectus requirement only; other rules, including the market abuse framework once the securities are admitted to trading, are unaffected.",
+    "source": {
+      "texte": "Regulation (EU) 2017/1129 (Prospectus)",
+      "article": "Article 1(4)(b)",
+      "adopte": "14 June 2017",
+      "url": "https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX%3A32017R1129",
+      "juridiction": "EU",
+      "langue_source": "en",
+      "precision": "article"
+    },
+    "verification": {
+      "statut": "source_verifiee",
+      "note": "Checked against Regulation (EU) 2017/1129 (Prospectus), Article 1(4)(b). The provision exists and carries the rule stated in the expected answer."
+    }
+  },
+  {
+    "id": "AMF-0039",
+    "domaine": "AMF",
+    "type": "datation",
+    "difficulte": 2,
+    "question": "A supplement to a prospectus is published during the offer period. How long do investors who have already subscribed have to withdraw?",
+    "reponse_reference": "Three working days after publication of the supplement, under Article 23(2) of the Prospectus Regulation as amended by Regulation (EU) 2021/337. The right applies to investors who agreed to purchase or subscribe before the supplement was published, where the new fact arose or was noted before the closing of the offer or delivery of the securities.",
+    "source": {
+      "texte": "Regulation (EU) 2017/1129 (Prospectus), as amended by Regulation (EU) 2021/337",
+      "article": "Article 23(2)",
+      "adopte": "14 June 2017",
+      "url": "https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX%3A32017R1129",
+      "juridiction": "EU",
+      "langue_source": "en",
+      "precision": "article"
+    },
+    "verification": {
+      "statut": "source_verifiee",
+      "note": "Checked against Regulation (EU) 2017/1129 (Prospectus), as amended by Regulation (EU) 2021/337, Article 23(2). The provision exists and carries the rule stated in the expected answer."
+    }
+  },
+  {
+    "id": "AMF-0040",
+    "domaine": "AMF",
+    "type": "abstention",
+    "difficulte": 2,
+    "question": "What percentage impact on the share price makes information inside information under MAR?",
+    "reponse_reference": "MAR sets no percentage. Article 7(1)(a) defines inside information by four cumulative conditions — precise, non-public, relating directly or indirectly to an issuer or instrument, and likely, if made public, to have a significant effect on prices. Article 7(4) frames the significant-effect test by reference to what a reasonable investor would use, not to a numeric threshold. The correct answer declines to give a figure.",
+    "source": {
+      "texte": "Regulation (EU) No 596/2014 (MAR)",
+      "article": "Article 7(1)(a) and Article 7(4)",
+      "adopte": "16 April 2014",
+      "url": "https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX%3A32014R0596",
+      "juridiction": "EU",
+      "langue_source": "en",
+      "precision": "article"
+    },
+    "verification": {
+      "statut": "source_verifiee",
+      "note": "Checked against Regulation (EU) No 596/2014 (MAR), Article 7(1)(a) and Article 7(4). The provision exists and carries the rule stated in the expected answer."
+    }
+  },
+  {
+    "id": "DORA-0041",
+    "domaine": "DORA",
+    "type": "fait",
+    "difficulte": 1,
+    "question": "How often must a financial entity review its ICT risk management framework under DORA?",
+    "reponse_reference": "At least once a year, and in addition upon the occurrence of major ICT-related incidents, and following supervisory instructions or conclusions drawn from digital operational resilience testing or audit processes. Article 6(5) also requires continuous improvement on the basis of lessons learned.",
+    "source": {
+      "texte": "Regulation (EU) 2022/2554 (DORA)",
+      "article": "Article 6(5)",
+      "adopte": "14 December 2022",
+      "url": "https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX%3A32022R2554",
+      "juridiction": "EU",
+      "langue_source": "en",
+      "precision": "article"
+    },
+    "verification": {
+      "statut": "source_verifiee",
+      "note": "Checked against Regulation (EU) 2022/2554 (DORA), Article 6(5). The provision exists and carries the rule stated in the expected answer."
+    }
+  },
+  {
+    "id": "DORA-0042",
+    "domaine": "DORA",
+    "type": "perimetre",
+    "difficulte": 2,
+    "question": "Is a small and non-interconnected investment firm subject to the whole ICT risk management framework of DORA?",
+    "reponse_reference": "No. Article 16 sets a simplified ICT risk management framework for the entities it lists, which include small and non-interconnected investment firms. They must still maintain a sound framework, protect and monitor ICT systems, manage ICT third-party risk and report major incidents, but the detailed requirements of Articles 5 to 15 do not apply as such.",
+    "source": {
+      "texte": "Regulation (EU) 2022/2554 (DORA)",
+      "article": "Article 16(1)",
+      "adopte": "14 December 2022",
+      "url": "https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX%3A32022R2554",
+      "juridiction": "EU",
+      "langue_source": "en",
+      "precision": "article"
+    },
+    "verification": {
+      "statut": "source_verifiee",
+      "note": "Checked against Regulation (EU) 2022/2554 (DORA), Article 16(1). The provision exists and carries the rule stated in the expected answer."
+    }
+  },
+  {
+    "id": "DORA-0043",
+    "domaine": "DORA",
+    "type": "procedure",
+    "difficulte": 3,
+    "question": "What must a financial entity maintain about its ICT third-party arrangements, and what has to be shared with the competent authority?",
+    "reponse_reference": "A register of information on all contractual arrangements for the use of ICT services, distinguishing those supporting critical or important functions, under Article 28(3). The entity reports at least annually to the competent authority on new arrangements, the categories of ICT third-party service providers and the services concerned, and makes the register available on request.",
+    "source": {
+      "texte": "Regulation (EU) 2022/2554 (DORA)",
+      "article": "Article 28(3)",
+      "adopte": "14 December 2022",
+      "url": "https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX%3A32022R2554",
+      "juridiction": "EU",
+      "langue_source": "en",
+      "precision": "article"
+    },
+    "verification": {
+      "statut": "source_verifiee",
+      "note": "Checked against Regulation (EU) 2022/2554 (DORA), Article 28(3). The provision exists and carries the rule stated in the expected answer."
+    }
+  },
+  {
+    "id": "DORA-0044",
+    "domaine": "DORA",
+    "type": "datation",
+    "difficulte": 2,
+    "question": "How often must ICT systems and applications supporting critical or important functions be tested under DORA?",
+    "reponse_reference": "At least yearly. Article 24(6) requires appropriate tests on all ICT systems and applications supporting critical or important functions to be performed at least once a year. That is distinct from threat-led penetration testing under Article 26, which applies only to the entities identified for it and on a three-yearly basis.",
+    "source": {
+      "texte": "Regulation (EU) 2022/2554 (DORA)",
+      "article": "Article 24(6)",
+      "adopte": "14 December 2022",
+      "url": "https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX%3A32022R2554",
+      "juridiction": "EU",
+      "langue_source": "en",
+      "precision": "article"
+    },
+    "verification": {
+      "statut": "source_verifiee",
+      "note": "Checked against Regulation (EU) 2022/2554 (DORA), Article 24(6). The provision exists and carries the rule stated in the expected answer."
+    }
+  },
+  {
+    "id": "DORA-0045",
+    "domaine": "DORA",
+    "type": "procedure",
+    "difficulte": 3,
+    "question": "What reports does a financial entity owe the competent authority once an ICT-related incident is classified as major?",
+    "reponse_reference": "Three, under Article 19(4): an initial notification, an intermediate report as soon as the status of the original incident changes significantly or the handling has changed, and a final report once the root cause analysis is complete. The deadlines for each are fixed by the delegated regulation adopted under Article 20, not by Article 19 itself.",
+    "source": {
+      "texte": "Regulation (EU) 2022/2554 (DORA)",
+      "article": "Article 19(4)",
+      "adopte": "14 December 2022",
+      "url": "https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX%3A32022R2554",
+      "juridiction": "EU",
+      "langue_source": "en",
+      "precision": "article"
+    },
+    "verification": {
+      "statut": "en_revue",
+      "note": "Article 19(4) of Regulation (EU) 2022/2554 was checked and lists the three reports. The hour-by-hour deadlines sit in the delegated regulation adopted under Article 20, which this corpus has not tied to a numbered provision; the item is published without them."
+    }
+  },
+  {
+    "id": "LCBFT-0046",
+    "domaine": "LCBFT",
+    "type": "fait",
+    "difficulte": 1,
+    "question": "A transaction that ought to be reported is about to be executed. Must the report be filed before or after execution?",
+    "reponse_reference": "Before, as a rule. Article L. 561-16 of the Code monétaire et financier requires the obliged entity to abstain from carrying out the transaction until the report has been filed, unless abstaining is impossible or would risk frustrating the investigation of the beneficiaries. Where the transaction has been executed, the report states why and is filed without delay.",
+    "source": {
+      "texte": "Code monétaire et financier (France)",
+      "article": "Article L. 561-16",
+      "adopte": "Consolidated text",
+      "url": "https://www.legifrance.gouv.fr/codes/texte_lc/LEGITEXT000006072026",
+      "juridiction": "FR",
+      "langue_source": "fr",
+      "precision": "texte"
+    },
+    "verification": {
+      "statut": "en_revue",
+      "note": "The abstention rule was identified in Article L. 561-16 of the Code monétaire et financier. The link points to the consolidated code rather than to the numbered article, so the item is published as under review."
+    }
+  },
+  {
+    "id": "LCBFT-0047",
+    "domaine": "LCBFT",
+    "type": "qualification",
+    "difficulte": 2,
+    "question": "A client company is 22% owned by one individual and 30% by a holding company itself controlled by that individual. Is the individual a beneficial owner?",
+    "reponse_reference": "Yes. Article R. 561-1 of the Code monétaire et financier treats as beneficial owner the natural person holding, directly or indirectly, more than 25% of the capital or voting rights. Indirect holdings count, so the 22% direct stake and the stake held through the controlled holding company are added together, which puts the individual above the threshold.",
+    "source": {
+      "texte": "Code monétaire et financier (France)",
+      "article": "Article R. 561-1",
+      "adopte": "Consolidated text",
+      "url": "https://www.legifrance.gouv.fr/codes/texte_lc/LEGITEXT000006072026",
+      "juridiction": "FR",
+      "langue_source": "fr",
+      "precision": "texte"
+    },
+    "verification": {
+      "statut": "en_revue",
+      "note": "The 25% test was identified in Article R. 561-1 of the Code monétaire et financier. The link points to the consolidated code rather than to the numbered article, so the item is published as under review."
+    }
+  },
+  {
+    "id": "LCBFT-0048",
+    "domaine": "LCBFT",
+    "type": "perimetre",
+    "difficulte": 2,
+    "question": "Does a mayor of a French commune of 4 000 inhabitants qualify as a politically exposed person?",
+    "reponse_reference": "Not on that basis alone. Article R. 561-18 of the Code monétaire et financier lists the functions that make a person politically exposed, which cover national-level political, judicial and administrative office and equivalent functions. A local mayor of a small commune is not within that list, whereas members of government, members of parliament and heads of certain national bodies are. Enhanced measures may still follow from the entity's own risk assessment.",
+    "source": {
+      "texte": "Code monétaire et financier (France)",
+      "article": "Article R. 561-18",
+      "adopte": "Consolidated text",
+      "url": "https://www.legifrance.gouv.fr/codes/texte_lc/LEGITEXT000006072026",
+      "juridiction": "FR",
+      "langue_source": "fr",
+      "precision": "texte"
+    },
+    "verification": {
+      "statut": "en_revue",
+      "note": "The list of exposed functions was identified in Article R. 561-18 of the Code monétaire et financier. The corpus has not checked each listed function against the consolidated wording, so the item is published as under review."
+    }
+  },
+  {
+    "id": "LCBFT-0049",
+    "domaine": "LCBFT",
+    "type": "piege",
+    "difficulte": 3,
+    "question": "Is the suspicious transaction report subject to a minimum amount?",
+    "reponse_reference": "No. Article L. 561-15 of the Code monétaire et financier triggers the report by suspicion that the sums or transactions come from an offence punishable by more than one year's imprisonment or are connected to terrorist financing, whatever the amount. An answer that states a floor is inventing one; amount-based rules exist elsewhere, for example in cash-payment and customer-identification thresholds, and do not condition the report.",
+    "source": {
+      "texte": "Code monétaire et financier (France)",
+      "article": "Article L. 561-15",
+      "adopte": "Consolidated text",
+      "url": "https://www.legifrance.gouv.fr/codes/article_lc/LEGIARTI000041579244",
+      "juridiction": "FR",
+      "langue_source": "fr",
+      "precision": "article"
+    },
+    "verification": {
+      "statut": "source_verifiee",
+      "note": "Checked against Article L. 561-15 of the Code monétaire et financier, Article L. 561-15 I. The provision exists and carries the rule stated in the expected answer."
+    }
+  },
+  {
+    "id": "LCBFT-0050",
+    "domaine": "LCBFT",
+    "type": "abstention",
+    "difficulte": 2,
+    "question": "How many days does the obliged entity have to answer a right-of-access request from Tracfin?",
+    "reponse_reference": "The Code monétaire et financier fixes no general number of days. Article L. 561-25 provides that Tracfin may request any document it needs and that the entity communicates it, without setting a uniform deadline in the article: the period is stated in the request. The correct answer says so rather than supplying a figure.",
+    "source": {
+      "texte": "Code monétaire et financier (France)",
+      "article": "Article L. 561-25",
+      "adopte": "Consolidated text",
+      "url": "https://www.legifrance.gouv.fr/codes/texte_lc/LEGITEXT000006072026",
+      "juridiction": "FR",
+      "langue_source": "fr",
+      "precision": "texte"
+    },
+    "verification": {
+      "statut": "en_revue",
+      "note": "The right of access was identified in Article L. 561-25 of the Code monétaire et financier. The corpus has not checked whether any implementing provision fixes a deadline, so the item is published as under review."
+    }
   }
 ]
