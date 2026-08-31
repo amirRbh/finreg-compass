@@ -104,18 +104,19 @@ export function GraphiqueDomaines({
         </svg>
       </div>
 
-      <ul className="mt-3 flex flex-wrap gap-x-5 gap-y-1 font-mono text-[11px] text-muted-foreground">
+      <ul className="mt-4 flex flex-wrap gap-x-5 gap-y-1.5 font-mono text-[11px] text-foreground">
         {modeles.map((m, j) => (
           <li key={m.id} className="flex items-center gap-2">
             <span
-              className="inline-block h-2 w-4 bg-accent"
-              style={{ opacity: 1 - (j / Math.max(1, modeles.length)) * 0.66 }}
+              className="inline-block h-2.5 w-2.5"
+              style={{ background: couleur(j) }}
               aria-hidden="true"
             />
             {m.nom}
           </li>
         ))}
       </ul>
+
 
       <div className="mt-8 -mx-4 overflow-x-auto px-4">
         <table className="zebre w-full min-w-[36rem] border-collapse text-sm">
