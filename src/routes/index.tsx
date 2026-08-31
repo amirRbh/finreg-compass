@@ -237,7 +237,8 @@ function Accueil() {
                     <span className="text-xs text-muted-foreground"> /10</span>
                   </p>
                 </div>
-                <p className="mt-3 text-sm leading-relaxed">
+                <p className="mt-3 line-clamp-[11] text-sm leading-relaxed">
+
                   {texteAffiche(reponseVitrine.r.texte)}
                 </p>
                 <ul className="mt-4 flex flex-wrap gap-2">
