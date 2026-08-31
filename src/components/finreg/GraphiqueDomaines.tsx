@@ -134,9 +134,18 @@ export function GraphiqueDomaines({
           </thead>
 
           <tbody>
-            {modeles.map((m) => (
+            {modeles.map((m, j) => (
               <tr key={m.id} className="border-b border-border">
-                <td className="py-2 pr-4">{m.nom}</td>
+                <td className="py-2 pr-4">
+                  <span className="flex items-center gap-2">
+                    <span
+                      className="inline-block h-2.5 w-2.5 shrink-0"
+                      style={{ background: couleur(j) }}
+                      aria-hidden="true"
+                    />
+                    {m.nom}
+                  </span>
+                </td>
                 {domaines.map((d) => (
                   <td key={d} className="py-2 pr-4 text-right font-mono tabulaire">
                     {nb(m.scores_domaines[d])}
@@ -144,6 +153,7 @@ export function GraphiqueDomaines({
                 ))}
               </tr>
             ))}
+
           </tbody>
         </table>
       </div>
