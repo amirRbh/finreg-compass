@@ -1,5 +1,5 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { Page, Panneau } from "@/components/finreg/Chrome";
+import { Page, Panneau, Titre } from "@/components/finreg/Chrome";
 
 /**
  * Adresse de contact publiée sur le site.
@@ -32,12 +32,17 @@ export const Route = createFileRoute("/private-benchmark")({
 function CorpusPrive() {
   return (
     <Page>
-      <p className="etiquette">Coming next</p>
-      <h1 className="text-3xl leading-tight sm:text-4xl">Test your own regulatory corpus</h1>
-      <p className="mt-5 max-w-2xl text-[17px] leading-relaxed">
-        See where AI gets <em>your</em> regulation wrong — on questions no model has been trained
-        on.
-      </p>
+      <Titre
+        etiquette="Coming next"
+        titre="Test your own regulatory corpus"
+        chapeau={
+          <span className="text-foreground">
+            See where AI gets <em>your</em> regulation wrong — on questions no model has been
+            trained on.
+          </span>
+        }
+      />
+
 
       <section className="mt-8 max-w-2xl space-y-4 text-[15px] leading-relaxed text-muted-foreground">
         <p>
