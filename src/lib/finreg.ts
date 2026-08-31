@@ -432,3 +432,165 @@ export function echecsSignificatifs(questions: Question[], idModele: string, n =
     })
     .slice(0, n);
 }
+
+/* ─────────────────────────────────────────────────────────────────────────────
+ * Regulatory Reliability Score — lecture commerciale des mesures publiées.
+ *
+ * Aucun chiffre nouveau n'est inventé : les cinq dimensions sont dérivées des
+ * axes du barème et des taux de défaut déjà mesurés, ramenés sur 100.
+ * ────────────────────────────────────────────────────────────────────────── */
+
+export const DIMENSIONS = [
+  "legal_accuracy",
+  "citation_integrity",
+  "hallucination_resistance",
+  "calibration",
+  "operational_usability",
+] as const;
+
+export type Dimension = (typeof DIMENSIONS)[number];
+
+export const LIBELLES_DIMENSIONS: Record<Dimension, string> = {
+  legal_accuracy: "Legal accuracy",
+  citation_integrity: "Citation integrity",
+  hallucination_resistance: "Hallucination resistance",
+  calibration: "Calibration",
+  operational_usability: "Operational usability",
+};
+
+export const NUMEROS_DIMENSIONS: Record<Dimension, string> = {
+  legal_accuracy: "01",
+  citation_integrity: "02",
+  hallucination_resistance: "03",
+  calibration: "04",
+  operational_usability: "05",
+};
+
+export const QUESTIONS_DIMENSIONS: Record<Dimension, string> = {
+  legal_accuracy: "Does the AI correctly understand the applicable rule?",
+  citation_integrity: "Does the cited regulatory source actually support the answer?",
+  hallucination_resistance: "Does the AI invent regulations, articles, obligations or sources?",
+  calibration: "Does the AI know when it should say “I don't know”?",
+  operational_usability: "Can a compliance professional actually use the answer?",
+};
+
+export const ECHECS_TYPES_DIMENSIONS: Record<Dimension, string> = {
+  legal_accuracy:
+    "States a threshold or an obligation the applicable article does not lay down.",
+  citation_integrity:
+    "Cites a real article that regulates something else than the answer claims.",
+  hallucination_resistance: "Cites an article number that does not exist in the cited act.",
+  calibration: "Delivers a definitive legal conclusion where the text leaves the point open.",
+  operational_usability: "Answers accurately but without the steps, deadline or scope to act on.",
+};
+
+const arrondi = (v: number) => Math.round(v * 10) / 10;
+
+/** Note 0–2 d'un axe ramenée sur 100. */
+const axeSur100 = (v: number | undefined) => arrondi(((v ?? 0) / 2) * 100);
+
+export type Fiabilite = { global: number; dimensions: Record<Dimension, number> };
+
+export function fiabilite(m: Modele): Fiabilite {
+  const dimensions: Record<Dimension, number> = {
+    legal_accuracy: axeSur100(m.scores_axes['exactitude']),
+    citation_integrity: axeSur100(m.scores_axes['sourcing']),
+    hallucination_resistance: arrondi(100 - m.taux_hallucination_source),
+    calibration: axeSur100(m.scores_axes['calibration']),
+    operational_usability: axeSur100(m.scores_axes['exploitabilite']),
+  };
+  const valeurs = DIMENSIONS.map((d) => dimensions[d]);
+  return {
+    global: arrondi(valeurs.reduce((a, b) => a + b, 0) / valeurs.length),
+    dimensions,
+  };
+}
+
+/** Étiquette de risque, dans le vocabulaire d'un comité de conformité. */
+export function bandeFiabilite(score: number): { libelle: string; ton: "haut" | "moyen" | "bas" } {
+  if (score >= 85) return { libelle: "High reliability", ton: "haut" };
+  if (score >= 70) return { libelle: "Moderate reliability", ton: "moyen" };
+  return { libelle: "Low reliability", ton: "bas" };
+}
+
+/* ── Base des défaillances réglementaires ────────────────────────────────── */
+
+export type Severite = "critical" | "high" | "medium";
+
+export const CATEGORIES_ECHEC = [
+  "Citation integrity",
+  "Fabricated source",
+  "Legal accuracy",
+  "Overconfidence",
+  "Operational usability",
+] as const;
+
+export type CategorieEchec = (typeof CATEGORIES_ECHEC)[number];
+
+export type Defaillance = {
+  reference: string;
+  question: Question;
+  reponse: ReponseModele;
+  idModele: string;
+  nomModele: string;
+  domaine: string;
+  categorie: CategorieEchec;
+  severite: Severite;
+};
+
+function categoriser(reponse: ReponseModele): CategorieEchec {
+  if (reponse.flags.includes("hallucination_source")) return "Fabricated source";
+  if (reponse.flags.includes("sourcing_incomplet")) return "Citation integrity";
+  if (reponse.flags.includes("surconfiance")) return "Overconfidence";
+  if (reponse.flags.includes("erreur_disqualifiante")) return "Legal accuracy";
+  if ((reponse.axes['sourcing'] ?? 2) < 1) return "Citation integrity";
+  if ((reponse.axes['exploitabilite'] ?? 2) < 1) return "Operational usability";
+  return "Legal accuracy";
+}
+
+function severiser(reponse: ReponseModele): Severite {
+  const grave = reponse.flags.some(estGrave);
+  if (grave && reponse.score <= 5) return "critical";
+  if (grave) return "high";
+  return reponse.score <= 4 ? "high" : "medium";
+}
+
+/**
+ * Catalogue des défaillances observées, la plus grave en tête. Chaque entrée
+ * renvoie à un item réel du corpus : rien n'est reconstitué pour l'affichage.
+ */
+export function catalogueDefaillances(questions: Question[], modeles: Modele[]): Defaillance[] {
+  const noms = new Map(modeles.map((m) => [m.id, m.nom]));
+  const brut = questions.flatMap((question) =>
+    Object.entries(question.reponses_modeles)
+      .filter(([, r]) => r.flags.some(estGrave) || r.score <= 6)
+      .map(([idModele, reponse]) => ({
+        question,
+        reponse,
+        idModele,
+        nomModele: noms.get(idModele) ?? idModele,
+        domaine: question.domaine,
+        categorie: categoriser(reponse),
+        severite: severiser(reponse),
+      })),
+  );
+  const poids: Record<Severite, number> = { critical: 0, high: 1, medium: 2 };
+  brut.sort((a, b) => {
+    const d = poids[a.severite] - poids[b.severite];
+    if (d !== 0) return d;
+    if (a.reponse.score !== b.reponse.score) return a.reponse.score - b.reponse.score;
+    return a.question.id.localeCompare(b.question.id);
+  });
+  return brut.map((d, i) => ({
+    ...d,
+    reference: `#${String(i + 1).padStart(3, "0")}`,
+  }));
+}
+
+/** Cas le plus démonstratif : citation inventée, analysée, si possible sur MiFID II. */
+export function casVitrine(questions: Question[], modeles: Modele[]): Defaillance | undefined {
+  const cat = catalogueDefaillances(questions, modeles).filter(
+    (d) => d.reponse.analyse && d.categorie === "Fabricated source",
+  );
+  return cat.find((d) => d.domaine === "MIFID") ?? cat[0];
+}

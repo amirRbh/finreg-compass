@@ -1,599 +1,399 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { useState } from "react";
-import { Chargement, Erreur, Page, Panneau, Section } from "@/components/finreg/Chrome";
-import { GraphiqueDomaines } from "@/components/finreg/GraphiqueDomaines";
-import { PastilleVerification } from "@/components/finreg/Statuts";
+import { Chargement, Erreur, Page, Panneau } from "@/components/finreg/Chrome";
+import { ConsoleEvaluation } from "@/components/finreg/Console";
 import {
+  BandeauProvenance,
+  BoutonLien,
+  CarteFiabilite,
+  Pastille,
+  Squelette,
+  Tuile,
+} from "@/components/finreg/Ui";
+import {
+  DIMENSIONS,
+  LIBELLES_DIMENSIONS,
+  NUMEROS_DIMENSIONS,
+  QUESTIONS_DIMENSIONS,
+  ECHECS_TYPES_DIMENSIONS,
+  casVitrine,
+  dateFr,
+  fiabilite,
   libelles,
   nb,
-  rangDe,
   trier,
   useQuestions,
   useResultats,
-  type CleTri,
-  texteAffiche,
 } from "@/lib/finreg";
-import { useLangue } from "@/lib/langue";
+
+const TITRE = "FinReg — The independent benchmark for regulatory AI";
+const DESCRIPTION =
+  "FinReg independently tests regulatory AI for legal accuracy, citation integrity, hallucinations and calibration. Test your own AI against real EU and French financial regulation.";
 
 export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
-      { title: "FinReg — Benchmarking AI on Regulatory Accuracy" },
-      {
-        name: "description",
-        content:
-          "Can you trust an AI with regulation? FinReg tests whether AI systems answer regulatory questions accurately, with every answer traceable to a primary legal source.",
-      },
-      { property: "og:title", content: "FinReg — Benchmarking AI on Regulatory Accuracy" },
-      {
-        property: "og:description",
-        content:
-          "AI can write regulation. Can it get regulation right? A public benchmark on SFDR, MiFID II, market abuse, DORA and AML/CFT — every score traceable to an article.",
-      },
+      { title: TITRE },
+      { name: "description", content: DESCRIPTION },
+      { property: "og:title", content: "Can your AI be trusted with regulation?" },
+      { property: "og:description", content: DESCRIPTION },
     ],
   }),
   component: Accueil,
 });
 
-/** Item mis en avant : il porte l'erreur la plus lisible du corpus. */
-const ITEM_VITRINE = "AMF-0010";
-const MODELE_VITRINE = "modele-d";
+const PROBLEMES = [
+  {
+    titre: "Fabricated source",
+    resume: "The AI cites an article that does not exist.",
+    detail:
+      "“Article 14(3) of Regulation (EU) 2019/2088 requires…” — SFDR has no Article 14(3). The obligation is invented, and so is the number that supports it.",
+  },
+  {
+    titre: "Wrong citation",
+    resume: "The cited article exists — but does not support the answer.",
+    detail:
+      "An answer on suitability assessments cites a MiFID II article that governs best execution. The reference is checkable, and it checks out false.",
+  },
+  {
+    titre: "Overconfident answer",
+    resume: "The AI should have abstained but provides a definitive legal conclusion.",
+    detail:
+      "Where the text leaves scope or timing open, the system answers “yes, the firm may rely on it” with no condition, no exception and no caveat.",
+  },
+];
 
 function Accueil() {
   const { data, isPending, isError } = useResultats();
   const { data: questions } = useQuestions();
-  const { langue, t } = useLangue();
-  const L = libelles(langue);
-  const [cle, setCle] = useState<CleTri>("rang");
-  const [ascendant, setAscendant] = useState(true);
 
-  const COLONNES: { cle: CleTri; libelle: string; num: boolean }[] = [
-    { cle: "rang", libelle: "#", num: true },
-    { cle: "nom", libelle: t("System", "Système"), num: false },
-    { cle: "profil", libelle: t("Profile", "Profil"), num: false },
-    { cle: "score_global", libelle: t("Regulatory accuracy", "Exactitude réglementaire"), num: true },
-    { cle: "taux_hallucination_source", libelle: t("Invented source", "Source inventée"), num: true },
-    { cle: "taux_abstention", libelle: t("Declined", "Abstention"), num: true },
-  ];
-
-  const CHAINE = [
-    {
-      etape: t("Question", "Question"),
-      detail: t(
-        "A closed regulatory question with a determinate answer.",
-        "Une question réglementaire fermée, à réponse déterminée.",
-      ),
-    },
-    {
-      etape: t("What the law says", "Ce que dit le texte"),
-      detail: t(
-        "The expected answer, drafted from the text itself.",
-        "La réponse attendue, rédigée à partir du texte lui-même.",
-      ),
-    },
-    {
-      etape: t("Source", "Source"),
-      detail: t(
-        "The act, the article, the date, the official link.",
-        "Le texte, l'article, la date, le lien officiel.",
-      ),
-    },
-    {
-      etape: t("Verification", "Vérification"),
-      detail: t(
-        "The citation is checked — or flagged as not yet established.",
-        "La citation est contrôlée — ou signalée comme non encore établie.",
-      ),
-    },
-    {
-      etape: t("Model answer", "Réponse du modèle"),
-      detail: t(
-        "What the system replied, scored on four axes.",
-        "Ce que le système a répondu, noté sur quatre axes.",
-      ),
-    },
-  ];
-
-  const basculer = (nouvelle: CleTri) => {
-    if (nouvelle === cle) setAscendant((v) => !v);
-    else {
-      setCle(nouvelle);
-      setAscendant(nouvelle === "rang" || nouvelle === "nom" || nouvelle === "profil");
-    }
-  };
-
-  const lignes = data ? trier(data.modeles, cle, ascendant) : [];
-  const meilleur = data ? trier(data.modeles, "score_global", false)[0] : undefined;
-  const pire = data ? trier(data.modeles, "score_global", true)[0] : undefined;
-
-  // Cas vitrine : on retombe sur n'importe quelle erreur analysée si l'item
-  // désigné venait à disparaître du corpus.
-  const vitrine =
-    questions?.find((q) => q.id === ITEM_VITRINE && q.reponses_modeles[MODELE_VITRINE]?.analyse) ??
-    questions?.find((q) => Object.values(q.reponses_modeles).some((r) => r.analyse));
-  const reponseVitrine = vitrine
-    ? vitrine.reponses_modeles[MODELE_VITRINE]?.analyse
-      ? { id: MODELE_VITRINE, r: vitrine.reponses_modeles[MODELE_VITRINE]! }
-      : Object.entries(vitrine.reponses_modeles)
-          .map(([id, r]) => ({ id, r }))
-          .find((e) => e.r.analyse)
-    : undefined;
-  const nomVitrine =
-    data?.modeles.find((m) => m.id === reponseVitrine?.id)?.nom ?? t("The model", "Le modèle");
-  const verifiees =
-    questions?.filter((q) => q.verification.statut === "source_verifiee").length ?? 0;
+  const L = libelles("en");
+  const cas = questions && data ? casVitrine(questions, data.modeles) : undefined;
+  const classement = data ? trier(data.modeles, "score_global", false) : [];
+  const tete = classement[0];
+  const f = tete ? fiabilite(tete) : undefined;
+  const verifiees = questions?.filter((q) => q.verification.statut === "source_verifiee").length;
 
   return (
-    <Page>
-      {/* ── Écran 1 : grille analytique — marge chiffrée, colonne éditoriale ── */}
-      <div className="grid grid-cols-12 gap-8 border-t border-rule pt-8 lg:gap-12">
-        {/* Marge statistique */}
-        <aside className="col-span-12 md:col-span-3">
-          <div className="md:sticky md:top-24">
-            <p className="etiquette text-accent">
-              {t("Reliability index", "Indice de fiabilité")}
-            </p>
-            {data ? (
-              <div className="mt-5 space-y-5">
-                <div>
-                  <p className="font-mono text-3xl leading-none tabulaire">
-                    {data.synthese.nb_reponses}
-                  </p>
-                  <p className="mt-1.5 etiquette">{t("Answers scored", "Réponses notées")}</p>
-                </div>
-                <div className="border-t border-rule pt-4">
-                  <p className="font-mono text-3xl leading-none tabulaire">
-                    {data.modeles.length}
-                  </p>
-                  <p className="mt-1.5 etiquette">{t("Systems tested", "Systèmes testés")}</p>
-                </div>
-                <div className="border-t border-rule pt-4">
-                  <p className="font-mono text-3xl leading-none tabulaire">{data.nb_questions}</p>
-                  <p className="mt-1.5 etiquette">{t("Corpus items", "Items du corpus")}</p>
-                </div>
-              </div>
-            ) : (
-              <div className="mt-5">
-                <Chargement />
-              </div>
-            )}
-          </div>
-        </aside>
-
-        {/* Colonne éditoriale */}
-        <div className="col-span-12 md:col-span-9">
-          <p className="etiquette">
-            {t(
-              "Public benchmark · EU & French financial regulation",
-              "Benchmark public · réglementation financière française et européenne",
-            )}
-          </p>
-          <h1 className="mt-4 text-4xl leading-[1.08] tracking-tight text-balance sm:text-[3.4rem]">
-            {t("AI can write regulation.", "L'IA sait écrire sur la réglementation.")}{" "}
-            <span className="italic text-accent">
-              {t("Can it get regulation right?", "Sait-elle l'appliquer juste ?")}
-            </span>
-          </h1>
-          <p className="mt-7 max-w-2xl text-[19px] leading-relaxed">
-            {t(
-              "FinReg tests AI systems on real regulatory questions and checks every answer against the primary legal text.",
-              "FinReg soumet des systèmes d'IA à de vraies questions réglementaires et contrôle chaque réponse contre le texte de loi.",
-            )}
-          </p>
-          <p className="mt-3 max-w-2xl text-[15px] leading-relaxed text-muted-foreground">
-            {t(
-              "An assistant that cites an article which does not exist is unusable in compliance: its answer cannot be checked, relied on, or filed.",
-              "Un assistant qui cite un article inexistant est inexploitable en conformité : sa réponse ne peut être vérifiée, ni opposée, ni versée à un dossier.",
-            )}
-          </p>
-
-          <div className="mt-8 flex flex-wrap items-center gap-x-4 gap-y-3">
-            <Link
-              to="/questions"
-              className="border border-foreground bg-foreground px-6 py-3 font-mono text-[11px] font-medium tracking-[0.14em] text-background uppercase transition-colors hover:border-accent hover:bg-accent"
-            >
-              {t("Explore the benchmark", "Explorer le benchmark")}
-            </Link>
-            {vitrine && (
-              <Link
-                to="/question/$id"
-                params={{ id: vitrine.id }}
-                className="border border-border px-6 py-3 font-mono text-[11px] tracking-[0.14em] uppercase transition-colors hover:bg-surface-sunken"
-              >
-                {t("See a question", "Voir une question")}
-              </Link>
-            )}
-          </div>
-
-          {data && (
-            <dl className="mt-10 grid grid-cols-2 gap-px border border-border bg-border sm:grid-cols-4">
-              {[
-                [t("Domains", "Domaines"), String(data.domaines.length)],
-                [t("Runs / item", "Passages / item"), String(data.nb_runs)],
-                [t("Verified sources", "Sources vérifiées"), `${verifiees}/${data.nb_questions}`],
-                [
-                  t("Average accuracy", "Exactitude moyenne"),
-                  nb(data.synthese.exactitude_reglementaire),
-                ],
-              ].map(([k, v]) => (
-                <div key={k} className="bg-surface px-4 py-3">
-                  <dt className="etiquette">{k}</dt>
-                  <dd className="mt-1.5 font-mono text-lg tabulaire">{v}</dd>
-                </div>
-              ))}
-            </dl>
-          )}
-        </div>
-      </div>
-
-      {/* ── Le chiffre qui pose le problème ───────────────────────────────── */}
-      {data && (
-        <Panneau className="mt-16 grid divide-y divide-border sm:grid-cols-3 sm:divide-x sm:divide-y-0">
-          <div className="flex min-h-[14rem] flex-col bg-surface-sunken/60 p-6">
-            <p className="etiquette">
-              {t("Answers not safe to rely on", "Réponses non fiables")}
-            </p>
-            <p className="mt-6 font-mono text-[4.75rem] leading-none tracking-tighter tabulaire text-accent">
-              {nb(data.synthese.taux_reponse_non_fiable)}
-              <span className="align-top text-xl"> %</span>
-            </p>
-            <p className="mt-auto border-t border-rule pt-3 text-[13px] leading-relaxed text-muted-foreground">
-              {t(
-                `of the ${data.synthese.nb_reponses} evaluated answers invent a source or state a rule the text does not contain.`,
-                `des ${data.synthese.nb_reponses} réponses évaluées inventent une source ou énoncent une règle que le texte ne contient pas.`,
-              )}
-            </p>
-          </div>
-          <div className="flex min-h-[14rem] flex-col p-6">
-            <p className="etiquette">
-              {t("Average regulatory accuracy", "Exactitude réglementaire moyenne")}
-            </p>
-            <p className="mt-6 font-mono text-4xl leading-none tracking-tight tabulaire">
-              {nb(data.synthese.exactitude_reglementaire)}
-              <span className="text-base text-muted-foreground"> /100</span>
-            </p>
-            <p className="mt-auto border-t border-rule pt-3 text-[13px] leading-relaxed text-muted-foreground">
-              {t(
-                `across all systems and all items. Best ${nb(meilleur?.score_global)}, worst ${nb(pire?.score_global)} — the system you pick matters more than the prompt.`,
-                `tous systèmes et tous items confondus. Meilleur ${nb(meilleur?.score_global)}, moins bon ${nb(pire?.score_global)} — le choix du système compte plus que la formulation du prompt.`,
-              )}
-            </p>
-          </div>
-          <div className="flex min-h-[14rem] flex-col p-6">
-            <p className="etiquette">{t("Benchmark corpus", "Corpus du benchmark")}</p>
-            <p className="mt-6 font-mono text-4xl leading-none tracking-tight tabulaire">
-              {verifiees}
-              <span className="text-base text-muted-foreground"> / {data.nb_questions}</span>
-            </p>
-            <p className="mt-auto border-t border-rule pt-3 text-[13px] leading-relaxed text-muted-foreground">
-              {t(
-                "items whose citation has been checked. The rest are published as under review, never as verified.",
-                "items dont la citation a été contrôlée. Les autres sont publiés en revue, jamais comme vérifiés.",
-              )}
-            </p>
-          </div>
-        </Panneau>
-      )}
-
-      {/* ── Comment lire le site, en clair ────────────────────────────────── */}
-      {data && (
-        <Panneau className="mt-4 bg-accent-soft/40 p-5 sm:p-6">
-          <p className="etiquette">{t("How to read this page", "Comment lire cette page")}</p>
-          <dl className="mt-4 grid gap-5 sm:grid-cols-3">
-            {[
-              [
-                t("Regulatory accuracy /100", "Exactitude réglementaire /100"),
-                t(
-                  "How often a system gets the rule right. 100 means every answer matched the legal text.",
-                  "À quelle fréquence un système énonce la bonne règle. 100 signifie que chaque réponse correspondait au texte.",
-                ),
-              ],
-              [
-                t("Invented source %", "Source inventée %"),
-                t(
-                  "How often it cited an article that does not exist, or one that says something else.",
-                  "À quelle fréquence il a cité un article inexistant, ou un article qui dit autre chose.",
-                ),
-              ],
-              [
-                t("Declined %", "Abstention %"),
-                t(
-                  "How often it said it did not know. Saying nothing is safer than inventing an article.",
-                  "À quelle fréquence il a dit ne pas savoir. Ne rien dire vaut mieux qu'inventer un article.",
-                ),
-              ],
-            ].map(([terme, sens]) => (
-              <div key={terme}>
-                <dt className="text-sm font-medium">{terme}</dt>
-                <dd className="mt-1.5 text-[13px] leading-relaxed text-muted-foreground">{sens}</dd>
-              </div>
-            ))}
-          </dl>
-        </Panneau>
-      )}
-
-      {isPending && (
-        <div className="mt-10">
-          <Chargement />
-        </div>
-      )}
-      {isError && (
-        <div className="mt-10">
-          <Erreur />
-        </div>
-      )}
-
-      {/* ── L'erreur, en entier ───────────────────────────────────────────── */}
-      {vitrine && reponseVitrine?.r.analyse && (
-        <Section
-          numero="01"
-          titre={t(
-            "The model sounds confident. The law says otherwise.",
-            "Le modèle a l'air sûr de lui. Le texte dit l'inverse.",
-          )}
-          chapeau={t(
-            "One item from the corpus, in full. This is what the benchmark catches.",
-            "Un item du corpus, en entier. Voilà ce que le benchmark attrape.",
-          )}
-        >
-          <Panneau className="mt-4">
-            <div className="border-b border-rule p-5 sm:p-6">
-              <div className="flex flex-wrap items-center gap-3">
-                <span className="font-mono text-[11px] text-muted-foreground">{vitrine.id}</span>
-                <PastilleVerification statut={vitrine.verification.statut} taille="petite" />
-              </div>
-              <p className="mt-3 max-w-2xl text-[17px] leading-snug font-medium">
-                {vitrine.question}
+    <div className="flex min-h-dvh flex-col">
+      <Page>
+        {/* ── HERO ───────────────────────────────────────────────────────── */}
+        <section className="relative -mx-5 -mt-12 border-b border-rule bg-surface px-5 pt-12 pb-14 sm:-mt-16 sm:pt-16">
+          <div
+            aria-hidden="true"
+            className="pointer-events-none absolute inset-0 quadrillage opacity-40"
+          />
+          <div className="relative mx-auto grid max-w-6xl gap-12 lg:grid-cols-[minmax(0,1fr)_minmax(0,28rem)] lg:items-center lg:gap-16">
+            <div>
+              <p className="etiquette">
+                Independent evaluation • Financial regulation • Reproducible methodology
               </p>
-            </div>
-
-            <div className="grid divide-y divide-border sm:grid-cols-2 sm:divide-x sm:divide-y-0">
-              <div className="p-5 sm:p-6">
-                <p className="etiquette">{t("What the law says", "Ce que dit le texte")}</p>
-                <p className="mt-3 text-sm leading-relaxed">{vitrine.reponse_reference}</p>
-                <p className="mt-4 border-t border-rule pt-3 text-[13px] leading-relaxed text-muted-foreground">
-                  {vitrine.source.texte}
-                  <br />
-                  {vitrine.source.article} · {vitrine.source.adopte}
-                </p>
+              <h1 className="mt-5 text-[2.5rem] leading-[1.05] text-balance sm:text-[3.4rem]">
+                Can your AI be trusted with regulation?
+              </h1>
+              <p className="mt-6 max-w-xl text-[18px] leading-relaxed text-muted-foreground">
+                FinReg independently tests regulatory AI for legal accuracy, citation integrity,
+                hallucinations and calibration.
+              </p>
+              <div className="mt-8 flex flex-wrap items-center gap-3">
+                <BoutonLien to="/test">Test your AI →</BoutonLien>
+                <BoutonLien to="/benchmark" variante="secondaire">
+                  Explore the benchmark
+                </BoutonLien>
               </div>
-              <div className="bg-surface-sunken/50 p-5 sm:p-6">
-                <div className="flex items-baseline justify-between gap-3">
-                  <p className="etiquette">
-                    {t(`${nomVitrine} answered`, `Réponse de ${nomVitrine}`)}
-                  </p>
-                  <p className="font-mono text-lg tabulaire text-accent">
-                    {nb(reponseVitrine.r.score)}
-                    <span className="text-xs text-muted-foreground"> /10</span>
-                  </p>
-                </div>
-                <p className="mt-3 line-clamp-[11] text-sm leading-relaxed">
-                  {texteAffiche(reponseVitrine.r.texte)}
-                </p>
-                <ul className="mt-4 flex flex-wrap gap-2">
-                  {reponseVitrine.r.flags.map((f) => (
-                    <li
-                      key={f}
-                      className="border border-accent/40 bg-accent-soft px-2 py-0.5 font-mono text-[10px] tracking-[0.06em] text-accent uppercase"
-                    >
-                      {L.flags[f] ?? f}
-                    </li>
-                  ))}
-                </ul>
-              </div>
+              {data && (
+                <BandeauProvenance
+                  className="mt-10 max-w-xl"
+                  entrees={[
+                    ["Benchmark", "v1.0"],
+                    ["Questions", String(data.nb_questions)],
+                    ["Domains", String(data.domaines.length)],
+                    ["Evaluated", dateFr(data.date_execution, "en")],
+                  ]}
+                />
+              )}
             </div>
+            <ConsoleEvaluation cas={cas} />
+          </div>
+        </section>
 
-            <div className="border-t border-rule p-5 sm:p-6">
-              <p className="etiquette">{t("Why it fails", "Pourquoi c'est faux")}</p>
-              <dl className="mt-3 grid gap-4 sm:grid-cols-2">
-                <div>
-                  <dt className="text-xs font-medium text-muted-foreground">
-                    {t("Got right", "Ce qui est juste")}
-                  </dt>
-                  <dd className="mt-1 text-sm leading-relaxed">
-                    {reponseVitrine.r.analyse.correct}
-                  </dd>
-                </div>
-                <div>
-                  <dt className="text-xs font-medium text-accent">
-                    {t("Got wrong", "Ce qui est faux")}
-                  </dt>
-                  <dd className="mt-1 text-sm leading-relaxed">
-                    {reponseVitrine.r.analyse.incorrect}
-                  </dd>
-                </div>
-              </dl>
-              <Link
-                to="/question/$id"
-                params={{ id: vitrine.id }}
-                className="mt-5 inline-block border border-border px-3 py-1.5 text-sm transition-colors hover:bg-surface-sunken"
-              >
-                {t(
-                  "See all five systems on this question →",
-                  "Voir tous les systèmes sur cette question →",
-                )}
-              </Link>
-            </div>
-          </Panneau>
-        </Section>
-      )}
-
-      {/* ── La chaîne ─────────────────────────────────────────────────────── */}
-      <Section
-        numero="02"
-        titre={t("Every score traces back to an article", "Chaque note remonte à un article")}
-        chapeau={t(
-          "A score is worth nothing if you cannot get back to what produced it. Each item in the corpus carries the whole chain.",
-          "Une note ne vaut rien si l'on ne peut pas remonter à ce qui l'a produite. Chaque item du corpus porte toute la chaîne.",
+        {/* ── CE QUE LES MESURES DISENT DÉJÀ ─────────────────────────────── */}
+        {isPending && (
+          <div className="mt-14">
+            <Chargement />
+          </div>
         )}
-      >
-        <ol className="mt-4 grid gap-px border border-border bg-border sm:grid-cols-5">
-          {CHAINE.map((maillon, i) => (
-            <li key={maillon.etape} className="bg-surface p-4">
-              <p className="font-mono text-[11px] text-muted-foreground">
-                {String(i + 1).padStart(2, "0")}
-              </p>
-              <p className="mt-2 text-sm font-medium">{maillon.etape}</p>
-              <p className="mt-1.5 text-[13px] leading-relaxed text-muted-foreground">
-                {maillon.detail}
-              </p>
-            </li>
-          ))}
-        </ol>
-      </Section>
-
-      {/* ── Le classement ─────────────────────────────────────────────────── */}
-      {data && (
-        <>
-          <Section
-            numero="03"
-            titre={t("Results", "Classement")}
-            chapeau={t(
-              "Regulatory accuracy out of 100 — the average score across every item in the corpus. Click a header to sort.",
-              "Exactitude réglementaire sur 100 — la note moyenne sur l'ensemble des items du corpus. Cliquez un en-tête pour trier.",
-            )}
-          >
-            <Panneau className="mt-4 overflow-hidden">
-              <div className="overflow-x-auto">
-                <table className="zebre w-full min-w-[48rem] border-collapse text-sm">
-                  <thead>
-                    <tr className="border-b border-foreground/60 bg-surface-sunken">
-                      {COLONNES.map((c) => (
-                        <th
-                          key={c.cle}
-                          scope="col"
-                          className={`px-4 py-2.5 ${c.num ? "text-right" : "text-left"}`}
-                          aria-sort={
-                            cle === c.cle ? (ascendant ? "ascending" : "descending") : "none"
-                          }
-                        >
-                          <button
-                            type="button"
-                            onClick={() => basculer(c.cle)}
-                            className={`entete-col transition-colors hover:text-foreground ${
-                              cle === c.cle ? "text-accent" : ""
-                            }`}
-                          >
-                            {c.libelle}
-                            {cle === c.cle ? (ascendant ? " ↑" : " ↓") : ""}
-                          </button>
-                        </th>
-                      ))}
-                    </tr>
-                  </thead>
-
-                  <tbody>
-                    {lignes.map((m) => {
-                      const rang = rangDe(data.modeles, m.id);
-                      return (
-                        <tr
-                          key={m.id}
-                          className="border-b border-border transition-colors last:border-0 hover:bg-surface-sunken"
-                        >
-                          <td className="px-4 py-3 text-right">
-                            <span
-                              className={`inline-flex size-6 items-center justify-center font-mono text-[11px] ${
-                                rang === 1
-                                  ? "bg-foreground text-background"
-                                  : "bg-surface-sunken text-muted-foreground"
-                              }`}
-                            >
-                              {rang}
-                            </span>
-                          </td>
-                          <td className="px-4 py-3">
-                            <Link
-                              to="/model/$id"
-                              params={{ id: m.id }}
-                              className="font-medium underline decoration-border decoration-1 underline-offset-4 transition-colors hover:text-accent hover:decoration-accent"
-                            >
-                              {m.nom}
-                            </Link>
-                          </td>
-                          <td className="px-4 py-3 text-muted-foreground">{m.profil}</td>
-                          <td className="px-4 py-3">
-                            <div className="flex items-center justify-end gap-3">
-                              <span
-                                className="hidden h-1 bg-foreground/70 sm:block"
-                                style={{ width: `${m.score_global * 0.9}px` }}
-                                aria-hidden="true"
-                              />
-                              <span className="font-mono tabulaire">{nb(m.score_global)}</span>
-                            </div>
-                          </td>
-                          <td className="px-4 py-3 text-right font-mono tabulaire text-accent">
-                            {nb(m.taux_hallucination_source)}
-                          </td>
-                          <td className="px-4 py-3 text-right font-mono tabulaire text-muted-foreground">
-                            {nb(m.taux_abstention)}
-                          </td>
-                        </tr>
-                      );
-                    })}
-                  </tbody>
-                </table>
-              </div>
+        {isError && (
+          <div className="mt-14">
+            <Erreur />
+          </div>
+        )}
+        {data && (
+          <section className="mt-14">
+            <div className="flex flex-wrap items-baseline justify-between gap-3">
+              <h2 className="text-[1.3rem]">What we measured on the public benchmark</h2>
+              <Pastille ton="succes">Measured run · not demo data</Pastille>
+            </div>
+            <Panneau className="mt-4 grid gap-px bg-border sm:grid-cols-2 lg:grid-cols-4">
+              <Tuile
+                etiquette="Answers not safe to rely on"
+                valeur={nb(data.synthese.taux_reponse_non_fiable)}
+                unite="%"
+                ton="danger"
+                note={`of the ${data.synthese.nb_reponses} scored answers invent a source or state a rule the text does not contain.`}
+              />
+              <Tuile
+                etiquette="Fabricated or unsupported citation"
+                valeur={nb(data.synthese.taux_hallucination_source)}
+                unite="%"
+                note="of answers cite an article that does not exist, or one that says something else."
+              />
+              <Tuile
+                etiquette="Declined to answer"
+                valeur={nb(data.synthese.taux_abstention)}
+                unite="%"
+                note="systems almost never abstain — even where the applicable text leaves the point open."
+              />
+              <Tuile
+                etiquette="Verified sources in corpus"
+                valeur={`${verifiees ?? "—"}`}
+                unite={`/ ${data.nb_questions}`}
+                note="items whose cited act and article were checked against the primary text."
+              />
             </Panneau>
-            <p className="mt-3 max-w-2xl text-[13px] leading-relaxed text-muted-foreground">
-              {t(
-                "A high decline rate is not a flaw in itself: a system that refuses to answer rather than inventing an article is still usable. The last two columns are read together.",
-                "Un fort taux d'abstention n'est pas un défaut en soi : un système qui refuse de répondre plutôt que d'inventer un article reste utilisable. Les deux dernières colonnes se lisent ensemble.",
-              )}
+          </section>
+        )}
+
+        {/* ── LE PROBLÈME ────────────────────────────────────────────────── */}
+        <section className="mt-20">
+          <div className="max-w-3xl">
+            <p className="etiquette">The problem</p>
+            <h2 className="mt-3 text-[2rem] leading-[1.12] sm:text-[2.4rem]">
+              AI can sound right and still be wrong.
+            </h2>
+            <p className="mt-4 text-[15px] leading-relaxed text-muted-foreground">
+              A regulatory hallucination isn't just a bad answer. It can mean a fabricated citation,
+              an incorrect legal interpretation or a false statement about an obligation — delivered
+              in the register of a compliance memo, which is exactly what makes it dangerous.
             </p>
-          </Section>
+          </div>
+          <div className="mt-8 grid gap-px border border-border bg-border md:grid-cols-3">
+            {PROBLEMES.map((p, i) => (
+              <article key={p.titre} className="flex flex-col bg-surface p-6">
+                <p className="font-mono text-[10px] tracking-[0.14em] text-danger uppercase">
+                  {String(i + 1).padStart(2, "0")} — {p.titre}
+                </p>
+                <p className="mt-4 text-[15px] leading-snug font-medium">{p.resume}</p>
+                <p className="mt-3 border-t border-rule pt-3 text-[13px] leading-relaxed text-muted-foreground">
+                  {p.detail}
+                </p>
+              </article>
+            ))}
+          </div>
+          <p className="mt-4 text-[12px] text-muted-foreground">
+            Illustrative failure patterns. Every real case in the{" "}
+            <Link to="/failures" className="text-accent underline underline-offset-2">
+              failure database
+            </Link>{" "}
+            is tied to a measured answer and a primary source.
+          </p>
+        </section>
 
-          <Section
-            numero="04"
-            titre={t("What the score is made of", "De quoi la note est faite")}
-            chapeau={t(
-              "Each answer is scored 0 to 2 on four axes. Shown here as an average out of 100.",
-              "Chaque réponse est notée de 0 à 2 sur quatre axes. Affichés ici en moyenne sur 100.",
+        {/* ── CE QUE FINREG MESURE ───────────────────────────────────────── */}
+        <section className="mt-20">
+          <div className="max-w-3xl">
+            <p className="etiquette">What FinReg measures</p>
+            <h2 className="mt-3 text-[1.9rem] leading-[1.15]">Five dimensions, scored per answer</h2>
+          </div>
+          <div className="mt-8 border border-border bg-surface">
+            {DIMENSIONS.map((d) => {
+              const valeur = f?.dimensions[d];
+              return (
+                <div
+                  key={d}
+                  className="grid gap-4 border-b border-rule px-6 py-5 last:border-b-0 lg:grid-cols-[3rem_minmax(0,14rem)_minmax(0,1fr)_10rem] lg:items-center"
+                >
+                  <span className="font-mono text-[11px] tracking-[0.12em] text-accent">
+                    {NUMEROS_DIMENSIONS[d]}
+                  </span>
+                  <div>
+                    <p className="text-[15px] font-medium">{LIBELLES_DIMENSIONS[d]}</p>
+                    <p className="mt-1 text-[13px] leading-relaxed text-muted-foreground">
+                      {QUESTIONS_DIMENSIONS[d]}
+                    </p>
+                  </div>
+                  <p className="border-l-2 border-danger/40 pl-3 text-[12.5px] leading-relaxed text-muted-foreground">
+                    <span className="font-mono text-[10px] tracking-[0.12em] text-danger uppercase">
+                      Example failure
+                    </span>
+                    <br />
+                    {ECHECS_TYPES_DIMENSIONS[d]}
+                  </p>
+                  <div className="lg:text-right">
+                    <p className="chiffre text-2xl text-ink">
+                      {valeur !== undefined ? nb(valeur) : "—"}
+                    </p>
+                    <p className="mt-1 font-mono text-[10px] tracking-[0.1em] text-muted-foreground uppercase">
+                      best system
+                    </p>
+                  </div>
+                </div>
+              );
+            })}
+          </div>
+        </section>
+
+        {/* ── SCORE DE FIABILITÉ ─────────────────────────────────────────── */}
+        <section className="mt-20">
+          <div className="flex flex-wrap items-end justify-between gap-4">
+            <div className="max-w-2xl">
+              <p className="etiquette">Regulatory Reliability Score™</p>
+              <h2 className="mt-3 text-[1.9rem] leading-[1.15]">
+                One number a risk committee can read
+              </h2>
+              <p className="mt-3 text-[14px] leading-relaxed text-muted-foreground">
+                Derived from the five measured dimensions, on a 0–100 scale. It is a reliability
+                indicator for an AI system, not a compliance certificate and not a legal opinion.
+              </p>
+            </div>
+            {tete && (
+              <p className="font-mono text-[11px] tracking-[0.1em] text-muted-foreground uppercase">
+                shown for {tete.nom} · leading system
+              </p>
             )}
-          >
-            <Panneau className="mt-4 overflow-hidden">
-              <div className="overflow-x-auto">
-                <table className="zebre w-full min-w-[40rem] border-collapse text-sm">
-                  <thead>
-                    <tr className="border-b border-foreground/60 bg-surface-sunken">
-                      <th scope="col" className="entete-col px-4 py-2.5 text-left">
-                        {t("System", "Système")}
-                      </th>
-                      {Object.keys(L.axes).map((a) => (
-                        <th key={a} scope="col" className="entete-col px-4 py-2.5 text-right">
-                          {L.axes[a]}
-                        </th>
-                      ))}
-                    </tr>
-                  </thead>
-                  <tbody>
-                    {trier(data.modeles, "score_global", false).map((m) => (
-                      <tr key={m.id} className="border-b border-border last:border-0">
-                        <td className="px-4 py-3">{m.nom}</td>
-                        {Object.keys(L.axes).map((a) => (
-                          <td key={a} className="px-4 py-3 text-right font-mono tabulaire">
-                            {nb((m.scores_axes[a] ?? 0) * 50)}
-                          </td>
-                        ))}
-                      </tr>
-                    ))}
-                  </tbody>
-                </table>
-              </div>
-            </Panneau>
-          </Section>
+          </div>
+          <div className="mt-6">
+            {f && tete ? (
+              <CarteFiabilite
+                score={f.global}
+                dimensions={f.dimensions}
+                libellesDimensions={LIBELLES_DIMENSIONS}
+                sousTitre={`${tete.nom} · ${data?.nb_questions} questions · ${data?.domaines.length} regulatory domains · judged answer by answer against the primary text.`}
+              />
+            ) : (
+              <Squelette lignes={6} />
+            )}
+          </div>
+        </section>
 
-          <Section
-            numero="05"
-            titre={t("By regulation", "Par réglementation")}
-            chapeau={`${t(
-              "Regulatory accuracy out of 100, per domain.",
-              "Exactitude réglementaire sur 100, par domaine.",
-            )} ${data.domaines.map((d) => L.domainesCourts[d] ?? d).join(" · ")}.`}
-          >
-            <GraphiqueDomaines modeles={data.modeles} domaines={data.domaines} />
-          </Section>
-        </>
-      )}
-    </Page>
+        {/* ── APERÇU DU CLASSEMENT ───────────────────────────────────────── */}
+        {data && (
+          <section className="mt-20">
+            <div className="flex flex-wrap items-baseline justify-between gap-3 border-b border-foreground/70 pb-2.5">
+              <h2 className="text-[1.3rem]">FinReg Regulatory AI Index</h2>
+              <Link
+                to="/benchmark"
+                className="font-mono text-[11px] tracking-[0.12em] text-accent uppercase hover:underline"
+              >
+                Full leaderboard →
+              </Link>
+            </div>
+            <div className="mt-4 overflow-x-auto">
+              <table className="zebre w-full min-w-[36rem] border border-border bg-surface text-sm">
+                <thead>
+                  <tr className="border-b border-border">
+                    <th className="entete-col px-4 py-2.5 text-left">#</th>
+                    <th className="entete-col px-4 py-2.5 text-left">System</th>
+                    <th className="entete-col px-4 py-2.5 text-right">Reliability</th>
+                    <th className="entete-col px-4 py-2.5 text-right">Legal accuracy</th>
+                    <th className="entete-col px-4 py-2.5 text-right">Citation integrity</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {classement.slice(0, 4).map((m, i) => {
+                    const fm = fiabilite(m);
+                    return (
+                      <tr key={m.id} className="border-b border-rule last:border-b-0">
+                        <td className="px-4 py-2.5 chiffre text-[13px] text-muted-foreground">
+                          {i + 1}
+                        </td>
+                        <td className="px-4 py-2.5">
+                          <Link
+                            to="/model/$id"
+                            params={{ id: m.id }}
+                            className="font-medium hover:text-accent"
+                          >
+                            {m.nom}
+                          </Link>
+                          <span className="ml-2 text-[12px] text-muted-foreground">{m.profil}</span>
+                        </td>
+                        <td className="px-4 py-2.5 text-right chiffre">{nb(fm.global)}</td>
+                        <td className="px-4 py-2.5 text-right chiffre text-muted-foreground">
+                          {nb(fm.dimensions.legal_accuracy)}
+                        </td>
+                        <td className="px-4 py-2.5 text-right chiffre text-muted-foreground">
+                          {nb(fm.dimensions.citation_integrity)}
+                        </td>
+                      </tr>
+                    );
+                  })}
+                </tbody>
+              </table>
+            </div>
+            <p className="mt-3 font-mono text-[11px] tabulaire text-muted-foreground">
+              Measured run · {dateFr(data.date_execution, "en")} · judge {data.juge ?? "—"} ·{" "}
+              {data.nb_runs} run per question · domains{" "}
+              {data.domaines.map((d) => L.domainesCourts[d] ?? d).join(", ")}
+            </p>
+          </section>
+        )}
+
+        {/* ── CERTIFICATION ──────────────────────────────────────────────── */}
+        <section className="mt-20 grid gap-10 border border-border bg-surface-sunken p-6 sm:p-10 lg:grid-cols-[minmax(0,1fr)_minmax(0,20rem)] lg:items-center">
+          <div>
+            <p className="etiquette">FinReg Verified</p>
+            <h2 className="mt-3 text-[1.7rem] leading-[1.15]">
+              An independent reliability assessment for regulatory AI systems
+            </h2>
+            <p className="mt-4 max-w-xl text-[14px] leading-relaxed text-muted-foreground">
+              Designed to become an independent reliability standard. An assessment rests on a
+              defined benchmark, a reproducible methodology, source verification, hallucination
+              testing and calibration testing — nothing else.
+            </p>
+            <div className="mt-6 flex flex-wrap gap-3">
+              <BoutonLien to="/audit">Request an audit →</BoutonLien>
+              <BoutonLien to="/methodology" variante="secondaire">
+                Read the methodology
+              </BoutonLien>
+            </div>
+          </div>
+          <div className="border border-ink bg-ink p-6 text-background">
+            <p className="font-mono text-[10px] tracking-[0.18em] uppercase opacity-70">
+              FinReg Verified
+            </p>
+            <p className="mt-3 text-[15px] font-medium">Regulatory AI Reliability</p>
+            <p className="mt-6 chiffre text-4xl">
+              91<span className="text-base opacity-60"> /100</span>
+            </p>
+            <p className="mt-2 font-mono text-[11px] tracking-[0.1em] uppercase opacity-70">
+              Assessment: 2026
+            </p>
+            <p className="mt-5 border-t border-background/20 pt-3 font-mono text-[10px] tracking-[0.12em] uppercase text-chart-4">
+              Badge concept · illustrative score
+            </p>
+          </div>
+        </section>
+
+        {/* ── CONVERSION ─────────────────────────────────────────────────── */}
+        <section className="mt-20 border-t border-foreground/70 pt-10">
+          <div className="grid gap-8 lg:grid-cols-[minmax(0,1fr)_auto] lg:items-end">
+            <div>
+              <h2 className="text-[1.9rem] leading-[1.12]">
+                Find out how your AI performs on regulation.
+              </h2>
+              <p className="mt-3 max-w-xl text-[14px] leading-relaxed text-muted-foreground">
+                Start with a free AI check on a sample of your system's answers. Move to a private
+                benchmark on your own corpus when you need production evidence.
+              </p>
+            </div>
+            <div className="flex flex-wrap gap-3">
+              <BoutonLien to="/test">Test your AI →</BoutonLien>
+              <BoutonLien to="/private-benchmark" variante="secondaire">
+                Request a private benchmark →
+              </BoutonLien>
+            </div>
+          </div>
+        </section>
+      </Page>
+    </div>
   );
 }
