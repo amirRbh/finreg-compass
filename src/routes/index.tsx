@@ -208,7 +208,7 @@ function Accueil() {
           {data && (
             <dl className="mt-10 grid grid-cols-2 gap-px border border-border bg-border sm:grid-cols-4">
               {[
-                [t("Systems", "Systèmes"), String(data.modeles.length)],
+                [t("Domains", "Domaines"), String(data.domaines.length)],
                 [t("Runs / item", "Passages / item"), String(data.nb_runs)],
                 [t("Verified sources", "Sources vérifiées"), `${verifiees}/${data.nb_questions}`],
                 [
