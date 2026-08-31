@@ -380,21 +380,15 @@ function Accueil() {
           >
             <Panneau className="mt-4 overflow-hidden">
               <div className="overflow-x-auto">
-                <table className="w-full min-w-[40rem] border-collapse text-sm">
+                <table className="zebre w-full min-w-[40rem] border-collapse text-sm">
                   <thead>
-                    <tr className="border-b border-rule bg-surface-sunken">
-                      <th
-                        scope="col"
-                        className="px-4 py-2.5 text-left text-xs font-medium text-muted-foreground"
-                      >
+                    <tr className="border-b border-foreground/60 bg-surface-sunken">
+                      <th scope="col" className="entete-col px-4 py-2.5 text-left">
                         System
                       </th>
                       {Object.keys(LIBELLES_AXES).map((a) => (
-                        <th
-                          key={a}
-                          scope="col"
-                          className="px-4 py-2.5 text-right text-xs font-medium text-muted-foreground"
-                        >
+                        <th key={a} scope="col" className="entete-col px-4 py-2.5 text-right">
+
                           {LIBELLES_AXES[a]}
                         </th>
                       ))}
