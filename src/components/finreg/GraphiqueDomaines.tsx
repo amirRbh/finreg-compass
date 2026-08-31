@@ -5,6 +5,18 @@ const LARGEUR = 900;
 const HAUTEUR = 300;
 const MARGE = { haut: 12, bas: 34, gauche: 34, droite: 8 };
 
+/** Une couleur pleine par système : plus lisible qu'un dégradé d'opacité. */
+const COULEURS = [
+  "var(--color-chart-1)",
+  "var(--color-chart-2)",
+  "var(--color-chart-3)",
+  "var(--color-chart-4)",
+  "var(--color-chart-5)",
+  "var(--color-chart-6)",
+];
+const couleur = (i: number) => COULEURS[i % COULEURS.length];
+
+
 export function GraphiqueDomaines({
   modeles,
   domaines,
@@ -62,7 +74,6 @@ export function GraphiqueDomaines({
                 {modeles.map((m, j) => {
                   const valeur = m.scores_domaines[domaine] ?? 0;
                   const h = (valeur / 100) * zoneH;
-                  const opacite = 1 - (j / Math.max(1, modeles.length)) * 0.66;
                   return (
                     <rect
                       key={m.id}
@@ -70,14 +81,14 @@ export function GraphiqueDomaines({
                       y={MARGE.haut + zoneH - h}
                       width={Math.max(2, largeurBarre - 1.5)}
                       height={h}
-                      fill="var(--color-accent)"
-                      opacity={opacite}
+                      fill={couleur(j)}
                       rx={0.5}
                     >
                       <title>{`${m.nom} — ${L.domainesCourts[domaine] ?? domaine}: ${nb(valeur)}`}</title>
                     </rect>
                   );
                 })}
+
                 <text
                   x={MARGE.gauche + i * largeurGroupe + largeurGroupe / 2}
                   y={HAUTEUR - MARGE.bas + 16}
@@ -93,18 +104,19 @@ export function GraphiqueDomaines({
         </svg>
       </div>
 
-      <ul className="mt-3 flex flex-wrap gap-x-5 gap-y-1 font-mono text-[11px] text-muted-foreground">
+      <ul className="mt-4 flex flex-wrap gap-x-5 gap-y-1.5 font-mono text-[11px] text-foreground">
         {modeles.map((m, j) => (
           <li key={m.id} className="flex items-center gap-2">
             <span
-              className="inline-block h-2 w-4 bg-accent"
-              style={{ opacity: 1 - (j / Math.max(1, modeles.length)) * 0.66 }}
+              className="inline-block h-2.5 w-2.5"
+              style={{ background: couleur(j) }}
               aria-hidden="true"
             />
             {m.nom}
           </li>
         ))}
       </ul>
+
 
       <div className="mt-8 -mx-4 overflow-x-auto px-4">
         <table className="zebre w-full min-w-[36rem] border-collapse text-sm">
@@ -122,9 +134,18 @@ export function GraphiqueDomaines({
           </thead>
 
           <tbody>
-            {modeles.map((m) => (
+            {modeles.map((m, j) => (
               <tr key={m.id} className="border-b border-border">
-                <td className="py-2 pr-4">{m.nom}</td>
+                <td className="py-2 pr-4">
+                  <span className="flex items-center gap-2">
+                    <span
+                      className="inline-block h-2.5 w-2.5 shrink-0"
+                      style={{ background: couleur(j) }}
+                      aria-hidden="true"
+                    />
+                    {m.nom}
+                  </span>
+                </td>
                 {domaines.map((d) => (
                   <td key={d} className="py-2 pr-4 text-right font-mono tabulaire">
                     {nb(m.scores_domaines[d])}
@@ -132,6 +153,7 @@ export function GraphiqueDomaines({
                 ))}
               </tr>
             ))}
+
           </tbody>
         </table>
       </div>
