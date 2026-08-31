@@ -14,6 +14,7 @@ import {
 import {
   CATEGORIES_ECHEC,
   catalogueDefaillances,
+  libelleCategorie,
   libelles,
   nb,
   texteAffiche,
@@ -21,6 +22,7 @@ import {
   useResultats,
   type Defaillance,
 } from "@/lib/finreg";
+import { useLangue } from "@/lib/langue";
 
 const TITRE = "Regulatory AI Failure Database — documented AI failures on financial regulation";
 const DESCRIPTION =
@@ -40,7 +42,8 @@ export const Route = createFileRoute("/failures")({
 
 function Entree({ d }: { d: Defaillance }) {
   const [ouvert, setOuvert] = useState(false);
-  const L = libelles("en");
+  const { langue, t } = useLangue();
+  const L = libelles(langue);
   const inventee = d.reponse.flags.includes("hallucination_source");
 
   return (
@@ -60,7 +63,7 @@ function Entree({ d }: { d: Defaillance }) {
           </span>
         </span>
         <span className="font-mono text-[10px] tracking-[0.1em] text-foreground uppercase">
-          {d.categorie}
+          {libelleCategorie(d.categorie, langue)}
         </span>
         <span>
           <PastilleSeverite severite={d.severite} />
@@ -73,7 +76,7 @@ function Entree({ d }: { d: Defaillance }) {
       {ouvert && (
         <div className="grid gap-px bg-border md:grid-cols-2">
           <div className="bg-surface px-5 py-4">
-            <p className="etiquette">What the AI answered</p>
+            <p className="etiquette">{t("What the AI answered", "Ce que l'IA a répondu")}</p>
             <p className="mt-2 text-[13px] leading-relaxed text-muted-foreground">
               {texteAffiche(d.reponse.texte)}
             </p>
@@ -88,13 +91,18 @@ function Entree({ d }: { d: Defaillance }) {
             )}
           </div>
           <div className="bg-surface px-5 py-4">
-            <p className="etiquette">What the law says</p>
+            <p className="etiquette">{t("What the law says", "Ce que dit le texte")}</p>
             <p className="mt-2 text-[13px] leading-relaxed">{d.question.reponse_reference}</p>
             <ul className="mt-4 space-y-1.5 border-t border-rule pt-3">
-              <LigneVerification ok>Act — {d.question.source.texte}</LigneVerification>
+              <LigneVerification ok>
+                {t("Act", "Texte")} — {d.question.source.texte}
+              </LigneVerification>
               <LigneVerification ok={!inventee}>
                 {inventee
-                  ? "Article cited by the model could not be located"
+                  ? t(
+                      "Article cited by the model could not be located",
+                      "L'article cité par le modèle est introuvable",
+                    )
                   : `Article — ${d.question.source.article}`}
               </LigneVerification>
             </ul>
@@ -109,7 +117,7 @@ function Entree({ d }: { d: Defaillance }) {
                 params={{ id: d.question.id }}
                 className="text-accent hover:underline"
               >
-                Full case →
+                {t("Full case →", "Cas complet →")}
               </Link>
               <a
                 href={d.question.source.url}
@@ -117,7 +125,7 @@ function Entree({ d }: { d: Defaillance }) {
                 rel="noreferrer"
                 className="text-muted-foreground hover:text-foreground"
               >
-                Primary source ↗
+                {t("Primary source ↗", "Source officielle ↗")}
               </a>
             </p>
           </div>
@@ -130,7 +138,8 @@ function Entree({ d }: { d: Defaillance }) {
 function BaseDefaillances() {
   const { data: resultats, isPending } = useResultats();
   const { data: questions } = useQuestions();
-  const L = libelles("en");
+  const { langue, t } = useLangue();
+  const L = libelles(langue);
 
   const [domaines, setDomaines] = useState<string[]>([]);
   const [categories, setCategories] = useState<string[]>([]);
@@ -167,8 +176,14 @@ function BaseDefaillances() {
     <Page large>
       <Titre
         etiquette="Regulatory AI Failure Database"
-        titre="Every failure below happened. None of them was written for this page."
-        chapeau="Each entry pairs a real corpus item with an answer a system actually produced, the primary text it should have relied on, and why the answer fails. Search, filter, and open the full case."
+        titre={t(
+          "Every failure below happened. None of them was written for this page.",
+          "Chaque défaillance ci-dessous a eu lieu. Aucune n'a été écrite pour cette page.",
+        )}
+        chapeau={t(
+          "Each entry pairs a real corpus item with an answer a system actually produced, the primary text it should have relied on, and why the answer fails. Search, filter, and open the full case.",
+          "Chaque entrée associe un item réel du corpus à une réponse réellement produite par un système, le texte officiel sur lequel elle aurait dû s'appuyer, et la raison de l'échec. Cherchez, filtrez, ouvrez le cas complet.",
+        )}
       />
 
       {isPending && (
@@ -179,81 +194,105 @@ function BaseDefaillances() {
 
       <div className="mt-8 grid gap-px border border-border bg-border sm:grid-cols-3">
         <Tuile
-          etiquette="Documented failures"
+          etiquette={t("Documented failures", "Défaillances documentées")}
           valeur={String(catalogue.length)}
-          note="answers carrying a disqualifying defect or a failing score."
+          note={t(
+            "answers carrying a disqualifying defect or a failing score.",
+            "réponses portant un défaut disqualifiant ou une note insuffisante.",
+          )}
         />
         <Tuile
-          etiquette="Critical severity"
+          etiquette={t("Critical severity", "Gravité critique")}
           valeur={String(critiques)}
           ton="danger"
-          note="an answer a compliance team could have acted on, and should not have."
+          note={t(
+            "an answer a compliance team could have acted on, and should not have.",
+            "une réponse qu'une équipe conformité aurait pu suivre, et n'aurait pas dû.",
+          )}
         />
         <Tuile
-          etiquette="Fabricated sources"
+          etiquette={t("Fabricated sources", "Sources inventées")}
           valeur={String(inventees)}
-          note="the cited article could not be located in the act."
+          note={t(
+            "the cited article could not be located in the act.",
+            "l'article cité est introuvable dans le texte.",
+          )}
         />
       </div>
 
       <Section
         numero="01"
-        titre="Filter the database"
-        chapeau="Filters combine. Search matches the question, the cited act and the answer text."
+        titre={t("Filter the database", "Filtrer la base")}
+        chapeau={t(
+          "Filters combine. Search matches the question, the cited act and the answer text.",
+          "Les filtres se combinent. La recherche porte sur la question, le texte cité et la réponse.",
+        )}
       >
         <div className="mt-5 space-y-4 border border-border bg-surface p-5">
           <div>
-            <p className="etiquette">Regulation</p>
+            <p className="etiquette">{t("Regulation", "Réglementation")}</p>
             <div className="mt-2">
               <ChoixPuces
                 options={optionsDomaines}
                 valeurs={domaines}
                 basculer={bascule(setDomaines)}
-                nom="Regulation"
+                nom={t("Regulation", "Réglementation")}
               />
             </div>
           </div>
           <div>
-            <p className="etiquette">Failure type</p>
+            <p className="etiquette">{t("Failure type", "Type de défaillance")}</p>
             <div className="mt-2">
               <ChoixPuces
                 options={[...CATEGORIES_ECHEC]}
+                libelles={(c) => libelleCategorie(c as never, langue)}
                 valeurs={categories}
                 basculer={bascule(setCategories)}
-                nom="Failure type"
+                nom={t("Failure type", "Type de défaillance")}
               />
             </div>
           </div>
           <div>
-            <p className="etiquette">Severity</p>
+            <p className="etiquette">{t("Severity", "Gravité")}</p>
             <div className="mt-2">
               <ChoixPuces
                 options={["critical", "high", "medium"]}
+                libelles={(v) =>
+                  langue === "fr"
+                    ? { critical: "critique", high: "élevée", medium: "moyenne" }[v] ?? v
+                    : v
+                }
                 valeurs={severites}
                 basculer={bascule(setSeverites)}
-                nom="Severity"
+                nom={t("Severity", "Gravité")}
               />
             </div>
           </div>
           <div>
             <label className="etiquette" htmlFor="recherche-defaillances">
-              Search
+              {t("Search", "Recherche")}
             </label>
             <input
               id="recherche-defaillances"
               value={recherche}
               onChange={(e) => setRecherche(e.target.value)}
-              placeholder="article, act, obligation, system…"
+              placeholder={t(
+                "article, act, obligation, system…",
+                "article, texte, obligation, système…",
+              )}
               className="mt-2 w-full border border-border bg-surface px-3 py-2.5 text-sm focus:border-accent focus:outline-none"
             />
           </div>
           <p className="border-t border-rule pt-3 font-mono text-[11px] tabulaire text-muted-foreground">
-            {filtrees.length} of {catalogue.length} entries shown
+            {t(
+              `${filtrees.length} of ${catalogue.length} entries shown`,
+              `${filtrees.length} entrées affichées sur ${catalogue.length}`,
+            )}
           </p>
         </div>
       </Section>
 
-      <Section numero="02" titre="Failures">
+      <Section numero="02" titre={t("Failures", "Défaillances")}>
         <div className="mt-5 border border-border bg-surface">
           {isPending && (
             <div className="p-5">
@@ -263,8 +302,11 @@ function BaseDefaillances() {
           {!isPending && filtrees.length === 0 && (
             <div className="p-5">
               <EtatVide
-                titre="No entry matches these filters"
-                detail="Clear a filter or broaden the search to see documented failures again."
+                titre={t("No entry matches these filters", "Aucune entrée pour ces filtres")}
+                detail={t(
+                  "Clear a filter or broaden the search to see documented failures again.",
+                  "Retirez un filtre ou élargissez la recherche pour revoir les défaillances documentées.",
+                )}
               />
             </div>
           )}
@@ -274,26 +316,34 @@ function BaseDefaillances() {
         </div>
         {filtrees.length > 60 && (
           <p className="mt-3 font-mono text-[11px] text-muted-foreground">
-            Showing the 60 most severe of {filtrees.length} matching entries.
+            {t(
+              `Showing the 60 most severe of ${filtrees.length} matching entries.`,
+              `Affichage des 60 plus graves sur ${filtrees.length} entrées correspondantes.`,
+            )}
           </p>
         )}
       </Section>
 
       <section className="mt-16 flex flex-wrap items-center justify-between gap-4 border border-border bg-surface-sunken p-6">
         <div className="max-w-xl">
-          <Pastille>Your system</Pastille>
+          <Pastille>{t("Your system", "Votre système")}</Pastille>
           <p className="mt-3 text-[16px] leading-snug font-medium">
-            Would your AI produce any of these answers?
+            {t(
+              "Would your AI produce any of these answers?",
+              "Votre IA produirait-elle l'une de ces réponses ?",
+            )}
           </p>
           <p className="mt-2 text-[13px] leading-relaxed text-muted-foreground">
-            The same evaluation can be run against your assistant, on the public corpus or on your
-            own regulatory perimeter.
+            {t(
+              "The same evaluation can be run against your assistant, on the public corpus or on your own regulatory perimeter.",
+              "La même évaluation peut être menée sur votre assistant, sur le corpus public ou sur votre propre périmètre réglementaire.",
+            )}
           </p>
         </div>
         <div className="flex flex-wrap gap-3">
-          <BoutonLien to="/test">Test your AI →</BoutonLien>
+          <BoutonLien to="/test">{t("Test your AI →", "Tester votre IA →")}</BoutonLien>
           <BoutonLien to="/methodology" variante="secondaire">
-            How scoring works
+            {t("How scoring works", "Comment la notation fonctionne")}
           </BoutonLien>
         </div>
       </section>

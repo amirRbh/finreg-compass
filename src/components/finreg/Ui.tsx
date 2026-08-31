@@ -1,12 +1,14 @@
 import { Link } from "@tanstack/react-router";
 import type { ComponentProps, ReactNode } from "react";
 import {
-  bandeFiabilite,
+  bandeFiabiliteL,
+  libelleSeverite,
   nb,
   type Dimension,
   type Fiabilite,
   type Severite,
 } from "@/lib/finreg";
+import { useLangue } from "@/lib/langue";
 
 /* ── Étiquettes ──────────────────────────────────────────────────────────── */
 
@@ -45,6 +47,7 @@ const TONS_SEVERITE: Record<Severite, TonPastille> = {
 };
 
 export function PastilleSeverite({ severite }: { severite: Severite }) {
+  const { langue } = useLangue();
   return (
     <Pastille ton={TONS_SEVERITE[severite]}>
       <span
@@ -57,16 +60,17 @@ export function PastilleSeverite({ severite }: { severite: Severite }) {
               : "bg-muted-foreground"
         }`}
       />
-      {severite}
+      {libelleSeverite(severite, langue)}
     </Pastille>
   );
 }
 
 /** Marqueur de données de démonstration. Jamais optionnel là où il s'applique. */
-export function PastilleDemo({ children = "Demo data" }: { children?: ReactNode }) {
+export function PastilleDemo({ children }: { children?: ReactNode }) {
+  const { t } = useLangue();
   return (
     <Pastille ton="attention" className="font-medium">
-      {children}
+      {children ?? t("Demo data", "Données de démonstration")}
     </Pastille>
   );
 }
@@ -179,7 +183,7 @@ export function BarreScore({
 export function CarteFiabilite({
   score,
   dimensions,
-  titre = "Regulatory Reliability Score™",
+  titre,
   sousTitre,
   libellesDimensions,
 }: {
@@ -189,14 +193,15 @@ export function CarteFiabilite({
   sousTitre?: ReactNode;
   libellesDimensions: Record<Dimension, string>;
 }) {
-  const bande = bandeFiabilite(score);
+  const { langue } = useLangue();
+  const bande = bandeFiabiliteL(score, langue);
   const ordre = Object.keys(dimensions) as Dimension[];
   return (
     <div className="border border-border bg-surface shadow-panneau">
       <div className="grid gap-px bg-border md:grid-cols-[minmax(0,15rem)_minmax(0,1fr)]">
         <div className="flex flex-col justify-between bg-surface-sunken px-6 py-6">
           <div>
-            <p className="etiquette">{titre}</p>
+            <p className="etiquette">{titre ?? "Regulatory Reliability Score™"}</p>
             <p className="mt-5 chiffre text-[4.25rem] leading-none text-ink">
               {nb(score)}
               <span className="text-lg tracking-normal text-muted-foreground"> /100</span>
@@ -326,11 +331,13 @@ export function ChoixPuces({
   valeurs,
   basculer,
   nom,
+  libelles,
 }: {
   options: string[];
   valeurs: string[];
   basculer: (v: string) => void;
   nom: string;
+  libelles?: (v: string) => string;
 }) {
   return (
     <div className="flex flex-wrap gap-1.5" role="group" aria-label={nom}>
@@ -348,7 +355,7 @@ export function ChoixPuces({
                 : "border-border bg-surface text-muted-foreground hover:border-foreground hover:text-foreground"
             }`}
           >
-            {o}
+            {libelles ? libelles(o) : o}
           </button>
         );
       })}

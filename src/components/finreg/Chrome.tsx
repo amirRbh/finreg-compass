@@ -3,26 +3,59 @@ import { useState, type ReactNode } from "react";
 import { dateFr, useResultats } from "@/lib/finreg";
 import { BandeauJeuDeDonnees } from "@/components/finreg/Statuts";
 import { CLASSES_CTA } from "@/components/finreg/Ui";
+import { useLangue, type Langue } from "@/lib/langue";
 
 const LIENS = [
-  { to: "/benchmark", label: "Benchmark" },
-  { to: "/failures", label: "Failure Database" },
-  { to: "/test", label: "Test Your AI" },
-  { to: "/private-benchmark", label: "Private Benchmark" },
-  { to: "/methodology", label: "Methodology" },
+  { to: "/benchmark", en: "Benchmark", fr: "Benchmark" },
+  { to: "/failures", en: "Failure Database", fr: "Base des défaillances" },
+  { to: "/test", en: "Test Your AI", fr: "Tester votre IA" },
+  { to: "/private-benchmark", en: "Private Benchmark", fr: "Benchmark privé" },
+  { to: "/methodology", en: "Methodology", fr: "Méthodologie" },
 ] as const;
+
+function SelecteurLangue() {
+  const { langue, definir } = useLangue();
+  const options: { code: Langue; label: string }[] = [
+    { code: "en", label: "EN" },
+    { code: "fr", label: "FR" },
+  ];
+  return (
+    <div
+      className="flex items-center border border-border"
+      role="group"
+      aria-label="Language / Langue"
+    >
+      {options.map((o) => (
+        <button
+          key={o.code}
+          type="button"
+          aria-pressed={langue === o.code}
+          onClick={() => definir(o.code)}
+          className={`px-2 py-1.5 font-mono text-[10px] tracking-[0.14em] transition-colors ${
+            langue === o.code
+              ? "bg-foreground text-background"
+              : "text-muted-foreground hover:text-foreground"
+          }`}
+        >
+          {o.label}
+        </button>
+      ))}
+    </div>
+  );
+}
 
 const CLASSE_LIEN =
   "border-b-2 border-transparent px-1 py-1 font-mono text-[11px] tracking-[0.08em] text-muted-foreground uppercase transition-colors hover:text-foreground";
 
 function Marque() {
+  const { t } = useLangue();
   return (
     <Link to="/" className="group flex items-baseline gap-2.5">
       <span className="text-[17px] leading-none font-semibold tracking-[-0.03em] text-ink transition-colors group-hover:text-accent">
         FinReg
       </span>
       <span className="hidden font-mono text-[10px] tracking-[0.14em] text-muted-foreground uppercase sm:block">
-        Regulatory AI evaluation
+        {t("Regulatory AI evaluation", "Évaluation d'IA réglementaire")}
       </span>
     </Link>
   );
@@ -30,6 +63,7 @@ function Marque() {
 
 export function Entete() {
   const [ouvert, setOuvert] = useState(false);
+  const { langue, t } = useLangue();
   return (
     <header className="sticky top-0 z-40 border-b border-rule bg-background/92 backdrop-blur supports-[backdrop-filter]:bg-background/80">
       <div className="mx-auto flex max-w-6xl items-center justify-between gap-6 px-5 py-3.5">
@@ -43,14 +77,15 @@ export function Entete() {
               className={CLASSE_LIEN}
               activeProps={{ className: "border-accent text-foreground" }}
             >
-              {l.label}
+              {l[langue]}
             </Link>
           ))}
         </nav>
 
         <div className="flex items-center gap-2">
+          <SelecteurLangue />
           <Link to="/audit" className={`${CLASSES_CTA.primaire} hidden px-4 py-2.5 lg:inline-flex`}>
-            Request an audit →
+            {t("Request an audit →", "Demander un audit →")}
           </Link>
           <button
             type="button"
@@ -59,7 +94,7 @@ export function Entete() {
             onClick={() => setOuvert((v) => !v)}
             className="border border-border px-3 py-2 font-mono text-[11px] tracking-[0.1em] uppercase lg:hidden"
           >
-            {ouvert ? "Close" : "Menu"}
+            {ouvert ? t("Close", "Fermer") : "Menu"}
           </button>
         </div>
       </div>
@@ -75,7 +110,7 @@ export function Entete() {
                 className="border-b border-rule py-3 font-mono text-[12px] tracking-[0.08em] uppercase last:border-b-0"
                 activeProps={{ className: "text-accent" }}
               >
-                {l.label}
+                {l[langue]}
               </Link>
             ))}
             <Link
@@ -83,7 +118,7 @@ export function Entete() {
               onClick={() => setOuvert(false)}
               className={`${CLASSES_CTA.primaire} my-3`}
             >
-              Request an audit →
+              {t("Request an audit →", "Demander un audit →")}
             </Link>
           </nav>
         </div>
@@ -94,53 +129,58 @@ export function Entete() {
 
 export function PiedDePage() {
   const { data } = useResultats();
+  const { langue, t } = useLangue();
   return (
     <footer className="mt-24 border-t border-rule bg-surface-sunken">
       <div className="mx-auto grid max-w-6xl gap-10 px-5 py-12 md:grid-cols-[minmax(0,1.4fr)_minmax(0,1fr)_minmax(0,1fr)]">
         <div>
           <p className="text-[17px] font-semibold tracking-[-0.03em] text-ink">FinReg</p>
           <p className="mt-2 max-w-sm text-[13px] leading-relaxed text-muted-foreground">
-            Independent regulatory AI evaluation.
+            {t(
+              "Independent regulatory AI evaluation.",
+              "Évaluation indépendante des IA réglementaires.",
+            )}
           </p>
           {data && (
             <p className="mt-5 font-mono text-[11px] leading-relaxed tabulaire text-muted-foreground">
-              Benchmark v1.0 · {data.nb_questions} questions · {data.domaines.length} regulatory
-              domains
+              Benchmark v1.0 · {data.nb_questions} questions · {data.domaines.length}{" "}
+              {t("regulatory domains", "domaines réglementaires")}
               <br />
-              Evaluated {dateFr(data.date_execution, "en")} · {data.modeles.length} systems
+              {t("Evaluated", "Évalué le")} {dateFr(data.date_execution, langue)} ·{" "}
+              {data.modeles.length} {t("systems", "systèmes")}
             </p>
           )}
         </div>
 
         <nav aria-label="Product" className="text-[13px]">
-          <p className="etiquette">Product</p>
+          <p className="etiquette">{t("Product", "Produit")}</p>
           <ul className="mt-3 space-y-2 [&_a]:text-muted-foreground [&_a:hover]:text-foreground">
             <li>
               <Link to="/benchmark">Benchmark</Link>
             </li>
             <li>
-              <Link to="/failures">Failure Database</Link>
+              <Link to="/failures">{t("Failure Database", "Base des défaillances")}</Link>
             </li>
             <li>
-              <Link to="/test">Test Your AI</Link>
+              <Link to="/test">{t("Test Your AI", "Tester votre IA")}</Link>
             </li>
             <li>
-              <Link to="/private-benchmark">Private Benchmark</Link>
+              <Link to="/private-benchmark">{t("Private Benchmark", "Benchmark privé")}</Link>
             </li>
           </ul>
         </nav>
 
         <nav aria-label="Reference" className="text-[13px]">
-          <p className="etiquette">Reference</p>
+          <p className="etiquette">{t("Reference", "Références")}</p>
           <ul className="mt-3 space-y-2 [&_a]:text-muted-foreground [&_a:hover]:text-foreground">
             <li>
-              <Link to="/methodology">Methodology</Link>
+              <Link to="/methodology">{t("Methodology", "Méthodologie")}</Link>
             </li>
             <li>
-              <Link to="/questions">Public corpus</Link>
+              <Link to="/questions">{t("Public corpus", "Corpus public")}</Link>
             </li>
             <li>
-              <Link to="/about">About</Link>
+              <Link to="/about">{t("About", "À propos")}</Link>
             </li>
             <li>
               <Link to="/audit">Contact</Link>
@@ -150,8 +190,10 @@ export function PiedDePage() {
       </div>
       <div className="border-t border-rule">
         <p className="mx-auto max-w-6xl px-5 py-5 text-[12px] leading-relaxed text-muted-foreground">
-          FinReg provides AI evaluation and benchmarking services. FinReg does not provide legal
-          advice and benchmark results should not be interpreted as legal opinions.
+          {t(
+            "FinReg provides AI evaluation and benchmarking services. FinReg does not provide legal advice and benchmark results should not be interpreted as legal opinions.",
+            "FinReg fournit des services d'évaluation et de benchmark d'IA. FinReg ne délivre pas de conseil juridique et ses résultats ne constituent pas des opinions juridiques.",
+          )}
         </p>
       </div>
     </footer>
@@ -229,17 +271,19 @@ export function Panneau({ children, className = "" }: { children: ReactNode; cla
 }
 
 export function Chargement({ libelle }: { libelle?: string }) {
+  const { t } = useLangue();
   return (
     <p className="font-mono text-[11px] tracking-[0.08em] text-muted-foreground uppercase">
-      {libelle ?? "Loading…"}
+      {libelle ?? t("Loading…", "Chargement…")}
     </p>
   );
 }
 
 export function Erreur({ libelle }: { libelle?: string }) {
+  const { t } = useLangue();
   return (
     <p className="border-l-2 border-destructive pl-3 font-mono text-xs text-destructive">
-      {libelle ?? "Data unavailable."}
+      {libelle ?? t("Data unavailable.", "Données indisponibles.")}
     </p>
   );
 }

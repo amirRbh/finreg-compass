@@ -5,7 +5,7 @@ import { GraphiqueDomaines } from "@/components/finreg/GraphiqueDomaines";
 import { BandeauProvenance, BoutonLien, Pastille, Tuile } from "@/components/finreg/Ui";
 import {
   DIMENSIONS,
-  LIBELLES_DIMENSIONS,
+  dimensionsLib,
   dateFr,
   fiabilite,
   libelles,
@@ -14,6 +14,7 @@ import {
   useResultats,
   type CleTri,
 } from "@/lib/finreg";
+import { useLangue } from "@/lib/langue";
 
 const TITRE = "FinReg Regulatory AI Index — reliability leaderboard";
 const DESCRIPTION =
@@ -33,21 +34,23 @@ export const Route = createFileRoute("/benchmark")({
 
 type Colonne = { cle: CleTri; libelle: string; note?: string };
 
-const COLONNES: Colonne[] = [
-  { cle: "score_global", libelle: "Overall score" },
-  {
-    cle: "taux_hallucination_source",
-    libelle: "Fabricated / unsupported citations",
-    note: "lower is better",
-  },
-  { cle: "taux_abstention", libelle: "Abstention rate" },
-];
-
 function Benchmark() {
   const { data, isPending, isError } = useResultats();
   const [cle, setCle] = useState<CleTri>("score_global");
   const [ascendant, setAscendant] = useState(false);
-  const L = libelles("en");
+  const { langue, t } = useLangue();
+  const L = libelles(langue);
+  const D = dimensionsLib(langue);
+
+  const COLONNES: Colonne[] = [
+    { cle: "score_global", libelle: t("Overall score", "Score global") },
+    {
+      cle: "taux_hallucination_source",
+      libelle: t("Fabricated / unsupported citations", "Citations inventées / non étayées"),
+      note: t("lower is better", "plus bas est meilleur"),
+    },
+    { cle: "taux_abstention", libelle: t("Abstention rate", "Taux d'abstention") },
+  ];
 
   const classement = data ? trier(data.modeles, cle, ascendant) : [];
   const parScore = data ? trier(data.modeles, "score_global", false) : [];
@@ -64,8 +67,14 @@ function Benchmark() {
     <Page large>
       <Titre
         etiquette="FinReg Regulatory AI Index"
-        titre="Which AI systems can be relied on for financial regulation?"
-        chapeau="Every score below comes from a measured run: each answer was produced by the system itself and scored against the primary legal text, answer by answer, on the public corpus."
+        titre={t(
+          "Which AI systems can be relied on for financial regulation?",
+          "Sur quelles IA peut-on s'appuyer en réglementation financière ?",
+        )}
+        chapeau={t(
+          "Every score below comes from a measured run: each answer was produced by the system itself and scored against the primary legal text, answer by answer, on the public corpus.",
+          "Chaque score provient d'une exécution mesurée : chaque réponse a été produite par le système lui-même puis notée face au texte officiel, réponse par réponse, sur le corpus public.",
+        )}
       />
 
       {isPending && (
@@ -86,60 +95,77 @@ function Benchmark() {
             entrees={[
               ["Benchmark", "v1.0"],
               ["Questions", String(data.nb_questions)],
-              ["Scored answers", String(data.synthese.nb_reponses)],
-              ["Runs / question", String(data.nb_runs)],
-              ["Judge", data.juge ?? "—"],
-              ["Evaluated", dateFr(data.date_execution, "en")],
+              [t("Scored answers", "Réponses notées"), String(data.synthese.nb_reponses)],
+              [t("Runs / question", "Passages / question"), String(data.nb_runs)],
+              [t("Judge", "Juge"), data.juge ?? "—"],
+              [t("Evaluated", "Évalué le"), dateFr(data.date_execution, langue)],
             ]}
           />
 
           <div className="mt-8 grid gap-px border border-border bg-border sm:grid-cols-2 lg:grid-cols-4">
             <Tuile
-              etiquette="Regulatory accuracy"
+              etiquette={t("Regulatory accuracy", "Exactitude réglementaire")}
               valeur={nb(data.synthese.exactitude_reglementaire)}
               unite="/100"
-              note="mean score across every scored answer."
+              note={t(
+                "mean score across every scored answer.",
+                "score moyen sur l'ensemble des réponses notées.",
+              )}
             />
             <Tuile
-              etiquette="Answers not safe to rely on"
+              etiquette={t("Answers not safe to rely on", "Réponses non fiables")}
               valeur={nb(data.synthese.taux_reponse_non_fiable)}
               unite="%"
               ton="danger"
-              note="carry at least one disqualifying defect."
+              note={t(
+                "carry at least one disqualifying defect.",
+                "portent au moins un défaut disqualifiant.",
+              )}
             />
             <Tuile
-              etiquette="Fabricated / unsupported citation"
+              etiquette={t("Fabricated / unsupported citation", "Citation inventée / non étayée")}
               valeur={nb(data.synthese.taux_hallucination_source)}
               unite="%"
-              note="the citation does not exist or does not support the claim."
+              note={t(
+                "the citation does not exist or does not support the claim.",
+                "la citation n'existe pas ou ne soutient pas l'affirmation.",
+              )}
             />
             <Tuile
-              etiquette="Best minus worst system"
+              etiquette={t("Best minus worst system", "Écart meilleur / moins bon")}
               valeur={nb(data.synthese.ecart_meilleur_moins_bon)}
               unite="pts"
-              note="the choice of system is itself a compliance risk decision."
+              note={t(
+                "the choice of system is itself a compliance risk decision.",
+                "le choix du système est en soi une décision de risque de conformité.",
+              )}
             />
           </div>
 
           <Section
             numero="01"
-            titre="Reliability leaderboard"
-            chapeau="Sort by any column. Overall score is the judged mean on 100; the reliability score aggregates the five measured dimensions."
+            titre={t("Reliability leaderboard", "Classement de fiabilité")}
+            chapeau={t(
+              "Sort by any column. Overall score is the judged mean on 100; the reliability score aggregates the five measured dimensions.",
+              "Triable par colonne. Le score global est la moyenne notée sur 100 ; le score de fiabilité agrège les cinq dimensions mesurées.",
+            )}
           >
             <div className="mt-5 overflow-x-auto">
               <table className="zebre w-full min-w-[52rem] border border-border bg-surface text-sm">
                 <thead>
                   <tr className="border-b border-border">
-                    <th className="entete-col px-4 py-3 text-left">Rank</th>
-                    <th className="entete-col px-4 py-3 text-left">System</th>
-                    <th className="entete-col px-4 py-3 text-right">Reliability /100</th>
+                    <th className="entete-col px-4 py-3 text-left">{t("Rank", "Rang")}</th>
+                    <th className="entete-col px-4 py-3 text-left">{t("System", "Système")}</th>
+                    <th className="entete-col px-4 py-3 text-right">
+                      {t("Reliability /100", "Fiabilité /100")}
+                    </th>
                     {COLONNES.map((c) => (
                       <th key={c.cle} className="px-4 py-3 text-right">
                         <button
                           type="button"
                           onClick={() => basculer(c.cle)}
                           className="entete-col inline-flex items-center gap-1 hover:text-foreground"
-                          aria-label={`Sort by ${c.libelle}`}
+                          aria-label={`${t("Sort by", "Trier par")} ${c.libelle}`}
                         >
                           {c.libelle}
                           <span aria-hidden="true">{cle === c.cle ? (ascendant ? "↑" : "↓") : "·"}</span>
@@ -151,7 +177,7 @@ function Benchmark() {
                         )}
                       </th>
                     ))}
-                    <th className="entete-col px-4 py-3 text-right">Detail</th>
+                    <th className="entete-col px-4 py-3 text-right">{t("Detail", "Fiche")}</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -179,7 +205,7 @@ function Benchmark() {
                             params={{ id: m.id }}
                             className="font-mono text-[11px] tracking-[0.1em] text-accent uppercase hover:underline"
                           >
-                            Profile →
+                            {t("Profile →", "Fiche →")}
                           </Link>
                         </td>
                       </tr>
@@ -192,17 +218,23 @@ function Benchmark() {
 
           <Section
             numero="02"
-            titre="Reliability dimensions, system by system"
-            chapeau="An overall score hides where a system breaks. These are the five dimensions FinReg scores separately."
+            titre={t(
+              "Reliability dimensions, system by system",
+              "Dimensions de fiabilité, système par système",
+            )}
+            chapeau={t(
+              "An overall score hides where a system breaks. These are the five dimensions FinReg scores separately.",
+              "Un score global masque l'endroit où un système casse. Voici les cinq dimensions que FinReg note séparément.",
+            )}
           >
             <div className="mt-5 overflow-x-auto">
               <table className="zebre w-full min-w-[46rem] border border-border bg-surface text-sm">
                 <thead>
                   <tr className="border-b border-border">
-                    <th className="entete-col px-4 py-3 text-left">System</th>
+                    <th className="entete-col px-4 py-3 text-left">{t("System", "Système")}</th>
                     {DIMENSIONS.map((d) => (
                       <th key={d} className="entete-col px-4 py-3 text-right">
-                        {LIBELLES_DIMENSIONS[d]}
+                        {D.libelles[d]}
                       </th>
                     ))}
                   </tr>
@@ -228,32 +260,40 @@ function Benchmark() {
 
           <Section
             numero="03"
-            titre="Performance by regulation"
-            chapeau="No system is uniformly reliable. Coverage of a text is a separate question from overall quality."
+            titre={t("Performance by regulation", "Performance par réglementation")}
+            chapeau={t(
+              "No system is uniformly reliable. Coverage of a text is a separate question from overall quality.",
+              "Aucun système n'est uniformément fiable. La couverture d'un texte est une question distincte de la qualité globale.",
+            )}
           >
             <div className="mt-5">
               <GraphiqueDomaines modeles={data.modeles} domaines={data.domaines} />
             </div>
             <p className="mt-4 font-mono text-[11px] tabulaire text-muted-foreground">
-              Domains: {data.domaines.map((d) => L.domaines[d] ?? d).join(" · ")}
+              {t("Domains", "Domaines")} : {data.domaines.map((d) => L.domaines[d] ?? d).join(" · ")}
             </p>
           </Section>
 
           <section className="mt-16 flex flex-wrap items-center justify-between gap-4 border border-border bg-surface-sunken p-6">
             <div className="max-w-xl">
-              <Pastille>Next step</Pastille>
+              <Pastille>{t("Next step", "Étape suivante")}</Pastille>
               <p className="mt-3 text-[16px] leading-snug font-medium">
-                The public index measures public systems. Your AI is not in it.
+                {t(
+                  "The public index measures public systems. Your AI is not in it.",
+                  "L'index public mesure des systèmes publics. Votre IA n'y figure pas.",
+                )}
               </p>
               <p className="mt-2 text-[13px] leading-relaxed text-muted-foreground">
-                Run the same evaluation on your own system, on the public corpus or on a private
-                corpus built for your obligations.
+                {t(
+                  "Run the same evaluation on your own system, on the public corpus or on a private corpus built for your obligations.",
+                  "Faites tourner la même évaluation sur votre système, sur le corpus public ou sur un corpus privé bâti pour vos obligations.",
+                )}
               </p>
             </div>
             <div className="flex flex-wrap gap-3">
-              <BoutonLien to="/test">Test your AI →</BoutonLien>
+              <BoutonLien to="/test">{t("Test your AI →", "Tester votre IA →")}</BoutonLien>
               <BoutonLien to="/audit" variante="secondaire">
-                Request an audit
+                {t("Request an audit", "Demander un audit")}
               </BoutonLien>
             </div>
           </section>
