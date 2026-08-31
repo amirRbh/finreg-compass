@@ -125,29 +125,63 @@ function Accueil() {
 
   return (
     <Page>
-      {/* ── Écran 1 : cinq secondes pour comprendre ───────────────────────── */}
-      <div className="grid gap-10 lg:grid-cols-[minmax(0,1fr)_15rem] lg:items-start lg:gap-14">
-        <div className="max-w-3xl">
+      {/* ── Écran 1 : grille analytique — marge chiffrée, colonne éditoriale ── */}
+      <div className="grid grid-cols-12 gap-8 border-t border-rule pt-8 lg:gap-12">
+        {/* Marge statistique */}
+        <aside className="col-span-12 md:col-span-3">
+          <div className="md:sticky md:top-24">
+            <p className="etiquette text-accent">
+              {t("Reliability index", "Indice de fiabilité")}
+            </p>
+            {data ? (
+              <div className="mt-5 space-y-5">
+                <div>
+                  <p className="font-mono text-3xl leading-none tabulaire">
+                    {data.synthese.nb_reponses}
+                  </p>
+                  <p className="mt-1.5 etiquette">{t("Answers scored", "Réponses notées")}</p>
+                </div>
+                <div className="border-t border-rule pt-4">
+                  <p className="font-mono text-3xl leading-none tabulaire">
+                    {nb(data.synthese.taux_reponse_non_fiable)}
+                    <span className="text-lg"> %</span>
+                  </p>
+                  <p className="mt-1.5 etiquette">{t("Not reliable", "Non fiables")}</p>
+                </div>
+                <div className="border-t border-rule pt-4">
+                  <p className="font-mono text-3xl leading-none tabulaire">{data.nb_questions}</p>
+                  <p className="mt-1.5 etiquette">{t("Corpus items", "Items du corpus")}</p>
+                </div>
+              </div>
+            ) : (
+              <div className="mt-5">
+                <Chargement />
+              </div>
+            )}
+          </div>
+        </aside>
+
+        {/* Colonne éditoriale */}
+        <div className="col-span-12 md:col-span-9">
           <p className="etiquette">
             {t(
               "Public benchmark · EU & French financial regulation",
               "Benchmark public · réglementation financière française et européenne",
             )}
           </p>
-          <h1 className="mt-4 text-4xl leading-[1.06] tracking-tight text-balance sm:text-[3.25rem]">
-            {t("AI can write regulation.", "L'IA sait écrire sur la réglementation.")}
-            <br />
-            <span className="text-accent">
+          <h1 className="mt-4 text-4xl leading-[1.08] tracking-tight text-balance sm:text-[3.4rem]">
+            {t("AI can write regulation.", "L'IA sait écrire sur la réglementation.")}{" "}
+            <span className="italic text-accent">
               {t("Can it get regulation right?", "Sait-elle l'appliquer juste ?")}
             </span>
           </h1>
-          <p className="mt-6 max-w-xl text-[17px] leading-relaxed">
+          <p className="mt-7 max-w-2xl text-[19px] leading-relaxed">
             {t(
               "FinReg tests AI systems on real regulatory questions and checks every answer against the primary legal text.",
               "FinReg soumet des systèmes d'IA à de vraies questions réglementaires et contrôle chaque réponse contre le texte de loi.",
             )}
           </p>
-          <p className="mt-3 max-w-xl text-[15px] leading-relaxed text-muted-foreground">
+          <p className="mt-3 max-w-2xl text-[15px] leading-relaxed text-muted-foreground">
             {t(
               "An assistant that cites an article which does not exist is unusable in compliance: its answer cannot be checked, relied on, or filed.",
               "Un assistant qui cite un article inexistant est inexploitable en conformité : sa réponse ne peut être vérifiée, ni opposée, ni versée à un dossier.",
@@ -157,7 +191,7 @@ function Accueil() {
           <div className="mt-8 flex flex-wrap items-center gap-x-4 gap-y-3">
             <Link
               to="/questions"
-              className="border border-foreground bg-foreground px-5 py-2.5 text-sm font-medium text-background transition-opacity hover:opacity-85"
+              className="border border-foreground bg-foreground px-6 py-3 font-mono text-[11px] font-medium tracking-[0.14em] text-background uppercase transition-colors hover:border-accent hover:bg-accent"
             >
               {t("Explore the benchmark", "Explorer le benchmark")}
             </Link>
@@ -165,32 +199,32 @@ function Accueil() {
               <Link
                 to="/question/$id"
                 params={{ id: vitrine.id }}
-                className="border border-border px-5 py-2.5 text-sm transition-colors hover:bg-surface-sunken"
+                className="border border-border px-6 py-3 font-mono text-[11px] tracking-[0.14em] uppercase transition-colors hover:bg-surface-sunken"
               >
                 {t("See a question", "Voir une question")}
               </Link>
             )}
           </div>
-        </div>
 
-        {data && (
-          <aside className="border-t border-foreground pt-4 lg:mt-2 lg:border-t-2">
-            <p className="etiquette">{t("This run", "Cette exécution")}</p>
-            <dl className="mt-3 divide-y divide-rule/60 text-[13px]">
+          {data && (
+            <dl className="mt-10 grid grid-cols-2 gap-px border border-border bg-border sm:grid-cols-4">
               {[
-                [t("Items", "Items"), String(data.nb_questions)],
                 [t("Systems", "Systèmes"), String(data.modeles.length)],
-                [t("Answers", "Réponses"), String(data.synthese.nb_reponses)],
                 [t("Runs / item", "Passages / item"), String(data.nb_runs)],
+                [t("Verified sources", "Sources vérifiées"), `${verifiees}/${data.nb_questions}`],
+                [
+                  t("Average accuracy", "Exactitude moyenne"),
+                  nb(data.synthese.exactitude_reglementaire),
+                ],
               ].map(([k, v]) => (
-                <div key={k} className="flex items-baseline justify-between gap-3 py-1.5">
-                  <dt className="text-muted-foreground">{k}</dt>
-                  <dd className="font-mono tabulaire">{v}</dd>
+                <div key={k} className="bg-surface px-4 py-3">
+                  <dt className="etiquette">{k}</dt>
+                  <dd className="mt-1.5 font-mono text-lg tabulaire">{v}</dd>
                 </div>
               ))}
             </dl>
-          </aside>
-        )}
+          )}
+        </div>
       </div>
 
       {/* ── Le chiffre qui pose le problème ───────────────────────────────── */}
