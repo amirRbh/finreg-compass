@@ -105,13 +105,13 @@ function FicheQuestion() {
 
       {/* 1 — Ce que dit réellement le texte */}
       <section className="mt-10">
-        <h2 className="border-b border-rule pb-2 text-lg">What the law says</h2>
+        <h2 className="flex items-baseline gap-4 border-b border-foreground/70 pb-2.5 text-[1.2rem]"><span className="font-mono text-[11px] tracking-[0.08em] text-accent">01</span><span>What the law says</span></h2>
         <p className="mt-3 max-w-2xl text-[15px] leading-relaxed">{question.reponse_reference}</p>
       </section>
 
       {/* 2 — D'où cela sort */}
       <section className="mt-10">
-        <h2 className="border-b border-rule pb-2 text-lg">Legal basis</h2>
+        <h2 className="flex items-baseline gap-4 border-b border-foreground/70 pb-2.5 text-[1.2rem]"><span className="font-mono text-[11px] tracking-[0.08em] text-accent">02</span><span>Legal basis</span></h2>
         <Panneau className="mt-3 max-w-2xl p-5">
           <dl className="grid gap-4 sm:grid-cols-2">
             <div>
@@ -154,7 +154,7 @@ function FicheQuestion() {
 
       {/* 3 — Ce que vaut cette citation */}
       <section className="mt-10">
-        <h2 className="border-b border-rule pb-2 text-lg">Verification</h2>
+        <h2 className="flex items-baseline gap-4 border-b border-foreground/70 pb-2.5 text-[1.2rem]"><span className="font-mono text-[11px] tracking-[0.08em] text-accent">03</span><span>Verification</span></h2>
         <div className="mt-3 max-w-2xl">
           <ExplicationVerification verification={question.verification} />
         </div>
@@ -162,7 +162,7 @@ function FicheQuestion() {
 
       {/* 4 — Ce que les systèmes en ont fait */}
       <section className="mt-12">
-        <h2 className="border-b border-rule pb-2 text-lg">What the systems answered</h2>
+        <h2 className="flex items-baseline gap-4 border-b border-foreground/70 pb-2.5 text-[1.2rem]"><span className="font-mono text-[11px] tracking-[0.08em] text-accent">04</span><span>What the systems answered</span></h2>
         <p className="mt-3 max-w-2xl text-sm text-muted-foreground">
           Each answer is scored 0 to 2 on four axes — legal accuracy, citation accuracy,
           calibration, usability — whose sum gives the score out of 10.{" "}
