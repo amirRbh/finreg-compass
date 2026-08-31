@@ -1,7 +1,7 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { useState } from "react";
 import { Page } from "@/components/finreg/Chrome";
-import { EXPLICATIONS_AXES, LIBELLES_AXES, useQuestions, useResultats } from "@/lib/finreg";
+import { dateFr, EXPLICATIONS_AXES, LIBELLES_AXES, useQuestions, useResultats } from "@/lib/finreg";
 
 export const Route = createFileRoute("/methodology")({
   head: () => ({
@@ -149,7 +149,6 @@ function Methodologie() {
         </table>
       </div>
 
-
       <section className="mt-6 max-w-2xl space-y-3 text-[15px] leading-relaxed">
         <p>
           Two rates are reported alongside the score.{" "}
@@ -188,35 +187,35 @@ function Methodologie() {
         <h2 className="mt-10 border-b border-rule pb-2 text-lg">Run protocol</h2>
         <p>
           Each question is put to the system in an independent session, with no history, no search
-          tool and no document access. Temperature is set to 0.2 and answers are capped at 250
-          words. No example is supplied in the prompt: the measurement is of the system's internal
+          tool and no document access. Sampling is left at temperature 0.2 where the model accepts
+          it, and at the provider default where it does not. Answers are capped at 250 words. No
+          example is supplied in the prompt: the measurement is of the system&rsquo;s internal
           knowledge, not of its retrieval ability.
+        </p>
+        <p>
+          Every answer is then scored by an independent judge model
+          {resultats?.juge ? <span className="font-mono"> ({resultats.juge})</span> : null}, which
+          receives the question, the expected answer and the verified source, and returns the four
+          axis scores, the flags and a written appreciation. The judge never sees the other
+          systems&rsquo; answers, nor which system produced the one it is scoring.
         </p>
 
         <h2 id="dataset" className="mt-10 scroll-mt-24 border-b border-rule pb-2 text-lg">
           What has actually been measured
         </h2>
-        <div className="border border-accent/40 bg-accent-soft p-4 text-accent">
-          <p className="font-mono text-[11px] tracking-[0.08em] uppercase">Research preview</p>
-          <p className="mt-2 leading-relaxed">
-            Nothing has been measured yet. The results shown on this site come from no run. The{" "}
-            {nbSystemes} systems, &ldquo;Model A&rdquo; to &ldquo;Model E&rdquo;, are archetypes,
-            and their answers were written by hand to illustrate what each axis of the rubric
-            measures. No commercial model is named, scored or ranked.
-          </p>
-        </div>
         <p>
-          What the sample does show is real: the corpus, the expected answers, the sources cited and
-          their verification status. It is the instrument that is published, with a test dataset
-          that makes it readable, pending a measured run.
+          {nbSystemes} named systems were put to the {nbQuestions} published items on{" "}
+          {resultats ? dateFr(resultats.date_execution) : "the run date"}, for{" "}
+          {resultats?.synthese.nb_reponses ?? nbSystemes * nbQuestions} scored answers. Answers are
+          published in full on each item page: the text shown next to a score is the text the model
+          actually returned, not a summary of it.
         </p>
         <p>
-          Two guarantees hold that distinction. First, every figure on the site — regulatory
-          accuracy, invented-source rate, declined rate, scores by regulation and by axis — is
-          recomputed from the item-level answers: no aggregate is typed by hand, and any figure
-          shown can be reconstructed from the corpus pages. Second, the results file carries its own
-          status, and the banner at the top of every page follows from it: the day a measured run
-          replaces this sample, the notice disappears on its own, and not before.
+          Every figure on the site — regulatory accuracy, invented-source rate, declined rate,
+          scores by regulation and by axis — is recomputed from those item-level answers: no
+          aggregate is typed by hand, and any figure shown can be reconstructed from the corpus
+          pages. The harness, the system prompt and the judge prompt are published with the corpus,
+          so the run can be replicated.
         </p>
 
         <h2 className="mt-10 border-b border-rule pb-2 text-lg">Current limitations</h2>
@@ -235,6 +234,16 @@ function Methodologie() {
           <span className="font-medium">Contamination.</span> The corpus is public, so a system
           trained on these pages may have seen them. That is the reason for the private benchmark.
         </p>
+        <p>
+          <span className="font-medium">Scoring.</span> Scores are assigned by a judge model against
+          the expected answer and its verified source, not by a lawyer reviewing each answer. Every
+          answer is published in full so that any score can be contested on the item page.
+        </p>
+        <p>
+          <span className="font-medium">Single run.</span> Each item was put once to each system, so
+          the figures include the variance of a single sample rather than averaging it out.
+        </p>
+
         <p>
           <span className="font-medium">Standing.</span> Scores are not a guarantee of compliance,
           and neither the benchmark nor the expected answers replace legal validation.

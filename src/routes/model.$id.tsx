@@ -12,6 +12,7 @@ import {
   rangDe,
   useQuestions,
   useResultats,
+  texteAffiche,
 } from "@/lib/finreg";
 
 export const Route = createFileRoute("/model/$id")({
@@ -186,7 +187,7 @@ function FicheModele() {
               <dl className="mt-3 max-w-2xl space-y-2 text-sm">
                 <div>
                   <dt className="text-xs font-medium text-muted-foreground">What it answered</dt>
-                  <dd className="mt-1 leading-relaxed">{reponse.texte}</dd>
+                  <dd className="mt-1 leading-relaxed">{texteAffiche(reponse.texte)}</dd>
                 </div>
                 <div>
                   <dt className="text-xs font-medium text-muted-foreground">What the law says</dt>

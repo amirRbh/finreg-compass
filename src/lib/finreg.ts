@@ -163,6 +163,8 @@ export type Resultats = {
   date_execution: string;
   nb_questions: number;
   nb_runs: number;
+  /** Modèle juge de l'exécution mesurée. Absent des jeux antérieurs. */
+  juge?: string;
   domaines: string[];
   types: string[];
   synthese: Synthese;
@@ -287,6 +289,15 @@ export function rangDe(modeles: Modele[], id: string): number {
   return (
     [...modeles].sort((a, b) => b.score_global - a.score_global).findIndex((m) => m.id === id) + 1
   );
+}
+
+/**
+ * Texte de réponse tel qu'il est affiché. Les systèmes évalués balisent leurs
+ * intertitres en Markdown (`**Qualification**`) : le site publie la réponse
+ * brute, mais sans faire lire les astérisques au lecteur.
+ */
+export function texteAffiche(texte: string): string {
+  return texte.replace(/\*\*/g, "").replace(/^#{1,6}\s+/gm, "");
 }
 
 export type Echec = { question: Question; reponse: ReponseModele };
