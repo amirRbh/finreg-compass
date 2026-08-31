@@ -3,18 +3,14 @@ import { Chargement, Erreur, Page, Panneau } from "@/components/finreg/Chrome";
 import { ExplicationVerification } from "@/components/finreg/Statuts";
 import {
   AXES,
-  EXPLICATIONS_AXES,
-  LIBELLES_AXES,
-  LIBELLES_DIFFICULTE,
-  LIBELLES_DOMAINES,
-  LIBELLES_FLAGS,
-  LIBELLES_TYPES,
+  libelles,
   estGrave,
   nb,
   useQuestions,
   useResultats,
   texteAffiche,
 } from "@/lib/finreg";
+import { useLangue } from "@/lib/langue";
 
 export const Route = createFileRoute("/question/$id")({
   head: () => ({
@@ -36,22 +32,33 @@ export const Route = createFileRoute("/question/$id")({
   component: FicheQuestion,
 });
 
+function TitreSection({ numero, children }: { numero: string; children: React.ReactNode }) {
+  return (
+    <h2 className="flex items-baseline gap-4 border-b border-foreground/70 pb-2.5 text-[1.2rem]">
+      <span className="font-mono text-[11px] tracking-[0.08em] text-accent">{numero}</span>
+      <span>{children}</span>
+    </h2>
+  );
+}
+
 function FicheQuestion() {
   const { id } = Route.useParams();
   const { data: questions, isPending, isError } = useQuestions();
   const { data: resultats } = useResultats();
+  const { langue, t } = useLangue();
+  const L = libelles(langue);
 
   if (isPending) {
     return (
       <Page>
-        <Chargement libelle="Loading the corpus…" />
+        <Chargement libelle={t("Loading the corpus…", "Chargement du corpus…")} />
       </Page>
     );
   }
   if (isError || !questions) {
     return (
       <Page>
-        <Erreur libelle="Corpus unavailable." />
+        <Erreur libelle={t("Corpus unavailable.", "Corpus indisponible.")} />
       </Page>
     );
   }
@@ -60,15 +67,19 @@ function FicheQuestion() {
   if (!question) {
     return (
       <Page>
-        <h1 className="text-3xl leading-tight sm:text-4xl">Unknown item</h1>
+        <h1 className="text-3xl leading-tight sm:text-4xl">{t("Unknown item", "Item inconnu")}</h1>
         <p className="mt-2 text-sm text-muted-foreground">
-          No item in the corpus carries the identifier <span className="font-mono">{id}</span>.
+          {t(
+            "No item in the corpus carries the identifier ",
+            "Aucun item du corpus ne porte l'identifiant ",
+          )}
+          <span className="font-mono">{id}</span>.
         </p>
         <Link
           to="/questions"
           className="mt-4 inline-block text-sm text-accent underline underline-offset-4"
         >
-          Back to the corpus
+          {t("Back to the corpus", "Retour au corpus")}
         </Link>
       </Page>
     );
@@ -96,40 +107,43 @@ function FicheQuestion() {
         <span className="font-mono">{question.id}</span>
       </nav>
 
-      <p className="etiquette mt-4">{LIBELLES_DOMAINES[question.domaine] ?? question.domaine}</p>
+      <p className="etiquette mt-4">{L.domaines[question.domaine] ?? question.domaine}</p>
       <h1 className="mt-2 max-w-3xl text-2xl leading-snug sm:text-3xl">{question.question}</h1>
       <p className="mt-3 font-mono text-[11px] text-muted-foreground">
-        {LIBELLES_TYPES[question.type] ?? question.type} ·{" "}
-        {LIBELLES_DIFFICULTE[question.difficulte] ?? `difficulty ${question.difficulte}`}
+        {L.types[question.type] ?? question.type} ·{" "}
+        {L.difficulte[question.difficulte] ??
+          `${t("difficulty", "difficulté")} ${question.difficulte}`}
       </p>
 
       {/* 1 — Ce que dit réellement le texte */}
       <section className="mt-10">
-        <h2 className="flex items-baseline gap-4 border-b border-foreground/70 pb-2.5 text-[1.2rem]"><span className="font-mono text-[11px] tracking-[0.08em] text-accent">01</span><span>What the law says</span></h2>
+        <TitreSection numero="01">{t("What the law says", "Ce que dit le texte")}</TitreSection>
         <p className="mt-3 max-w-2xl text-[15px] leading-relaxed">{question.reponse_reference}</p>
       </section>
 
       {/* 2 — D'où cela sort */}
       <section className="mt-10">
-        <h2 className="flex items-baseline gap-4 border-b border-foreground/70 pb-2.5 text-[1.2rem]"><span className="font-mono text-[11px] tracking-[0.08em] text-accent">02</span><span>Legal basis</span></h2>
+        <TitreSection numero="02">{t("Legal basis", "Fondement juridique")}</TitreSection>
         <Panneau className="mt-3 max-w-2xl p-5">
           <dl className="grid gap-4 sm:grid-cols-2">
             <div>
-              <dt className="etiquette">Act</dt>
+              <dt className="etiquette">{t("Act", "Texte")}</dt>
               <dd className="mt-1.5 text-sm">{question.source.texte}</dd>
             </div>
             <div>
-              <dt className="etiquette">Provision</dt>
+              <dt className="etiquette">{t("Provision", "Article")}</dt>
               <dd className="mt-1.5 text-sm">{question.source.article}</dd>
             </div>
             <div>
-              <dt className="etiquette">Version</dt>
+              <dt className="etiquette">{t("Version", "Version")}</dt>
               <dd className="mt-1.5 text-sm">{question.source.adopte}</dd>
             </div>
             <div>
-              <dt className="etiquette">Jurisdiction</dt>
+              <dt className="etiquette">{t("Jurisdiction", "Juridiction")}</dt>
               <dd className="mt-1.5 text-sm">
-                {question.source.juridiction === "EU" ? "European Union" : "France"}
+                {question.source.juridiction === "EU"
+                  ? t("European Union", "Union européenne")
+                  : t("France", "France")}
               </dd>
             </div>
           </dl>
@@ -140,13 +154,23 @@ function FicheQuestion() {
               rel="noreferrer"
               className="font-mono text-xs text-accent underline underline-offset-4"
             >
-              Open the official source ↗
+              {t("Open the official source ↗", "Ouvrir la source officielle ↗")}
             </a>
             <p className="mt-2 text-[13px] leading-relaxed text-muted-foreground">
               {question.source.precision === "article"
-                ? "The link opens the cited article."
-                : "The link opens the consolidated text rather than the cited article: the provision has to be found from the table of contents."}
-              {question.source.langue_source === "fr" && " Légifrance publishes in French only."}
+                ? t(
+                    "The link opens the cited article.",
+                    "Le lien ouvre l'article cité.",
+                  )
+                : t(
+                    "The link opens the consolidated text rather than the cited article: the provision has to be found from the table of contents.",
+                    "Le lien ouvre le texte consolidé plutôt que l'article cité : la disposition doit être retrouvée depuis le sommaire.",
+                  )}
+              {question.source.langue_source === "fr" &&
+                t(
+                  " Légifrance publishes in French only.",
+                  " Légifrance ne publie qu'en français.",
+                )}
             </p>
           </div>
         </Panneau>
@@ -154,7 +178,7 @@ function FicheQuestion() {
 
       {/* 3 — Ce que vaut cette citation */}
       <section className="mt-10">
-        <h2 className="flex items-baseline gap-4 border-b border-foreground/70 pb-2.5 text-[1.2rem]"><span className="font-mono text-[11px] tracking-[0.08em] text-accent">03</span><span>Verification</span></h2>
+        <TitreSection numero="03">{t("Verification", "Vérification")}</TitreSection>
         <div className="mt-3 max-w-2xl">
           <ExplicationVerification verification={question.verification} />
         </div>
@@ -162,12 +186,16 @@ function FicheQuestion() {
 
       {/* 4 — Ce que les systèmes en ont fait */}
       <section className="mt-12">
-        <h2 className="flex items-baseline gap-4 border-b border-foreground/70 pb-2.5 text-[1.2rem]"><span className="font-mono text-[11px] tracking-[0.08em] text-accent">04</span><span>What the systems answered</span></h2>
+        <TitreSection numero="04">
+          {t("What the systems answered", "Ce que les systèmes ont répondu")}
+        </TitreSection>
         <p className="mt-3 max-w-2xl text-sm text-muted-foreground">
-          Each answer is scored 0 to 2 on four axes — legal accuracy, citation accuracy,
-          calibration, usability — whose sum gives the score out of 10.{" "}
+          {t(
+            "Each answer is scored 0 to 2 on four axes — legal accuracy, citation accuracy, calibration, usability — whose sum gives the score out of 10.",
+            "Chaque réponse est notée de 0 à 2 sur quatre axes — exactitude juridique, exactitude de la citation, calibration, exploitabilité — dont la somme donne la note sur 10.",
+          )}{" "}
           <Link to="/methodology" className="text-accent underline underline-offset-4">
-            See the rubric
+            {t("See the rubric", "Voir le barème")}
           </Link>
           .
         </p>
@@ -203,9 +231,9 @@ function FicheQuestion() {
 
                   <div className="mt-4 flex flex-wrap items-end gap-x-6 gap-y-3 border-t border-rule pt-3">
                     {AXES.map((axe) => (
-                      <div key={axe} title={EXPLICATIONS_AXES[axe]}>
+                      <div key={axe} title={L.explicationsAxes[axe]}>
                         <p className="font-mono text-[10px] tracking-[0.08em] text-muted-foreground uppercase">
-                          {LIBELLES_AXES[axe]}
+                          {L.axes[axe]}
                         </p>
                         <p className="mt-1 font-mono text-sm tabulaire">
                           {reponse.axes[axe] ?? "—"}
@@ -224,7 +252,7 @@ function FicheQuestion() {
                                 : "border-border text-muted-foreground"
                             }`}
                           >
-                            {LIBELLES_FLAGS[f] ?? f}
+                            {L.flags[f] ?? f}
                           </li>
                         ))}
                       </ul>
@@ -235,14 +263,18 @@ function FicheQuestion() {
                 {/* Le « pourquoi » : ce que le système a vu juste, et où il bascule. */}
                 {reponse.analyse && (
                   <div className="border-t border-accent/30 bg-accent-soft/40 p-5">
-                    <p className="etiquette text-accent">Why it fails</p>
+                    <p className="etiquette text-accent">{t("Why it fails", "Pourquoi c'est faux")}</p>
                     <dl className="mt-3 grid gap-4 sm:grid-cols-2">
                       <div>
-                        <dt className="text-xs font-medium text-muted-foreground">Got right</dt>
+                        <dt className="text-xs font-medium text-muted-foreground">
+                          {t("Got right", "Ce qui est juste")}
+                        </dt>
                         <dd className="mt-1 text-sm leading-relaxed">{reponse.analyse.correct}</dd>
                       </div>
                       <div>
-                        <dt className="text-xs font-medium text-accent">Got wrong</dt>
+                        <dt className="text-xs font-medium text-accent">
+                          {t("Got wrong", "Ce qui est faux")}
+                        </dt>
                         <dd className="mt-1 text-sm leading-relaxed">
                           {reponse.analyse.incorrect}
                         </dd>
