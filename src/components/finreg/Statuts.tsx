@@ -1,10 +1,6 @@
 import { Link } from "@tanstack/react-router";
-import {
-  EXPLICATIONS_VERIFICATION,
-  LIBELLES_VERIFICATION,
-  useResultats,
-  type Verification,
-} from "@/lib/finreg";
+import { libelles, useResultats, type Verification } from "@/lib/finreg";
+import { useLangue } from "@/lib/langue";
 
 /**
  * Pastille de statut de vérification d'un item du corpus.
@@ -21,6 +17,8 @@ export function PastilleVerification({
   statut: Verification["statut"];
   taille?: "normale" | "petite";
 }) {
+  const { langue } = useLangue();
+  const L = libelles(langue);
   const verifiee = statut === "source_verifiee";
   return (
     <span
@@ -36,20 +34,22 @@ export function PastilleVerification({
         aria-hidden="true"
         className={`inline-block size-1.5 ${verifiee ? "bg-foreground" : "bg-accent"}`}
       />
-      {LIBELLES_VERIFICATION[statut] ?? statut}
+      {L.verification[statut] ?? statut}
     </span>
   );
 }
 
 /** Bloc dépliant l'explication du statut, pour les pages de détail. */
 export function ExplicationVerification({ verification }: { verification: Verification }) {
+  const { langue } = useLangue();
+  const L = libelles(langue);
   return (
     <div className="border border-border bg-surface p-4">
       <PastilleVerification statut={verification.statut} />
       <p className="mt-3 text-sm leading-relaxed text-muted-foreground">
-        {EXPLICATIONS_VERIFICATION[verification.statut]}
+        {L.explicationsVerification[verification.statut]}
       </p>
-      {verification.note !== EXPLICATIONS_VERIFICATION[verification.statut] && (
+      {verification.note !== L.explicationsVerification[verification.statut] && (
         <p className="mt-2 border-t border-rule pt-2 text-sm leading-relaxed">
           {verification.note}
         </p>
@@ -67,16 +67,21 @@ export function ExplicationVerification({ verification }: { verification: Verifi
  */
 export function BandeauJeuDeDonnees() {
   const { data } = useResultats();
+  const { t } = useLangue();
   if (!data || data.statut !== "echantillon_demonstration") return null;
 
   return (
     <div className="border-b border-accent/30 bg-accent-soft">
       <p className="mx-auto max-w-5xl px-5 py-2 text-[12px] leading-relaxed text-accent">
-        <span className="font-mono text-[11px] tracking-[0.08em] uppercase">Research preview</span>{" "}
-        — the corpus, sources and verification are real. The scores illustrate the rubric and come
-        from no measured run: no commercial model is named or scored.{" "}
+        <span className="font-mono text-[11px] tracking-[0.08em] uppercase">
+          {t("Research preview", "Aperçu de recherche")}
+        </span>{" "}
+        {t(
+          "— the corpus, sources and verification are real. The scores illustrate the rubric and come from no measured run: no commercial model is named or scored.",
+          "— le corpus, les sources et la vérification sont réels. Les notes illustrent le barème et ne proviennent d'aucune exécution mesurée : aucun modèle commercial n'est nommé ni noté.",
+        )}{" "}
         <Link to="/methodology" hash="dataset" className="underline underline-offset-2">
-          What this means
+          {t("What this means", "Ce que cela signifie")}
         </Link>
         .
       </p>

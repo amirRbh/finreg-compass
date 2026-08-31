@@ -1,4 +1,5 @@
-import { NOMS_COURTS_DOMAINES, nb, type Modele } from "@/lib/finreg";
+import { libelles, nb, type Modele } from "@/lib/finreg";
+import { useLangue } from "@/lib/langue";
 
 const LARGEUR = 900;
 const HAUTEUR = 300;
@@ -11,6 +12,8 @@ export function GraphiqueDomaines({
   modeles: Modele[];
   domaines: string[];
 }) {
+  const { langue, t } = useLangue();
+  const L = libelles(langue);
   const zoneL = LARGEUR - MARGE.gauche - MARGE.droite;
   const zoneH = HAUTEUR - MARGE.haut - MARGE.bas;
   const largeurGroupe = zoneL / domaines.length;
@@ -23,7 +26,10 @@ export function GraphiqueDomaines({
           viewBox={`0 0 ${LARGEUR} ${HAUTEUR}`}
           className="h-72 w-full min-w-[36rem]"
           role="img"
-          aria-label="Regulatory accuracy by domain and by system"
+          aria-label={t(
+            "Regulatory accuracy by domain and by system",
+            "Exactitude réglementaire par domaine et par système",
+          )}
         >
           {[0, 25, 50, 75, 100].map((t) => {
             const y = MARGE.haut + zoneH - (t / 100) * zoneH;
@@ -68,7 +74,7 @@ export function GraphiqueDomaines({
                       opacity={opacite}
                       rx={0.5}
                     >
-                      <title>{`${m.nom} — ${NOMS_COURTS_DOMAINES[domaine] ?? domaine}: ${nb(valeur)}`}</title>
+                      <title>{`${m.nom} — ${L.domainesCourts[domaine] ?? domaine}: ${nb(valeur)}`}</title>
                     </rect>
                   );
                 })}
@@ -79,7 +85,7 @@ export function GraphiqueDomaines({
                   className="fill-[var(--color-foreground)] font-mono"
                   fontSize={10}
                 >
-                  {NOMS_COURTS_DOMAINES[domaine] ?? domaine}
+                  {L.domainesCourts[domaine] ?? domaine}
                 </text>
               </g>
             );
@@ -105,11 +111,11 @@ export function GraphiqueDomaines({
           <thead>
             <tr className="border-b border-foreground/60 bg-surface-sunken">
               <th scope="col" className="entete-col py-2 pr-4 text-left">
-                System
+                {t("System", "Système")}
               </th>
               {domaines.map((d) => (
                 <th key={d} scope="col" className="entete-col py-2 pr-4 text-right">
-                  {NOMS_COURTS_DOMAINES[d] ?? d}
+                  {L.domainesCourts[d] ?? d}
                 </th>
               ))}
             </tr>
