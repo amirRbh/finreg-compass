@@ -12,8 +12,7 @@ import {
   trier,
   useQuestions,
   useResultats,
-  type CleTri,
-} from "@/lib/finreg";
+  type CleTri, texteAffiche,} from "@/lib/finreg";
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -215,7 +214,7 @@ function Accueil() {
                     <span className="text-xs text-muted-foreground"> /10</span>
                   </p>
                 </div>
-                <p className="mt-3 text-sm leading-relaxed">{reponseVitrine.r.texte}</p>
+                <p className="mt-3 text-sm leading-relaxed">{texteAffiche(reponseVitrine.r.texte)}</p>
                 <ul className="mt-4 flex flex-wrap gap-2">
                   {reponseVitrine.r.flags.map((f) => (
                     <li

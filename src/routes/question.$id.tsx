@@ -12,8 +12,7 @@ import {
   estGrave,
   nb,
   useQuestions,
-  useResultats,
-} from "@/lib/finreg";
+  useResultats, texteAffiche,} from "@/lib/finreg";
 
 export const Route = createFileRoute("/question/$id")({
   head: () => ({
@@ -197,7 +196,7 @@ function FicheQuestion() {
                   </div>
 
                   <p className="mt-3 max-w-2xl text-sm leading-relaxed text-muted-foreground">
-                    {reponse.texte}
+                    {texteAffiche(reponse.texte)}
                   </p>
 
                   <div className="mt-4 flex flex-wrap items-end gap-x-6 gap-y-3 border-t border-rule pt-3">

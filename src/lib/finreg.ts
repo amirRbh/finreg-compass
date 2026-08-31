@@ -291,6 +291,15 @@ export function rangDe(modeles: Modele[], id: string): number {
   );
 }
 
+/**
+ * Texte de réponse tel qu'il est affiché. Les systèmes évalués balisent leurs
+ * intertitres en Markdown (`**Qualification**`) : le site publie la réponse
+ * brute, mais sans faire lire les astérisques au lecteur.
+ */
+export function texteAffiche(texte: string): string {
+  return texte.replace(/\*\*/g, "").replace(/^#{1,6}\s+/gm, "");
+}
+
 export type Echec = { question: Question; reponse: ReponseModele };
 
 export function echecsSignificatifs(questions: Question[], idModele: string, n = 5): Echec[] {
