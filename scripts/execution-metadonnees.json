@@ -1,0 +1,37 @@
+{
+  "date_execution": "2026-08-31",
+  "nb_runs": 1,
+  "juge": "openai/gpt-5.5",
+  "systemes": [
+    {
+      "id": "gpt-5-4",
+      "nom": "GPT-5.4",
+      "profil": "OpenAI · frontier",
+      "modele": "openai/gpt-5.4"
+    },
+    {
+      "id": "gpt-5-4-mini",
+      "nom": "GPT-5.4 mini",
+      "profil": "OpenAI · compact",
+      "modele": "openai/gpt-5.4-mini"
+    },
+    {
+      "id": "gemini-3-7-flash",
+      "nom": "Gemini 3.7 Flash",
+      "profil": "Google · fast tier",
+      "modele": "google/gemini-3.7-flash"
+    },
+    {
+      "id": "gemini-3-1-flash-lite",
+      "nom": "Gemini 3.1 Flash Lite",
+      "profil": "Google · cost tier",
+      "modele": "google/gemini-3.1-flash-lite"
+    },
+    {
+      "id": "gemini-2-5-pro",
+      "nom": "Gemini 2.5 Pro",
+      "profil": "Google · reasoning tier",
+      "modele": "google/gemini-2.5-pro"
+    }
+  ]
+}

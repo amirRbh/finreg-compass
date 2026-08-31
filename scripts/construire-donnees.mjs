@@ -2,8 +2,13 @@
  * Builds the two files published under /public/data from the repository's
  * authoring sources:
  *
- *   scripts/corpus-source.json         questions, legal sources, verification status
- *   scripts/reponses-echantillon.json  sample model answers
+ *   scripts/corpus-source.json           questions, legal sources, verification status
+ *   scripts/reponses-mesurees.json       answers produced by the evaluated systems
+ *   scripts/execution-metadonnees.json   run date, systems evaluated, judge model
+ *
+ * The last two files are written by scripts/executer-run.py, which puts every
+ * item to every system through the AI gateway and has an independent judge model
+ * score the answer on the four published axes. Nothing here is typed by hand.
  *
  * Project rule: no published figure is typed by hand. Every aggregate in the
  * benchmark is recomputed here from the item-level answers, so that any number
@@ -18,24 +23,20 @@ import { fileURLToPath } from "node:url";
 const racine = join(dirname(fileURLToPath(import.meta.url)), "..");
 const lire = (chemin) => JSON.parse(readFileSync(join(racine, chemin), "utf8"));
 
+const metadonnees = lire("scripts/execution-metadonnees.json");
+
 /**
- * Systems under evaluation. The demonstration sample is not a real run: it
- * therefore names no vendor and attributes no score to any product on the
- * market. `profil` describes an archetype, not a company.
+ * Systems under evaluation, read from the run metadata: the ranking is
+ * nominative, and the site can only name systems that actually answered.
  */
-const MODELES = [
-  { id: "modele-a", nom: "Model A", profil: "General purpose, very large" },
-  { id: "modele-b", nom: "Model B", profil: "General purpose, very large" },
-  { id: "modele-c", nom: "Model C", profil: "General purpose, mid-size" },
-  { id: "modele-d", nom: "Model D", profil: "General purpose, mid-size" },
-  { id: "modele-e", nom: "Model E", profil: "Open weights" },
-];
+const MODELES = metadonnees.systemes.map(({ id, nom, profil }) => ({ id, nom, profil }));
 
 const AXES = ["exactitude", "sourcing", "calibration", "exploitabilite"];
-const DATE_EXECUTION = "2026-08-24";
+const DATE_EXECUTION = metadonnees.date_execution;
 
 const corpus = lire("scripts/corpus-source.json");
-const reponses = lire("scripts/reponses-echantillon.json");
+const reponses = lire("scripts/reponses-mesurees.json");
+
 
 /** Score out of 10 derived from the four axes scored 0-2, i.e. 8 points rebased to 10. */
 const scoreDepuisAxes = (axes) =>
@@ -133,10 +134,12 @@ const synthese = {
 const resultats = {
   // Nature of the published dataset. The site relies on this field so that a
   // sample is never presented as a measured run.
-  statut: "echantillon_demonstration",
+  statut: "execution_mesuree",
   date_execution: DATE_EXECUTION,
   nb_questions: questions.length,
-  nb_runs: 1,
+  nb_runs: metadonnees.nb_runs,
+  juge: metadonnees.juge,
+
   domaines,
   types,
   synthese,
