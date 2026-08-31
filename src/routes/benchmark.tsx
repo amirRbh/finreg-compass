@@ -172,9 +172,6 @@ function Benchmark() {
                         <td className="px-4 py-3 text-right chiffre text-danger">
                           {nb(m.taux_hallucination_source)}
                         </td>
-                        <td className="px-4 py-3 text-right chiffre">
-                          {nb(m.taux_erreur_disqualifiante)}
-                        </td>
                         <td className="px-4 py-3 text-right chiffre">{nb(m.taux_abstention)}</td>
                         <td className="px-4 py-3 text-right">
                           <Link
@@ -235,7 +232,7 @@ function Benchmark() {
             chapeau="No system is uniformly reliable. Coverage of a text is a separate question from overall quality."
           >
             <div className="mt-5">
-              <GraphiqueDomaines resultats={data} />
+              <GraphiqueDomaines modeles={data.modeles} domaines={data.domaines} />
             </div>
             <p className="mt-4 font-mono text-[11px] tabulaire text-muted-foreground">
               Domains: {data.domaines.map((d) => L.domaines[d] ?? d).join(" · ")}

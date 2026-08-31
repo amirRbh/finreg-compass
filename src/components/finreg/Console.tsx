@@ -8,7 +8,7 @@ import { LigneVerification, Pastille, Squelette } from "@/components/finreg/Ui";
  * Elle ne met en scène rien : la question, la réponse, la source et le verdict
  * viennent d'un item réel du corpus et d'une réponse réellement mesurée.
  */
-export function ConsoleEvaluation({ cas }: { cas?: Defaillance }) {
+export function ConsoleEvaluation({ cas }: { cas: Defaillance | undefined }) {
   const L = libelles("en");
 
   if (!cas) {
