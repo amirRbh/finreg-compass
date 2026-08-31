@@ -1,6 +1,6 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { useMemo, useState } from "react";
-import { Chargement, Erreur, Page } from "@/components/finreg/Chrome";
+import { Chargement, Erreur, Page, Titre } from "@/components/finreg/Chrome";
 import { PastilleVerification } from "@/components/finreg/Statuts";
 import {
   LIBELLES_DIFFICULTE,
