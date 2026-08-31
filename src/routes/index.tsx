@@ -153,7 +153,7 @@ function Accueil() {
       {/* ── Le chiffre qui pose le problème ───────────────────────────────── */}
       {data && (
         <Panneau className="mt-16 grid divide-y divide-border sm:grid-cols-3 sm:divide-x sm:divide-y-0">
-          <div className="flex flex-col bg-surface-sunken/60 p-6">
+          <div className="flex min-h-[14rem] flex-col bg-surface-sunken/60 p-6">
             <p className="etiquette">Answers not safe to rely on</p>
             <p className="mt-6 font-mono text-[4.75rem] leading-none tracking-tighter tabulaire text-accent">
               {nb(data.synthese.taux_reponse_non_fiable)}
@@ -164,7 +164,7 @@ function Accueil() {
               the text does not contain.
             </p>
           </div>
-          <div className="flex flex-col p-6">
+          <div className="flex min-h-[14rem] flex-col p-6">
             <p className="etiquette">Average regulatory accuracy</p>
             <p className="mt-6 font-mono text-4xl leading-none tracking-tight tabulaire">
               {nb(data.synthese.exactitude_reglementaire)}
@@ -175,7 +175,7 @@ function Accueil() {
               {nb(pire?.score_global)} — the system you pick matters more than the prompt.
             </p>
           </div>
-          <div className="flex flex-col p-6">
+          <div className="flex min-h-[14rem] flex-col p-6">
             <p className="etiquette">Benchmark corpus</p>
             <p className="mt-6 font-mono text-4xl leading-none tracking-tight tabulaire">
               {verifiees}
