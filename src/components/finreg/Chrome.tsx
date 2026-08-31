@@ -14,17 +14,14 @@ export function Entete() {
   return (
     <header className="sticky top-0 z-30 border-b border-rule bg-background/90 backdrop-blur supports-[backdrop-filter]:bg-background/75">
       <div className="mx-auto flex max-w-5xl flex-col gap-3 px-5 py-3 sm:flex-row sm:items-center sm:justify-between">
-        <Link to="/" className="group flex items-center gap-3">
-          <span className="flex size-8 items-center justify-center border border-foreground font-mono text-[11px] font-medium text-foreground transition-colors group-hover:bg-foreground group-hover:text-background">
-            FR
+        <Link to="/" className="group flex items-baseline gap-3">
+          <span className="font-serif text-[19px] leading-none font-semibold tracking-[-0.015em] text-foreground transition-colors group-hover:text-accent">
+            FinReg
           </span>
-          <span className="leading-tight">
-            <span className="block font-serif text-[15px] font-semibold tracking-tight text-foreground">
-              FinReg
-            </span>
-            <span className="etiquette block">regulatory accuracy benchmark</span>
-          </span>
+          <span className="hidden h-px w-6 bg-rule transition-colors group-hover:bg-accent sm:block" />
+          <span className="etiquette hidden sm:block">regulatory accuracy benchmark</span>
         </Link>
+
         <nav className="-mx-1 flex flex-wrap items-center gap-0.5">
           {LIENS.map((lien) => (
             <Link
