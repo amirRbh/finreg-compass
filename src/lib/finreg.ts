@@ -163,6 +163,8 @@ export type Resultats = {
   date_execution: string;
   nb_questions: number;
   nb_runs: number;
+  /** Modèle juge de l'exécution mesurée. Absent des jeux antérieurs. */
+  juge?: string;
   domaines: string[];
   types: string[];
   synthese: Synthese;

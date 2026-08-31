@@ -1,7 +1,13 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { useState } from "react";
 import { Page } from "@/components/finreg/Chrome";
-import { EXPLICATIONS_AXES, LIBELLES_AXES, useQuestions, useResultats } from "@/lib/finreg";
+import {
+  dateFr,
+  EXPLICATIONS_AXES,
+  LIBELLES_AXES,
+  useQuestions,
+  useResultats,
+} from "@/lib/finreg";
 
 export const Route = createFileRoute("/methodology")({
   head: () => ({
