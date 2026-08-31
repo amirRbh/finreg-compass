@@ -318,35 +318,60 @@ export function useQuestions() {
   });
 }
 
-const formatNombre = new Intl.NumberFormat("en-GB", {
-  minimumFractionDigits: 1,
-  maximumFractionDigits: 1,
-});
+const FORMATS_NOMBRE: Record<LangueDonnees, Intl.NumberFormat> = {
+  en: new Intl.NumberFormat("en-GB", { minimumFractionDigits: 1, maximumFractionDigits: 1 }),
+  fr: new Intl.NumberFormat("fr-FR", { minimumFractionDigits: 1, maximumFractionDigits: 1 }),
+};
+
+// Le séparateur décimal suit la langue d'affichage. Il est fixé par le
+// fournisseur de langue avant tout rendu qui en dépend, plutôt que passé en
+// argument aux dizaines d'appels de `nb`.
+let langueNombres: LangueDonnees = "en";
+
+export function definirLangueNombres(l: LangueDonnees) {
+  langueNombres = l;
+}
 
 export function nb(valeur: number | null | undefined): string {
   if (valeur === null || valeur === undefined || Number.isNaN(valeur)) return "—";
-  return formatNombre.format(valeur);
+  return FORMATS_NOMBRE[langueNombres].format(valeur);
 }
 
-const MOIS = [
-  "January",
-  "February",
-  "March",
-  "April",
-  "May",
-  "June",
-  "July",
-  "August",
-  "September",
-  "October",
-  "November",
-  "December",
-];
+const MOIS: Record<LangueDonnees, string[]> = {
+  en: [
+    "January",
+    "February",
+    "March",
+    "April",
+    "May",
+    "June",
+    "July",
+    "August",
+    "September",
+    "October",
+    "November",
+    "December",
+  ],
+  fr: [
+    "janvier",
+    "février",
+    "mars",
+    "avril",
+    "mai",
+    "juin",
+    "juillet",
+    "août",
+    "septembre",
+    "octobre",
+    "novembre",
+    "décembre",
+  ],
+};
 
-/** Date ISO rendue en anglais : « 24 August 2026 ». */
-export function dateFr(iso: string): string {
+/** Date ISO rendue en clair : « 24 August 2026 » / « 24 août 2026 ». */
+export function dateFr(iso: string, langue: LangueDonnees = langueNombres): string {
   const [a, m, j] = iso.split("-");
-  const mois = MOIS[Number(m) - 1];
+  const mois = MOIS[langue][Number(m) - 1];
   if (!a || !m || !j || !mois) return iso;
   return `${Number(j)} ${mois} ${a}`;
 }
