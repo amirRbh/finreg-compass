@@ -114,37 +114,37 @@ export function PiedDePage() {
 
         <nav aria-label="Product" className="text-[13px]">
           <p className="etiquette">Product</p>
-          <ul className="mt-3 space-y-2">
-            {[
-              ["/benchmark", "Benchmark"],
-              ["/failures", "Failure Database"],
-              ["/test", "Test Your AI"],
-              ["/private-benchmark", "Private Benchmark"],
-            ].map(([to, label]) => (
-              <li key={to}>
-                <Link to={to} className="text-muted-foreground hover:text-foreground">
-                  {label}
-                </Link>
-              </li>
-            ))}
+          <ul className="mt-3 space-y-2 [&_a]:text-muted-foreground [&_a:hover]:text-foreground">
+            <li>
+              <Link to="/benchmark">Benchmark</Link>
+            </li>
+            <li>
+              <Link to="/failures">Failure Database</Link>
+            </li>
+            <li>
+              <Link to="/test">Test Your AI</Link>
+            </li>
+            <li>
+              <Link to="/private-benchmark">Private Benchmark</Link>
+            </li>
           </ul>
         </nav>
 
         <nav aria-label="Reference" className="text-[13px]">
           <p className="etiquette">Reference</p>
-          <ul className="mt-3 space-y-2">
-            {[
-              ["/methodology", "Methodology"],
-              ["/questions", "Public corpus"],
-              ["/about", "About"],
-              ["/audit", "Contact"],
-            ].map(([to, label]) => (
-              <li key={to}>
-                <Link to={to} className="text-muted-foreground hover:text-foreground">
-                  {label}
-                </Link>
-              </li>
-            ))}
+          <ul className="mt-3 space-y-2 [&_a]:text-muted-foreground [&_a:hover]:text-foreground">
+            <li>
+              <Link to="/methodology">Methodology</Link>
+            </li>
+            <li>
+              <Link to="/questions">Public corpus</Link>
+            </li>
+            <li>
+              <Link to="/about">About</Link>
+            </li>
+            <li>
+              <Link to="/audit">Contact</Link>
+            </li>
           </ul>
         </nav>
       </div>
