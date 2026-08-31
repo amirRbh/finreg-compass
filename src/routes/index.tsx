@@ -130,42 +130,43 @@ function Accueil() {
 
       {/* ── Le chiffre qui pose le problème ───────────────────────────────── */}
       {data && (
-        <Panneau className="mt-14 grid divide-y divide-border sm:grid-cols-3 sm:divide-x sm:divide-y-0">
-          <div className="p-6">
+        <Panneau className="mt-16 grid divide-y divide-border sm:grid-cols-3 sm:divide-x sm:divide-y-0">
+          <div className="bg-surface-sunken/60 p-6">
             <p className="etiquette">Answers not safe to rely on</p>
-            <p className="mt-4 font-mono text-6xl leading-none tracking-tighter tabulaire text-accent">
+            <p className="mt-5 font-mono text-7xl leading-none tracking-tighter tabulaire text-accent">
               {nb(data.synthese.taux_reponse_non_fiable)}
               <span className="align-top text-xl"> %</span>
             </p>
-            <p className="mt-4 text-[13px] leading-relaxed text-muted-foreground">
+            <p className="mt-5 border-t border-rule pt-3 text-[13px] leading-relaxed text-muted-foreground">
               of the {data.synthese.nb_reponses} evaluated answers invent a source or state a rule
               the text does not contain.
             </p>
           </div>
           <div className="p-6">
             <p className="etiquette">Average regulatory accuracy</p>
-            <p className="mt-4 font-mono text-4xl leading-none tracking-tight tabulaire">
+            <p className="mt-5 font-mono text-4xl leading-none tracking-tight tabulaire">
               {nb(data.synthese.exactitude_reglementaire)}
               <span className="text-base text-muted-foreground"> /100</span>
             </p>
-            <p className="mt-4 text-[13px] leading-relaxed text-muted-foreground">
+            <p className="mt-5 border-t border-rule pt-3 text-[13px] leading-relaxed text-muted-foreground">
               across all systems and all items. Best {nb(meilleur?.score_global)}, worst{" "}
               {nb(pire?.score_global)} — the system you pick matters more than the prompt.
             </p>
           </div>
           <div className="p-6">
             <p className="etiquette">Benchmark corpus</p>
-            <p className="mt-4 font-mono text-4xl leading-none tracking-tight tabulaire">
+            <p className="mt-5 font-mono text-4xl leading-none tracking-tight tabulaire">
               {verifiees}
               <span className="text-base text-muted-foreground"> / {data.nb_questions}</span>
             </p>
-            <p className="mt-4 text-[13px] leading-relaxed text-muted-foreground">
+            <p className="mt-5 border-t border-rule pt-3 text-[13px] leading-relaxed text-muted-foreground">
               items whose citation has been checked. The rest are published as under review, never
               as verified.
             </p>
           </div>
         </Panneau>
       )}
+
 
       {isPending && (
         <div className="mt-10">
