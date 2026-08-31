@@ -117,8 +117,8 @@ function Console({ userId, email }: { userId: string; email: string }) {
         etiquette={t("Corpus maintenance", "Maintenance du corpus")}
         titre={t("Import your own corpus", "Importez votre propre corpus")}
         chapeau={t(
-          "As soon as one item is published here, the whole site reads your corpus instead of the 24 items shipped with the benchmark. Every field is validated before anything is written, and each item keeps its citation and verification status.",
-          "Dès qu'un item est publié ici, tout le site lit votre corpus au lieu des 24 items livrés avec le benchmark. Chaque champ est validé avant écriture, et chaque item conserve sa citation et son statut de vérification.",
+          "As soon as one item is published here, the whole site reads your corpus instead of the items shipped with the benchmark. Every field is validated before anything is written, and each item keeps its citation and verification status.",
+          "Dès qu'un item est publié ici, tout le site lit votre corpus au lieu des items livrés avec le benchmark. Chaque champ est validé avant écriture, et chaque item conserve sa citation et son statut de vérification.",
         )}
       />
 
@@ -152,8 +152,8 @@ function Console({ userId, email }: { userId: string; email: string }) {
         {mes && mes.length === 0 && (
           <p className="mt-4 text-sm text-muted-foreground">
             {t(
-              "Nothing imported yet — the site still shows the 24 published items.",
-              "Rien d'importé pour l'instant — le site affiche encore les 24 items publiés.",
+              "Nothing imported yet — the site still shows the published corpus.",
+              "Rien d'importé pour l'instant — le site affiche encore le corpus publié.",
             )}
           </p>
         )}
