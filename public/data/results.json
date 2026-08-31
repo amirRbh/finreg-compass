@@ -1,7 +1,7 @@
 {
   "statut": "execution_mesuree",
   "date_execution": "2026-08-31",
-  "nb_questions": 24,
+  "nb_questions": 50,
   "nb_runs": 1,
   "juge": "openai/gpt-5.5",
   "domaines": [
@@ -16,131 +16,146 @@
     "procedure",
     "perimetre",
     "datation",
-    "calcul"
+    "calcul",
+    "fait",
+    "piege",
+    "abstention"
   ],
   "synthese": {
-    "nb_reponses": 120,
-    "exactitude_reglementaire": 71.9,
-    "taux_hallucination_source": 28.3,
-    "taux_erreur_disqualifiante": 12.5,
-    "taux_abstention": 1.7,
-    "ecart_meilleur_moins_bon": 18.5,
-    "taux_reponse_non_fiable": 31.7
+    "nb_reponses": 250,
+    "exactitude_reglementaire": 73.1,
+    "taux_hallucination_source": 26,
+    "taux_erreur_disqualifiante": 14.4,
+    "taux_abstention": 1.2,
+    "ecart_meilleur_moins_bon": 19.9,
+    "taux_reponse_non_fiable": 30.8
   },
   "modeles": [
     {
       "id": "gpt-5-4",
       "nom": "GPT-5.4",
       "profil": "OpenAI · frontier",
-      "score_global": 77.3,
-      "taux_hallucination_source": 25,
-      "taux_erreur_disqualifiante": 4.2,
-      "taux_abstention": 4.2,
+      "score_global": 78.4,
+      "taux_hallucination_source": 22,
+      "taux_erreur_disqualifiante": 10,
+      "taux_abstention": 2,
       "scores_domaines": {
-        "SFDR": 72.8,
-        "MIFID": 95.2,
-        "AMF": 87.5,
-        "DORA": 70.2,
-        "LCBFT": 62.6
+        "SFDR": 83.6,
+        "MIFID": 95.6,
+        "AMF": 91.3,
+        "DORA": 61.4,
+        "LCBFT": 58.8
       },
       "scores_types": {
-        "qualification": 75.2,
-        "procedure": 70,
-        "perimetre": 67.8,
-        "datation": 97.6,
-        "calcul": 75.3
+        "qualification": 80.6,
+        "procedure": 73.5,
+        "perimetre": 65.4,
+        "datation": 94.6,
+        "calcul": 83.5,
+        "fait": 67.6,
+        "piege": 100,
+        "abstention": 62.7
       },
       "scores_axes": {
         "exactitude": 1.54,
-        "sourcing": 1.25,
-        "calibration": 1.71,
-        "exploitabilite": 1.67
+        "sourcing": 1.38,
+        "calibration": 1.66,
+        "exploitabilite": 1.68
       }
     },
     {
       "id": "gpt-5-4-mini",
       "nom": "GPT-5.4 mini",
       "profil": "OpenAI · compact",
-      "score_global": 67.9,
-      "taux_hallucination_source": 33.3,
-      "taux_erreur_disqualifiante": 4.2,
-      "taux_abstention": 4.2,
+      "score_global": 65.5,
+      "taux_hallucination_source": 34,
+      "taux_erreur_disqualifiante": 18,
+      "taux_abstention": 4,
       "scores_domaines": {
-        "SFDR": 65.4,
-        "MIFID": 85,
-        "AMF": 59.5,
-        "DORA": 72.8,
-        "LCBFT": 55.2
+        "SFDR": 71.2,
+        "MIFID": 78.5,
+        "AMF": 67.7,
+        "DORA": 60.3,
+        "LCBFT": 48.9
       },
       "scores_types": {
-        "qualification": 80.2,
-        "procedure": 67.8,
-        "perimetre": 55.2,
-        "datation": 80.2,
-        "calcul": 53.3
+        "qualification": 73.4,
+        "procedure": 69,
+        "perimetre": 60,
+        "datation": 58.6,
+        "calcul": 64.8,
+        "fait": 55.2,
+        "piege": 96,
+        "abstention": 62.7
       },
       "scores_axes": {
-        "exactitude": 1.33,
-        "sourcing": 1.21,
-        "calibration": 1.54,
-        "exploitabilite": 1.33
+        "exactitude": 1.3,
+        "sourcing": 1.14,
+        "calibration": 1.36,
+        "exploitabilite": 1.42
       }
     },
     {
       "id": "gemini-3-7-flash",
       "nom": "Gemini 3.7 Flash",
       "profil": "Google · fast tier",
-      "score_global": 81.8,
-      "taux_hallucination_source": 4.2,
-      "taux_erreur_disqualifiante": 8.3,
+      "score_global": 83.6,
+      "taux_hallucination_source": 8,
+      "taux_erreur_disqualifiante": 8,
       "taux_abstention": 0,
       "scores_domaines": {
-        "SFDR": 72.6,
-        "MIFID": 75,
-        "AMF": 100,
-        "DORA": 82.6,
-        "LCBFT": 82.6
+        "SFDR": 83.4,
+        "MIFID": 79.6,
+        "AMF": 87.5,
+        "DORA": 87.6,
+        "LCBFT": 80.2
       },
       "scores_types": {
-        "qualification": 87.6,
-        "procedure": 82.6,
-        "perimetre": 82.6,
-        "datation": 100,
-        "calcul": 50
+        "qualification": 84,
+        "procedure": 84.5,
+        "perimetre": 89,
+        "datation": 88.9,
+        "calcul": 64.7,
+        "fait": 70.2,
+        "piege": 100,
+        "abstention": 92
       },
       "scores_axes": {
-        "exactitude": 1.54,
-        "sourcing": 1.67,
-        "calibration": 1.58,
-        "exploitabilite": 1.75
+        "exactitude": 1.62,
+        "sourcing": 1.7,
+        "calibration": 1.62,
+        "exploitabilite": 1.74
       }
     },
     {
       "id": "gemini-3-1-flash-lite",
       "nom": "Gemini 3.1 Flash Lite",
       "profil": "Google · cost tier",
-      "score_global": 63.3,
-      "taux_hallucination_source": 37.5,
-      "taux_erreur_disqualifiante": 16.7,
+      "score_global": 63.7,
+      "taux_hallucination_source": 36,
+      "taux_erreur_disqualifiante": 16,
       "taux_abstention": 0,
       "scores_domaines": {
-        "SFDR": 45.4,
-        "MIFID": 80.2,
-        "AMF": 87.5,
+        "SFDR": 64.2,
+        "MIFID": 68.4,
+        "AMF": 80.1,
         "DORA": 50.4,
-        "LCBFT": 57.8
+        "LCBFT": 55.2
       },
       "scores_types": {
-        "qualification": 85.2,
-        "procedure": 60.2,
-        "perimetre": 75.2,
-        "datation": 62.8,
-        "calcul": 25.5
+        "qualification": 82.4,
+        "procedure": 65.9,
+        "perimetre": 57.1,
+        "datation": 58.6,
+        "calcul": 44.2,
+        "fait": 55.2,
+        "piege": 87.7,
+        "abstention": 79.3
       },
       "scores_axes": {
-        "exactitude": 1.29,
-        "sourcing": 1.08,
-        "calibration": 1.17,
+        "exactitude": 1.28,
+        "sourcing": 1.1,
+        "calibration": 1.2,
         "exploitabilite": 1.5
       }
     },
@@ -148,29 +163,32 @@
       "id": "gemini-2-5-pro",
       "nom": "Gemini 2.5 Pro",
       "profil": "Google · reasoning tier",
-      "score_global": 69.4,
-      "taux_hallucination_source": 41.7,
-      "taux_erreur_disqualifiante": 29.2,
+      "score_global": 74.1,
+      "taux_hallucination_source": 30,
+      "taux_erreur_disqualifiante": 20,
       "taux_abstention": 0,
       "scores_domaines": {
-        "SFDR": 42.8,
-        "MIFID": 85,
-        "AMF": 100,
-        "DORA": 50,
-        "LCBFT": 75.2
+        "SFDR": 66.9,
+        "MIFID": 86.5,
+        "AMF": 80.1,
+        "DORA": 56.4,
+        "LCBFT": 78.9
       },
       "scores_types": {
-        "qualification": 85.2,
-        "procedure": 60,
-        "perimetre": 80,
-        "datation": 82.6,
-        "calcul": 31.5
+        "qualification": 85.9,
+        "procedure": 62.6,
+        "perimetre": 86.2,
+        "datation": 70.9,
+        "calcul": 48.2,
+        "fait": 75.2,
+        "piege": 83.7,
+        "abstention": 91.7
       },
       "scores_axes": {
-        "exactitude": 1.46,
-        "sourcing": 1.25,
-        "calibration": 1.38,
-        "exploitabilite": 1.46
+        "exactitude": 1.5,
+        "sourcing": 1.34,
+        "calibration": 1.48,
+        "exploitabilite": 1.6
       }
     }
   ]
