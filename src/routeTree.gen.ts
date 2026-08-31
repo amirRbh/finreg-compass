@@ -12,6 +12,7 @@ import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as AuthRouteImport } from './routes/auth'
 import { Route as BenchmarkRouteImport } from './routes/benchmark'
+import { Route as FailuresRouteImport } from './routes/failures'
 import { Route as ImportRouteImport } from './routes/import'
 import { Route as MethodologyRouteImport } from './routes/methodology'
 import { Route as PrivateBenchmarkRouteImport } from './routes/private-benchmark'
@@ -32,6 +33,11 @@ const AuthRoute = AuthRouteImport.update({
 const BenchmarkRoute = BenchmarkRouteImport.update({
   id: '/benchmark',
   path: '/benchmark',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const FailuresRoute = FailuresRouteImport.update({
+  id: '/failures',
+  path: '/failures',
   getParentRoute: () => rootRouteImport,
 } as any)
 const ImportRoute = ImportRouteImport.update({
@@ -69,6 +75,7 @@ export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/auth': typeof AuthRoute
   '/benchmark': typeof BenchmarkRoute
+  '/failures': typeof FailuresRoute
   '/import': typeof ImportRoute
   '/methodology': typeof MethodologyRoute
   '/private-benchmark': typeof PrivateBenchmarkRoute
@@ -80,6 +87,7 @@ export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/auth': typeof AuthRoute
   '/benchmark': typeof BenchmarkRoute
+  '/failures': typeof FailuresRoute
   '/import': typeof ImportRoute
   '/methodology': typeof MethodologyRoute
   '/private-benchmark': typeof PrivateBenchmarkRoute
@@ -92,6 +100,7 @@ export interface FileRoutesById {
   '/': typeof IndexRoute
   '/auth': typeof AuthRoute
   '/benchmark': typeof BenchmarkRoute
+  '/failures': typeof FailuresRoute
   '/import': typeof ImportRoute
   '/methodology': typeof MethodologyRoute
   '/private-benchmark': typeof PrivateBenchmarkRoute
@@ -105,6 +114,7 @@ export interface FileRouteTypes {
     | '/'
     | '/auth'
     | '/benchmark'
+    | '/failures'
     | '/import'
     | '/methodology'
     | '/private-benchmark'
@@ -116,6 +126,7 @@ export interface FileRouteTypes {
     | '/'
     | '/auth'
     | '/benchmark'
+    | '/failures'
     | '/import'
     | '/methodology'
     | '/private-benchmark'
@@ -127,6 +138,7 @@ export interface FileRouteTypes {
     | '/'
     | '/auth'
     | '/benchmark'
+    | '/failures'
     | '/import'
     | '/methodology'
     | '/private-benchmark'
@@ -139,6 +151,7 @@ export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   AuthRoute: typeof AuthRoute
   BenchmarkRoute: typeof BenchmarkRoute
+  FailuresRoute: typeof FailuresRoute
   ImportRoute: typeof ImportRoute
   MethodologyRoute: typeof MethodologyRoute
   PrivateBenchmarkRoute: typeof PrivateBenchmarkRoute
@@ -168,6 +181,13 @@ declare module '@tanstack/react-router' {
       path: '/benchmark'
       fullPath: '/benchmark'
       preLoaderRoute: typeof BenchmarkRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/failures': {
+      id: '/failures'
+      path: '/failures'
+      fullPath: '/failures'
+      preLoaderRoute: typeof FailuresRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/import': {
@@ -219,6 +239,7 @@ const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   AuthRoute: AuthRoute,
   BenchmarkRoute: BenchmarkRoute,
+  FailuresRoute: FailuresRoute,
   ImportRoute: ImportRoute,
   MethodologyRoute: MethodologyRoute,
   PrivateBenchmarkRoute: PrivateBenchmarkRoute,
