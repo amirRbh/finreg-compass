@@ -369,14 +369,20 @@ def main():
     analyseur = argparse.ArgumentParser()
     analyseur.add_argument("--limit", type=int, default=0)
     analyseur.add_argument("--workers", type=int, default=4)
+    # Systems the account cannot currently reach are excluded rather than
+    # published with missing answers: the ranking only names systems that answered.
+    analyseur.add_argument("--exclure", default="")
     args = analyseur.parse_args()
+
+    exclus = {i.strip() for i in args.exclure.split(",") if i.strip()}
+    systemes = [s for s in SYSTEMES if s["id"] not in exclus]
 
     CACHE.mkdir(exist_ok=True)
     corpus = json.loads((RACINE / "scripts/corpus-source.json").read_text())
     if args.limit:
         corpus = corpus[: args.limit]
 
-    taches = [(item, systeme) for item in corpus for systeme in SYSTEMES]
+    taches = [(item, systeme) for item in corpus for systeme in systemes]
     resultats = []
     with ThreadPoolExecutor(max_workers=args.workers) as pool:
         for i, sortie in enumerate(pool.map(lambda t: traiter(*t), taches), 1):
@@ -421,7 +427,7 @@ def main():
             "juge": JUGE,
             "systemes": [
                 {"id": s["id"], "nom": s["nom"], "profil": s["profil"], "modele": s["modele"]}
-                for s in SYSTEMES
+                for s in systemes
             ],
         },
     )
