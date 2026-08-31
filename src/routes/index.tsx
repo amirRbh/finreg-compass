@@ -130,42 +130,43 @@ function Accueil() {
 
       {/* ── Le chiffre qui pose le problème ───────────────────────────────── */}
       {data && (
-        <Panneau className="mt-14 grid divide-y divide-border sm:grid-cols-3 sm:divide-x sm:divide-y-0">
-          <div className="p-6">
+        <Panneau className="mt-16 grid divide-y divide-border sm:grid-cols-3 sm:divide-x sm:divide-y-0">
+          <div className="bg-surface-sunken/60 p-6">
             <p className="etiquette">Answers not safe to rely on</p>
-            <p className="mt-4 font-mono text-6xl leading-none tracking-tighter tabulaire text-accent">
+            <p className="mt-5 font-mono text-7xl leading-none tracking-tighter tabulaire text-accent">
               {nb(data.synthese.taux_reponse_non_fiable)}
               <span className="align-top text-xl"> %</span>
             </p>
-            <p className="mt-4 text-[13px] leading-relaxed text-muted-foreground">
+            <p className="mt-5 border-t border-rule pt-3 text-[13px] leading-relaxed text-muted-foreground">
               of the {data.synthese.nb_reponses} evaluated answers invent a source or state a rule
               the text does not contain.
             </p>
           </div>
           <div className="p-6">
             <p className="etiquette">Average regulatory accuracy</p>
-            <p className="mt-4 font-mono text-4xl leading-none tracking-tight tabulaire">
+            <p className="mt-5 font-mono text-4xl leading-none tracking-tight tabulaire">
               {nb(data.synthese.exactitude_reglementaire)}
               <span className="text-base text-muted-foreground"> /100</span>
             </p>
-            <p className="mt-4 text-[13px] leading-relaxed text-muted-foreground">
+            <p className="mt-5 border-t border-rule pt-3 text-[13px] leading-relaxed text-muted-foreground">
               across all systems and all items. Best {nb(meilleur?.score_global)}, worst{" "}
               {nb(pire?.score_global)} — the system you pick matters more than the prompt.
             </p>
           </div>
           <div className="p-6">
             <p className="etiquette">Benchmark corpus</p>
-            <p className="mt-4 font-mono text-4xl leading-none tracking-tight tabulaire">
+            <p className="mt-5 font-mono text-4xl leading-none tracking-tight tabulaire">
               {verifiees}
               <span className="text-base text-muted-foreground"> / {data.nb_questions}</span>
             </p>
-            <p className="mt-4 text-[13px] leading-relaxed text-muted-foreground">
+            <p className="mt-5 border-t border-rule pt-3 text-[13px] leading-relaxed text-muted-foreground">
               items whose citation has been checked. The rest are published as under review, never
               as verified.
             </p>
           </div>
         </Panneau>
       )}
+
 
       {isPending && (
         <div className="mt-10">
@@ -287,14 +288,14 @@ function Accueil() {
           >
             <Panneau className="mt-4 overflow-hidden">
               <div className="overflow-x-auto">
-                <table className="w-full min-w-[48rem] border-collapse text-sm">
+                <table className="zebre w-full min-w-[48rem] border-collapse text-sm">
                   <thead>
-                    <tr className="border-b border-rule bg-surface-sunken">
+                    <tr className="border-b border-foreground/60 bg-surface-sunken">
                       {COLONNES.map((c) => (
                         <th
                           key={c.cle}
                           scope="col"
-                          className={`px-4 py-2.5 text-xs font-medium ${c.num ? "text-right" : "text-left"}`}
+                          className={`px-4 py-2.5 ${c.num ? "text-right" : "text-left"}`}
                           aria-sort={
                             cle === c.cle ? (ascendant ? "ascending" : "descending") : "none"
                           }
@@ -302,8 +303,8 @@ function Accueil() {
                           <button
                             type="button"
                             onClick={() => basculer(c.cle)}
-                            className={`transition-colors hover:text-foreground ${
-                              cle === c.cle ? "text-accent" : "text-muted-foreground"
+                            className={`entete-col transition-colors hover:text-foreground ${
+                              cle === c.cle ? "text-accent" : ""
                             }`}
                           >
                             {c.libelle}
@@ -313,6 +314,7 @@ function Accueil() {
                       ))}
                     </tr>
                   </thead>
+
                   <tbody>
                     {lignes.map((m) => {
                       const rang = rangDe(data.modeles, m.id);
@@ -378,21 +380,15 @@ function Accueil() {
           >
             <Panneau className="mt-4 overflow-hidden">
               <div className="overflow-x-auto">
-                <table className="w-full min-w-[40rem] border-collapse text-sm">
+                <table className="zebre w-full min-w-[40rem] border-collapse text-sm">
                   <thead>
-                    <tr className="border-b border-rule bg-surface-sunken">
-                      <th
-                        scope="col"
-                        className="px-4 py-2.5 text-left text-xs font-medium text-muted-foreground"
-                      >
+                    <tr className="border-b border-foreground/60 bg-surface-sunken">
+                      <th scope="col" className="entete-col px-4 py-2.5 text-left">
                         System
                       </th>
                       {Object.keys(LIBELLES_AXES).map((a) => (
-                        <th
-                          key={a}
-                          scope="col"
-                          className="px-4 py-2.5 text-right text-xs font-medium text-muted-foreground"
-                        >
+                        <th key={a} scope="col" className="entete-col px-4 py-2.5 text-right">
+
                           {LIBELLES_AXES[a]}
                         </th>
                       ))}

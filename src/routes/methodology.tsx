@@ -123,22 +123,16 @@ function Methodologie() {
       </section>
 
       <div className="mt-4 -mx-4 overflow-x-auto px-4">
-        <table className="w-full min-w-[38rem] border-collapse text-sm">
+        <table className="zebre w-full min-w-[38rem] border-collapse text-sm">
           <thead>
-            <tr className="border-b border-rule bg-surface-sunken">
-              <th
-                scope="col"
-                className="py-2 pr-4 text-left text-xs font-medium text-muted-foreground"
-              >
+            <tr className="border-b border-foreground/60 bg-surface-sunken">
+              <th scope="col" className="entete-col px-3 py-2 text-left">
                 Axis
               </th>
-              <th
-                scope="col"
-                className="py-2 pr-4 text-left text-xs font-medium text-muted-foreground"
-              >
+              <th scope="col" className="entete-col px-3 py-2 text-left">
                 Question it answers
               </th>
-              <th scope="col" className="py-2 text-left text-xs font-medium text-muted-foreground">
+              <th scope="col" className="entete-col px-3 py-2 text-left">
                 Scale
               </th>
             </tr>
@@ -146,14 +140,15 @@ function Methodologie() {
           <tbody>
             {BAREME.map((l) => (
               <tr key={l.axe} className="border-b border-border align-top">
-                <td className="py-2 pr-4 whitespace-nowrap">{LIBELLES_AXES[l.axe]}</td>
-                <td className="py-2 pr-4 text-muted-foreground">{EXPLICATIONS_AXES[l.axe]}</td>
-                <td className="py-2 text-muted-foreground">{l.critere}</td>
+                <td className="px-3 py-2.5 whitespace-nowrap">{LIBELLES_AXES[l.axe]}</td>
+                <td className="px-3 py-2.5 text-muted-foreground">{EXPLICATIONS_AXES[l.axe]}</td>
+                <td className="px-3 py-2.5 text-muted-foreground">{l.critere}</td>
               </tr>
             ))}
           </tbody>
         </table>
       </div>
+
 
       <section className="mt-6 max-w-2xl space-y-3 text-[15px] leading-relaxed">
         <p>

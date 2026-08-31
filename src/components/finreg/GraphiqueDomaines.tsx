@@ -101,26 +101,20 @@ export function GraphiqueDomaines({
       </ul>
 
       <div className="mt-8 -mx-4 overflow-x-auto px-4">
-        <table className="w-full min-w-[36rem] border-collapse text-sm">
+        <table className="zebre w-full min-w-[36rem] border-collapse text-sm">
           <thead>
-            <tr className="border-b border-rule bg-surface-sunken">
-              <th
-                scope="col"
-                className="py-2 pr-4 text-left text-xs font-medium text-muted-foreground"
-              >
+            <tr className="border-b border-foreground/60 bg-surface-sunken">
+              <th scope="col" className="entete-col py-2 pr-4 text-left">
                 System
               </th>
               {domaines.map((d) => (
-                <th
-                  key={d}
-                  scope="col"
-                  className="py-2 pr-4 text-right text-xs font-medium text-muted-foreground"
-                >
+                <th key={d} scope="col" className="entete-col py-2 pr-4 text-right">
                   {NOMS_COURTS_DOMAINES[d] ?? d}
                 </th>
               ))}
             </tr>
           </thead>
+
           <tbody>
             {modeles.map((m) => (
               <tr key={m.id} className="border-b border-border">

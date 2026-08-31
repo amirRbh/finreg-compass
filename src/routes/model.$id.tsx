@@ -97,7 +97,7 @@ function FicheModele() {
 
       <div className="mt-12 grid gap-10 md:grid-cols-2">
         <section>
-          <h2 className="border-b border-rule pb-2 text-lg">By regulation</h2>
+          <h2 className="border-b border-foreground/60 pb-2 text-lg">By regulation</h2>
           <table className="mt-3 w-full border-collapse text-sm">
             <tbody>
               {resultats.domaines.map((d) => (
@@ -121,7 +121,7 @@ function FicheModele() {
         </section>
 
         <section>
-          <h2 className="border-b border-rule pb-2 text-lg">By scoring axis</h2>
+          <h2 className="border-b border-foreground/60 pb-2 text-lg">By scoring axis</h2>
           <table className="mt-3 w-full border-collapse text-sm">
             <tbody>
               {AXES.map((a) => (
@@ -149,7 +149,7 @@ function FicheModele() {
       </div>
 
       <section className="mt-12">
-        <h2 className="border-b border-rule pb-2 text-lg">Most significant failures</h2>
+        <h2 className="border-b border-foreground/60 pb-2 text-lg">Most significant failures</h2>
         <p className="mt-1 max-w-2xl text-xs text-muted-foreground">
           Items quoted in full, selected on the combination of lowest score and the presence of an
           invented source.
