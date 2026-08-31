@@ -310,11 +310,19 @@ export function useResultats() {
   });
 }
 
+/**
+ * Corpus affiché. Dès qu'un corpus est importé en base, il remplace les items
+ * publiés d'origine : c'est ce que la page d'import écrit.
+ */
 export function useQuestions() {
   return useQuery({
     queryKey: ["questions"],
-    queryFn: () => lire<Question[]>("/data/questions.json"),
-    staleTime: Infinity,
+    queryFn: async () => {
+      const { lireCorpusPublie } = await import("@/lib/corpus");
+      const importees = await lireCorpusPublie().catch(() => [] as Question[]);
+      if (importees.length > 0) return importees;
+      return lire<Question[]>("/data/questions.json");
+    },
   });
 }
 

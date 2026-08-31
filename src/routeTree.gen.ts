@@ -10,6 +10,8 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as AuthRouteImport } from './routes/auth'
+import { Route as ImportRouteImport } from './routes/import'
 import { Route as MethodologyRouteImport } from './routes/methodology'
 import { Route as PrivateBenchmarkRouteImport } from './routes/private-benchmark'
 import { Route as QuestionsRouteImport } from './routes/questions'
@@ -19,6 +21,16 @@ import { Route as QuestionIdRouteImport } from './routes/question.$id'
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AuthRoute = AuthRouteImport.update({
+  id: '/auth',
+  path: '/auth',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ImportRoute = ImportRouteImport.update({
+  id: '/import',
+  path: '/import',
   getParentRoute: () => rootRouteImport,
 } as any)
 const MethodologyRoute = MethodologyRouteImport.update({
@@ -49,6 +61,8 @@ const QuestionIdRoute = QuestionIdRouteImport.update({
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/auth': typeof AuthRoute
+  '/import': typeof ImportRoute
   '/methodology': typeof MethodologyRoute
   '/private-benchmark': typeof PrivateBenchmarkRoute
   '/questions': typeof QuestionsRoute
@@ -57,6 +71,8 @@ export interface FileRoutesByFullPath {
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/auth': typeof AuthRoute
+  '/import': typeof ImportRoute
   '/methodology': typeof MethodologyRoute
   '/private-benchmark': typeof PrivateBenchmarkRoute
   '/questions': typeof QuestionsRoute
@@ -66,6 +82,8 @@ export interface FileRoutesByTo {
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/auth': typeof AuthRoute
+  '/import': typeof ImportRoute
   '/methodology': typeof MethodologyRoute
   '/private-benchmark': typeof PrivateBenchmarkRoute
   '/questions': typeof QuestionsRoute
@@ -76,6 +94,8 @@ export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
     | '/'
+    | '/auth'
+    | '/import'
     | '/methodology'
     | '/private-benchmark'
     | '/questions'
@@ -84,6 +104,8 @@ export interface FileRouteTypes {
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
+    | '/auth'
+    | '/import'
     | '/methodology'
     | '/private-benchmark'
     | '/questions'
@@ -92,6 +114,8 @@ export interface FileRouteTypes {
   id:
     | '__root__'
     | '/'
+    | '/auth'
+    | '/import'
     | '/methodology'
     | '/private-benchmark'
     | '/questions'
@@ -101,6 +125,8 @@ export interface FileRouteTypes {
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  AuthRoute: typeof AuthRoute
+  ImportRoute: typeof ImportRoute
   MethodologyRoute: typeof MethodologyRoute
   PrivateBenchmarkRoute: typeof PrivateBenchmarkRoute
   QuestionsRoute: typeof QuestionsRoute
@@ -115,6 +141,20 @@ declare module '@tanstack/react-router' {
       path: '/'
       fullPath: '/'
       preLoaderRoute: typeof IndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/auth': {
+      id: '/auth'
+      path: '/auth'
+      fullPath: '/auth'
+      preLoaderRoute: typeof AuthRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/import': {
+      id: '/import'
+      path: '/import'
+      fullPath: '/import'
+      preLoaderRoute: typeof ImportRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/methodology': {
@@ -157,6 +197,8 @@ declare module '@tanstack/react-router' {
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  AuthRoute: AuthRoute,
+  ImportRoute: ImportRoute,
   MethodologyRoute: MethodologyRoute,
   PrivateBenchmarkRoute: PrivateBenchmarkRoute,
   QuestionsRoute: QuestionsRoute,
