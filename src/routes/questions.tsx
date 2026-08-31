@@ -3,16 +3,14 @@ import { useMemo, useState } from "react";
 import { Chargement, Erreur, Page, Titre } from "@/components/finreg/Chrome";
 import { PastilleVerification } from "@/components/finreg/Statuts";
 import {
-  LIBELLES_DIFFICULTE,
-  LIBELLES_TYPES,
-  LIBELLES_VERIFICATION,
-  NOMS_COURTS_DOMAINES,
+  libelles,
   ORDRE_DOMAINES,
   ORDRE_TYPES,
   useQuestions,
   valeursPresentes,
   type Question,
 } from "@/lib/finreg";
+import { useLangue } from "@/lib/langue";
 
 export const Route = createFileRoute("/questions")({
   head: () => ({
@@ -36,6 +34,8 @@ export const Route = createFileRoute("/questions")({
 
 function Questions() {
   const { data: questions, isPending, isError } = useQuestions();
+  const { langue, t } = useLangue();
+  const L = libelles(langue);
   const [domaine, setDomaine] = useState("tous");
   const [type, setType] = useState("tous");
   const [difficulte, setDifficulte] = useState("toutes");
@@ -78,60 +78,65 @@ function Questions() {
 
   const verifiees =
     questions?.filter((q) => q.verification.statut === "source_verifiee").length ?? 0;
+  const toutes = t("All", "Tous");
 
   return (
     <Page>
       <Titre
-        etiquette="Benchmark corpus"
-        titre="The questions, in full"
-        chapeau="The whole corpus is public — that is what makes the rubric checkable. Each item carries what the law says, the article it comes from, and the result of checking that citation. Open one to see what every system answered."
+        etiquette={t("Benchmark corpus", "Corpus du benchmark")}
+        titre={t("The questions, in full", "Les questions, en entier")}
+        chapeau={t(
+          "The whole corpus is public — that is what makes the rubric checkable. Each item carries what the law says, the article it comes from, and the result of checking that citation. Open one to see what every system answered.",
+          "Le corpus est intégralement public — c'est ce qui rend le barème vérifiable. Chaque item porte ce que dit le texte, l'article dont il vient, et le résultat du contrôle de cette citation. Ouvrez-en un pour voir ce que chaque système a répondu.",
+        )}
       />
 
       {questions && (
         <p className="mt-6 font-mono text-[11px] tracking-[0.04em] text-muted-foreground tabulaire">
-          {questions.length} benchmark items · {verifiees} verified · {questions.length - verifiees}{" "}
-          under review
+          {questions.length} {t("benchmark items", "items du benchmark")} · {verifiees}{" "}
+          {t("verified", "vérifiés")} · {questions.length - verifiees}{" "}
+          {t("under review", "en revue")}
         </p>
       )}
 
       <div className="mt-6 divide-y divide-rule border-y border-rule bg-surface">
         <Filtre
-          libelle="Regulation"
+          libelle={t("Regulation", "Réglementation")}
           valeur={domaine}
           onChange={setDomaine}
           options={[
-            { v: "tous", l: "All" },
-            ...domainesPresents.map((d) => ({ v: d, l: NOMS_COURTS_DOMAINES[d] ?? d })),
+            { v: "tous", l: toutes },
+            ...domainesPresents.map((d) => ({ v: d, l: L.domainesCourts[d] ?? d })),
           ]}
         />
         <Filtre
-          libelle="Type"
+          libelle={t("Type", "Type")}
           valeur={type}
           onChange={setType}
           options={[
-            { v: "tous", l: "All" },
-            ...typesPresents.map((t) => ({ v: t, l: LIBELLES_TYPES[t] ?? t })),
+            { v: "tous", l: toutes },
+            ...typesPresents.map((x) => ({ v: x, l: L.types[x] ?? x })),
           ]}
         />
         <Filtre
-          libelle="Difficulty"
+          libelle={t("Difficulty", "Difficulté")}
           valeur={difficulte}
           onChange={setDifficulte}
           options={[
-            { v: "toutes", l: "All" },
+            { v: "toutes", l: toutes },
             ...difficultesPresentes.map((d) => ({
               v: d,
-              l: LIBELLES_DIFFICULTE[Number(d)] ?? d,
+              l: L.difficulte[Number(d)] ?? d,
             })),
           ]}
         />
         <Filtre
-          libelle="Status"
+          libelle={t("Status", "Statut")}
           valeur={verification}
           onChange={setVerification}
           options={[
-            { v: "toutes", l: "All" },
-            ...Object.entries(LIBELLES_VERIFICATION).map(([v, l]) => ({ v, l })),
+            { v: "toutes", l: toutes },
+            ...Object.entries(L.verification).map(([v, l]) => ({ v, l })),
           ]}
         />
       </div>
@@ -143,14 +148,14 @@ function Questions() {
       )}
       {isError && (
         <div className="mt-6">
-          <Erreur libelle="Corpus unavailable." />
+          <Erreur libelle={t("Corpus unavailable.", "Corpus indisponible.")} />
         </div>
       )}
 
       {questions && (
         <>
           <p className="mt-6 font-mono text-[11px] tracking-[0.08em] text-muted-foreground uppercase tabulaire">
-            {filtrees.length} shown
+            {filtrees.length} {t("shown", "affichés")}
           </p>
           <ul className="mt-2 border-t border-foreground/60">
             {filtrees.map((q) => (
@@ -158,7 +163,9 @@ function Questions() {
             ))}
           </ul>
           {filtrees.length === 0 && (
-            <p className="mt-4 text-sm text-muted-foreground">No item matches these filters.</p>
+            <p className="mt-4 text-sm text-muted-foreground">
+              {t("No item matches these filters.", "Aucun item ne correspond à ces filtres.")}
+            </p>
           )}
         </>
       )}
@@ -179,7 +186,7 @@ function Filtre({
 }) {
   return (
     <div className="flex flex-col gap-2 px-4 py-3 sm:flex-row sm:items-center sm:gap-4">
-      <span className="etiquette sm:w-24 sm:shrink-0">{libelle}</span>
+      <span className="etiquette sm:w-28 sm:shrink-0">{libelle}</span>
       <div className="flex flex-wrap gap-1.5">
         {options.map((o) => {
           const actif = o.v === valeur;
@@ -205,6 +212,8 @@ function Filtre({
 }
 
 function Item({ question }: { question: Question }) {
+  const { langue, t } = useLangue();
+  const L = libelles(langue);
   return (
     <li className="border-b border-border">
       <Link
@@ -224,11 +233,11 @@ function Item({ question }: { question: Question }) {
           </p>
           <p className="mt-1.5 font-mono text-[11px] text-muted-foreground">
             {question.source.texte} — {question.source.article} ·{" "}
-            {LIBELLES_TYPES[question.type] ?? question.type} · level {question.difficulte}
+            {L.types[question.type] ?? question.type} · {t("level", "niveau")}{" "}
+            {question.difficulte}
           </p>
         </div>
       </Link>
     </li>
   );
 }
-
