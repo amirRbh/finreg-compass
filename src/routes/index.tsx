@@ -94,79 +94,101 @@ function Accueil() {
   return (
     <Page>
       {/* ── Écran 1 : cinq secondes pour comprendre ───────────────────────── */}
-      <div className="max-w-3xl">
-        <p className="etiquette">Public benchmark · EU &amp; French financial regulation</p>
-        <h1 className="mt-3 text-4xl leading-[1.08] tracking-tight sm:text-5xl">
-          AI can write regulation.
-          <br />
-          <span className="text-accent">Can it get regulation right?</span>
-        </h1>
-        <p className="mt-6 max-w-xl text-[17px] leading-relaxed">
-          FinReg tests AI systems on real regulatory questions and checks every answer against the
-          primary legal text.
-        </p>
-        <p className="mt-3 max-w-xl text-[15px] leading-relaxed text-muted-foreground">
-          An assistant that cites an article which does not exist is unusable in compliance: its
-          answer cannot be checked, relied on, or filed.
-        </p>
+      <div className="grid gap-10 lg:grid-cols-[minmax(0,1fr)_15rem] lg:items-start lg:gap-14">
+        <div className="max-w-3xl">
+          <p className="etiquette">Public benchmark · EU &amp; French financial regulation</p>
+          <h1 className="mt-4 text-4xl leading-[1.06] tracking-tight text-balance sm:text-[3.25rem]">
+            AI can write regulation.
+            <br />
+            <span className="text-accent">Can it get regulation right?</span>
+          </h1>
+          <p className="mt-6 max-w-xl text-[17px] leading-relaxed">
+            FinReg tests AI systems on real regulatory questions and checks every answer against the
+            primary legal text.
+          </p>
+          <p className="mt-3 max-w-xl text-[15px] leading-relaxed text-muted-foreground">
+            An assistant that cites an article which does not exist is unusable in compliance: its
+            answer cannot be checked, relied on, or filed.
+          </p>
 
-        <div className="mt-8 flex flex-wrap items-center gap-x-4 gap-y-3">
-          <Link
-            to="/questions"
-            className="border border-foreground bg-foreground px-5 py-2.5 text-sm font-medium text-background transition-opacity hover:opacity-85"
-          >
-            Explore the benchmark
-          </Link>
-          {vitrine && (
+          <div className="mt-8 flex flex-wrap items-center gap-x-4 gap-y-3">
             <Link
-              to="/question/$id"
-              params={{ id: vitrine.id }}
-              className="border border-border px-5 py-2.5 text-sm transition-colors hover:bg-surface-sunken"
+              to="/questions"
+              className="border border-foreground bg-foreground px-5 py-2.5 text-sm font-medium text-background transition-opacity hover:opacity-85"
             >
-              See a question
+              Explore the benchmark
             </Link>
-          )}
+            {vitrine && (
+              <Link
+                to="/question/$id"
+                params={{ id: vitrine.id }}
+                className="border border-border px-5 py-2.5 text-sm transition-colors hover:bg-surface-sunken"
+              >
+                See a question
+              </Link>
+            )}
+          </div>
         </div>
+
+        {data && (
+          <aside className="border-t border-foreground pt-4 lg:mt-2 lg:border-t-2">
+            <p className="etiquette">This run</p>
+            <dl className="mt-3 divide-y divide-rule/60 text-[13px]">
+              {[
+                ["Items", String(data.nb_questions)],
+                ["Systems", String(data.modeles.length)],
+                ["Answers", String(data.synthese.nb_reponses)],
+                ["Runs / item", String(data.nb_runs)],
+              ].map(([k, v]) => (
+                <div key={k} className="flex items-baseline justify-between gap-3 py-1.5">
+                  <dt className="text-muted-foreground">{k}</dt>
+                  <dd className="font-mono tabulaire">{v}</dd>
+                </div>
+              ))}
+            </dl>
+          </aside>
+        )}
       </div>
 
       {/* ── Le chiffre qui pose le problème ───────────────────────────────── */}
       {data && (
         <Panneau className="mt-16 grid divide-y divide-border sm:grid-cols-3 sm:divide-x sm:divide-y-0">
-          <div className="bg-surface-sunken/60 p-6">
+          <div className="flex min-h-[14rem] flex-col bg-surface-sunken/60 p-6">
             <p className="etiquette">Answers not safe to rely on</p>
-            <p className="mt-5 font-mono text-7xl leading-none tracking-tighter tabulaire text-accent">
+            <p className="mt-6 font-mono text-[4.75rem] leading-none tracking-tighter tabulaire text-accent">
               {nb(data.synthese.taux_reponse_non_fiable)}
               <span className="align-top text-xl"> %</span>
             </p>
-            <p className="mt-5 border-t border-rule pt-3 text-[13px] leading-relaxed text-muted-foreground">
+            <p className="mt-auto border-t border-rule pt-3 text-[13px] leading-relaxed text-muted-foreground">
               of the {data.synthese.nb_reponses} evaluated answers invent a source or state a rule
               the text does not contain.
             </p>
           </div>
-          <div className="p-6">
+          <div className="flex min-h-[14rem] flex-col p-6">
             <p className="etiquette">Average regulatory accuracy</p>
-            <p className="mt-5 font-mono text-4xl leading-none tracking-tight tabulaire">
+            <p className="mt-6 font-mono text-4xl leading-none tracking-tight tabulaire">
               {nb(data.synthese.exactitude_reglementaire)}
               <span className="text-base text-muted-foreground"> /100</span>
             </p>
-            <p className="mt-5 border-t border-rule pt-3 text-[13px] leading-relaxed text-muted-foreground">
+            <p className="mt-auto border-t border-rule pt-3 text-[13px] leading-relaxed text-muted-foreground">
               across all systems and all items. Best {nb(meilleur?.score_global)}, worst{" "}
               {nb(pire?.score_global)} — the system you pick matters more than the prompt.
             </p>
           </div>
-          <div className="p-6">
+          <div className="flex min-h-[14rem] flex-col p-6">
             <p className="etiquette">Benchmark corpus</p>
-            <p className="mt-5 font-mono text-4xl leading-none tracking-tight tabulaire">
+            <p className="mt-6 font-mono text-4xl leading-none tracking-tight tabulaire">
               {verifiees}
               <span className="text-base text-muted-foreground"> / {data.nb_questions}</span>
             </p>
-            <p className="mt-5 border-t border-rule pt-3 text-[13px] leading-relaxed text-muted-foreground">
+            <p className="mt-auto border-t border-rule pt-3 text-[13px] leading-relaxed text-muted-foreground">
               items whose citation has been checked. The rest are published as under review, never
               as verified.
             </p>
           </div>
         </Panneau>
       )}
+
 
       {isPending && (
         <div className="mt-10">
@@ -215,7 +237,8 @@ function Accueil() {
                     <span className="text-xs text-muted-foreground"> /10</span>
                   </p>
                 </div>
-                <p className="mt-3 text-sm leading-relaxed">
+                <p className="mt-3 line-clamp-[11] text-sm leading-relaxed">
+
                   {texteAffiche(reponseVitrine.r.texte)}
                 </p>
                 <ul className="mt-4 flex flex-wrap gap-2">
