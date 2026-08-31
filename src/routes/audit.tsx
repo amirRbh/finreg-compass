@@ -23,7 +23,7 @@ export const Route = createFileRoute("/audit")({
       { property: "og:description", content: DESCRIPTION },
     ],
   }),
-  component: Audit;
+  component: Audit,
 });
 
 const OFFRES = [
