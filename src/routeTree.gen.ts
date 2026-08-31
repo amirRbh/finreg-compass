@@ -10,11 +10,16 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as AboutRouteImport } from './routes/about'
+import { Route as AuditRouteImport } from './routes/audit'
 import { Route as AuthRouteImport } from './routes/auth'
+import { Route as BenchmarkRouteImport } from './routes/benchmark'
+import { Route as FailuresRouteImport } from './routes/failures'
 import { Route as ImportRouteImport } from './routes/import'
 import { Route as MethodologyRouteImport } from './routes/methodology'
 import { Route as PrivateBenchmarkRouteImport } from './routes/private-benchmark'
 import { Route as QuestionsRouteImport } from './routes/questions'
+import { Route as TestRouteImport } from './routes/test'
 import { Route as ModelIdRouteImport } from './routes/model.$id'
 import { Route as QuestionIdRouteImport } from './routes/question.$id'
 
@@ -23,9 +28,29 @@ const IndexRoute = IndexRouteImport.update({
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const AboutRoute = AboutRouteImport.update({
+  id: '/about',
+  path: '/about',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AuditRoute = AuditRouteImport.update({
+  id: '/audit',
+  path: '/audit',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const AuthRoute = AuthRouteImport.update({
   id: '/auth',
   path: '/auth',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const BenchmarkRoute = BenchmarkRouteImport.update({
+  id: '/benchmark',
+  path: '/benchmark',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const FailuresRoute = FailuresRouteImport.update({
+  id: '/failures',
+  path: '/failures',
   getParentRoute: () => rootRouteImport,
 } as any)
 const ImportRoute = ImportRouteImport.update({
@@ -48,6 +73,11 @@ const QuestionsRoute = QuestionsRouteImport.update({
   path: '/questions',
   getParentRoute: () => rootRouteImport,
 } as any)
+const TestRoute = TestRouteImport.update({
+  id: '/test',
+  path: '/test',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const ModelIdRoute = ModelIdRouteImport.update({
   id: '/model/$id',
   path: '/model/$id',
@@ -61,32 +91,47 @@ const QuestionIdRoute = QuestionIdRouteImport.update({
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/about': typeof AboutRoute
+  '/audit': typeof AuditRoute
   '/auth': typeof AuthRoute
+  '/benchmark': typeof BenchmarkRoute
+  '/failures': typeof FailuresRoute
   '/import': typeof ImportRoute
   '/methodology': typeof MethodologyRoute
   '/private-benchmark': typeof PrivateBenchmarkRoute
   '/questions': typeof QuestionsRoute
+  '/test': typeof TestRoute
   '/model/$id': typeof ModelIdRoute
   '/question/$id': typeof QuestionIdRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/about': typeof AboutRoute
+  '/audit': typeof AuditRoute
   '/auth': typeof AuthRoute
+  '/benchmark': typeof BenchmarkRoute
+  '/failures': typeof FailuresRoute
   '/import': typeof ImportRoute
   '/methodology': typeof MethodologyRoute
   '/private-benchmark': typeof PrivateBenchmarkRoute
   '/questions': typeof QuestionsRoute
+  '/test': typeof TestRoute
   '/model/$id': typeof ModelIdRoute
   '/question/$id': typeof QuestionIdRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/about': typeof AboutRoute
+  '/audit': typeof AuditRoute
   '/auth': typeof AuthRoute
+  '/benchmark': typeof BenchmarkRoute
+  '/failures': typeof FailuresRoute
   '/import': typeof ImportRoute
   '/methodology': typeof MethodologyRoute
   '/private-benchmark': typeof PrivateBenchmarkRoute
   '/questions': typeof QuestionsRoute
+  '/test': typeof TestRoute
   '/model/$id': typeof ModelIdRoute
   '/question/$id': typeof QuestionIdRoute
 }
@@ -94,42 +139,62 @@ export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
     | '/'
+    | '/about'
+    | '/audit'
     | '/auth'
+    | '/benchmark'
+    | '/failures'
     | '/import'
     | '/methodology'
     | '/private-benchmark'
     | '/questions'
+    | '/test'
     | '/model/$id'
     | '/question/$id'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
+    | '/about'
+    | '/audit'
     | '/auth'
+    | '/benchmark'
+    | '/failures'
     | '/import'
     | '/methodology'
     | '/private-benchmark'
     | '/questions'
+    | '/test'
     | '/model/$id'
     | '/question/$id'
   id:
     | '__root__'
     | '/'
+    | '/about'
+    | '/audit'
     | '/auth'
+    | '/benchmark'
+    | '/failures'
     | '/import'
     | '/methodology'
     | '/private-benchmark'
     | '/questions'
+    | '/test'
     | '/model/$id'
     | '/question/$id'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  AboutRoute: typeof AboutRoute
+  AuditRoute: typeof AuditRoute
   AuthRoute: typeof AuthRoute
+  BenchmarkRoute: typeof BenchmarkRoute
+  FailuresRoute: typeof FailuresRoute
   ImportRoute: typeof ImportRoute
   MethodologyRoute: typeof MethodologyRoute
   PrivateBenchmarkRoute: typeof PrivateBenchmarkRoute
   QuestionsRoute: typeof QuestionsRoute
+  TestRoute: typeof TestRoute
   ModelIdRoute: typeof ModelIdRoute
   QuestionIdRoute: typeof QuestionIdRoute
 }
@@ -143,11 +208,39 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/about': {
+      id: '/about'
+      path: '/about'
+      fullPath: '/about'
+      preLoaderRoute: typeof AboutRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/audit': {
+      id: '/audit'
+      path: '/audit'
+      fullPath: '/audit'
+      preLoaderRoute: typeof AuditRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/auth': {
       id: '/auth'
       path: '/auth'
       fullPath: '/auth'
       preLoaderRoute: typeof AuthRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/benchmark': {
+      id: '/benchmark'
+      path: '/benchmark'
+      fullPath: '/benchmark'
+      preLoaderRoute: typeof BenchmarkRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/failures': {
+      id: '/failures'
+      path: '/failures'
+      fullPath: '/failures'
+      preLoaderRoute: typeof FailuresRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/import': {
@@ -178,6 +271,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof QuestionsRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/test': {
+      id: '/test'
+      path: '/test'
+      fullPath: '/test'
+      preLoaderRoute: typeof TestRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/model/$id': {
       id: '/model/$id'
       path: '/model/$id'
@@ -197,11 +297,16 @@ declare module '@tanstack/react-router' {
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  AboutRoute: AboutRoute,
+  AuditRoute: AuditRoute,
   AuthRoute: AuthRoute,
+  BenchmarkRoute: BenchmarkRoute,
+  FailuresRoute: FailuresRoute,
   ImportRoute: ImportRoute,
   MethodologyRoute: MethodologyRoute,
   PrivateBenchmarkRoute: PrivateBenchmarkRoute,
   QuestionsRoute: QuestionsRoute,
+  TestRoute: TestRoute,
   ModelIdRoute: ModelIdRoute,
   QuestionIdRoute: QuestionIdRoute,
 }
