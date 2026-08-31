@@ -243,6 +243,16 @@ function Methodologie() {
           trained on these pages may have seen them. That is the reason for the private benchmark.
         </p>
         <p>
+          <span className="font-medium">Scoring.</span> Scores are assigned by a judge model against
+          the expected answer and its verified source, not by a lawyer reviewing each answer. Every
+          answer is published in full so that any score can be contested on the item page.
+        </p>
+        <p>
+          <span className="font-medium">Single run.</span> Each item was put once to each system, so
+          the figures include the variance of a single sample rather than averaging it out.
+        </p>
+
+        <p>
           <span className="font-medium">Standing.</span> Scores are not a guarantee of compliance,
           and neither the benchmark nor the expected answers replace legal validation.
         </p>
