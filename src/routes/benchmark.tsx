@@ -35,8 +35,11 @@ type Colonne = { cle: CleTri; libelle: string; note?: string };
 
 const COLONNES: Colonne[] = [
   { cle: "score_global", libelle: "Overall score" },
-  { cle: "taux_hallucination_source", libelle: "Fabricated / unsupported citations", note: "lower is better" },
-  { cle: "taux_erreur_disqualifiante", libelle: "Disqualifying errors", note: "lower is better" },
+  {
+    cle: "taux_hallucination_source",
+    libelle: "Fabricated / unsupported citations",
+    note: "lower is better",
+  },
   { cle: "taux_abstention", libelle: "Abstention rate" },
 ];
 
