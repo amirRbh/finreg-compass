@@ -74,7 +74,6 @@ export function GraphiqueDomaines({
                 {modeles.map((m, j) => {
                   const valeur = m.scores_domaines[domaine] ?? 0;
                   const h = (valeur / 100) * zoneH;
-                  const opacite = 1 - (j / Math.max(1, modeles.length)) * 0.66;
                   return (
                     <rect
                       key={m.id}
@@ -82,14 +81,14 @@ export function GraphiqueDomaines({
                       y={MARGE.haut + zoneH - h}
                       width={Math.max(2, largeurBarre - 1.5)}
                       height={h}
-                      fill="var(--color-accent)"
-                      opacity={opacite}
+                      fill={couleur(j)}
                       rx={0.5}
                     >
                       <title>{`${m.nom} — ${L.domainesCourts[domaine] ?? domaine}: ${nb(valeur)}`}</title>
                     </rect>
                   );
                 })}
+
                 <text
                   x={MARGE.gauche + i * largeurGroupe + largeurGroupe / 2}
                   y={HAUTEUR - MARGE.bas + 16}
