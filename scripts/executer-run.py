@@ -61,7 +61,28 @@ SYSTEMES = [
         "nom": "Gemini 2.5 Pro",
         "profil": "Google · reasoning tier",
     },
+    {
+        "id": "claude-opus-5",
+        "modele": "anthropic/claude-opus-5",
+        "nom": "Claude Opus 5",
+        "profil": "Anthropic · frontier",
+    },
+    {
+        "id": "claude-sonnet-5",
+        "modele": "anthropic/claude-sonnet-5",
+        "nom": "Claude Sonnet 5",
+        "profil": "Anthropic · balanced",
+    },
+    {
+        "id": "claude-haiku-4-5",
+        "modele": "anthropic/claude-haiku-4-5-20251001",
+        "nom": "Claude Haiku 4.5",
+        "profil": "Anthropic · cost tier",
+    },
 ]
+
+CLE_ANTHROPIC = os.environ.get("ANTHROPIC_API_KEY")
+ANTHROPIC = "https://api.anthropic.com/v1/messages"
 
 JUGE = "openai/gpt-5.5"
 
