@@ -189,6 +189,34 @@ function Accueil() {
         </Panneau>
       )}
 
+      {/* ── Comment lire le site, en clair ────────────────────────────────── */}
+      {data && (
+        <Panneau className="mt-4 bg-accent-soft/40 p-5 sm:p-6">
+          <p className="etiquette">How to read this page</p>
+          <dl className="mt-4 grid gap-5 sm:grid-cols-3">
+            {[
+              [
+                "Regulatory accuracy /100",
+                "How often a system gets the rule right. 100 means every answer matched the legal text.",
+              ],
+              [
+                "Invented source %",
+                "How often it cited an article that does not exist, or one that says something else.",
+              ],
+              [
+                "Declined %",
+                "How often it said it did not know. Saying nothing is safer than inventing an article.",
+              ],
+            ].map(([terme, sens]) => (
+              <div key={terme}>
+                <dt className="text-sm font-medium">{terme}</dt>
+                <dd className="mt-1.5 text-[13px] leading-relaxed text-muted-foreground">{sens}</dd>
+              </div>
+            ))}
+          </dl>
+        </Panneau>
+      )}
+
 
       {isPending && (
         <div className="mt-10">
